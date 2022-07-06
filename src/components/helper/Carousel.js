@@ -6,33 +6,21 @@ const Carousel = ({ courses }) => {
 
     // Next controls
     function plusSlides(n) {
-        if(slideIndex > courses.length-1) {
-            setSlideIndex(1);
-        }
-        else {
-            setSlideIndex(slideIndex + n);
-        }
-        // showSlides(slideIndex += n);
-        console.log("slideIndex = ", slideIndex, "courses.len = ", courses.length);
+        slideIndex > courses.length-1 ? setSlideIndex(1) : setSlideIndex(slideIndex + n);
     }
     //Prev controls
     function minuxSlides(n) {
-        if(slideIndex < 2) {
-            setSlideIndex(courses.length);
-        }
-        else {
-            setSlideIndex(slideIndex - n);
-        }
+        slideIndex < 2 ? setSlideIndex(courses.length) : setSlideIndex(slideIndex - n);
     }
 
     // Thumbnail image controls
     function currentSlide(n) {
         setSlideIndex(n);
-        // showSlides(slideIndex = n);
     }
 
     return (
         <div style={{ boxSizing: "border-box" }}>
+
             {/* <!-- Slideshow container --> */}
             <div className="slideshow-container">
 
@@ -63,13 +51,6 @@ const Carousel = ({ courses }) => {
                     ))
                 }
             </div>
-
-            {/* <!-- The dots/circles --> */}
-            {/* <div style={{ textAlign: "center" }}>
-            <span className="dot" onClick={() => currentSlide(1)}></span>
-            <span className="dot" onClick={() => currentSlide(2)}></span>
-            <span className="dot" onClick={() => currentSlide(3)}></span>
-            </div>  */}
         </div>
     )
 }
