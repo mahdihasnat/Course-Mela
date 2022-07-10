@@ -1,0 +1,1 @@
+CORS may do some jhamela. Need an elegant solution.
