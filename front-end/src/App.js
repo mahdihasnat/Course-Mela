@@ -1,20 +1,15 @@
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Navbar from './components/layout/Navbar';
-import GuestView from './components/views/guestView/GuestView';
-import Footer from './components/layout/Footer';
+import MainComponent from './components/MainComponent';
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="">
-        <Navbar />
-        <Routes>
-          <Route path='/' element={ <GuestView /> } />
-        </Routes>
-        <Footer />
+      <div className='App'>
+        <MainComponent />
       </div>
-    </BrowserRouter>
+    </ BrowserRouter>
+
   );
 }
 

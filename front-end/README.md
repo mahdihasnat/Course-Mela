@@ -30,5 +30,8 @@ Use `npm install` to install the following packages:
 - `npm install react-animation-on-scroll`
 - `npm install aos`
 - `npm install react-rating-stars-component`
+- `npm install axios`
+- `npm install redux-thunk`
+- `npm install redux-logger`
 
 Make sure the packages are installed correctly checking `package.json` file.
