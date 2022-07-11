@@ -48,6 +48,6 @@ GRANT ALL PRIVILEGES ON DATABASE coursemela to coursemelaadmin
 
 # Run the app
 ```
-mvn spring-boot:run
+./mvnw spring-boot:run
 ```
 
