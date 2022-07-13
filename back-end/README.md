@@ -42,7 +42,7 @@ CREATE USER coursemelaadmin WITH PASSWORD '123';
 CREATE DATABASE coursemela;
 
 # Grant all privileges to our admin 
-GRANT ALL PRIVILEGES ON DATABASE coursemela to coursemelaadmin
+GRANT ALL PRIVILEGES ON DATABASE coursemela to coursemelaadmin;
 ```
 
 
