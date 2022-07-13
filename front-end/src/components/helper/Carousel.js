@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const Carousel = ({ courses }) => {
 
-    const [slideIndex, setSlideIndex] = useState(1)
+    const [slideIndex, setSlideIndex] = useState(1);
 
     // Next controls
     function plusSlides(n) {
@@ -18,6 +18,14 @@ const Carousel = ({ courses }) => {
         setSlideIndex(n);
     }
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            // setSeconds(seconds + 1);
+            plusSlides(1);
+        }, 2500);
+        return () => clearInterval(interval);
+    })
+
     return (
         <div style={{ boxSizing: "border-box" }}>
 
@@ -31,7 +39,7 @@ const Carousel = ({ courses }) => {
                     return(
                         <div className="mySlides fade" key={course.id} style={ course.id === slideIndex? { display: "block" }: { display: "none" } } >
                             <div className="numbertext">{course.id} / {courses.length}</div>
-                            <img src={ course.thumbPath } style={{ width: "100%" }} />
+                            <img src={ course.thumbPath } style={{ width: "100%" }} alt='CourseThumb' />
                             <div className="text">{course.title}<br /><span style={{ fontSize: "25px" }}>By {course.teacher}</span></div>
                         </div>
                     )
