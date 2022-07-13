@@ -1,15 +1,25 @@
 import './App.css';
-import MainComponent from './components/MainComponent';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Navbar from './components/layout/Navbar/Navbar';
+import GuestView from './components/views/guestView/GuestView';
+import Footer from './components/layout/Footer/Footer';
+import LoginContextProvider from './store/contexts/LoginContext';
+import LoginModal from './components/layout/LoginModal/LoginModal';
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className='App'>
-        <MainComponent />
-      </div>
-    </ BrowserRouter>
-
+    <LoginContextProvider>
+      <BrowserRouter>
+        <div className="">
+          <Navbar />
+          <Routes>
+            <Route path='/' element={ <GuestView /> } />
+          </Routes>
+          <LoginModal />
+          <Footer />
+        </div>
+      </BrowserRouter>
+    </LoginContextProvider>
   );
 }
 
