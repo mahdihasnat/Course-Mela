@@ -26,6 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+       /// TODO WHEN student has and teacher has same username
         Optional<User> user = studentRepository.findByUserName(userName);
         if(user.isEmpty()){
             user = instructorRepository.findByUserName(userName);
