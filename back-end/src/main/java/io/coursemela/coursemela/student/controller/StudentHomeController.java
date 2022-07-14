@@ -13,8 +13,8 @@ public class StudentHomeController {
 //    @Autowired
 //    private StudentRepository  studentRepository;
 
-    @GetMapping("/hello")
-    public String hello(){
+    @GetMapping("/")
+    public String home(){
         return "hello from student home";
     }
 }
