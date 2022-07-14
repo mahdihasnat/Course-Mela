@@ -5,16 +5,16 @@ import lombok.Setter;
 
 @Getter@Setter
 public class AuthenticateResponse {
-    private  String jwt;
+    private  String jwtToken;
 
 
     public AuthenticateResponse(String jwt) {
-        this.jwt = jwt;
+        this.jwtToken = jwt;
     }
 
     public AuthenticateResponse(){}
 
-    public String getJwt() {
-        return jwt;
+    public String getJwtToken() {
+        return jwtToken;
     }
 }

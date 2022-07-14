@@ -2,7 +2,7 @@ import axios from 'axios';
 import joinUrl from '../../utils/url';
 import { baseUrl } from '../../shared/urls';
 
-import { TEST_SERVER_LOADING, TEST_SERVER_SUCCESS, TEST_SERVER_ERROR } from '../types/ServerTestTypes';
+import { TEST_SERVER_LOADING, TEST_SERVER_SUCCESS, TEST_SERVER_ERROR } from './ServerTestTypes';
 
 
 const testServerLoading = () => {

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from "react-router-dom"
+import { LOGIN_MODAL_PRESSED } from '../../../store/auth/AuthTypes';
 import { useLoginContext } from '../../../store/contexts/LoginContext';
 
 const navlinks = [ "Home", "Subjects", "Free" ]
@@ -9,7 +10,7 @@ const SignedOutLinks = () => {
   const [state, dispatch] = useLoginContext();  // eslint-disable-line no-unused-vars
 
   const handleLogin = () => {
-      dispatch({ type: "LOGIN_MODAL_PRESSED" });
+      dispatch({ type: LOGIN_MODAL_PRESSED });
   }
   return (
     <nav className='navbar'>

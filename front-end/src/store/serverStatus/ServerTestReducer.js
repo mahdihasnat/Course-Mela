@@ -2,7 +2,7 @@ import{
     TEST_SERVER_LOADING,
     TEST_SERVER_SUCCESS,
     TEST_SERVER_ERROR,
-} from '../types/ServerTestTypes';
+} from './ServerTestTypes';
 
 
 

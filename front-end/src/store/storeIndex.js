@@ -1,1 +1,3 @@
-export {testServer} from "./actions/ServerTestActions";
+export {testServer} from "./serverStatus/ServerTestActions";
+
+export {Login} from "./auth/AuthActions";
