@@ -1,5 +1,8 @@
 import React from 'react'
+import axios from 'axios';
 import { useLoginContext } from '../../../store/contexts/LoginContext'
+import joinUrl from '../../../utils/url';
+import { baseUrl } from '../../../shared/urls';
 
 const LoginModalPopup = () => {
 
@@ -9,10 +12,20 @@ const LoginModalPopup = () => {
     dispatch({ type: "LOGIN_MODAL_CANCELED" });
   }
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
-    console.log('Submitted')  
-    dispatch({ type: "LOGIN" })
+    const url = joinUrl(baseUrl, 'status');
+    console.log(url);
+    try {
+      const response = await axios.get(url);
+      console.log(response);
+      // TODO: handle success response
+      // dispatch(testServerSuccess(response.data));
+      dispatch({ type: "LOGIN" });
+    } catch (error) {
+      console.log(error);
+    }
+    // dispatch({ type: "LOGIN" })
   }
 
   return (
