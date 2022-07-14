@@ -33,5 +33,7 @@ Use `npm install` to install the following packages:
 - `npm install axios`
 - `npm install redux-thunk`
 - `npm install redux-logger`
+- `npm i faker`
+- `npm i react-chartjs-2`
 
 Make sure the packages are installed correctly checking `package.json` file.
