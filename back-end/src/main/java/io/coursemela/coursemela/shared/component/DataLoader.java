@@ -33,11 +33,11 @@ public class DataLoader implements CommandLineRunner {
     private void loadData() {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         this.instructorRepository.deleteAll();
-        Instructor instructor = new Instructor("John", "Doe", "vodro@gmail.com", encoder.encode("123"), "0122", new Date(), 0, "I am new to spring boot");
+        Instructor instructor = new Instructor("jhon", "John", "Doe", "vodro@gmail.com", encoder.encode("123"), "0122", new Date(), 0, "I am new to spring boot");
         this.instructorRepository.save(instructor);
 
         this.studentRepository.deleteAll();
-        Student student = new Student("Amir", "ali", "amir@gmail.com", encoder.encode( "123"), "0175655552",  new Date(), Level.ELEVEN);
+        Student student = new Student("amir", "Amir", "ali", "amir@gmail.com", encoder.encode( "123"), "0175655552",  new Date(), Level.ELEVEN);
         this.studentRepository.save(student);
     }
 }

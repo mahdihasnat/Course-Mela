@@ -10,7 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.util.Date;
 
-@NoArgsConstructor
+//@NoArgsConstructor
 @Getter@Setter
 @Entity
 public class Instructor extends User {
@@ -20,11 +20,13 @@ public class Instructor extends User {
 
     private String bio;
 
-    public Instructor( String firstName, String lastName, String email, String passsword, String mobileNo, Date dateOfJoin, double credit, String bio) {
-        super(firstName, lastName, email, passsword, mobileNo, dateOfJoin);
+    public Instructor(String userName, String firstName, String lastName, String email, String passsword, String mobileNo, Date dateOfJoin, double credit, String bio) {
+        super(userName, firstName, lastName, email, passsword, mobileNo, dateOfJoin);
         this.credit = credit;
         this.bio = bio;
     }
+
+    public Instructor(){super();}
 
 
 }
