@@ -1,4 +1,4 @@
-package io.cousemela.coursemela;
+package io.coursemela.coursemela;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

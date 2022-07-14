@@ -1,4 +1,4 @@
-package  io.cousemela.coursemela.status;
+package io.coursemela.coursemela.status;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
