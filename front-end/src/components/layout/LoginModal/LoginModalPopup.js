@@ -8,10 +8,12 @@ import { LOGIN_MODAL_CANCELED } from '../../../store/auth/AuthTypes';
 import {connect} from 'react-redux';
 import { Login } from '../../../store/storeIndex';
 import finalPropsSelectorFactory from 'react-redux/es/connect/selectorFactory';
+import { useNavigate } from 'react-router-dom';
 
 const LoginModalPopup = (props) => {
 
   const [state, dispatch] = useLoginContext();
+  const navigate = useNavigate();
 
   const handleCloseModal = () => {
     dispatch({ type: LOGIN_MODAL_CANCELED });
@@ -24,8 +26,10 @@ const LoginModalPopup = (props) => {
     const password = '123';
 
     props.login(username, password);
+    dispatch({ type: LOGIN_MODAL_CANCELED });
+    navigate('/server');
     // Login(username, password);
-    
+
 
 
   }
@@ -55,10 +59,10 @@ const LoginModalPopup = (props) => {
             <div className="login-container">
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.1rem", fontWeight: "bold" }}>LOGIN</div>
                 <label><b>Username</b></label>
-                <input type="text" value="jhon" placeholder="Enter Username" name="uname" />
+                <input type="text"  placeholder="Enter Username" name="uname" />
     
                 <label><b>Password</b></label>
-                <input type="password" value="123" placeholder="Enter Password" name="psw" />
+                <input type="password"  placeholder="Enter Password" name="psw" />
     
                 <input type="submit" className="popup-btn-login" value="Login" style={{background: "none", border: "none", backgroundColor: "#ddd", marginTop: "8px", padding: "11px", borderRadius: "10px", width: "100%" }} />
             </div>

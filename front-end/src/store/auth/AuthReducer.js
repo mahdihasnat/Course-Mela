@@ -21,10 +21,15 @@ const AuthReducer = (state = initAuthState, action) => {
                 isSignedIn: false,
             }
         case LOGIN_ERROR:
+            return{
+                ...state,
+                isSignedIn: action.payload.isSignedIn,
+            }
         case LOGIN_SUCCESS:
             return {
                 ...state,
                 isSignedIn: action.payload.isSignedIn,
+                isLoginPressed: false
             }
         case LOGIN_MODAL_PRESSED:
             return {

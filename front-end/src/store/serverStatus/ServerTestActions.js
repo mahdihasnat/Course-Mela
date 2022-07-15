@@ -30,9 +30,14 @@ export const testServer = () => {
 
 
         dispatch(testServerLoading());
-        const url = joinUrl(baseUrl, 'status');
+        const url = joinUrl(baseUrl, 'hello');
         console.log(url);
-        return axios.get(url)
+        const header = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
+            	
+        }
+        return axios.get(url, header)
             .then(response => {
                 // console.log(response);
                 // TODO: handle success response

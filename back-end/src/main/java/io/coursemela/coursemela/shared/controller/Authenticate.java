@@ -12,7 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin
 @RestController
 public class Authenticate {
 
@@ -26,8 +26,8 @@ public class Authenticate {
     private JwtUtils jwtUtils;
 
     @GetMapping("/hello")
-    public String hello(){
-        return "hello";
+    public ResponseEntity<?>  hello(){
+        return ResponseEntity.ok( "hello");
     }
     @PostMapping("/authenticate")
     public ResponseEntity<?> createAuthenticationToken(
