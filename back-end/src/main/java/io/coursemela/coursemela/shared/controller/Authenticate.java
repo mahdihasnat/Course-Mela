@@ -26,9 +26,10 @@ public class Authenticate {
     private JwtUtils jwtUtils;
 
     @GetMapping("/hello")
-    public ResponseEntity<?>  hello(){
-        return ResponseEntity.ok( "hello");
+    public String  hello(){
+        return "hello";
     }
+
     @PostMapping("/authenticate")
     public ResponseEntity<?> createAuthenticationToken(
             @RequestBody AuthenticateRequest authenticateRequest
