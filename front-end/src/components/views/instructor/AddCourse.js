@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const subjects = [
     {
@@ -37,6 +38,7 @@ function AddCourse() {
   const [selectedImgName, setSelectedImgName] = React.useState(null);
 
   const textarea_desc = "Provide an optional course description to let students know about your course...";
+  const navigate = useNavigate();
 
   const handleOptionChange = e => {
     setChosenId(parseInt(e.target.value, 10))
@@ -50,7 +52,8 @@ function AddCourse() {
   }
 
   const handleSubmit = e => {
-
+    e.preventDefault();
+    navigate('/edit-course');
   }
 
   return (
@@ -86,11 +89,6 @@ function AddCourse() {
                                 <img alt='not found' width={"250px"} src={URL.createObjectURL(selectedImg)} /> 
                             }
                         </span>
-                        {
-                            !selectedImgName ? null : (
-                                <span className='upload-courseimg-btn'>Upload</span>
-                            )
-                        }
                         <span className='upload-courseimg-label'>
                             {
                                 !selectedImgName ? (
@@ -102,6 +100,11 @@ function AddCourse() {
                         </span>
                         <input id='upload-courseimg' type='file' onChange={handleImgUpload} accept="image/png, image/jpg, image/jpeg, image/bmp" />
                     </label>
+                    {
+                        !selectedImgName ? null : (
+                            <span className='upload-courseimg-container upload-courseimg-btn' style={{ marginTop: "5px" }}>Upload</span>
+                        )
+                    }
                 </div>
             </div>
             <div className='container add-course-desc'>
