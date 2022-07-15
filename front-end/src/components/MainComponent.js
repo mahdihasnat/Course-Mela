@@ -9,6 +9,7 @@ import InstructorHome from './views/instructor/InstructorHome';
 import { useLoginContext } from '../store/contexts/LoginContext';
 import LoginModal from './layout/LoginModal/LoginModal';
 import AddCourse from './views/instructor/AddCourse';
+import EditCourse from './views/instructor/EditCourse';
 
 function MainComponent() {
 
@@ -22,6 +23,7 @@ function MainComponent() {
           <Route exact path='/' element={ isSignedIn ? <InstructorHome /> : <GuestView /> } />
           <Route path='/server' element={<TestServerConncetion />} />
           <Route path='/add-course' element={<AddCourse />} />
+          <Route path='/edit-course' element={<EditCourse />} />
           {/* <Route exact path='/instr' element={<InstructorHome />} /> */}
         </Routes>
         <LoginModal />
