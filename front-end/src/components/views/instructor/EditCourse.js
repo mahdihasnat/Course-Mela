@@ -98,6 +98,9 @@ function EditCourse() {
             </ul>
         </div>
         <div className='container' style={{ backgroundColor: "rgb(255, 244, 118)", padding: "20px", borderRadius: "20px" }}>
+            <div style={{ fontSize: "1.5rem", fontWeight: "bold", marginBottom: "20px" }}>
+                Add New Topic
+            </div>
             <form style={{ display: "flex", justifyContent: "space-around", alignItems: "center" }}>
                 <div>
                     <label htmlFor='topic-title'>Title</label>
