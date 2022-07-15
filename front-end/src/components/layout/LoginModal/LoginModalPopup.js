@@ -26,8 +26,10 @@ const LoginModalPopup = (props) => {
     const password = '123';
 
     props.login(username, password);
-    dispatch({ type: LOGIN_MODAL_CANCELED });
-    navigate('/server');
+      if(props.isLoggedIn){
+      dispatch({ type: LOGIN_MODAL_CANCELED });
+      navigate('/server');
+    }
     // Login(username, password);
 
 
@@ -78,6 +80,7 @@ const LoginModalPopup = (props) => {
 const mapStateToProps = state => {
   return {
     isLoginPressed: state.auth.isLoginPressed,
+    isLoggedIn: state.auth.isSignedIn,
   }
 }
 

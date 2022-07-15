@@ -37,6 +37,7 @@ export const testServer = () => {
             'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
             	
         }
+        console.log(header);
         return axios.get(url, header)
             .then(response => {
                 // console.log(response);
