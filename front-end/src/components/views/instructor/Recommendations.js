@@ -11,13 +11,15 @@ const courseRecommends = [
 function Recommendations() {
   return (
     <div className='instr-recommendations'>
-        <span className='courselist-title' style={{ margin: "25px", fontSize: "1.5rem", fontSize: "1.7rem", fontWeight: "bold", marginTop: "20px", textShadow: "1px 1px orange" }}>Recommendations</span>
+        <span className='courselist-title' style={{ margin: "25px", fontSize: "1.7rem", fontWeight: "bold", marginTop: "20px", textShadow: "1px 1px orange" }}>Recommendations</span>
         
-        <ul className='recommendation-card-links'>
-            { courseRecommends.map(course => 
-                <li key={course.id}><RecommendationCard courseRecommend={course} /></li>
+        {/* <ul className='recommendation-card-links'>
+            { courseRecommends.map(courseRecommend => 
+                <li key={courseRecommend.id}><RecommendationCard courseRecommend={courseRecommend} courseRecommends={courseRecommends} /></li>
             ) }
-        </ul>
+        </ul> */}
+
+        <RecommendationCard courseRecommends={courseRecommends} />
     </div>
   )
 }

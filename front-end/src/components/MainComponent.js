@@ -1,4 +1,3 @@
-
 import { Route, Routes } from 'react-router-dom'
 import Navbar from './layout/Navbar/Navbar';
 import GuestView from './views/guestView/GuestView';
@@ -9,6 +8,7 @@ import store from '../store/store';
 import InstructorHome from './views/instructor/InstructorHome';
 import { useLoginContext } from '../store/contexts/LoginContext';
 import LoginModal from './layout/LoginModal/LoginModal';
+import AddCourse from './views/instructor/AddCourse';
 
 function MainComponent() {
 
@@ -19,8 +19,9 @@ function MainComponent() {
       <div className="">
         <Navbar />
         <Routes>
-          <Route path='/' element={ isSignedIn ? <InstructorHome /> : <GuestView /> } />
-          <Route exact path='/server' element={<TestServerConncetion />} />
+          <Route exact path='/' element={ isSignedIn ? <InstructorHome /> : <GuestView /> } />
+          <Route path='/server' element={<TestServerConncetion />} />
+          <Route path='/add-course' element={<AddCourse />} />
           {/* <Route exact path='/instr' element={<InstructorHome />} /> */}
         </Routes>
         <LoginModal />
