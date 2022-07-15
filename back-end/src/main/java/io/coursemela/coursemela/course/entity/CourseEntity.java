@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -23,6 +24,12 @@ public class CourseEntity {
 
     @Column(nullable = false)
     private String name;
+
+    @Column(nullable = true)
+    private String cover_photo_path;
+
+    @Column(nullable = true)
+    private String description;
 
 
     public CourseEntity(Long id, InstructorEntity instructorEntity, TopicEntity topic, String name) {
