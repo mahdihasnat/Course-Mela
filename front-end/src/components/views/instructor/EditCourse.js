@@ -73,6 +73,9 @@ function EditCourse() {
 
   return (
     <div className='container'>
+        <div style={{ fontSize: "1.5rem", fontWeight: "bold", margin: "20px", textAlign: "center" }}>
+            Topics
+        </div>
         <div style={ styles.gridWrap }>
             <ul style={ styles.gridWrap_ul }>
                 {
@@ -97,7 +100,7 @@ function EditCourse() {
                 }
             </ul>
         </div>
-        <div className='container' style={{ backgroundColor: "rgb(255, 244, 118)", padding: "20px", borderRadius: "20px" }}>
+        <div className='container' style={{ backgroundColor: "rgb(255, 244, 118)", padding: "20px", borderRadius: "20px", marginTop: "10vh" }}>
             <div style={{ fontSize: "1.5rem", fontWeight: "bold", marginBottom: "20px" }}>
                 Add New Topic
             </div>
@@ -158,7 +161,7 @@ const styles = {
         display: "grid",
         gridTemplateColumns: "auto ".repeat(nCols-1),
         gridColumnGap: "10vw",
-        // gridRowGap: "10vh",
+        gridRowGap: "5vh",
         listStyle: "none",
         paddingLeft: "none"
     },
