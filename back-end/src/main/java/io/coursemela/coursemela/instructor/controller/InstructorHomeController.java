@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @RequestMapping("/instructor")
 @RestController
@@ -18,6 +20,12 @@ public class InstructorHomeController {
     @GetMapping("/")
     public List<Instructor> getAllInstructor(){
         return instructorHomeService.getAllInstructor();
+    }
+
+    @GetMapping("/details")
+    public Optional<Instructor> getInstructorDetails(){
+        return Optional.of(new Instructor("jhon", "John", "Doe", "vodro@gmail.com", "123", "0122", new Date(), 0, "I am new to spring boot"));
+
     }
 
 }
