@@ -1,3 +1,3 @@
 export {testServer} from "./serverStatus/ServerTestActions";
 
-export {Login} from "./auth/AuthActions";
+export {LoginWithDispatch} from "./auth/AuthActions";

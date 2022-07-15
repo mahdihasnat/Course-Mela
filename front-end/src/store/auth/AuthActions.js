@@ -52,7 +52,7 @@ export const Login = (userName, password) => {
                 // console.log(response);
                 console.log(response.data);
                 localStorage.setItem('jwtToken', response.data.jwtToken);
-                dispatch(loginCancel());
+                // dispatch(loginCancel());
 
                 dispatch(loginSuccess());
 
@@ -62,4 +62,28 @@ export const Login = (userName, password) => {
             }
         );
     }
+}
+
+export const LoginWithDispatch = (userName, password, dispatch) => {
+
+    dispatch(loginSubmit());
+      
+        axios.post(AUTH_URL, {
+            "userName": userName,
+            "password": password,
+        }) 
+            .then(response => {
+                // console.log(response);
+                console.log(response.data);
+                localStorage.setItem('jwtToken', response.data.jwtToken);
+                // dispatch(loginCancel());
+
+                dispatch(loginSuccess());
+
+            }).catch(error => {
+                console.log(error);
+                dispatch(loginError(error.message));
+            }
+        );
+
 }
