@@ -2,6 +2,7 @@ import axios from 'axios';
 import { AUTH_URL } from '../../shared/urls';
 import joinUrl from '../../utils/url';
 import { LOGIN_MODAL_CANCELED } from './AuthTypes';
+import { baseUrl } from '../../shared/urls';
 
 
 const loginSubmit = () => {

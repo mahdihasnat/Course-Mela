@@ -31,14 +31,22 @@ export const testServer = () => {
 
         dispatch(testServerLoading());
         const url = joinUrl(baseUrl, 'hello');
-        console.log(url);
-        const header = {
+        const header =  {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
             	
         }
-        console.log(header);
-        return axios.get(url, header)
+        // console.log(url);
+        // console.log(localStorage.getItem('jwtToken'));
+        // axios.get(url, {headers:header} )
+        axios({
+            method: 'get',
+            url: url,
+            headers: header,
+            params:{
+                name : 'test'
+            }
+        })
             .then(response => {
                 // console.log(response);
                 // TODO: handle success response

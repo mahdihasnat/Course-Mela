@@ -26,8 +26,8 @@ public class Authenticate {
     private JwtUtils jwtUtils;
 
     @GetMapping("/hello")
-    public String  hello(){
-        return "hello";
+    public String  hello(@RequestParam("name") String name ){
+        return "hello " + name;
     }
 
     @PostMapping("/authenticate")
