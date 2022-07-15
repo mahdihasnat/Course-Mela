@@ -2,6 +2,7 @@ import React from 'react'
 import CourseList from '../guestView/CourseList'
 import CoTD from './CoTD'
 import Dashboard from './Dashboard'
+import InstructorCourseList from './InstructorCourseList'
 import Recommendations from './Recommendations'
 
 function InstructorHome() {
@@ -21,8 +22,8 @@ function InstructorHome() {
             <Dashboard name={instructorDetail.name} institution={instructorDetail.institution} sales={instructorDetail.sales} salesPercentage={instructorDetail.salesPercentage} balance={instructorDetail.balance} />
         </div>
         <Recommendations />
+        <div style={ styles.courseList }><InstructorCourseList title={"Your Courses"} name={instructorDetail.name} /></div>
         <div style={ styles.courseList }><CourseList title={"Most Popular Now"} /></div>
-        <div style={ styles.courseList }><CourseList title={"Most Recent"} /></div>
     </div>
   )
 }
