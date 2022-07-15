@@ -4,3 +4,4 @@ const joinUrl = (...urls) => {
     //what they do ?  .replace(/\/\//g, '/');
     }
 export default joinUrl;
+

@@ -1,5 +1,6 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { useNavigate } from 'react-router-dom';
+import SubjectService from "../../../services/subject/SubjectService";
 
 const subjects = [
     {
@@ -40,10 +41,26 @@ function AddCourse() {
   const textarea_desc = "Provide an optional course description to let students know about your course...";
   const navigate = useNavigate();
 
-  const handleOptionChange = e => {
+  const [subjects, setSubjects] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+
+    const handleOptionChange = e => {
     setChosenId(parseInt(e.target.value, 10))
   }
 
+  useEffect(()=>{
+      setIsLoading(true);
+    SubjectService.getAllSubjects()
+        .then((response)=>{
+            console.log(response.data)
+            setSubjects(response.data)
+        }).catch((error)=>{
+            console.log(error);
+    }).finally(()=>{
+        setIsLoading(false)
+    })
+  }, []);
   const handleImgUpload = e => {
     if(e.target.files.length !== 0) {
         setSelectedImg(e.target.files[0]);
