@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react'
-import { getHeader } from '../../../shared/Header'
+
 import CourseList from '../guestView/CourseList'
 import CoTD from './CoTD'
 import Dashboard from './Dashboard'
 import InstructorCourseList from './InstructorCourseList'
 import Recommendations from './Recommendations'
-import axios from 'axios';
-import joinUrl  from '../../../utils/url';
-import {INSTR_URL} from '../../../shared/urls';
+
+import InstructorHomeService from "../../../services/instructor/InstructorHomeService";
 
 function InstructorHome() {
 
@@ -24,12 +23,7 @@ function InstructorHome() {
     setIsLoading(true);
 
     
-    axios({
-      method: 'get',
-      url: joinUrl(INSTR_URL, 'details'),
-      headers: getHeader,
-
-    }).then(response => {
+    InstructorHomeService.getDetails().then(response => {
       console.log(response.data)
       setInstructorDetail(response.data);
     }).catch(error => {
