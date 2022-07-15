@@ -19,10 +19,7 @@ public class TopicService {
     @Autowired
     private TopicRepository topicRepository;
 
-//    @Autowired
-//    private SubjectService subjectService;
-
-    List<Topic> getTopicBySubjectId(Long subjectId)
+    public List<Topic> getTopicBySubjectId(Long subjectId)
     {
         List<TopicEntity> topicEntities = topicRepository.findAllBySubjectId(subjectId);
         List<Topic> topics = topicEntities
