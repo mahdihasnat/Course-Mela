@@ -35,7 +35,7 @@ public class Authenticate {
             @RequestBody AuthenticateRequest authenticateRequest
             ) throws Exception{
         try {
-            System.out.println(authenticateRequest);
+//            System.out.println(authenticateRequest);
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             authenticateRequest.getUserName(), authenticateRequest.getPassword()
@@ -49,7 +49,7 @@ public class Authenticate {
                 authenticateRequest.getUserName()
         );
         final String jwt = jwtUtils.generateToken(userDetails);
-        System.out.println(jwt);
+//        System.out.println(jwt);
         return ResponseEntity.ok(new AuthenticateResponse(jwt));
     }
 

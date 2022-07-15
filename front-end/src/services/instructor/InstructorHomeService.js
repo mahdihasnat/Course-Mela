@@ -1,29 +1,25 @@
 import axios from 'axios';	
 import { INSTR_URL } from '../../shared/urls';
 import joinUrl from '../../utils/url';
+import {getHeader} from "../../shared/Header";
+import {_get} from "../../shared/HttpMethods";
 
-class HomeService{
+class InstructorHomeService{
     HomeService(){
-        this.getHeader =  {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
-                
-        }
 
-        this.baseUrl = INSTR_URL;
         
     }
 
+    getDetails(){
+        return _get(joinUrl(INSTR_URL, 'details'))
+    }
+
     getMyCourses(){
-
-        return axios({
-            method: 'get',
-            url: joinUrl(this.baseUrl, 'courses'),
-            headers: this.getHeader,
-
-        })
+        return _get(joinUrl(INSTR_URL, 'courses'));
 
     }
     
     
 }
+
+export default new InstructorHomeService();
