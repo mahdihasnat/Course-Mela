@@ -7,6 +7,8 @@ class SubjectService{
     getAllSubjects(){
         return _get(joinUrl(SUB_URL, ''), {})
     }
+
+
 }
 
 export default new SubjectService();

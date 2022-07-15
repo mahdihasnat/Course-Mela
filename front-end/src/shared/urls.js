@@ -6,4 +6,6 @@ export const AUTH_URL = joinUrl(baseUrl, 'authenticate');
 
 export const INSTR_URL = joinUrl(baseUrl, 'instructor');
 
+
 export const SUB_URL = joinUrl(baseUrl, 'subject')
+export const TOPIC_URL = joinUrl(baseUrl, 'topic')
