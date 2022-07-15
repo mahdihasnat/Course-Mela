@@ -2,7 +2,7 @@ package io.coursemela.coursemela.instructor.controller;
 
 import io.coursemela.coursemela.instructor.entity.InstructorEntity;
 import io.coursemela.coursemela.instructor.service.InstructorHomeService;
-import io.coursemela.coursemela.shared.entity.Course;
+import io.coursemela.coursemela.course.entity.CourseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,8 +38,8 @@ public class InstructorHomeController {
     }
 
     @GetMapping("/courses")
-    public List<Course> getMyCourses(){
-        return Arrays.asList( new Course(new Long(1), null, null, "limit") );
+    public List<CourseEntity> getMyCourses(){
+        return Arrays.asList( new CourseEntity(new Long(1), null, null, "limit") );
     }
 
 }
