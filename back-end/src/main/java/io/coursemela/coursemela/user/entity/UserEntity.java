@@ -1,17 +1,16 @@
-package io.coursemela.coursemela.shared.entity;
+package io.coursemela.coursemela.user.entity;
 
 
-import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
 
-@Getter@Setter
-@MappedSuperclass
-public abstract class User{
+@Data
+@Entity
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false, nullable = false)
@@ -37,9 +36,9 @@ public abstract class User{
 
     private Date dateOfJoin;
 
-    public User(){}
+    public UserEntity(){}
 
-    public User(String userName, String firstName, String lastName, String email, String passsword, String mobileNo, Date dateOfJoin) {
+    public UserEntity(String userName, String firstName, String lastName, String email, String passsword, String mobileNo, Date dateOfJoin) {
 //        this.id = id;
         this.userName = userName;
         this.firstName = firstName;

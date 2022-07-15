@@ -1,6 +1,6 @@
 package io.coursemela.coursemela.shared.component;
 
-import io.coursemela.coursemela.instructor.entity.Instructor;
+import io.coursemela.coursemela.instructor.entity.InstructorEntity;
 import io.coursemela.coursemela.instructor.repository.InstructorRepository;
 import io.coursemela.coursemela.shared.entity.Level;
 import io.coursemela.coursemela.student.entity.Student;
@@ -34,8 +34,8 @@ public class DataLoader implements CommandLineRunner {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 //        this.instructorRepository.deleteAll();
         if(this.instructorRepository.findAll().isEmpty()) {
-            Instructor instructor = new Instructor("jhon", "John", "Doe", "vodro@gmail.com", encoder.encode("123"), "0122", new Date(), 0, "I am new to spring boot");
-            this.instructorRepository.save(instructor);
+            InstructorEntity instructorEntity = new InstructorEntity("jhon", "John", "Doe", "vodro@gmail.com", encoder.encode("123"), "0122", new Date(), 0, "I am new to spring boot");
+            this.instructorRepository.save(instructorEntity);
         }
 
 //        this.studentRepository.deleteAll();

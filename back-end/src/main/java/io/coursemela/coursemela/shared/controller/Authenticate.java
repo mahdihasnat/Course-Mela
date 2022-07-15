@@ -2,7 +2,7 @@ package io.coursemela.coursemela.shared.controller;
 
 import io.coursemela.coursemela.shared.entity.AuthenticateRequest;
 import io.coursemela.coursemela.shared.entity.AuthenticateResponse;
-import io.coursemela.coursemela.shared.service.CustomUserDetailsService;
+import io.coursemela.coursemela.user.service.CustomUserDetailsService;
 import io.coursemela.coursemela.shared.util.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,6 @@
 package io.coursemela.coursemela.shared.entity;
 
-import io.coursemela.coursemela.instructor.entity.Instructor;
+import io.coursemela.coursemela.instructor.entity.InstructorEntity;
 import lombok.Data;
 import lombok.ToString;
 
@@ -19,7 +19,7 @@ public class Course {
 
 
     @ManyToOne
-    private Instructor instructor;
+    private InstructorEntity instructorEntity;
 
 
     @ManyToOne
@@ -29,9 +29,9 @@ public class Course {
     private String name;
 
 
-    public Course(Long id, Instructor instructor, Topic topic, String name) {
+    public Course(Long id, InstructorEntity instructorEntity, Topic topic, String name) {
         this.id = id;
-        this.instructor = instructor;
+        this.instructorEntity = instructorEntity;
         this.topic = topic;
         this.name = name;
     }

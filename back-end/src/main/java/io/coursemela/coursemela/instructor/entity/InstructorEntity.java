@@ -1,9 +1,7 @@
 package io.coursemela.coursemela.instructor.entity;
 
-import io.coursemela.coursemela.shared.entity.User;
-import lombok.AllArgsConstructor;
+import io.coursemela.coursemela.user.entity.UserEntity;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
@@ -13,20 +11,20 @@ import java.util.Date;
 //@NoArgsConstructor
 @Getter@Setter
 @Entity
-public class Instructor extends User {
+public class InstructorEntity extends UserEntity {
 
     @Column(columnDefinition = "double precision default 0.00")
     private double credit;
 
     private String bio;
 
-    public Instructor(String userName, String firstName, String lastName, String email, String passsword, String mobileNo, Date dateOfJoin, double credit, String bio) {
+    public InstructorEntity(String userName, String firstName, String lastName, String email, String passsword, String mobileNo, Date dateOfJoin, double credit, String bio) {
         super(userName, firstName, lastName, email, passsword, mobileNo, dateOfJoin);
         this.credit = credit;
         this.bio = bio;
     }
 
-    public Instructor(){super();}
+    public InstructorEntity(){super();}
 
 
 

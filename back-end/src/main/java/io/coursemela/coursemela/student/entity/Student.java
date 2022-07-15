@@ -1,10 +1,8 @@
 package io.coursemela.coursemela.student.entity;
-import io.coursemela.coursemela.shared.entity.User;
+import io.coursemela.coursemela.user.entity.UserEntity;
 
 import io.coursemela.coursemela.shared.entity.Level;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
@@ -15,7 +13,7 @@ import java.util.Date;
 
 @Entity
 @Getter@Setter
-public class Student extends User {
+public class Student extends UserEntity {
 
 
     @Enumerated(EnumType.ORDINAL)
