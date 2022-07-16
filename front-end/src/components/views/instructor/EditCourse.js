@@ -7,7 +7,7 @@ function EditCourse() {
   return (
     <div className='container'>
         <div style={{ fontSize: "1.5rem", fontWeight: "bold", margin: "20px", textAlign: "center" }}>
-            Topics
+            Course Videos
         </div>
         <CourseTopics />
         <AddNewTopic />
