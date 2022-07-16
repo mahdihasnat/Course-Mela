@@ -2,16 +2,13 @@ package io.coursemela.coursemela.shared.component;
 
 import io.coursemela.coursemela.course.entity.SubjectEntity;
 import io.coursemela.coursemela.course.entity.TopicEntity;
-import io.coursemela.coursemela.course.model.Subject;
-import io.coursemela.coursemela.course.model.Topic;
 import io.coursemela.coursemela.course.repository.SubjectRepository;
 import io.coursemela.coursemela.course.repository.TopicRepository;
 import io.coursemela.coursemela.instructor.entity.InstructorEntity;
 import io.coursemela.coursemela.instructor.repository.InstructorRepository;
-import io.coursemela.coursemela.shared.entity.Level;
-import io.coursemela.coursemela.student.entity.Student;
+import io.coursemela.coursemela.student.entity.Level;
+import io.coursemela.coursemela.student.entity.StudentEntity;
 import io.coursemela.coursemela.student.repository.StudentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -62,8 +59,8 @@ public class DataLoader implements CommandLineRunner {
 
 //        this.studentRepository.deleteAll();
         if(this.studentRepository.findAll().isEmpty()) {
-            Student student = new Student("amir", "Amir", "ali", "amir@gmail.com", encoder.encode("123"), "0175655552", new Date(), Level.ELEVEN);
-            this.studentRepository.save(student);
+            StudentEntity studentEntity = new StudentEntity("amir", "Amir", "ali", "amir@gmail.com", encoder.encode("123"), "0175655552", new Date(), Level.ELEVEN);
+            this.studentRepository.save(studentEntity);
         }
 
         if(this.subjectRepository.findAll().isEmpty()){

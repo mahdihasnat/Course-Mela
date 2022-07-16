@@ -1,7 +1,7 @@
 package io.coursemela.coursemela.shared.entity;
 
 import io.coursemela.coursemela.instructor.entity.InstructorEntity;
-import io.coursemela.coursemela.student.entity.Student;
+import io.coursemela.coursemela.student.entity.StudentEntity;
 import io.coursemela.coursemela.user.entity.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,7 +15,6 @@ public class CustomUserDetails implements UserDetails {
     /// TODO this should be revisited with a good implementation
     private String userName;
     private String password;
-    private boolean active;
 
     private List<GrantedAuthority> authorities;
 
@@ -26,7 +25,7 @@ public class CustomUserDetails implements UserDetails {
         if(userEntity instanceof InstructorEntity){
             authorities = Arrays.asList(new SimpleGrantedAuthority("ROLE_INSTRUCTOR"));
 
-        }else if(userEntity instanceof Student){
+        }else if(userEntity instanceof StudentEntity){
             authorities = Arrays.asList(new SimpleGrantedAuthority("ROLE_STUDENT"));
 
         }else{

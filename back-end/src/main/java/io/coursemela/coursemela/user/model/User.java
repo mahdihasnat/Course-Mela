@@ -32,4 +32,6 @@ public class User {
         this.dateOfJoin = userEntity.getDateOfJoin();
     }
 
+
+
 }

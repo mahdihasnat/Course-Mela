@@ -20,4 +20,11 @@ public class InstructorService {
             return null;
         return new Instructor(instructor.get());
     }
+
+    public Instructor createInstructor(Instructor instructor){
+        InstructorEntity instructorEntity = new InstructorEntity(instructor);
+        instructorEntity = instructorRepository.save(instructorEntity);
+        return new Instructor(instructorEntity);
+    }
+
 }

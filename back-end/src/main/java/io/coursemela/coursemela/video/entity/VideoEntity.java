@@ -24,5 +24,5 @@ public class VideoEntity {
     String description;
     Long likeCount;
     Integer serial;
-        
+
 }
