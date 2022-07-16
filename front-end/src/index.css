@@ -951,6 +951,10 @@ img.avatar {
   display: none;
 }
 
+#upload-coursevideo {
+  display: none;
+}
+
 .upload-courseimg-container {
   display: flex;
   flex-direction: column;
