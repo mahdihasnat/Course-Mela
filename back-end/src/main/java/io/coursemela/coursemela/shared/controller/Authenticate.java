@@ -52,8 +52,10 @@ public class Authenticate {
     private JwtUtils jwtUtils;
 
     @GetMapping("/hello")
-    public String  hello(@RequestParam("name") String name ){
-        return "hello " + name;
+    // @ResponseBody
+    public String  hello(@RequestParam("name") String name, @RequestParam("id") int id ,
+    @RequestParam(name = "role", required = false) String role) {
+        return "hello " + name + " " + id + " " + role;
     }
 
     @GetMapping("/test")

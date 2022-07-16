@@ -6,7 +6,12 @@ class TopicService{
 
     getAllTopicsBySubject(subjectId){
 
-        return _get(joinUrl(TOPIC_URL, subjectId));
+        return _get(
+            joinUrl(TOPIC_URL, ''),
+            {
+                subjectId: subjectId
+            }
+        );
     }
 
 }
