@@ -22,11 +22,15 @@ function test(token) {
 
     axios(
         {
-            method: 'get',
-            url: 'http://localhost:8080/topic/',
+            method: 'post',
+            url: 'http://localhost:8080/authenticate/test',
             params : {
                 name : 'test', 
-                subjectId : 10
+                id: 10,
+                subject: {
+                    id : 10,
+                    name : 'test is my passion'
+                }
     
             },
             headers: {
