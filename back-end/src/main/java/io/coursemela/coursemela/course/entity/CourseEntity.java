@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -31,6 +32,8 @@ public class CourseEntity {
     @Column(nullable = true)
     private String description;
 
+    @OneToMany(mappedBy = "courseEntity")
+    Set<CourseTagEntity> courseTagEntities;
 
     public CourseEntity(Long id, InstructorEntity instructorEntity, TopicEntity topic, String name) {
         this.id = id;
