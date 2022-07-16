@@ -1,5 +1,6 @@
 package io.coursemela.coursemela.course.entity;
 
+import io.coursemela.coursemela.course.model.Tag;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,5 +22,10 @@ public class TagEntity {
     @OneToMany(mappedBy = "tagEntity")
     Set<CourseTagEntity> courseTagEntities;
 
+    public TagEntity(Tag tag)
+    {
+        this.id = tag.getId();
+        this.name = tag.getName();
+    }
 
 }

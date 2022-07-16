@@ -17,8 +17,7 @@ public class Topic {
     public Topic(TopicEntity topic)
     {
         this.id = topic.getId();
-        this.subject = new Subject(topic.getSubject());
+        this.subject = new Subject(topic.getSubjectEntity());
         this.name = topic.getName();
     }
-
 }

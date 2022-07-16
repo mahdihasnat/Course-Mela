@@ -1,5 +1,6 @@
 package io.coursemela.coursemela.instructor.entity;
 
+import io.coursemela.coursemela.instructor.model.Instructor;
 import io.coursemela.coursemela.user.entity.UserEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,9 +25,14 @@ public class InstructorEntity extends UserEntity {
         this.bio = bio;
     }
 
-    public InstructorEntity(){super();}
+    public InstructorEntity(Instructor instructor)
+    {
+        super(instructor);
+        this.credit = instructor.getCredit();
+        this.bio = instructor.getBio();
+    }
 
-
-
-
+    public InstructorEntity() {
+        super();
+    }
 }

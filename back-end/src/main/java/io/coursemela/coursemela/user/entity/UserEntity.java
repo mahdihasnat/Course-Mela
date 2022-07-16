@@ -1,9 +1,9 @@
 package io.coursemela.coursemela.user.entity;
 
 
+import io.coursemela.coursemela.instructor.model.Instructor;
+import io.coursemela.coursemela.user.model.User;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -36,7 +36,16 @@ public class UserEntity {
 
     private Date dateOfJoin;
 
-    public UserEntity(){}
+    public UserEntity(User user){
+        this.id = user.getId();
+        this.userName = user.getUserName();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.email = user.getEmail();
+        this.passsword = user.getPasssword();
+        this.mobileNo = user.getMobileNo();
+        this.dateOfJoin = user.getDateOfJoin();
+    }
 
     public UserEntity(String userName, String firstName, String lastName, String email, String passsword, String mobileNo, Date dateOfJoin) {
 //        this.id = id;
@@ -49,5 +58,6 @@ public class UserEntity {
         this.dateOfJoin = dateOfJoin;
     }
 
-
+    public UserEntity() {
+    }
 }

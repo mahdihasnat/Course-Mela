@@ -19,6 +19,7 @@ public class TopicController {
     @GetMapping("/{subjectId}")
     List<Topic> getTopicBySubjectId(@PathVariable Long subjectId)
     {
+        System.out.println("SubjectId:"+subjectId);
         return topicService.getTopicBySubjectId(subjectId);
     }
 
