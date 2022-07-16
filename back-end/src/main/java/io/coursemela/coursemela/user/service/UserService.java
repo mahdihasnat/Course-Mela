@@ -18,4 +18,8 @@ public class UserService {
         user = new User(userEntity);
         return user;
     }
+
+    public Boolean isAvailableUser(String userName) {
+        return   !(userRepository.findByUserName(userName).isPresent());
+    }
 }

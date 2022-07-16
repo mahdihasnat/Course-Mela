@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
+@RequestMapping("/authenticate")
 public class Authenticate {
 
     @Autowired
@@ -33,7 +34,12 @@ public class Authenticate {
         return "hello " + name;
     }
 
-    @PostMapping("/authenticate")
+    @GetMapping("/test")
+    public String test(){
+        return "Succedd";
+    }
+
+    @PostMapping("/")
     public ResponseEntity<?> createAuthenticationToken(
             @RequestBody AuthenticateRequest authenticateRequest
             ) throws Exception{
@@ -62,6 +68,14 @@ public class Authenticate {
     @PostMapping("/register")
     User createUser(@RequestBody User user){
         return userService.createUser(user);
+    }
+
+
+    // sample:   /register?userName=jhon
+    @GetMapping("/register")
+    Boolean isAvailableUser(@RequestParam String userName)
+    {
+        return userService.isAvailableUser(userName);
     }
 
 }

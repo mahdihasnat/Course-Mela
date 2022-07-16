@@ -39,36 +39,36 @@ const loginCancel = () => {
 }
 
 
-export const Login = (userName, password) => {
+// export const Login = (userName, password) => {
     
-    return (dispatch) => {
-        dispatch(loginSubmit());
+//     return (dispatch) => {
+//         dispatch(loginSubmit());
       
-        axios.post(AUTH_URL, {
-            "userName": userName,
-            "password": password,
-        }) 
-            .then(response => {
-                // console.log(response);
-                console.log(response.data);
-                localStorage.setItem('jwtToken', response.data.jwtToken);
-                // dispatch(loginCancel());
+//         axios.post(joinUrl(AUTH_URL,''), {
+//             "userName": userName,
+//             "password": password,
+//         }) 
+//             .then(response => {
+//                 // console.log(response);
+//                 console.log(response.data);
+//                 localStorage.setItem('jwtToken', response.data.jwtToken);
+//                 // dispatch(loginCancel());
 
-                dispatch(loginSuccess());
+//                 dispatch(loginSuccess());
 
-            }).catch(error => {
-                console.log(error);
-                dispatch(loginError(error.message));
-            }
-        );
-    }
-}
+//             }).catch(error => {
+//                 console.log(error);
+//                 dispatch(loginError(error.message));
+//             }
+//         );
+//     }
+// }
 
 export const LoginWithDispatch = (userName, password, dispatch) => {
 
     dispatch(loginSubmit());
       
-        axios.post(AUTH_URL, {
+        axios.post(joinUrl(AUTH_URL,''), {
             "userName": userName,
             "password": password,
         }) 
