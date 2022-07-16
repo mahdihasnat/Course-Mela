@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {useNavigate} from 'react-router-dom';
+import CourseService from '../../../../services/course/CourseService';
 import SubjectService from "../../../../services/subject/SubjectService";
 import TopicService from "../../../../services/topic/TopicService";
 import SubjectChoice from "./SubjectChoice";
@@ -37,6 +38,7 @@ function AddCourse() {
 
     const [chosenId, setChosenId] = React.useState(1);
 
+    const [chosenTopicId, setChosenTopicId] = React.useState(-1);
     const [selectedImg, setSelectedImg] = React.useState(null);
     const [selectedImgName, setSelectedImgName] = React.useState(null);
     
@@ -100,10 +102,23 @@ function AddCourse() {
         setThingsToFocus([...thingsToFocus, thing]);
     }
 
-
+    const handleTopicSelection = e => {
+        const id = parseInt(e.target.value, 10)
+        setChosenTopicId(id);
+        
+    }
     const handleSubmit = e => {
         e.preventDefault();
         // navigate('/edit-course');
+        CourseService.createCourse(
+            topics[chosenTopicId],
+            'limit',
+            'this is description',
+            [],
+
+
+            
+        )
 
 
     }
@@ -115,7 +130,7 @@ function AddCourse() {
                     <SubjectChoice subjects={subjects} handleOptionChange={handleOptionChange} />
                     <div>
                         <label htmlFor="topic"><b>Select Topic</b></label><br/>
-                        <select name="topic" id="topic" className="age-dropdown">
+                        <select name="topic" id="topic" className="age-dropdown" onChange={handleTopicSelection}>
                             {
                                 subjects.map(subject => {
                                     return subject.id === chosenId && topics.map((topic, index) => (
