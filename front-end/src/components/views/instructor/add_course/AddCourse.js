@@ -115,7 +115,6 @@ function AddCourse() {
     }
     const handleSubmit = e => {
         e.preventDefault();
-        // navigate('/edit-course');
         CourseService.createCourse(
             topics[chosenTopicId],
             'limit',
@@ -123,7 +122,8 @@ function AddCourse() {
             [],
             
         )
-
+        navigate('/edit-course');
+        
 
     }
 
