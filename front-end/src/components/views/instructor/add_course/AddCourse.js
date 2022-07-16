@@ -6,6 +6,7 @@ import SubjectService from "../../../../services/subject/SubjectService";
 import TopicService from "../../../../services/topic/TopicService";
 import SubjectChoice from "./SubjectChoice";
 
+const thingsWeFocus = ["Area", "Calculus", "Trigonometric Ratios", "Divergence"]
 
 function AddCourse() {
 
@@ -15,12 +16,15 @@ function AddCourse() {
     const [selectedImg, setSelectedImg] = React.useState(null);
     const [selectedImgName, setSelectedImgName] = React.useState(null);
     
+    const [remainingThingsToFocus, setRemainingThingsToFocus] = React.useState(thingsWeFocus);
     const [thingsToFocus, setThingsToFocus] = React.useState([]);
-    const [remainingThingsToFocus, setRemainingThingsToFocus] = React.useState(thingsToFocus);
+    const [addingThings, setAddingThings] = React.useState(false);
+    const [newThingToFocus, setNewThingToFocus] = React.useState("");
 
     const [description, setDescription] = React.useState('');
 
 
+    const textarea_coursename = "Let your course have an enticing name";
     const textarea_desc = "Provide an optional course description to let students know about your course...";
     const navigate = useNavigate();
 
@@ -87,6 +91,17 @@ function AddCourse() {
         setRemainingThingsToFocus(remainingThingsToFocus.filter((_, index) => index !== id));
         setThingsToFocus([...thingsToFocus, thing]);
     }
+    
+    const handleAddThingToFocusClick = () => {
+      setAddingThings(true);
+    }
+
+    const handleAddThingToFocusSubmit = (e) => {
+      e.preventDefault();
+      newThingToFocus && setRemainingThingsToFocus([...remainingThingsToFocus, newThingToFocus]);
+      setNewThingToFocus("");
+      setAddingThings(false);
+    }
 
     const handleTopicSelection = e => {
         const id = parseInt(e.target.value, 10)
@@ -109,6 +124,7 @@ function AddCourse() {
 
     return (
         <div className='container'>
+            <form onSubmit={handleAddThingToFocusSubmit} id="addThingsToFocusForm"></form>
             <form onSubmit={handleSubmit}>
                 <div className='add-course-necessities'>
                     <SubjectChoice subjects={subjects} handleOptionChange={handleOptionChange} />
@@ -154,35 +170,62 @@ function AddCourse() {
                     </div>
                 </div>
                 <div className='container add-course-desc'>
+                    <span style={{ fontSize: "1.5rem", fontWeight: "bold" }}>Course Name</span><br />
+                    <input type={"text"} placeholder={ textarea_coursename } style={{ border: "1px solid", borderRadius: "10px" }} />
+                </div>
+                <div className='container add-course-desc'>
                     <span style={{fontSize: "1.5rem", fontWeight: "bold"}}>Course Description</span><br/>
                     <input type={"textarea"} placeholder={textarea_desc} onChange={handleDescriptionChange} />
                 </div>
 
                 <div className='container add-course-desc'>
-                    <span style={{ fontSize: "1.5rem", fontWeight: "bold" }}>Things we focus</span><br />
-                    <div className='things-we-focus'>
-                        <div style={{ marginTop: "15px", marginLeft: "3px" }}>
-                        {
-                            thingsToFocus.map((thing, index) => (
-                                <span key={index} className='upload-courseimg-label' style={{ marginRight: "10px" }} onClick={() => handleFocusedThingsChange(thing, index)}>
-                                    {thing}
-                                    <i className="fa fa-times" style={{ color: "white", fontSize: "15px", marginLeft: "5px" }}></i>
-                                </span>
-                            ))
-                        }
-                        </div>
-                    </div>
-                    <div style={{ marginTop: "20px" }}>
-                    {
-                        remainingThingsToFocus.map((thing, index) => (
-                            <span key={index} className='upload-courseimg-label' style={{ marginRight: "10px" }} onClick={() => handleRemainingFocusedThingsChange(thing, index)}>
-                                <i className="fa fa-plus" style={{ color: "white", fontSize: "15px", marginRight: "5px" }}></i>
-                                {thing}
-                            </span>
-                        ))
-                    }
-                    </div>
-                </div>
+                  <span style={{ fontSize: "1.5rem", fontWeight: "bold" }}>Things we focus</span><br />
+                  <div className='things-we-focus'>
+                      <div style={{ marginTop: "15px", marginLeft: "3px" }}>
+                      {
+                          thingsToFocus.map((thing, index) => (
+                              <span key={index} className='upload-courseimg-label' style={{ marginRight: "10px" }} onClick={() => handleFocusedThingsChange(thing, index)}>
+                                  {thing}
+                                  <i className="fa fa-times" style={{ color: "white", fontSize: "15px", marginLeft: "5px" }}></i>
+                              </span>
+                          ))
+                      }
+                      </div>
+                  </div>
+                  <div style={{ marginTop: "20px" }}>
+                  {
+                      remainingThingsToFocus.map((thing, index) => (
+                          <span key={index} className='upload-courseimg-label' style={{ marginRight: "10px" }} onClick={() => handleRemainingFocusedThingsChange(thing, index)}>
+                              <i className="fa fa-plus" style={{ color: "white", fontSize: "15px", marginRight: "5px" }}></i>
+                              {thing}
+                          </span>
+                      ))
+                  }
+                  {
+                      addingThings && (
+                          <span className='upload-courseimg-label' style={{ marginRight: "10px", backgroundColor: "red" }} onClick={handleAddThingToFocusClick}>
+                              <i className="fa fa-plus" style={{ color: "white", fontSize: "15px", marginRight: "5px" }}></i>
+                              { newThingToFocus }
+                          </span>
+                      )
+                  }
+                  <span className='upload-courseimg-label' style={{ marginRight: "10px", backgroundColor: "green" }} onClick={handleAddThingToFocusClick}>
+                      Add New Tag...
+                  </span>
+                  {
+                      addingThings && (
+                          <div style={{ marginTop: "15px" }}>
+                              <input type={"text"} name="new_thing_to_focus" form='addThingsToFocusForm' placeholder='Add New Tag' style={{ boxShadow: "1px 1px black" }} onChange={e => setNewThingToFocus(e.target.value)} value={newThingToFocus} />
+                              <input type={"submit"} className="upload-courseimg-label" value={newThingToFocus ? "Add" : "Cancel"} form='addThingsToFocusForm' />
+                          </div>
+                      )
+                  }
+                  </div>
+              </div>
+              <div className='container add-course-desc'>
+                  <span style={{ fontSize: "1.3rem", fontWeight: "bold", marginRight: "10px" }}>Price (Tk.)</span>
+                  <input name='price' type={"number"} style={{ border: "1px solid", fontSize: "1.3rem" }} min={"0"} />
+              </div>
                 <div className='container' style={{display: "flex", justifyContent: "flex-end"}}><input type="submit"
                                                                                                         className='upload-courseimg-label'
                                                                                                         style={{
