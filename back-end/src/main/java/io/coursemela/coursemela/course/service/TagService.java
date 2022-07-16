@@ -6,7 +6,9 @@ import io.coursemela.coursemela.course.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TagService {
@@ -21,5 +23,14 @@ public class TagService {
         tag.setId(tagEntity.getId());
         tag.setName(tagEntity.getName());
         return  tag;
+    }
+
+    public List<Tag> getTags(){
+        List<TagEntity> tagEntities =tagRepository.findAll();
+        List<Tag> tags = tagEntities
+                .stream()
+                .map( tag-> new Tag(tag) )
+                .collect(Collectors.toList());
+        return tags;
     }
 }
