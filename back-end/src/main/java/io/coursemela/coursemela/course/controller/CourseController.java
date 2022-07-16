@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequestMapping("/course")
@@ -27,6 +28,9 @@ public class CourseController {
     Course createCourse(@RequestBody Course course)
     {
         try {
+            System.out.println("course:"+course.toString());
+            if(course.getTags() == null)
+                course.setTags(new ArrayList<>());
             String currentUserName = UserContext.getUserName();
             course.setInstructor(instructorService.getInstructor(currentUserName));
             course = courseService.createCourse(course);
