@@ -1,37 +1,10 @@
 import React, {useEffect, useState} from 'react'
 import {useNavigate} from 'react-router-dom';
 import CourseService from '../../../../services/course/CourseService';
+import TagService from '../../../../services/course/TagService';
 import SubjectService from "../../../../services/subject/SubjectService";
 import TopicService from "../../../../services/topic/TopicService";
 import SubjectChoice from "./SubjectChoice";
-
-// const subjects = [
-//     {
-//         id: 1,
-//         name: "Physics",
-//         topics: ["Wave", "Thermodynamics", "Work & Power", "Relativity"]
-//     },
-//     {
-//         id: 2,
-//         name: "Chemistry",
-//         topics: ["Organics", "Electrochemistry", "Fundamentals of Reactions"]
-//     },
-//     {
-//         id: 3,
-//         name: "Maths",
-//         topics: ["Integrations", "Vector", "Trigonometry", "Number Theory"]
-//     },
-//     {
-//         id: 4,
-//         name: "Biology",
-//         topics: ["Transcriptomics", "Cell Chemisrtry"]
-//     },
-//     {
-//         id: 5,
-//         name: "ICT",
-//         topics: ["HTML", "Fundamentals of C", "Communication Systems"]
-//     },
-// ]
 
 
 function AddCourse() {
@@ -85,6 +58,13 @@ function AddCourse() {
         }).finally(() => {
             setIsLoading(false)
         })
+        TagService.getTags()
+            .then((response) =>{
+                console.log(response.data);
+                // setThingsToFocus(response.data)
+            }).catch((error) =>{
+                console.log(error)
+            })
     }, []);
 
     const handleImgUpload = e => {
@@ -178,10 +158,6 @@ function AddCourse() {
                     <input type={"textarea"} placeholder={textarea_desc} onChange={handleDescriptionChange} />
                 </div>
 
-                <div className='container add-course-desc'>
-                    <span style={{fontSize: "1.5rem", fontWeight: "bold"}}>Course Description</span><br/>
-                    <input type={"textarea"} placeholder={textarea_desc} onChange={handleDescriptionChange} />
-                </div>
                 <div className='container add-course-desc'>
                     <span style={{ fontSize: "1.5rem", fontWeight: "bold" }}>Things we focus</span><br />
                     <div className='things-we-focus'>
