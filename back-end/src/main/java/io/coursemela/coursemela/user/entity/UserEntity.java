@@ -1,11 +1,8 @@
 package io.coursemela.coursemela.user.entity;
 
 
-import io.coursemela.coursemela.instructor.model.Instructor;
 import io.coursemela.coursemela.user.model.User;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -44,7 +41,7 @@ public class UserEntity {
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
         this.email = user.getEmail();
-        this.passsword = user.getPasssword();
+        this.passsword = user.getPassword();
         this.mobileNo = user.getMobileNo();
         this.dateOfJoin = user.getDateOfJoin();
     }

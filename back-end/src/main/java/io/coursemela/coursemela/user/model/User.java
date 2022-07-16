@@ -18,7 +18,7 @@ public class User {
     protected String firstName;
     protected String lastName;
     protected String email;
-    protected String passsword;
+    protected String password;
     protected String mobileNo;
     protected Date dateOfJoin;
     public User(UserEntity userEntity)
@@ -28,7 +28,7 @@ public class User {
         this.firstName = userEntity.getFirstName();
         this.lastName = userEntity.getLastName();
         this.email = userEntity.getEmail();
-        this.passsword = userEntity.getPasssword();
+        this.password = userEntity.getPasssword();
         this.mobileNo = userEntity.getMobileNo();
         this.dateOfJoin = userEntity.getDateOfJoin();
     }
@@ -36,7 +36,7 @@ public class User {
 
     public void encodePassword(){
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        this.passsword = encoder.encode(this.passsword);
+        this.password = encoder.encode(this.password);
     }
 
 }

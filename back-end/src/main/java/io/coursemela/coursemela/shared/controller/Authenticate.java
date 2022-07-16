@@ -10,7 +10,6 @@ import io.coursemela.coursemela.student.service.StudentService;
 import io.coursemela.coursemela.user.model.User;
 import io.coursemela.coursemela.user.service.CustomUserDetailsService;
 import io.coursemela.coursemela.shared.util.JwtUtils;
-import io.coursemela.coursemela.student.entity.StudentEntity;
 import io.coursemela.coursemela.user.service.UserService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,7 @@ class RegisterForm
     private String firstName;
     protected String lastName;
     protected String email;
-    protected String passsword;
+    protected String password;
     protected String mobileNo;
     protected Date dateOfJoin;
     protected String role;
@@ -105,7 +104,7 @@ public class Authenticate {
             instructor.setFirstName(form.getFirstName());
             instructor.setLastName(form.getLastName());
             instructor.setEmail(form.getEmail());
-            instructor.setPasssword(form.getPasssword());
+            instructor.setPassword(form.getPassword());
             instructor.setMobileNo(form.getMobileNo());
             instructor.setDateOfJoin(new Date());
             instructor.setCredit(0);
@@ -121,10 +120,11 @@ public class Authenticate {
             student.setFirstName(form.getFirstName());
             student.setLastName(form.getLastName());
             student.setEmail(form.getEmail());
-            student.setPasssword(form.getPasssword());
+            student.setPassword(form.getPassword());
             student.setMobileNo(form.getMobileNo());
             student.setDateOfJoin(new Date());
-            student.setLevel(Level.getLebel(form.getLevel()));
+//            student.setLevel(Level.getLebel(form.getLevel()));
+            student.setLevel(Level.ELEVEN);
 
             student.encodePassword();
             return  studentService.createStudent(student);
