@@ -1,7 +1,8 @@
 import React from 'react';
-import { useFormik } from 'formik';
+import {  Formik, useFormik } from 'formik';
 import * as Yup from 'yup';
 import RegistrationService from '../../../services/auth/RegistrationService';
+import { STUDENT } from '../../../shared/StringConstant';
 
 const Registration = () => {
     const formik = useFormik({
@@ -12,6 +13,7 @@ const Registration = () => {
             email: '',
             password: '',
             confirmPassword: '',
+            picked: '',
         },
         validationSchema: Yup.object({
             userName: Yup.string()
@@ -36,6 +38,8 @@ const Registration = () => {
                 values.lastName,
                 values.email,
                 values.password,
+                STUDENT,
+
 
             ).then(res => {
                 console.log(res);
@@ -131,7 +135,18 @@ const Registration = () => {
                     <div>{formik.errors.confirmPassword}</div>
                 ) : null}
 
-
+            {/* <div id="my-radio-group">Picked</div>
+                <div role="group" aria-labelledby="my-radio-group">
+                    <label>
+                    <formik.Field type="radio" name="picked" value="One" />
+                    One
+                    </label>
+                    <label>
+                    <formik.Field type="radio" name="picked" value="Two" />
+                    Two
+                    </label>
+                    <div>Picked: {formik.values.picked}</div>
+            </div> */}
             <button type="submit">Submit</button>
         </form>
     );
