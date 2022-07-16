@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.util.Objects;
 
 
+//https://www.baeldung.com/jpa-many-to-many
+
 @Embeddable
 class CourseTagKey implements Serializable{
 
