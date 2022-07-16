@@ -1,6 +1,7 @@
 package io.coursemela.coursemela.course.model;
 
 import io.coursemela.coursemela.course.entity.CourseEntity;
+import io.coursemela.coursemela.course.entity.CourseTagEntity;
 import io.coursemela.coursemela.course.entity.TopicEntity;
 import io.coursemela.coursemela.instructor.entity.InstructorEntity;
 import io.coursemela.coursemela.instructor.model.Instructor;
@@ -9,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -26,7 +28,11 @@ public class Course {
         this.id = courseEntity.getId();
         this.instructor = new Instructor((courseEntity.getInstructorEntity()));
         this.topic = new Topic(courseEntity.getTopicEntity());
+        this.name = courseEntity.getName();
         this.cover_photo_path = courseEntity.getCover_photo_path();
         this.description = courseEntity.getDescription();
+        this.tags = new ArrayList<>();
+        for(CourseTagEntity courseTag: courseEntity.getCourseTagEntities())
+            tags.add(new Tag(courseTag.getTagEntity()));
     }
 }

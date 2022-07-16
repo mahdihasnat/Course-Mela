@@ -138,7 +138,7 @@ function AddCourse() {
                             {
                                 subjects.map(subject => {
                                     return subject.id === chosenId && topics.map((topic, index) => (
-                                        <option key={index} value={index}>{topic.name}</option>
+                                        <option key={index} value={index} >{topic.name}</option>
                                     ))
                                 })
                             }
