@@ -10,6 +10,7 @@ import { useLoginContext } from '../store/contexts/LoginContext';
 import LoginModal from './layout/LoginModal/LoginModal';
 import AddCourse from './views/instructor/add_course/AddCourse';
 import EditCourse from './views/instructor/EditCourse';
+import Registration from "./layout/registration/Registration";
 
 function MainComponent() {
 
@@ -24,6 +25,7 @@ function MainComponent() {
           <Route path='/server' element={<TestServerConncetion />} />
           <Route path='/add-course' element={<AddCourse />} />
           <Route path='/edit-course' element={<EditCourse />} />
+          <Route path='/register' element={<Registration/>}  />
           {/* <Route exact path='/instr' element={<InstructorHome />} /> */}
         </Routes>
         <LoginModal />

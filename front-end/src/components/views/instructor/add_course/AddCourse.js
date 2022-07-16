@@ -103,7 +103,9 @@ function AddCourse() {
 
     const handleSubmit = e => {
         e.preventDefault();
-        navigate('/edit-course');
+        // navigate('/edit-course');
+
+
     }
 
     return (
