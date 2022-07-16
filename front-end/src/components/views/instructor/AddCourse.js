@@ -38,6 +38,9 @@ function AddCourse() {
 
     const [selectedImg, setSelectedImg] = React.useState(null);
     const [selectedImgName, setSelectedImgName] = React.useState(null);
+    
+    const [remainingThingsToFocus, setRemainingThingsToFocus] = React.useState(thingsWeFocus);
+    const [thingsToFocus, setThingsToFocus] = React.useState([]);
 
     const textarea_desc = "Provide an optional course description to let students know about your course...";
     const navigate = useNavigate();
@@ -77,6 +80,16 @@ function AddCourse() {
             setSelectedImg(e.target.files[0]);
             setSelectedImgName(e.target.files[0].name)
         }
+    }
+    
+    const handleFocusedThingsChange = (thing, id) => {
+        setThingsToFocus(thingsToFocus.filter((_, index) => index !== id));
+        setRemainingThingsToFocus([...remainingThingsToFocus, thing]);
+    }
+
+    const handleRemainingFocusedThingsChange = (thing, id) => {
+        setRemainingThingsToFocus(remainingThingsToFocus.filter((_, index) => index !== id));
+        setThingsToFocus([...thingsToFocus, thing]);
     }
 
 
@@ -145,9 +158,28 @@ function AddCourse() {
                     <input type={"textarea"} placeholder={textarea_desc}/>
                 </div>
                 <div className='container add-course-desc'>
-                    <span style={{fontSize: "1.5rem", fontWeight: "bold"}}>Things we focus</span><br/>
+                    <span style={{ fontSize: "1.5rem", fontWeight: "bold" }}>Things we focus</span><br />
                     <div className='things-we-focus'>
-
+                        <div style={{ marginTop: "15px", marginLeft: "3px" }}>
+                        {
+                            thingsToFocus.map((thing, index) => (
+                                <span key={index} className='upload-courseimg-label' style={{ marginRight: "10px" }} onClick={() => handleFocusedThingsChange(thing, index)}>
+                                    {thing}
+                                    <i className="fa fa-times" style={{ color: "white", fontSize: "15px", marginLeft: "5px" }}></i>
+                                </span>
+                            ))
+                        }
+                        </div>
+                    </div>
+                    <div style={{ marginTop: "20px" }}>
+                    {
+                        remainingThingsToFocus.map((thing, index) => (
+                            <span key={index} className='upload-courseimg-label' style={{ marginRight: "10px" }} onClick={() => handleRemainingFocusedThingsChange(thing, index)}>
+                                <i className="fa fa-plus" style={{ color: "white", fontSize: "15px", marginRight: "5px" }}></i>
+                                {thing}
+                            </span>
+                        ))
+                    }
                     </div>
                 </div>
                 <div className='container' style={{display: "flex", justifyContent: "flex-end"}}><input type="submit"
