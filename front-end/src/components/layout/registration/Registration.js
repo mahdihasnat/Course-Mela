@@ -2,7 +2,7 @@ import React from 'react';
 import {  Formik, useFormik } from 'formik';
 import * as Yup from 'yup';
 import RegistrationService from '../../../services/auth/RegistrationService';
-import { STUDENT } from '../../../shared/StringConstant';
+import { INSTRUCTOR, STUDENT } from '../../../shared/StringConstant';
 
 const Registration = () => {
     const formik = useFormik({
@@ -38,7 +38,7 @@ const Registration = () => {
                 values.lastName,
                 values.email,
                 values.password,
-                STUDENT,
+                INSTRUCTOR,
 
 
             ).then(res => {
