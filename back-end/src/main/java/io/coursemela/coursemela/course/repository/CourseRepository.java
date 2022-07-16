@@ -10,5 +10,5 @@ import java.util.List;
 
 @Repository
 public interface CourseRepository extends JpaRepository<CourseEntity,Long>{
-//	List<CourseEntity> findCourseEntitiesByTagId(Long tagId);
+	List<CourseEntity> findCourseEntitiesByCourseTagEntitiesTagEntityId(Long tagId);
 }
