@@ -8,7 +8,7 @@ import store from '../store/store';
 import InstructorHome from './views/instructor/InstructorHome';
 import { useLoginContext } from '../store/contexts/LoginContext';
 import LoginModal from './layout/LoginModal/LoginModal';
-import AddCourse from './views/instructor/AddCourse';
+import AddCourse from './views/instructor/add_course/AddCourse';
 import EditCourse from './views/instructor/EditCourse';
 
 function MainComponent() {
