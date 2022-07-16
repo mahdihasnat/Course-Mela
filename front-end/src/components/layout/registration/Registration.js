@@ -31,7 +31,7 @@ const Registration = () => {
             .oneOf([Yup.ref("password")], "Passwords do not match"),
         }),
         onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
+            // alert(JSON.stringify(values, null, 2));
             RegistrationService.register(
                 values.userName,
                 values.firstName,
@@ -113,7 +113,7 @@ const Registration = () => {
             <input
                 id="password"
                 name="password"
-                type="text"
+                type="password"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.password}
@@ -126,7 +126,7 @@ const Registration = () => {
                 <input
                     id="confirmPassword"
                     name="confirmPassword"
-                    type="text"
+                    type="password"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.confirmPassword}
