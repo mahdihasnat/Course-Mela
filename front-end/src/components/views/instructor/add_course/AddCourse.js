@@ -45,6 +45,8 @@ function AddCourse() {
     const [thingsToFocus, setThingsToFocus] = React.useState([]);
     const [remainingThingsToFocus, setRemainingThingsToFocus] = React.useState(thingsToFocus);
 
+    const [description, setDescription] = React.useState('');
+
 
     const textarea_desc = "Provide an optional course description to let students know about your course...";
     const navigate = useNavigate();
@@ -91,6 +93,10 @@ function AddCourse() {
             setSelectedImgName(e.target.files[0].name)
         }
     }
+
+    const handleDescriptionChange = e => {
+        setDescription(e.target.value)
+    }
     
     const handleFocusedThingsChange = (thing, id) => {
         setThingsToFocus(thingsToFocus.filter((_, index) => index !== id));
@@ -113,7 +119,7 @@ function AddCourse() {
         CourseService.createCourse(
             topics[chosenTopicId],
             'limit',
-            'this is description',
+            description,
             [],
             
         )
@@ -169,7 +175,12 @@ function AddCourse() {
                 </div>
                 <div className='container add-course-desc'>
                     <span style={{fontSize: "1.5rem", fontWeight: "bold"}}>Course Description</span><br/>
-                    <input type={"textarea"} placeholder={textarea_desc}/>
+                    <input type={"textarea"} placeholder={textarea_desc} onChange={handleDescriptionChange} />
+                </div>
+
+                <div className='container add-course-desc'>
+                    <span style={{fontSize: "1.5rem", fontWeight: "bold"}}>Course Description</span><br/>
+                    <input type={"textarea"} placeholder={textarea_desc} onChange={handleDescriptionChange} />
                 </div>
                 <div className='container add-course-desc'>
                     <span style={{ fontSize: "1.5rem", fontWeight: "bold" }}>Things we focus</span><br />
