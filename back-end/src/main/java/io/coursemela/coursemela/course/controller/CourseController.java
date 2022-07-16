@@ -4,6 +4,7 @@ import io.coursemela.coursemela.course.model.Course;
 import io.coursemela.coursemela.course.service.CourseService;
 
 import io.coursemela.coursemela.instructor.service.InstructorService;
+import io.coursemela.coursemela.user.context.UserContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,13 +26,18 @@ public class CourseController {
     @PostMapping("/")
     Course createCourse(@RequestBody Course course)
     {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication instanceof AnonymousAuthenticationToken)
+        try {
+            String currentUserName = UserContext.getUserName();
+            course.setInstructor(instructorService.getInstructor(currentUserName));
+            course = courseService.createCourse(course);
+            return course;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
             return null;
-        String currentUserName = authentication.getName();
-        course.setInstructor(instructorService.getInstructor(currentUserName));
-        course = courseService.createCourse(course);
-        return course;
+        }
+
     }
 
     @GetMapping("/")
