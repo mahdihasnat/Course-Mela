@@ -32,4 +32,7 @@ public class InstructorEntity extends UserEntity {
         this.bio = instructor.getBio();
     }
 
+    public InstructorEntity() {
+        super();
+    }
 }
