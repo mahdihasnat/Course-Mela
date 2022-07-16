@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import AddNewTopic from './AddNewTopic';
+import AddNewTopic from './AddNewVideo';
 import CourseTopics from './CourseTopics';
 
 function EditCourse() {
