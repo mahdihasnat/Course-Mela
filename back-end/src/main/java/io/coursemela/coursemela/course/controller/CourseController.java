@@ -8,10 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequestMapping("/course")
 @RestController
@@ -33,6 +32,11 @@ public class CourseController {
         course.setInstructor(instructorService.getInstructor(currentUserName));
         course = courseService.createCourse(course);
         return course;
+    }
+
+    @GetMapping("/")
+    List<Course> getCourses(){
+        return courseService.getCourses();
     }
 
 
