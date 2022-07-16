@@ -1,8 +1,12 @@
 package io.coursemela.coursemela.instructor.controller;
 
+import io.coursemela.coursemela.course.model.Course;
+import io.coursemela.coursemela.course.service.CourseService;
 import io.coursemela.coursemela.instructor.entity.InstructorEntity;
 import io.coursemela.coursemela.instructor.service.InstructorHomeService;
 import io.coursemela.coursemela.course.entity.CourseEntity;
+import io.coursemela.coursemela.shared.util.JwtUtils;
+import io.coursemela.coursemela.user.context.UserContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -37,9 +41,12 @@ public class InstructorHomeController {
         return  instructorHomeService.getInstructor(currentUserName);
     }
 
+    @Autowired
+    private CourseService courseService;
+
     @GetMapping("/courses")
-    public List<CourseEntity> getMyCourses(){
-        return Arrays.asList( new CourseEntity(new Long(1), null, null, "limit",null,"sample desc") );
+    public List<Course> getMyCourses()throws Exception{
+        return  courseService.getCourseByInstructorUserName(UserContext.getUserName());
     }
 
 }

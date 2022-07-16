@@ -29,4 +29,13 @@ public class CourseService {
                 .collect(Collectors.toList());
         return courses;
     }
+
+    public List<Course> getCourseByInstructorUserName(String userName){
+        List<CourseEntity> courseEntities = courseRepository.findCourseEntitiesByInstructorEntityUserName(userName);
+        List<Course> courses = courseEntities
+                .stream()
+                .map(course -> new Course(course))
+                .collect(Collectors.toList());
+        return courses;
+    }
 }

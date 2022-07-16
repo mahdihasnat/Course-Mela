@@ -1,5 +1,6 @@
 package io.coursemela.coursemela.user.context;
 
+import io.coursemela.coursemela.instructor.model.Instructor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,4 +13,6 @@ public class UserContext {
             throw new Exception("Not Logged In");
         return authentication.getName();
     }
+
+
 }
