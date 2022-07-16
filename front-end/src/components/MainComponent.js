@@ -11,10 +11,22 @@ import LoginModal from './layout/LoginModal/LoginModal';
 import AddCourse from './views/instructor/add_course/AddCourse';
 import EditCourse from './views/instructor/EditCourse';
 import Registration from "./layout/registration/Registration";
+import { PRE_LOGGED_IN } from '../store/auth/AuthTypes';
+
+import { useEffect } from 'react';
 
 function MainComponent() {
 
   const [{ isSignedIn }, dispatch] = useLoginContext();
+
+  useEffect(() => {
+
+    if(localStorage.getItem('jwtToken') !== null) {
+      dispatch({ type: PRE_LOGGED_IN });
+    }
+
+  }, []);
+
 
   return (
     <Provider store={store}>

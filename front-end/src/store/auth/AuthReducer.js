@@ -3,7 +3,9 @@ import {
     LOGIN_SUCCESS,  
     LOGIN_ERROR, 
     LOGIN_MODAL_PRESSED,
-    LOGIN_MODAL_CANCELED
+    LOGIN_MODAL_CANCELED,
+    PRE_LOGGED_IN,
+    LOG_OUT,
  } from "./AuthTypes"
 
 export const initAuthState = {
@@ -40,6 +42,18 @@ const AuthReducer = (state = initAuthState, action) => {
             return {
                 ...state,
                 isLoginPressed: false
+            }
+        case PRE_LOGGED_IN:
+            return {
+                ...state,
+                isSignedIn: true,
+                isLoginPressed: false,
+            }
+        case LOG_OUT:
+            return{
+                ...state,
+                isSignedIn: false,
+                isLoginPressed: false,
             }
         default:
             return state

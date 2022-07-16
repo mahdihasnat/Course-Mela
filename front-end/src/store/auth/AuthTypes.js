@@ -4,3 +4,5 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const LOGIN_MODAL_PRESSED = 'LOGIN_MODAL_PRESSED';
 export const LOGIN_MODAL_CANCELED = 'LOGIN_MODAL_CANCELED';
+export const PRE_LOGGED_IN = 'PRE_LOGGED_IN';
+export const LOG_OUT = 'LOG_OUT';
