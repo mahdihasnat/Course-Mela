@@ -31,4 +31,5 @@ public class User {
         this.mobileNo = userEntity.getMobileNo();
         this.dateOfJoin = userEntity.getDateOfJoin();
     }
+
 }

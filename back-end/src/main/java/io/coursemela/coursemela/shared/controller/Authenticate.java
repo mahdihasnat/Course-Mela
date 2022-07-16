@@ -2,8 +2,11 @@ package io.coursemela.coursemela.shared.controller;
 
 import io.coursemela.coursemela.shared.entity.AuthenticateRequest;
 import io.coursemela.coursemela.shared.entity.AuthenticateResponse;
+import io.coursemela.coursemela.user.entity.UserEntity;
+import io.coursemela.coursemela.user.model.User;
 import io.coursemela.coursemela.user.service.CustomUserDetailsService;
 import io.coursemela.coursemela.shared.util.JwtUtils;
+import io.coursemela.coursemela.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,7 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-//@CrossOrigin(origins = "*")
+
 @RestController
 public class Authenticate {
 
@@ -51,6 +54,14 @@ public class Authenticate {
         final String jwt = jwtUtils.generateToken(userDetails);
 //        System.out.println(jwt);
         return ResponseEntity.ok(new AuthenticateResponse(jwt));
+    }
+
+    @Autowired
+    private UserService userService;
+
+    @PostMapping("/register")
+    User createUser(@RequestBody User user){
+        return userService.createUser(user);
     }
 
 }
