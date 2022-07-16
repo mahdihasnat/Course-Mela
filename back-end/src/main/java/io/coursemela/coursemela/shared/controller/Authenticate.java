@@ -96,8 +96,8 @@ public class Authenticate {
 
     @PostMapping("/register")
     User createUser(@RequestBody RegisterForm form){
-
-        if(form.getRole() == "instructor")
+        System.out.println(form.toString());
+        if(form.getRole().equalsIgnoreCase("instructor"))
         {
 
             Instructor instructor = new Instructor();
@@ -111,9 +111,10 @@ public class Authenticate {
             instructor.setCredit(0);
             instructor.setBio(form.getBio());
 
+            instructor.encodePassword();
             return instructorService.createInstructor(instructor);
         }
-        else if(form.getRole() == "student")
+        else if(form.getRole().equalsIgnoreCase("student"))
         {
             Student student = new Student();
             student.setUserName(form.getUserName());
@@ -124,6 +125,8 @@ public class Authenticate {
             student.setMobileNo(form.getMobileNo());
             student.setDateOfJoin(new Date());
             student.setLevel(Level.getLebel(form.getLevel()));
+
+            student.encodePassword();
             return  studentService.createStudent(student);
         }
         else return null;

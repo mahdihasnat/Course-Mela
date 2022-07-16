@@ -4,6 +4,8 @@ package io.coursemela.coursemela.user.entity;
 import io.coursemela.coursemela.instructor.model.Instructor;
 import io.coursemela.coursemela.user.model.User;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -26,12 +28,12 @@ public class UserEntity {
     @Column(nullable = false, unique = true)
     protected String email;
 
+
     protected String passsword;
 
 //    ''' '''
     /// make mobile phone oneTomany
     protected String mobileNo;
-    // use of address
 
 
     private Date dateOfJoin;
@@ -48,7 +50,6 @@ public class UserEntity {
     }
 
     public UserEntity(String userName, String firstName, String lastName, String email, String passsword, String mobileNo, Date dateOfJoin) {
-//        this.id = id;
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;

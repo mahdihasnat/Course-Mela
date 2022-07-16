@@ -4,6 +4,7 @@ import io.coursemela.coursemela.user.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 import java.util.Date;
@@ -33,5 +34,9 @@ public class User {
     }
 
 
+    public void encodePassword(){
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        this.passsword = encoder.encode(this.passsword);
+    }
 
 }
