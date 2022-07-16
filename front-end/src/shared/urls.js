@@ -11,3 +11,5 @@ export const SUB_URL = joinUrl(baseUrl, 'subject')
 export const TOPIC_URL = joinUrl(baseUrl, 'topic')
 
 export const COURSE_URL = joinUrl(baseUrl, 'course')
+
+export const TAG_URL = joinUrl(baseUrl,'tag')
