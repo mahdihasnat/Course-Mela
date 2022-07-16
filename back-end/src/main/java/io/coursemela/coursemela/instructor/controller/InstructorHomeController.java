@@ -39,7 +39,7 @@ public class InstructorHomeController {
 
     @GetMapping("/courses")
     public List<CourseEntity> getMyCourses(){
-        return Arrays.asList( new CourseEntity(new Long(1), null, null, "limit") );
+        return Arrays.asList( new CourseEntity(new Long(1), null, null, "limit",null,"sample desc") );
     }
 
 }

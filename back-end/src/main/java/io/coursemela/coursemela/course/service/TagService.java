@@ -20,7 +20,6 @@ public class TagService {
         tagEntity = tagRepository.save(tagEntity);
         tag.setId(tagEntity.getId());
         tag.setName(tagEntity.getName());
-
         return  tag;
     }
 }

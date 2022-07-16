@@ -21,7 +21,7 @@ public class TopicService {
 
     public List<Topic> getTopicBySubjectId(Long subjectId)
     {
-        List<TopicEntity> topicEntities = topicRepository.findAllBySubjectId(subjectId);
+        List<TopicEntity> topicEntities = topicRepository.findAllBySubjectEntityId(subjectId);
         List<Topic> topics = topicEntities
                 .stream()
                 .map(topic -> new Topic(topic))

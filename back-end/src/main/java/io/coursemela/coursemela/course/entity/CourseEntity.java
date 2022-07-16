@@ -1,10 +1,13 @@
 package io.coursemela.coursemela.course.entity;
 
+import io.coursemela.coursemela.course.model.Course;
+import io.coursemela.coursemela.course.model.Tag;
 import io.coursemela.coursemela.instructor.entity.InstructorEntity;
 import lombok.Data;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -21,7 +24,7 @@ public class CourseEntity {
     private InstructorEntity instructorEntity;
 
     @ManyToOne
-    private TopicEntity topic;
+    private TopicEntity topicEntity;
 
     @Column(nullable = false)
     private String name;
@@ -35,13 +38,27 @@ public class CourseEntity {
     @OneToMany(mappedBy = "courseEntity")
     Set<CourseTagEntity> courseTagEntities;
 
-    public CourseEntity(Long id, InstructorEntity instructorEntity, TopicEntity topic, String name) {
-        this.id = id;
-        this.instructorEntity = instructorEntity;
-        this.topic = topic;
-        this.name = name;
+
+    public CourseEntity(Course course){
+        this.id = course.getId();
+        this.name = course.getName();
+        this.instructorEntity = new InstructorEntity(course.getInstructor());
+        this.topicEntity = new TopicEntity(course.getTopic());
+        this.name = course.getName();
+        this.courseTagEntities = new HashSet<>();
+        for(Tag tag:course.getTags())
+            this.courseTagEntities.add(new CourseTagEntity(this,new TagEntity(tag)));
     }
 
     public CourseEntity() {
+    }
+
+    public CourseEntity(Long id, InstructorEntity instructorEntity, TopicEntity topicEntity, String name, String cover_photo_path, String description) {
+        this.id = id;
+        this.instructorEntity = instructorEntity;
+        this.topicEntity = topicEntity;
+        this.name = name;
+        this.cover_photo_path = cover_photo_path;
+        this.description = description;
     }
 }

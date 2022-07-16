@@ -1,5 +1,6 @@
 package io.coursemela.coursemela.course.entity;
 
+import io.coursemela.coursemela.course.model.Subject;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -22,6 +23,11 @@ public class SubjectEntity {
     }
 
     public SubjectEntity() {
+    }
+
+    public SubjectEntity(Subject subject){
+        this.id = subject.getId();
+        this.name = subject.getName();
     }
 
     @Override

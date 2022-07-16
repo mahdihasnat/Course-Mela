@@ -1,6 +1,7 @@
 package io.coursemela.coursemela.course.entity;
 
 import io.coursemela.coursemela.course.model.Course;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -66,4 +67,9 @@ public class CourseTagEntity {
     @MapsId("tagId")
     @JoinColumn(name = "tagId")
     TagEntity tagEntity;
+
+    public CourseTagEntity(CourseEntity courseEntity, TagEntity tagEntity) {
+        this.courseEntity = courseEntity;
+        this.tagEntity = tagEntity;
+    }
 }

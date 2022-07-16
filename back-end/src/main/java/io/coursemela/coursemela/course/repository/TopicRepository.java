@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface TopicRepository extends JpaRepository<TopicEntity, Long> {
 
-    List<TopicEntity> findAllBySubjectId(Long subjectId);
+    List<TopicEntity> findAllBySubjectEntityId(Long subjectId);
 }
 
