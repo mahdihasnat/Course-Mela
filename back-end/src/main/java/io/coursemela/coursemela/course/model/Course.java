@@ -19,5 +19,5 @@ public class Course {
     private String name;
     private String cover_photo_path;
     private String description;
-    private List<CourseTag> courseTags;
+    private List<Tag> tags;
 }

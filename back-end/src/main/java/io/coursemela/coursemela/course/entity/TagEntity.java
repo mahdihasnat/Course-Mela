@@ -1,12 +1,14 @@
 package io.coursemela.coursemela.course.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Data
 @Entity
+@NoArgsConstructor
 public class TagEntity {
 
     @Id
@@ -18,5 +20,6 @@ public class TagEntity {
 
     @OneToMany(mappedBy = "tagEntity")
     Set<CourseTagEntity> courseTagEntities;
+
 
 }
