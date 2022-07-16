@@ -36,8 +36,13 @@ const Registration = () => {
                 values.lastName,
                 values.email,
                 values.password,
-                
-            )
+
+            ).then(res => {
+                console.log(res);
+                console.error('redirect to login with homepage');
+            }).catch(err => {
+                alert(err.message);
+            }).finally(() => {})
         },
     });
     return (
