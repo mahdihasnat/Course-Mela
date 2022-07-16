@@ -1,5 +1,7 @@
 package io.coursemela.coursemela.shared.controller;
 
+import io.coursemela.coursemela.course.model.Subject;
+import io.coursemela.coursemela.course.model.Topic;
 import io.coursemela.coursemela.instructor.model.Instructor;
 import io.coursemela.coursemela.instructor.service.InstructorService;
 import io.coursemela.coursemela.shared.entity.AuthenticateRequest;
@@ -52,9 +54,18 @@ public class Authenticate {
     private JwtUtils jwtUtils;
 
     @GetMapping("/hello")
-    public String  hello(@RequestParam("name") String name ){
-        return "hello " + name;
+    public String  hello(@RequestParam("name") String name, @RequestParam("id") int id ,
+    @RequestParam(name = "role", required = false) String role) {
+        return "hello " + name + " " + id + " " + role;
     }
+
+    @PostMapping("/test")
+    public String  helloPost(@RequestParam("name") String name, @RequestParam("id") int id ,
+    @RequestParam(name = "role", required = false) String role,
+    Subject sub) {
+        return "hello " + name + " " + id + " " + role + " " + sub;
+    }
+    
 
     @GetMapping("/test")
     public String test(){

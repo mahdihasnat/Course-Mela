@@ -6,9 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
+import javax.websocket.server.PathParam;
 
 @RestController
 @RequestMapping("/topic")
@@ -16,8 +19,8 @@ public class TopicController {
 
     @Autowired
     private TopicService topicService;
-    @GetMapping("/{subjectId}")
-    List<Topic> getTopicBySubjectId(@PathVariable Long subjectId)
+    @GetMapping("/")
+    List<Topic> getTopicBySubjectId(@RequestParam Long subjectId)
     {
         System.out.println("SubjectId:"+subjectId);
         return topicService.getTopicBySubjectId(subjectId);
