@@ -1,8 +1,7 @@
 package io.coursemela.coursemela.course.entity;
 
 import io.coursemela.coursemela.course.model.Course;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,48 +10,14 @@ import java.util.Objects;
 
 //https://www.baeldung.com/jpa-many-to-many
 
-@Embeddable
-class CourseTagKey implements Serializable{
 
-    @Column(name = "courseId")
-    Long courseId;
-
-    @Column(name="tagId")
-    Long tagId;
-
-    public Long getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(Long courseId) {
-        this.courseId = courseId;
-    }
-
-    public Long getTagId() {
-        return tagId;
-    }
-
-    public void setTagId(Long tagId) {
-        this.tagId = tagId;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CourseTagKey that = (CourseTagKey) o;
-        return courseId.equals(that.courseId) && tagId.equals(that.tagId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(courseId, tagId);
-    }
-}
 
 
 @Entity
 @Data
+@ToString(exclude = "courseEntity")
+@EqualsAndHashCode(exclude="courseEntity")
+@NoArgsConstructor
 public class CourseTagEntity {
 
     @EmbeddedId
@@ -61,6 +26,7 @@ public class CourseTagEntity {
     @ManyToOne
     @MapsId("courseId")
     @JoinColumn(name = "courseId")
+
     CourseEntity courseEntity;
 
     @ManyToOne
@@ -71,5 +37,6 @@ public class CourseTagEntity {
     public CourseTagEntity(CourseEntity courseEntity, TagEntity tagEntity) {
         this.courseEntity = courseEntity;
         this.tagEntity = tagEntity;
+        this.id = new CourseTagKey(courseEntity.getId(),tagEntity.getId());
     }
 }

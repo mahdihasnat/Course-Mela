@@ -7,14 +7,14 @@ import {jsonAuthorizedHeader} from "../../shared/Header";
 
 class CourseService{
 
-    createCourse(topic,name, description, tag, ){
+    createCourse(topic,name, description, tags, ){
         const course = {
             // id: 1,
             // instructor: null,
             topic: topic,
             name: name,
             description: description,
-            tag: tag,
+            tags: tags,
 
         }
 

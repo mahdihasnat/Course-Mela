@@ -45,10 +45,11 @@ public class CourseEntity {
         this.instructorEntity = new InstructorEntity(course.getInstructor());
         this.topicEntity = new TopicEntity(course.getTopic());
         this.name = course.getName();
-        this.courseTagEntities = new HashSet<>();
         this.description = course.getDescription();
+        this.courseTagEntities = new HashSet<>();
         for(Tag tag:course.getTags())
             this.courseTagEntities.add(new CourseTagEntity(this,new TagEntity(tag)));
+
     }
 
     public CourseEntity() {
