@@ -22,7 +22,7 @@ function AddCourse() {
     const [newThingToFocus, setNewThingToFocus] = React.useState("");
 
     const [description, setDescription] = React.useState('');
-
+    const [courseName, setCourseName] = React.useState('');
 
     const textarea_coursename = "Let your course have an enticing name";
     const textarea_desc = "Provide an optional course description to let students know about your course...";
@@ -81,6 +81,10 @@ function AddCourse() {
     const handleDescriptionChange = e => {
         setDescription(e.target.value)
     }
+
+    const handleCourseNameChange = e => {
+        setCourseName(e.target.value)
+    }
     
     const handleFocusedThingsChange = (thing, id) => {
         setThingsToFocus(thingsToFocus.filter((_, index) => index !== id));
@@ -112,7 +116,7 @@ function AddCourse() {
         e.preventDefault();
         CourseService.createCourse(
             topics[chosenTopicId],
-            'limit',
+            courseName,
             description,
             [],
             
@@ -171,7 +175,9 @@ function AddCourse() {
                 </div>
                 <div className='container add-course-desc'>
                     <span style={{ fontSize: "1.5rem", fontWeight: "bold" }}>Course Name</span><br />
-                    <input type={"text"} placeholder={ textarea_coursename } style={{ border: "1px solid", borderRadius: "10px" }} />
+                    <input type={"text"} placeholder={ textarea_coursename }
+                      onChange={handleCourseNameChange} required
+                     style={{ border: "1px solid", borderRadius: "10px" }}  />
                 </div>
                 <div className='container add-course-desc'>
                     <span style={{fontSize: "1.5rem", fontWeight: "bold"}}>Course Description</span><br/>
