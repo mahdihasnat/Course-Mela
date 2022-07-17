@@ -7,6 +7,8 @@ import { useLoginContext } from '../../../store/contexts/LoginContext';
 import { LoginWithDispatch } from '../../../store/storeIndex';
 import { useNavigate } from 'react-router-dom';
 import LoginService from '../../../services/auth/LoginService';
+import {Form} from 'reactstrap';	
+// import {Button} from 'bo';	
 
 const Registration = () => {
     const navigate = useNavigate();
@@ -61,7 +63,7 @@ const Registration = () => {
     return (
         
 
-        <form onSubmit={formik.handleSubmit}>
+        <Form onSubmit={formik.handleSubmit}>
             <label htmlFor="userName">user Name</label>
             <input
                 id="userName"
@@ -144,7 +146,7 @@ const Registration = () => {
                     <div>{formik.errors.confirmPassword}</div>
                 ) : null}
 
-            <div id="my-radio-group">Picked</div>
+            <div id="my-radio-group">Role</div>
                 <div role="group" aria-labelledby="my-radio-group">
                     <label>
                     <input type="radio" name="picked" value={STUDENT} onClick={formik.handleChange} />
@@ -157,8 +159,8 @@ const Registration = () => {
                     {/* <div>Picked: {formik.values.picked}</div>  */}
                 </div>
             {/* </div> */}
-            <button type="submit">Submit</button>
-        </form>
+            <button type="submit" >Submit</button>
+        </Form>
     );
 };
 
