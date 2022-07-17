@@ -3,8 +3,13 @@ import {  Formik, useFormik } from 'formik';
 import * as Yup from 'yup';
 import RegistrationService from '../../../services/auth/RegistrationService';
 import { INSTRUCTOR, STUDENT } from '../../../shared/StringConstant';
+import { useLoginContext } from '../../../store/contexts/LoginContext';
+import { LoginWithDispatch } from '../../../store/storeIndex';
+import { useNavigate } from 'react-router-dom';
 
 const Registration = () => {
+    const navigate = useNavigate();
+    const [state, dispatch] = useLoginContext();
     const formik = useFormik({
         initialValues: {
             userName: '',
@@ -13,7 +18,7 @@ const Registration = () => {
             email: '',
             password: '',
             confirmPassword: '',
-            picked: '',
+            picked: STUDENT,
         },
         validationSchema: Yup.object({
             userName: Yup.string()
@@ -38,12 +43,15 @@ const Registration = () => {
                 values.lastName,
                 values.email,
                 values.password,
-                INSTRUCTOR,
+                values.picked,
 
 
             ).then(res => {
+                alert('account was created successfully');
                 console.log(res);
                 console.error('redirect to login with homepage');
+                LoginWithDispatch(values.userName, values.password, dispatch);
+                navigate('/');
             }).catch(err => {
                 alert(err.message);
             }).finally(() => {})
@@ -135,18 +143,19 @@ const Registration = () => {
                     <div>{formik.errors.confirmPassword}</div>
                 ) : null}
 
-            {/* <div id="my-radio-group">Picked</div>
+            <div id="my-radio-group">Picked</div>
                 <div role="group" aria-labelledby="my-radio-group">
                     <label>
-                    <formik.Field type="radio" name="picked" value="One" />
-                    One
-                    </label>
+                    <input type="radio" name="picked" value={STUDENT} onClick={formik.handleChange} />
+                    student
+                    </label> 
                     <label>
-                    <formik.Field type="radio" name="picked" value="Two" />
-                    Two
+                    <input type="radio" name="picked" value={INSTRUCTOR} onClick={formik.handleChange} />
+                    instructor
                     </label>
-                    <div>Picked: {formik.values.picked}</div>
-            </div> */}
+                    {/* <div>Picked: {formik.values.picked}</div>  */}
+                </div>
+            {/* </div> */}
             <button type="submit">Submit</button>
         </form>
     );
