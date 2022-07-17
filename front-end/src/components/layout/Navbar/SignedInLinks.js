@@ -14,8 +14,10 @@ const SignedInLinks = () => {
 
   const handleLogout = () => {
     console.log('logout');
-    localStorage.removeItem('jwtToken');
+    // localStorage.removeItem('jwtToken');
+
     dispatch({ type: LOG_OUT});
+    localStorage.clear();
     navigate('/');
   }
 

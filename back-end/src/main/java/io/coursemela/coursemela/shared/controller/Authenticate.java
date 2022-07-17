@@ -16,12 +16,17 @@ import io.coursemela.coursemela.user.service.UserService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.Date;
 
 
@@ -91,8 +96,22 @@ public class Authenticate {
                 authenticateRequest.getUserName()
         );
         final String jwt = jwtUtils.generateToken(userDetails);
-//        System.out.println(jwt);
-        return ResponseEntity.ok(new AuthenticateResponse(jwt));
+//         System.out.println(userDetails.getAuthorities());
+//         final String role = userDetails.getAuthorities().iterator().next().toString().substring(5).toLowerCase();
+// //        System.out.println(jwt);
+//         System.out.println(role);
+        return ResponseEntity.ok(new AuthenticateResponse(jwt ));
+    }
+
+
+    @PostMapping("/role")
+    public Collection<? extends GrantedAuthority> getRole(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication instanceof AnonymousAuthenticationToken)
+            return null;
+        authentication.getAuthorities().forEach(System.out::println);
+        // [ROLE_STUDENT]
+        return authentication.getAuthorities(); //.iterator().next().toString().substring(5).toLowerCase();
     }
 
     @Autowired

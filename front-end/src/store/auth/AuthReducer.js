@@ -1,3 +1,4 @@
+import { INSTRUCTOR } from "../../shared/StringConstant"
 import {
     LOGIN_REQUEST, 
     LOGIN_SUCCESS,  
@@ -10,6 +11,7 @@ import {
 
 export const initAuthState = {
     userName: '',
+    userRole: '',	// instructor or student
     isSignedIn: false,
     isLoginPressed: false,
 
@@ -30,6 +32,8 @@ const AuthReducer = (state = initAuthState, action) => {
         case LOGIN_SUCCESS:
             return {
                 ...state,
+                userRole: action.payload.userRole,
+
                 isSignedIn: action.payload.isSignedIn,
                 isLoginPressed: false
             }
@@ -47,13 +51,16 @@ const AuthReducer = (state = initAuthState, action) => {
             return {
                 ...state,
                 isSignedIn: true,
-                isLoginPressed: false,
+                isLoginPressed: false, 
+                // userRole: action.payload.userRole,
+
             }
         case LOG_OUT:
             return{
                 ...state,
                 isSignedIn: false,
                 isLoginPressed: false,
+                userRole: '',	
             }
         default:
             return state

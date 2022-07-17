@@ -12,7 +12,7 @@ class TagService{
 			{
 				method:"GET",
 				url:joinUrl(TAG_URL,''),
-				headers:jsonAuthorizedHeader
+				headers:jsonAuthorizedHeader()
 			}
 		)
 	}
@@ -21,7 +21,7 @@ class TagService{
 			{
 				method:"POST",
 				url:joinUrl(TAG_URL,''),
-				headers:jsonAuthorizedHeader,
+				headers:jsonAuthorizedHeader(),
 				data:tag
 			}
 		)

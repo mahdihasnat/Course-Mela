@@ -1,12 +1,14 @@
 import React from 'react'
 import axios from 'axios';
 import { useLoginContext } from '../../../store/contexts/LoginContext'
-import joinUrl from '../../../utils/url';
-import { baseUrl } from '../../../shared/urls';
-import { LoginWithDispatch } from '../../../store/storeIndex';
 import { useState } from 'react';
+import LoginService from '../../../services/auth/LoginService';
+
+import { useNavigate } from 'react-router-dom';
 
 const LoginModalPopup = () => {
+
+  const navigate  = useNavigate();
 
   const [state, dispatch] = useLoginContext();
   const [username, setUsername] = useState("");
@@ -30,9 +32,10 @@ const LoginModalPopup = () => {
     //   console.log(error);
     // }
     // dispatch({ type: "LOGIN" })
-    LoginWithDispatch(username, pwd, dispatch)
+    LoginService.LoginWithDispatch(username, pwd, dispatch)
     // dispatch(Login("jhon", "123"));	
     console.log("Login clicked ");
+    navigate("/");
   }
 
   return (
