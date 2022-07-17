@@ -2,7 +2,9 @@ package io.coursemela.coursemela.course.entity;
 
 import io.coursemela.coursemela.course.model.Tag;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -10,6 +12,8 @@ import java.util.Set;
 @Data
 @Entity
 @NoArgsConstructor
+@ToString(exclude = "courseTagEntities")
+@EqualsAndHashCode(exclude="courseTagEntities")
 public class TagEntity {
 
     @Id

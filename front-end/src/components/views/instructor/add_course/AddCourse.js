@@ -124,7 +124,7 @@ function AddCourse() {
             topics[chosenTopicId],
             courseName,
             description,
-            [],
+            thingsToFocus,
             
         )
         navigate('/edit-course');
