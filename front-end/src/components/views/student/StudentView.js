@@ -1,8 +1,9 @@
 import React from 'react'
 // import CourseList from './CourseList'
-import CourseList from '../guestView/CourseList'
+// import CourseList from '../guestView/CourseList'
 
 import Tron from '../guestView/Tron'
+import StudentCourseList from './StudentCourseList'
 
 function StudentView() {
   return (
@@ -11,7 +12,8 @@ function StudentView() {
         <ImageSliderComponent />
       </div> */}
       <Tron />
-      <CourseList title="Most Popular" />
+      <StudentCourseList title="All Courses" />
+      <StudentCourseList title="Popular Courses" />
       <hr />
       {/* <GuestViewEnhancer />
       <hr />

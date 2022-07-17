@@ -35,7 +35,8 @@ const AuthReducer = (state = initAuthState, action) => {
                 userRole: action.payload.userRole,
 
                 isSignedIn: action.payload.isSignedIn,
-                isLoginPressed: false
+                isLoginPressed: false,
+                userName: action.payload.userName,
             }
         case LOGIN_MODAL_PRESSED:
             return {

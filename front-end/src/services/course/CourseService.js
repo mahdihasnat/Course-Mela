@@ -26,6 +26,15 @@ class CourseService{
         })
     }
 
+    getAllCourses(){
+        return axios({
+            method: "GET",
+            url: joinUrl(COURSE_URL, ''),
+            headers:jsonAuthorizedHeader()
+            
+        })
+    }
+
 }
 
 

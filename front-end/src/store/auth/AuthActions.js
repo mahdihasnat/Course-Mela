@@ -12,12 +12,13 @@ export const loginSubmit = () => {
     }
 }
 
-export const loginSuccess = (userRole) => {
+export const loginSuccess = (userRole, userName) => {
     return {
         type: 'LOGIN_SUCCESS',
         payload:{
             isSignedIn: true,
             userRole: userRole,
+            userName: userName,
         }
     }
 }

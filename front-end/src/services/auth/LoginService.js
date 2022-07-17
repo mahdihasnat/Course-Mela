@@ -38,7 +38,8 @@ class LoginService{
                         const role = response.data.map(role => role.authority);
                         console.log(role);
                         localStorage.setItem('userRole', role);
-                        dispatch(loginSuccess(role));
+                        localStorage.setItem('userName', userName);
+                        dispatch(loginSuccess(role, userName));
                         // return role;
                         /// TO DO which role you select in the dropdown menu
                     

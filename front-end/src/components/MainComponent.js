@@ -31,6 +31,7 @@ function MainComponent() {
            type: PRE_LOGGED_IN,
            payload : {
               userRole: localStorage.getItem('userRole'),
+              userName: localStorage.getItem('userName'),
            }
           }
           );
