@@ -53,8 +53,8 @@ const AuthReducer = (state = initAuthState, action) => {
                 ...state,
                 isSignedIn: true,
                 isLoginPressed: false, 
-                // userRole: action.payload.userRole,
-
+                userRole: action.payload.userRole,
+                userName: action.payload.userName,
             }
         case LOG_OUT:
             return{
