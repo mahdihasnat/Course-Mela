@@ -3,10 +3,7 @@ package io.coursemela.coursemela.course.controller;
 import io.coursemela.coursemela.course.model.Tag;
 import io.coursemela.coursemela.course.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +18,13 @@ public class TagController {
     List<Tag> getTags(){
         return tagService.getTags();
     }
-    
+
+
+    @PostMapping("/")
+    Tag createTag(@RequestBody Tag tag)
+    {
+        System.out.println("post req tag="+tag);
+        return tagService.createTag(tag);
+    }
+
 }

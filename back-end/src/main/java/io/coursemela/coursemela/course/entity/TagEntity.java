@@ -16,7 +16,7 @@ public class TagEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     String name;
 
     @OneToMany(mappedBy = "tagEntity")

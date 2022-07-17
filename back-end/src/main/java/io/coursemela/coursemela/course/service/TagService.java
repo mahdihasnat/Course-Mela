@@ -16,13 +16,10 @@ public class TagService {
     private TagRepository tagRepository;
 
     public Tag createTag(Tag tag){
-        TagEntity tagEntity = new TagEntity();
-        tagEntity.setId(tag.getId());
-        tagEntity.setName(tag.getName());
+        TagEntity tagEntity = new TagEntity(tag);
         tagEntity = tagRepository.save(tagEntity);
-        tag.setId(tagEntity.getId());
-        tag.setName(tagEntity.getName());
-        return  tag;
+        tag = new Tag(tagEntity);
+        return tag;
     }
 
     public List<Tag> getTags(){

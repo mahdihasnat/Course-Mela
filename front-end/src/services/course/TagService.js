@@ -16,6 +16,16 @@ class TagService{
 			}
 		)
 	}
+	createTag(tag){
+		return axios(
+			{
+				method:"POST",
+				url:joinUrl(TAG_URL,''),
+				headers:jsonAuthorizedHeader,
+				data:tag
+			}
+		)
+	}
 }
 
 

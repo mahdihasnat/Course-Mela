@@ -16,7 +16,7 @@ function AddCourse() {
     const [selectedImg, setSelectedImg] = React.useState(null);
     const [selectedImgName, setSelectedImgName] = React.useState(null);
     
-    const [remainingThingsToFocus, setRemainingThingsToFocus] = React.useState(thingsWeFocus);
+    const [remainingThingsToFocus, setRemainingThingsToFocus] = React.useState([]);
     const [thingsToFocus, setThingsToFocus] = React.useState([]);
     const [addingThings, setAddingThings] = React.useState(false);
     const [newThingToFocus, setNewThingToFocus] = React.useState("");
@@ -65,7 +65,7 @@ function AddCourse() {
         TagService.getTags()
             .then((response) =>{
                 console.log(response.data);
-                // setThingsToFocus(response.data)
+                setRemainingThingsToFocus(response.data);
             }).catch((error) =>{
                 console.log(error)
             })
@@ -101,11 +101,17 @@ function AddCourse() {
     }
 
     const handleAddThingToFocusSubmit = (e) => {
-      e.preventDefault();
-      newThingToFocus && setRemainingThingsToFocus([...remainingThingsToFocus, newThingToFocus]);
-      setNewThingToFocus("");
-      setAddingThings(false);
-    }
+        e.preventDefault();
+        newThingToFocus &&
+          TagService.createTag({
+            name: newThingToFocus,
+          }).then((response) => {
+            console.log(response);
+            setRemainingThingsToFocus([...remainingThingsToFocus, response.data]);
+          });
+        setNewThingToFocus("");
+        setAddingThings(false);
+      };
 
     const handleTopicSelection = e => {
         const id = parseInt(e.target.value, 10)
@@ -191,7 +197,7 @@ function AddCourse() {
                       {
                           thingsToFocus.map((thing, index) => (
                               <span key={index} className='upload-courseimg-label' style={{ marginRight: "10px" }} onClick={() => handleFocusedThingsChange(thing, index)}>
-                                  {thing}
+                                  {thing.name}
                                   <i className="fa fa-times" style={{ color: "white", fontSize: "15px", marginLeft: "5px" }}></i>
                               </span>
                           ))
@@ -203,7 +209,7 @@ function AddCourse() {
                       remainingThingsToFocus.map((thing, index) => (
                           <span key={index} className='upload-courseimg-label' style={{ marginRight: "10px" }} onClick={() => handleRemainingFocusedThingsChange(thing, index)}>
                               <i className="fa fa-plus" style={{ color: "white", fontSize: "15px", marginRight: "5px" }}></i>
-                              {thing}
+                              {thing.name}
                           </span>
                       ))
                   }
