@@ -4,7 +4,7 @@ import { useLoginContext } from '../../../store/contexts/LoginContext'
 import { useState } from 'react';
 import LoginService from '../../../services/auth/LoginService';
 
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const LoginModalPopup = () => {
 
@@ -56,7 +56,7 @@ const LoginModalPopup = () => {
             </div>
 
             <div className="login-container" style={{ backgroundColor:"#f1f1f1" }}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}><span>No account? <a href="#"> Create one</a></span></div>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}><span>No account? <Link to = '/register' onClick = {handleCloseModal}> Create one</Link></span></div>
             </div>
         </form>
     </div>
