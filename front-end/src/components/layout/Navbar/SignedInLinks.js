@@ -27,8 +27,8 @@ const SignedInLinks = () => {
         <div className='logo'><Link to="/" className='Link-dec'>CourseMela</Link></div>
         <ul className="nav-links">
           <li><Link to="/" className='Link-dec'>Home</Link></li>
-          <li><Link to="/" className='Link-dec'>Subjects</Link></li>
-          { state.userRole === ROLE_INSTRUCTOR ? <li><Link to="/" className='Link-dec'>Add Course</Link></li> : null }
+          <li><Link to="/" className='Link-dec'>Subjects </Link></li>
+          { state.userRole == ROLE_INSTRUCTOR ? <li><Link to="/add-course" className='Link-dec'>Add Course</Link></li> : null }
           {/* <li><Link to="/add-course" className='Link-dec'>Add Course</Link></li> */}
         {/* {
             navlinks.map((navlink, index) => <li key={index}><Link to="/" className='Link-dec'>{navlink}</Link></li>)

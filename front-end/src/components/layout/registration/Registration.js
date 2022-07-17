@@ -7,7 +7,8 @@ import { useLoginContext } from '../../../store/contexts/LoginContext';
 import { LoginWithDispatch } from '../../../store/storeIndex';
 import { useNavigate } from 'react-router-dom';
 import LoginService from '../../../services/auth/LoginService';
-import {Form} from 'reactstrap';	
+import {Form} from 'reactstrap';
+import {Button} from 'reactstrap';	
 // import {Button} from 'bo';	
 
 const Registration = () => {
@@ -62,7 +63,7 @@ const Registration = () => {
     });
     return (
         
-
+        <div>
         <Form onSubmit={formik.handleSubmit}>
             <label htmlFor="userName">user Name</label>
             <input
@@ -159,8 +160,10 @@ const Registration = () => {
                     {/* <div>Picked: {formik.values.picked}</div>  */}
                 </div>
             {/* </div> */}
-            <button type="submit" >Submit</button>
+            <Button type="submit" color="primary" >Submit</Button>
         </Form>
+        {/* <Button color="primary">Random Button</Button> */}
+        </div>
     );
 };
 
