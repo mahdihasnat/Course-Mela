@@ -14,6 +14,7 @@ import Registration from "./layout/registration/Registration";
 import { PRE_LOGGED_IN } from '../store/auth/AuthTypes';
 
 import { useEffect } from 'react';
+import LoginService from '../services/auth/LoginService';
 
 function MainComponent() {
 
@@ -22,7 +23,15 @@ function MainComponent() {
   useEffect(() => {
 
     if(localStorage.getItem('jwtToken') !== null) {
-      dispatch({ type: PRE_LOGGED_IN });
+      
+
+        dispatch({
+           type: PRE_LOGGED_IN,
+           payload : {
+              userRole: localStorage.getItem('userRole'),
+           }
+          }
+          );
     }
 
   }, []);

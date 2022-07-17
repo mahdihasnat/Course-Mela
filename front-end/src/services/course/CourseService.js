@@ -22,7 +22,7 @@ class CourseService{
             method: "POST",
             url: joinUrl(COURSE_URL, ''),
             data: course,
-            headers:jsonAuthorizedHeader
+            headers:jsonAuthorizedHeader()
         })
     }
 

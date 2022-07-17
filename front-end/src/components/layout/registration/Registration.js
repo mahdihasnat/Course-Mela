@@ -6,6 +6,7 @@ import { INSTRUCTOR, STUDENT } from '../../../shared/StringConstant';
 import { useLoginContext } from '../../../store/contexts/LoginContext';
 import { LoginWithDispatch } from '../../../store/storeIndex';
 import { useNavigate } from 'react-router-dom';
+import LoginService from '../../../services/auth/LoginService';
 
 const Registration = () => {
     const navigate = useNavigate();
@@ -50,7 +51,7 @@ const Registration = () => {
                 alert('account was created successfully');
                 console.log(res);
                 console.error('redirect to login with homepage');
-                LoginWithDispatch(values.userName, values.password, dispatch);
+                LoginService.LoginWithDispatch(values.userName, values.password, dispatch);
                 navigate('/');
             }).catch(err => {
                 alert(err.message);

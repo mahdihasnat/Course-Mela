@@ -5,23 +5,24 @@ import { LOGIN_MODAL_CANCELED } from './AuthTypes';
 import { baseUrl } from '../../shared/urls';
 
 
-const loginSubmit = () => {
+export const loginSubmit = () => {
     return{
         type: 'LOGIN_SUBMIT',
         
     }
 }
 
-const loginSuccess = () => {
+export const loginSuccess = (userRole) => {
     return {
         type: 'LOGIN_SUCCESS',
         payload:{
             isSignedIn: true,
+            userRole: userRole,
         }
     }
 }
 
-const loginError = (error) => {
+export const loginError = (error) => {
     return{
         type: 'LOGIN_ERROR',
         payload: {
@@ -64,26 +65,3 @@ const loginCancel = () => {
 //     }
 // }
 
-export const LoginWithDispatch = (userName, password, dispatch) => {
-
-    dispatch(loginSubmit());
-      
-        axios.post(joinUrl(AUTH_URL,''), {
-            "userName": userName,
-            "password": password,
-        }) 
-            .then(response => {
-                // console.log(response);
-                console.log(response.data);
-                localStorage.setItem('jwtToken', response.data.jwtToken);
-                // dispatch(loginCancel());
-
-                dispatch(loginSuccess());
-
-            }).catch(error => {
-                console.log(error);
-                dispatch(loginError(error.message));
-            }
-        );
-
-}
