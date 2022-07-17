@@ -5,23 +5,25 @@ import { LOGIN_MODAL_CANCELED } from './AuthTypes';
 import { baseUrl } from '../../shared/urls';
 
 
-const loginSubmit = () => {
+export const loginSubmit = () => {
     return{
         type: 'LOGIN_SUBMIT',
         
     }
 }
 
-const loginSuccess = () => {
+export const loginSuccess = (userRole, userName) => {
     return {
         type: 'LOGIN_SUCCESS',
         payload:{
             isSignedIn: true,
+            userRole: userRole,
+            userName: userName,
         }
     }
 }
 
-const loginError = (error) => {
+export const loginError = (error) => {
     return{
         type: 'LOGIN_ERROR',
         payload: {
@@ -39,51 +41,28 @@ const loginCancel = () => {
 }
 
 
-export const Login = (userName, password) => {
+// export const Login = (userName, password) => {
     
-    return (dispatch) => {
-        dispatch(loginSubmit());
+//     return (dispatch) => {
+//         dispatch(loginSubmit());
       
-        axios.post(AUTH_URL, {
-            "userName": userName,
-            "password": password,
-        }) 
-            .then(response => {
-                // console.log(response);
-                console.log(response.data);
-                localStorage.setItem('jwtToken', response.data.jwtToken);
-                // dispatch(loginCancel());
+//         axios.post(joinUrl(AUTH_URL,''), {
+//             "userName": userName,
+//             "password": password,
+//         }) 
+//             .then(response => {
+//                 // console.log(response);
+//                 console.log(response.data);
+//                 localStorage.setItem('jwtToken', response.data.jwtToken);
+//                 // dispatch(loginCancel());
 
-                dispatch(loginSuccess());
+//                 dispatch(loginSuccess());
 
-            }).catch(error => {
-                console.log(error);
-                dispatch(loginError(error.message));
-            }
-        );
-    }
-}
+//             }).catch(error => {
+//                 console.log(error);
+//                 dispatch(loginError(error.message));
+//             }
+//         );
+//     }
+// }
 
-export const LoginWithDispatch = (userName, password, dispatch) => {
-
-    dispatch(loginSubmit());
-      
-        axios.post(AUTH_URL, {
-            "userName": userName,
-            "password": password,
-        }) 
-            .then(response => {
-                // console.log(response);
-                console.log(response.data);
-                localStorage.setItem('jwtToken', response.data.jwtToken);
-                // dispatch(loginCancel());
-
-                dispatch(loginSuccess());
-
-            }).catch(error => {
-                console.log(error);
-                dispatch(loginError(error.message));
-            }
-        );
-
-}

@@ -1,17 +1,15 @@
-package io.coursemela.coursemela.shared.entity;
+package io.coursemela.coursemela.user.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import io.coursemela.coursemela.user.model.User;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
 
-@Getter@Setter
-@MappedSuperclass
-public abstract class User{
+@Data
+@Entity
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false, nullable = false)
@@ -27,20 +25,28 @@ public abstract class User{
     @Column(nullable = false, unique = true)
     protected String email;
 
+
     protected String passsword;
 
 //    ''' '''
     /// make mobile phone oneTomany
     protected String mobileNo;
-    // use of address
 
 
     private Date dateOfJoin;
 
-    public User(){}
+    public UserEntity(User user){
+        this.id = user.getId();
+        this.userName = user.getUserName();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.email = user.getEmail();
+        this.passsword = user.getPassword();
+        this.mobileNo = user.getMobileNo();
+        this.dateOfJoin = user.getDateOfJoin();
+    }
 
-    public User(String userName, String firstName, String lastName, String email, String passsword, String mobileNo, Date dateOfJoin) {
-//        this.id = id;
+    public UserEntity(String userName, String firstName, String lastName, String email, String passsword, String mobileNo, Date dateOfJoin) {
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -50,5 +56,6 @@ public abstract class User{
         this.dateOfJoin = dateOfJoin;
     }
 
-
+    public UserEntity() {
+    }
 }

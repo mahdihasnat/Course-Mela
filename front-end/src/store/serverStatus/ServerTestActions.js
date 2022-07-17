@@ -1,6 +1,6 @@
 import axios from 'axios';
 import joinUrl from '../../utils/url';
-import { baseUrl } from '../../shared/urls';
+import { AUTH_URL, baseUrl } from '../../shared/urls';
 
 import { TEST_SERVER_LOADING, TEST_SERVER_SUCCESS, TEST_SERVER_ERROR } from './ServerTestTypes';
 
@@ -30,7 +30,6 @@ export const testServer = () => {
 
 
         dispatch(testServerLoading());
-        const url = joinUrl(baseUrl, 'hello');
         const header =  {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
@@ -41,7 +40,7 @@ export const testServer = () => {
         // axios.get(url, {headers:header} )
         axios({
             method: 'get',
-            url: url,
+            url: joinUrl(AUTH_URL, 'hello'),
             headers: header,
             params:{
                 name : 'test'

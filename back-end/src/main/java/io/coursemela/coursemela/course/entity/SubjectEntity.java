@@ -1,5 +1,6 @@
-package io.coursemela.coursemela.shared.entity;
+package io.coursemela.coursemela.course.entity;
 
+import io.coursemela.coursemela.course.model.Subject;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -7,7 +8,7 @@ import javax.persistence.*;
 
 @Data
 @Entity
-public class Subject {
+public class SubjectEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,12 +17,17 @@ public class Subject {
     @Column(nullable = false)
     private String name;
 
-    public Subject(Long id, String name) {
+    public SubjectEntity(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Subject() {
+    public SubjectEntity() {
+    }
+
+    public SubjectEntity(Subject subject){
+        this.id = subject.getId();
+        this.name = subject.getName();
     }
 
     @Override

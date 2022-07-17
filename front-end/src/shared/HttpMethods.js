@@ -6,7 +6,7 @@ export const _get = (url, params={}) =>{
     return axios({
         method: 'get',
         url: url ,
-        headers: getHeader,
+        headers: getHeader(),
         params : params
 
     })
