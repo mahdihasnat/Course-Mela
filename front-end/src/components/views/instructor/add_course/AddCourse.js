@@ -125,7 +125,7 @@ function AddCourse() {
             courseName,
             description,
             thingsToFocus,
-            
+            selectedImg
         )
         navigate('/edit-course');
         

@@ -13,3 +13,10 @@ export const jsonAuthorizedHeader = () => {
         'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
     };
 }
+
+export const fileAuthorizedHeader = () => {
+    return {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
+    };
+}

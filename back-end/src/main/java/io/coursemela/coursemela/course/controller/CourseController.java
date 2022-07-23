@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +26,11 @@ public class CourseController {
     private InstructorService instructorService;
 
     @PostMapping("/")
-    Course createCourse(@RequestBody Course course)
+    Course createCourse(@RequestBody Course course, @RequestParam("coverImage")MultipartFile coverImage)
     {
         try {
             System.out.println("course:"+course.toString());
+            System.out.println("file:"+coverImage);
             if(course.getTags() == null)
                 course.setTags(new ArrayList<>());
             String currentUserName = UserContext.getUserName();
