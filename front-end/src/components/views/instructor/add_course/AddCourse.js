@@ -127,6 +127,9 @@ function AddCourse() {
             thingsToFocus,
             selectedImg
         )
+
+        CourseService.uploadCourseImage("1", selectedImg)
+
         navigate('/edit-course');
         
 

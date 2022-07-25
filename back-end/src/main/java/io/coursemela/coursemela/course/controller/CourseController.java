@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.http.MediaType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +26,12 @@ public class CourseController {
     @Autowired
     private InstructorService instructorService;
 
-    @PostMapping("/")
-    Course createCourse(@RequestBody Course course, @RequestParam("coverImage")MultipartFile coverImage)
+    @PostMapping(value = "/")
+    Course createCourse(@RequestBody Course course)
     {
         try {
             System.out.println("course:"+course.toString());
-            System.out.println("file:"+coverImage);
+            // System.out.println("file:"+coverImage);
             if(course.getTags() == null)
                 course.setTags(new ArrayList<>());
             String currentUserName = UserContext.getUserName();
@@ -44,6 +45,22 @@ public class CourseController {
             return null;
         }
 
+    }
+
+    @PostMapping(value="updateCoverImage")
+    public Course updateCoverImage(@RequestParam("id") Long id, @RequestParam("coverImage")MultipartFile coverImage)
+    {
+        try {
+            // courseService.updateCoverImage(id, coverImage);
+            System.out.println("IMPLEMENT UPDATE COVER IMAGE CODE HERE");
+
+            return null;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @GetMapping("/")

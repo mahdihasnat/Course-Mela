@@ -1,13 +1,15 @@
 import axios from "axios";
 import {_get} from "../../shared/HttpMethods";
-import { COURSE_URL } from "../../shared/urls";
+import {COURSE_URL} from "../../shared/urls";
 import joinUrl from "../../utils/url";
 import {fileAuthorizedHeader, jsonAuthorizedHeader} from "../../shared/Header";
 
 
-class CourseService{
+class CourseService {
 
-    createCourse(topic,name, description, tags, coverImage){
+    createCourse(topic, name, description, tags, coverImage) {
+        var formData = new FormData();
+
         const course = {
             // id: 1,
             // instructor: null,
@@ -22,16 +24,35 @@ class CourseService{
             method: "POST",
             url: joinUrl(COURSE_URL, ''),
             data: course,
-            headers:fileAuthorizedHeader()
+            headers: jsonAuthorizedHeader()
         })
     }
 
-    getAllCourses(){
+    uploadCourseImage(remoteCourseId,  courseImage) {
+
+        const formData = new FormData();
+        formData.append("coverImage", courseImage)
+        formData.append("id", remoteCourseId)
+        alert(formData)
+        axios({
+            method: "POST",
+            url: joinUrl(COURSE_URL, "updateCoverImage"),
+            data: formData,
+            headers: fileAuthorizedHeader(),
+        }).then(response =>{
+            alert("success");
+        }).catch(err =>{
+            alert("error in sending the image! try again later.");
+        })
+
+    }
+
+    getAllCourses() {
         return axios({
             method: "GET",
             url: joinUrl(COURSE_URL, ''),
-            headers:jsonAuthorizedHeader()
-            
+            headers: jsonAuthorizedHeader()
+
         })
     }
 
