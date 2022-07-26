@@ -5,6 +5,8 @@ import io.coursemela.coursemela.course.service.CourseService;
 
 import io.coursemela.coursemela.instructor.service.InstructorService;
 import io.coursemela.coursemela.user.context.UserContext;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RequestMapping("/course")
+@Slf4j
 @RestController
 public class CourseController {
 
@@ -52,8 +55,8 @@ public class CourseController {
     {
         try {
             // courseService.updateCoverImage(id, coverImage);
-            System.out.println("IMPLEMENT UPDATE COVER IMAGE CODE HERE");
-
+//            System.out.println();
+            log.info("IMPLEMENT UPDATE COVER IMAGE CODE HERE");
             return null;
         }
         catch (Exception e)
