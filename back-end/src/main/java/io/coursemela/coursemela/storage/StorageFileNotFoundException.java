@@ -1,4 +1,4 @@
-package io.coursemela.storage;
+package io.coursemela.coursemela.storage;
 
 public class StorageFileNotFoundException extends StorageException {
 

@@ -1,4 +1,4 @@
-package io.coursemela.storage;
+package io.coursemela.coursemela.storage;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -8,7 +8,7 @@ public class StorageProperties {
 	/**
 	 * Folder location for storing files
 	 */
-	private String location = "files";
+	private String location = "file-bucket";
 
 	public String getLocation() {
 		return location;
