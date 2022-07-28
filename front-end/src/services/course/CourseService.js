@@ -40,7 +40,7 @@ class CourseService {
             data: formData,
             headers: fileAuthorizedHeader(),
         }).then(response =>{
-            alert("success");
+            alert("successfully uploaded the course image");
         }).catch(err =>{
             alert("error in sending the image! try again later.");
         })

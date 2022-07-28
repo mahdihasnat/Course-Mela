@@ -18,6 +18,8 @@ import LoginService from '../services/auth/LoginService';
 import { INSTRUCTOR, ROLE_STUDENT } from '../shared/StringConstant';
 import StudentView from './views/student/StudentView';
 
+import Test from './helper/Test'
+
 function MainComponent() {
 
   const [{ isSignedIn, userRole }, dispatch] = useLoginContext();
@@ -45,12 +47,12 @@ function MainComponent() {
       <div className="">
         <Navbar />
         <Routes>
-          <Route exact path='/' element={ isSignedIn ? ( userRole== ROLE_STUDENT? <StudentView/> :  <InstructorHome />) : <GuestView /> } />
-          <Route path='/server' element={<TestServerConncetion />} />
-          <Route path='/add-course' element={<AddCourse />} />
+          <Route exact path='/' element={ isSignedIn ? ( userRole== ROLE_STUDENT? <StudentView/> :  <InstructorHome />) : <GuestView /> } /><Route path='/server' element={<TestServerConncetion />} />
+          {/*<Route path='/test' element={<Test/>} ></Route>*/}
+            <Route path='/add-course' element={<AddCourse />} />
           <Route path='/edit-course' element={<EditCourse />} />
           <Route path='/register' element={<Registration/>}  />
-          {/* <Route exact path='/instr' element={<InstructorHome />} /> */}
+           <Route exact path='/instr' element={<InstructorHome />} />
         </Routes>
         <LoginModal />
         <Footer />

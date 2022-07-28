@@ -7,9 +7,11 @@ import io.coursemela.coursemela.storage.StorageService;
 import io.coursemela.coursemela.user.context.UserContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +26,7 @@ public class CourseController {
     @Autowired
     private InstructorService instructorService;
 
-    @Autowired
-    private StorageService storageService;
+
 
     @PostMapping(value = "/")
     Course createCourse(@RequestBody Course course) {
@@ -48,19 +49,21 @@ public class CourseController {
     }
 
     @PostMapping(value="updateCoverImage")
-    public Course updateCoverImage(@RequestParam("id") Long id, @RequestParam("coverImage")MultipartFile coverImage)
+    public ResponseEntity<Boolean> updateCoverImage(@RequestParam("id") String id, @RequestParam("coverImage")MultipartFile coverImage)
     {
         try {
-            storageService.store(coverImage);
-//            courseService.updateCoverImage(id, coverImage);
-            System.out.println();
-            log.info("IMPLEMENT UPDATE COVER IMAGE CODE HERE");
-            return null;
+//            coverImage.
+
+//            storageService.store(coverImage, id);
+//            System.out.println();
+//            log.info("IMPLEMENT UPDATE COVER IMAGE CODE HERE");
+//            return null;
+             return ResponseEntity.ok(courseService.updateCourseCoverImageLocation(id, coverImage));
         }
         catch (Exception e)
         {
             e.printStackTrace();
-            return null;
+            return  ResponseEntity.ok(false);
         }
     }
 

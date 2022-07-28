@@ -5,9 +5,12 @@ import io.coursemela.coursemela.course.entity.CourseTagEntity;
 import io.coursemela.coursemela.course.model.Course;
 import io.coursemela.coursemela.course.repository.CourseRepository;
 import io.coursemela.coursemela.course.repository.CourseTagRepository;
+import io.coursemela.coursemela.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,6 +18,9 @@ import java.util.stream.Collectors;
 public class CourseServiceImpl implements CourseService {
     @Autowired
     private CourseRepository courseRepository;
+
+    @Autowired
+    private StorageService storageService;
 
     @Autowired
     private CourseTagRepository courseTagRepository;
@@ -48,5 +54,18 @@ public class CourseServiceImpl implements CourseService {
                 .map(course -> new Course(course))
                 .collect(Collectors.toList());
         return courses;
+    }
+
+
+    @Override
+    public boolean updateCourseCoverImageLocation(String courseId, MultipartFile file) {
+        Path path = storageService.store(file, courseId);
+
+        System.out.println(path);
+
+        return true;
+
+//        return true
+
     }
 }

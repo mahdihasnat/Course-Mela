@@ -6,19 +6,23 @@ import SubjectService from "../../../../services/subject/SubjectService";
 import TopicService from "../../../../services/topic/TopicService";
 import SubjectChoice from "./SubjectChoice";
 
-const thingsWeFocus = ["Area", "Calculus", "Trigonometric Ratios", "Divergence"]
+// const thingsWeFocus = ["Area", "Calculus", "Trigonometric Ratios", "Divergence"]
 
 function AddCourse() {
 
     const [chosenId, setChosenId] = React.useState(1);
 
     const [chosenTopicId, setChosenTopicId] = React.useState(-1);
+
     const [selectedImg, setSelectedImg] = React.useState(null);
     const [selectedImgName, setSelectedImgName] = React.useState(null);
     
     const [remainingThingsToFocus, setRemainingThingsToFocus] = React.useState([]);
+
+
     const [thingsToFocus, setThingsToFocus] = React.useState([]);
     const [addingThings, setAddingThings] = React.useState(false);
+
     const [newThingToFocus, setNewThingToFocus] = React.useState("");
 
     const [description, setDescription] = React.useState('');
@@ -31,6 +35,8 @@ function AddCourse() {
     const [subjects, setSubjects] = useState([]);
     const [topics, setTopics] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+
+    const [createdCourseId, setCreatedCourseId] = useState(-1);
 
 
     const handleOptionChange = e => {
@@ -126,12 +132,21 @@ function AddCourse() {
             description,
             thingsToFocus,
             selectedImg
-        )
+        ).then(response=>{
+            // alert(response.data.id)
+            console.log("create course response", response.data)
+            if(selectedImg !== null){
+                CourseService.uploadCourseImage(response.data.id, selectedImg)
 
-        CourseService.uploadCourseImage("1", selectedImg)
+            }
+            navigate('/edit-course');
 
-        navigate('/edit-course');
-        
+        }).catch(err=>{
+            alert("course creation failed ");
+        })
+
+
+
 
     }
 
