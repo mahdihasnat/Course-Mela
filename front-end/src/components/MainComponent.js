@@ -48,7 +48,7 @@ function MainComponent() {
         <Navbar />
         <Routes>
           <Route exact path='/' element={ isSignedIn ? ( userRole== ROLE_STUDENT? <StudentView/> :  <InstructorHome />) : <GuestView /> } /><Route path='/server' element={<TestServerConncetion />} />
-          {/*<Route path='/test' element={<Test/>} ></Route>*/}
+          <Route path='/test' element={<Test/>} ></Route>
             <Route path='/add-course' element={<AddCourse />} />
           <Route path='/edit-course' element={<EditCourse />} />
           <Route path='/register' element={<Registration/>}  />

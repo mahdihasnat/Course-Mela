@@ -7,9 +7,11 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.ws.rs.PathParam;
 import java.io.IOException;
 
 @RestController
@@ -19,11 +21,9 @@ public class FileServerController {
     FileServerService fileServerService;
 
 
-
-
-    @GetMapping(value="/{fileId}",
+    @GetMapping(value = "/image",
             produces = MediaType.IMAGE_JPEG_VALUE)
-    public ResponseEntity<Object> getFile(@PathVariable("fileId") String fileId ) throws IOException {
+    public ResponseEntity<Object> getFile(@PathParam("fileId") String fileId) throws IOException {
 
         Resource resource = fileServerService.getFileByteArray(fileId);
 

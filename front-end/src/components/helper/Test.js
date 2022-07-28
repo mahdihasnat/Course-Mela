@@ -3,50 +3,48 @@ import {useState} from "react";
 import axios from "axios";
 import {getHeader} from "../../shared/Header";
 
+import Image, {Card, Container, Row} from "reactstrap"
+import ImageService from "../../services/content/ImageService";
+
 
 const Test = () => {
 
-    const [image, setImage] = useState();
+    const [image, setImage] = useState('');
 
 
 
-    const getFile = () => {
-        axios({
-                method: "GET",
-                url: "http://localhost:8080/fileserver/14",
-                // params: {
-                //     fileId: 14
-                // }
-                // ,
-                headers: getHeader(),
-                // responseType: 'blob'
-            }
-        ).then(response => {
-            const data = response.data;
-
-            // console.log(data)
-            // cons
-            // setImage(data);
-            return data;
+    const getFile = (url) => {
+        ImageService.loadImage(url).then(response => {
+            const srcurl = window.URL.createObjectURL(new Blob([response.data]));
+            setImage(srcurl);
 
         }).catch(err => {
                 console.log(err.message)
             }
         )
-        return null;
     }
 
     useEffect(
         () => {
-            getFile();
+            getFile("http://localhost:8080/fileserver/image/?fileId=24");
         },[]
     );
 
 
     return (<div>
-            <img  src="http://localhost:8080/fileserver/14" />
+            {/*<img  src="http://localhost:8080/fileserver/14" />*/}
 
-            {/*<img src={getFile()} />*/}
+            {/*<img width={100} src={image} />*/}
+
+            <Container>
+                <Row>
+                    <Card className="col-6 offset-3">
+                        <img  src={image}/>
+                    </Card>
+                </Row>
+            </Container>
+
+
         </div>
     )
 }
