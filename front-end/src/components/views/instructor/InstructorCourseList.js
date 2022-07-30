@@ -48,7 +48,7 @@ function InstructorCourseList({ title, name }) {
 
           // <li key={course.id}><CourseCard title={course.title} teacher={name} rating={course.rating} price={course.price} discount={course.discount} thumbPath={course.thumbPath} /></li>
           //   <li key={course.id}><CourseCard title={course.name} teacher={name} rating={2.5} price={100} discount={40} thumbPath={require('../../../assets/coursethumb4.png')} /></li>
-            <li key={course.id}><CourseCard title={course.name} teacher={name} rating={2.5} price={100} discount={40} thumbPath={course.cover_photo_path} /></li>
+            <li key={course.id}><CourseCard id={course.id} title={course.name} teacher={name} rating={2.5} price={100} discount={40} thumbPath={course.cover_photo_path} /></li>
 
           )}
       </ul>

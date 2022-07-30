@@ -5,6 +5,9 @@ import io.coursemela.coursemela.user.model.User;
 import lombok.Data;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 @Data
@@ -25,7 +28,7 @@ public class UserEntity {
     @Column(nullable = false, unique = true)
     protected String email;
 
-
+    @JsonIgnore
     protected String passsword;
 
 //    ''' '''

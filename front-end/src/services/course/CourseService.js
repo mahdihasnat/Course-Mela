@@ -1,6 +1,6 @@
 import axios from "axios";
 import {_get} from "../../shared/HttpMethods";
-import {COURSE_URL} from "../../shared/urls";
+import {COURSE_URL, INSTR_URL} from "../../shared/urls";
 import joinUrl from "../../utils/url";
 import {fileAuthorizedHeader, jsonAuthorizedHeader} from "../../shared/Header";
 
@@ -53,6 +53,14 @@ class CourseService {
             url: joinUrl(COURSE_URL, ''),
             headers: jsonAuthorizedHeader()
 
+        })
+    }
+
+    getCourseInstructorView(id){
+        return axios({
+            method: "GET", 
+            url: joinUrl(INSTR_URL, "courses", id),
+            headers: jsonAuthorizedHeader()
         })
     }
 

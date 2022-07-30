@@ -11,7 +11,7 @@ import InstructorHomeService from "../../../services/instructor/InstructorHomeSe
 function InstructorHome() {
 
   const [instructorDetail, setInstructorDetail] = React.useState({
-    userName: "Jahangir Kabir",
+    // userName: "Jahangir Kabir",
     // institution: "Physics, University of Dhaka",
     // sales: 450,
     // salesPercentage: 23,

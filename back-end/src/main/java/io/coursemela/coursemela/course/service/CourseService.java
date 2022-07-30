@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 
-
+@Service
 public interface CourseService {
     Course createCourse(Course course);
 
@@ -16,6 +16,8 @@ public interface CourseService {
     List<Course> getCourseByInstructorUserName(String userName);
 
     boolean updateCourseCoverImageLocation(String courseId, MultipartFile file);
+
+    Course getCourse(Long id);
 
    
 }

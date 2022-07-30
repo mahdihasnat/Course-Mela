@@ -50,6 +50,13 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public Course getCourse(Long id){
+        CourseEntity courseEntity = courseRepository.findById(id).orElse(null);
+        Course course = new Course(courseEntity);
+        return course;
+    }
+
+    @Override
     public List<Course> getCourseByInstructorUserName(String userName){
         List<CourseEntity> courseEntities = courseRepository.findCourseEntitiesByInstructorEntityUserName(userName);
         List<Course> courses = courseEntities

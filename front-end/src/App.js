@@ -1,4 +1,5 @@
 import './App.css';
+// import './static/css/styles.css'
 import { BrowserRouter } from 'react-router-dom'
 import LoginContextProvider from './store/contexts/LoginContext';
 import MainComponent from './components/MainComponent';
