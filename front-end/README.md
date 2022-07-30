@@ -1,3 +1,9 @@
+
+https://github.com/nodesource/distributions/blob/master/README.md#debinstall
+
+`node - 16 is working`
+install using the link
+
 ## Create app
 ### `npx create-react-app coursemela`
 
