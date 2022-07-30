@@ -17,6 +17,7 @@ function InstructorHome() {
     // salesPercentage: 23,
     credit: 2495
   });
+
   const [isLoading, setIsLoading] = React.useState(true);
 
   useEffect( () => {

@@ -1,11 +1,29 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import ReactStars from 'react-rating-stars-component'
+import ImageService from "../../../services/content/ImageService";
 
 function CourseCard({ title, teacher, rating, price, discount, thumbPath }) {
-  return (
+    const [image, setImage] = useState('');
+
+    const getFile = (url) => {
+        ImageService.loadImage(url).then(response => {
+            const srcurl = window.URL.createObjectURL(new Blob([response.data]));
+            setImage(srcurl);
+        }).catch(err => {
+                console.log(err.message)
+            }
+        )
+    }
+
+    useEffect(() => {
+        getFile(thumbPath);
+    }, []);
+    
+    
+    return (
     <div className='card-container'>
         <div className='card-thumb'>
-          <img src={ thumbPath } style={{ borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }} />
+          <img src={ image } style={{ borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }} />
         </div>
         <div className='card-details'>
           <span style={{ fontWeight: "bold" }}>{ title }</span> <br />
