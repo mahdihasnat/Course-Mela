@@ -1,5 +1,6 @@
 package io.coursemela.coursemela.user.model;
 
+import io.coursemela.coursemela.user.entity.InstitutionEntity;
 import io.coursemela.coursemela.user.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,6 +9,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -22,6 +26,8 @@ public class User {
     protected String mobileNo;
     protected Date dateOfJoin;
     protected Address address;
+
+    Set<Institution> institutions;
     public User(UserEntity userEntity)
     {
         this.id = userEntity.getId();
@@ -33,6 +39,9 @@ public class User {
         this.mobileNo = userEntity.getMobileNo();
         this.dateOfJoin = userEntity.getDateOfJoin();
         this.address = new Address(userEntity.getAddress());
+        this.institutions = new HashSet<>();
+        for(InstitutionEntity institutionEntity: userEntity.getInstitutionEntities())
+            institutions.add(new Institution(institutionEntity));
     }
 
 
