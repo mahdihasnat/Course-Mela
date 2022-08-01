@@ -21,6 +21,7 @@ public class User {
     protected String password;
     protected String mobileNo;
     protected Date dateOfJoin;
+    protected Address address;
     public User(UserEntity userEntity)
     {
         this.id = userEntity.getId();
@@ -31,6 +32,7 @@ public class User {
         this.password = userEntity.getPasssword();
         this.mobileNo = userEntity.getMobileNo();
         this.dateOfJoin = userEntity.getDateOfJoin();
+        this.address = new Address(userEntity.getAddress());
     }
 
 

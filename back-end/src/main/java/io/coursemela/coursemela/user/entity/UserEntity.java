@@ -23,6 +23,7 @@ public class UserEntity {
 
     protected String firstName;
 
+
     protected String lastName;
 
     @Column(nullable = false, unique = true)
@@ -31,6 +32,8 @@ public class UserEntity {
     @JsonIgnore
     protected String passsword;
 
+    @Embedded
+    protected AddressEntity address;
 //    ''' '''
     /// make mobile phone oneTomany
     protected String mobileNo;
@@ -47,6 +50,7 @@ public class UserEntity {
         this.passsword = user.getPassword();
         this.mobileNo = user.getMobileNo();
         this.dateOfJoin = user.getDateOfJoin();
+        this.address = new AddressEntity(user.getAddress());
     }
 
     public UserEntity(String userName, String firstName, String lastName, String email, String passsword, String mobileNo, Date dateOfJoin) {
