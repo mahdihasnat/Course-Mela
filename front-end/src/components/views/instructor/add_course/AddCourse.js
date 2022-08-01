@@ -113,7 +113,8 @@ function AddCourse() {
             name: newThingToFocus,
           }).then((response) => {
             console.log(response);
-            setRemainingThingsToFocus([...remainingThingsToFocus, response.data]);
+            
+            setThingsToFocus([...thingsToFocus, response.data]);
           });
         setNewThingToFocus("");
         setAddingThings(false);
