@@ -2,12 +2,17 @@ import React from 'react'
 import AreaChart from './AreaChart'
 import PieChart from './PieChart'
 import VerticalBarChart from './VerticalBarChart'
+import {Badge} from 'reactstrap'
 
 function Dashboard(props) {
 
   return (
     <div className='dashboard-container'>
-      <span style={{ fontSize: "1.7rem", fontWeight: "bold", marginTop: "20px", textShadow: "1px 1px blue", textAlign: "center" }}>Dashboard</span>
+      <Badge>
+        {" "}
+        <h3> Dashboard </h3>
+      </Badge>
+      {/* <span style={{ fontSize: "1.7rem", fontWeight: "bold", marginTop: "20px", textShadow: "1px 1px blue", textAlign: "center" }}>Dashboard</span> */}
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div className='dashboard-detail'>
           <div className='dashboard-instructor-detail'>
