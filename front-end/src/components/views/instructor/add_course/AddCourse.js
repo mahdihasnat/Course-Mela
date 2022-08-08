@@ -9,27 +9,23 @@ import SubjectChoice from "./SubjectChoice";
 // const thingsWeFocus = ["Area", "Calculus", "Trigonometric Ratios", "Divergence"]
 
 function AddCourse() {
+  const defaultSubject = {
+    id: -1,
+    name: "Select Subject",
+  };
+
   const [values, setValues] = React.useState({
     courseName: "",
     description: "",
     coursePrice: "",
     chosenSubjectId: "-1",
     chosenTopicId: "-1",
+    topics: [],
   });
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
-
-  // const [objectValues, setObjectValues] = React.useState({
-  //   subjects: [],
-  //   topics: [],
-  //   tags: [],
-  // });
-
-  // const handleObjectChange = (prop, callback_function) => (event) => {
-  //   setObjectValues({ ...objectValues, [prop]: event.target.value});
-  // }
 
   const [selectedImg, setSelectedImg] = React.useState(null);
   const [selectedImgName, setSelectedImgName] = React.useState(null);
@@ -49,7 +45,6 @@ function AddCourse() {
   const navigate = useNavigate();
 
   const [subjects, setSubjects] = useState([]);
-  const [topics, setTopics] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const [tags, setTags] = useState([]);
@@ -59,8 +54,7 @@ function AddCourse() {
     TopicService.getAllTopicsBySubject(values.chosenSubjectId)
       .then((response) => {
         console.log(response);
-        setTopics(response.data);
-        setValues({ ...values, chosenTopicId: response.data[0].id });
+        setValues({ ...values, topics: response.data });
       })
       .catch((err) => {
         console.log(err);
@@ -72,13 +66,7 @@ function AddCourse() {
     SubjectService.getAllSubjects()
       .then((response) => {
         console.log(response.data);
-        setSubjects([
-          {
-            id: -1,
-            name: "Select Subject",
-          },
-          ...response.data,
-        ]);
+        setSubjects([defaultSubject, ...response.data]);
       })
       .catch((error) => {
         console.log(error);
@@ -99,6 +87,12 @@ function AddCourse() {
   useEffect(() => {
     fetchTopic();
   }, [values.chosenSubjectId]);
+
+  useEffect(() => {
+    if (values.topics.length > 0) {
+      setValues({ ...values, chosenTopicId: values.topics[0].id });
+    }
+  }, [values.topics]);
 
   const handleImgUpload = (e) => {
     if (e.target.files.length !== 0) {
@@ -140,7 +134,7 @@ function AddCourse() {
   const handleSubmit = (e) => {
     e.preventDefault();
     CourseService.createCourse(
-      topics.filter(
+      values.topics.filter(
         (topic) => topic.id == parseInt(values.chosenTopicId, 10)
       )[0],
       values.courseName,
@@ -170,10 +164,27 @@ function AddCourse() {
       ></form>
       <form onSubmit={handleSubmit}>
         <div className="add-course-necessities">
-          <SubjectChoice
-            subjects={subjects}
-            handleOptionChange={handleChange("chosenSubjectId")}
-          />
+          <div className="add-course-necessities">
+            <div>
+              <label htmlFor="subject">
+                <b>Select Subject</b>
+              </label>
+              <br />
+              <select
+                name="subject"
+                id="subject"
+                className="age-dropdown"
+                onChange={handleChange("chosenSubjectId")}
+              >
+                {subjects.map((subject) => (
+                  <option key={subject.id} value={subject.id}>
+                    {subject.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
           <div>
             <label htmlFor="topic">
               <b>Select Topic</b>
@@ -186,16 +197,11 @@ function AddCourse() {
               required
               onChange={handleChange("chosenTopicId")}
             >
-              {subjects.map((subject) => {
-                return (
-                  subject.id === parseInt(values.chosenSubjectId, 10) &&
-                  topics.map((topic, index) => (
-                    <option key={index} value={topic.id}>
-                      {topic.name}
-                    </option>
-                  ))
-                );
-              })}
+              {values.topics.map((topic, index) => (
+                <option key={index} value={topic.id}>
+                  {topic.name}
+                </option>
+              ))}
             </select>
           </div>
           <div>
