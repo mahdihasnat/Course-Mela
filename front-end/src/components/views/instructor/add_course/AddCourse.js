@@ -166,7 +166,7 @@ function AddCourse() {
                     <SubjectChoice subjects={subjects} handleOptionChange={handleOptionChange} />
                     <div>
                         <label htmlFor="topic"><b>Select Topic</b></label><br/>
-                        <select name="topic" id="topic" className="age-dropdown" onChange={handleTopicSelection}>
+                        <select name="topic" id="topic" className="age-dropdown" required onChange={handleTopicSelection}>
                             {
                                 subjects.map(subject => {
                                     return subject.id === chosenId && topics.map((topic, index) => (
