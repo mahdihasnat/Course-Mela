@@ -4,7 +4,6 @@ import CourseService from "../../../../services/course/CourseService";
 import TagService from "../../../../services/course/TagService";
 import SubjectService from "../../../../services/subject/SubjectService";
 import TopicService from "../../../../services/topic/TopicService";
-import SubjectChoice from "./SubjectChoice";
 
 // const thingsWeFocus = ["Area", "Calculus", "Trigonometric Ratios", "Divergence"]
 
