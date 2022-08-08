@@ -62,7 +62,13 @@ function AddCourse() {
         SubjectService.getAllSubjects()
             .then((response) => {
                 console.log(response.data)
-                setSubjects(response.data)
+                setSubjects([
+                    {
+                        id:-1,
+                        name:'Select Subject'
+                    },
+                    ... response.data]
+                    )
             }).catch((error) => {
             console.log(error);
         }).finally(() => {
