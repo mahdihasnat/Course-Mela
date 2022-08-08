@@ -23,12 +23,19 @@ public class AddressEntity {
     
     public AddressEntity(Address address)
     {
-        this.country = address.getCountry();
-        this.zilla = address.getZilla();
-        this.upazila = address.getUpazila();
-        this.postcode = address.getPostcode();
-        this.street = address.getStreet();
-        this.housenumber = address.getHousenumber();    
+        try
+        {
+            this.country = address.getCountry();
+            this.zilla = address.getZilla();
+            this.upazila = address.getUpazila();
+            this.postcode = address.getPostcode();
+            this.street = address.getStreet();
+            this.housenumber = address.getHousenumber();
+        }
+        catch (NullPointerException e)
+        {
+            e.printStackTrace();
+        }
     }
 
 }   
