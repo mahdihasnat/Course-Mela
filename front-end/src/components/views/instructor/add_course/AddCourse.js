@@ -13,7 +13,8 @@ function AddCourse() {
     courseName: "",
     description: "",
     coursePrice: "",
-    chosenSubjectId: -1,
+    chosenSubjectId: "-1",
+    chosenTopicId: "-1",
   });
 
   const handleChange = (prop) => (event) => {
@@ -29,8 +30,6 @@ function AddCourse() {
   // const handleObjectChange = (prop, callback_function) => (event) => {
   //   setObjectValues({ ...objectValues, [prop]: event.target.value});
   // }
-
-  const [chosenTopicId, setChosenTopicId] = React.useState(-1);
 
   const [selectedImg, setSelectedImg] = React.useState(null);
   const [selectedImgName, setSelectedImgName] = React.useState(null);
@@ -61,7 +60,7 @@ function AddCourse() {
       .then((response) => {
         console.log(response);
         setTopics(response.data);
-        setChosenTopicId(response.data[0].id);
+        setValues({ ...values, chosenTopicId: response.data[0].id });
       })
       .catch((err) => {
         console.log(err);
@@ -97,11 +96,9 @@ function AddCourse() {
       });
   }, []);
 
-  useEffect(
-    () => {
-      fetchTopic();
-    }, [values.chosenSubjectId]
-  )
+  useEffect(() => {
+    fetchTopic();
+  }, [values.chosenSubjectId]);
 
   const handleImgUpload = (e) => {
     if (e.target.files.length !== 0) {
@@ -140,14 +137,12 @@ function AddCourse() {
     setAddingThings(false);
   };
 
-  const handleTopicSelection = (e) => {
-    const id = parseInt(e.target.value, 10);
-    setChosenTopicId(id);
-  };
   const handleSubmit = (e) => {
     e.preventDefault();
     CourseService.createCourse(
-      topics.filter((topic) => topic.id == chosenTopicId)[0],
+      topics.filter(
+        (topic) => topic.id == parseInt(values.chosenTopicId, 10)
+      )[0],
       values.courseName,
       values.description,
       thingsToFocus,
@@ -189,13 +184,13 @@ function AddCourse() {
               id="topic"
               className="age-dropdown"
               required
-              onChange={handleTopicSelection}
+              onChange={handleChange("chosenTopicId")}
             >
               {subjects.map((subject) => {
                 return (
-                  subject.id === parseInt(values.chosenSubjectId,10) &&
+                  subject.id === parseInt(values.chosenSubjectId, 10) &&
                   topics.map((topic, index) => (
-                    <option key={index} value={index}>
+                    <option key={index} value={topic.id}>
                       {topic.name}
                     </option>
                   ))
