@@ -28,17 +28,17 @@ function MainComponent() {
 
   useEffect(() => {
 
-    if(localStorage.getItem('jwtToken') !== null) {
-        /// TODO give a call to server to check jwtToken expired
+    if (localStorage.getItem('jwtToken') !== null) {
+      /// TODO give a call to server to check jwtToken expired
 
-        dispatch({
-           type: PRE_LOGGED_IN,
-           payload : {
-              userRole: localStorage.getItem('userRole'),
-              userName: localStorage.getItem('userName'),
-           }
-          }
-          );
+      dispatch({
+        type: PRE_LOGGED_IN,
+        payload: {
+          userRole: localStorage.getItem('userRole'),
+          userName: localStorage.getItem('userName'),
+        }
+      }
+      );
     }
 
   }, []);
@@ -49,12 +49,13 @@ function MainComponent() {
       <div className="">
         <Navbar />
         <Routes>
-          <Route exact path='/' element={ isSignedIn ? ( userRole== ROLE_STUDENT? <StudentView/> :  <InstructorHome />) : <GuestView /> } /><Route path='/server' element={<TestServerConncetion />} />
-          <Route path='/test' element={<Test/>} ></Route><Route path='/add-course' element={<AddCourse />} />
-            <Route path='/edit-course' element={<EditCourse />} />
-          <Route path='/register' element={<Registration/>}  />
-           <Route exact path='/instr' element={<InstructorHome />} />
-            <Route path='/courses/:courseId' element={<InstructorCourseDetails/>}></Route>
+          <Route exact path='/' element={isSignedIn ? (userRole == ROLE_STUDENT ? <StudentView /> : <InstructorHome />) : <GuestView />} /><Route path='/server' element={<TestServerConncetion />} />
+          <Route path='/test' element={<Test />} ></Route>
+          <Route path='/add-course' element={<AddCourse />} />
+          <Route path='/edit-course' element={<EditCourse />} />
+          <Route path='/register' element={<Registration />} />
+          <Route exact path='/instr' element={<InstructorHome />} />
+          <Route path='/courses/:courseId' element={<InstructorCourseDetails />}></Route>
         </Routes>
         <LoginModal />
         <Footer />
