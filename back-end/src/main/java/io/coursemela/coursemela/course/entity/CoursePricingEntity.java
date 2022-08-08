@@ -18,12 +18,11 @@ public class CoursePricingEntity {
     @ManyToOne
     CourseEntity courseEntity;
 
-    @Column(nullable = true)
     Date startDate;
 
-    Long subsFee;
+    Long subsFee; // actual subscription fee paid by user
 
-    Long insFee;
+    Long insFee; // actual fee get by instructor
 
     Double offPercent;
 

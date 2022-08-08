@@ -1,7 +1,10 @@
 package io.coursemela.coursemela.user.entity;
 
 import io.coursemela.coursemela.user.model.Institution;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Set;

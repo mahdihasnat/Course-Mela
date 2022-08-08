@@ -1,14 +1,12 @@
 package io.coursemela.coursemela.user.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.coursemela.coursemela.user.model.Institution;
 import io.coursemela.coursemela.user.model.User;
 import lombok.Data;
 
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;

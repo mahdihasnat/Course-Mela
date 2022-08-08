@@ -4,7 +4,6 @@ import io.coursemela.coursemela.user.entity.UserEntity;
 import io.coursemela.coursemela.user.model.User;
 import io.coursemela.coursemela.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.stereotype.Service;
 
 @Service

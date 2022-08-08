@@ -1,17 +1,16 @@
 package io.coursemela.coursemela.shared.controller;
 
 import io.coursemela.coursemela.course.model.Subject;
-import io.coursemela.coursemela.course.model.Topic;
 import io.coursemela.coursemela.instructor.model.Instructor;
 import io.coursemela.coursemela.instructor.service.InstructorService;
 import io.coursemela.coursemela.shared.entity.AuthenticateRequest;
 import io.coursemela.coursemela.shared.entity.AuthenticateResponse;
+import io.coursemela.coursemela.shared.util.JwtUtils;
 import io.coursemela.coursemela.student.entity.Level;
 import io.coursemela.coursemela.student.model.Student;
 import io.coursemela.coursemela.student.service.StudentService;
 import io.coursemela.coursemela.user.model.User;
 import io.coursemela.coursemela.user.service.CustomUserDetailsService;
-import io.coursemela.coursemela.shared.util.JwtUtils;
 import io.coursemela.coursemela.user.service.UserService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;

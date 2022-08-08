@@ -1,10 +1,7 @@
 package io.coursemela.coursemela.user.service;
 
-import io.coursemela.coursemela.instructor.repository.InstructorRepository;
 import io.coursemela.coursemela.shared.entity.CustomUserDetails;
 import io.coursemela.coursemela.user.entity.UserEntity;
-//import io.coursemela.coursemela.shared.repository.UserRepository;
-import io.coursemela.coursemela.student.repository.StudentRepository;
 import io.coursemela.coursemela.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -2,14 +2,11 @@ package io.coursemela.coursemela.course.model;
 
 import io.coursemela.coursemela.course.entity.CourseEntity;
 import io.coursemela.coursemela.course.entity.CourseTagEntity;
-import io.coursemela.coursemela.course.entity.TopicEntity;
-import io.coursemela.coursemela.instructor.entity.InstructorEntity;
 import io.coursemela.coursemela.instructor.model.Instructor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +21,7 @@ public class Course {
     private String cover_photo_path;
     private String description;
     private List<Tag> tags;
+
     public Course(CourseEntity courseEntity){
         this.id = courseEntity.getId();
         this.instructor = new Instructor((courseEntity.getInstructorEntity()));

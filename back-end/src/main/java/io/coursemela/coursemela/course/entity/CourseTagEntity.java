@@ -1,11 +1,11 @@
 package io.coursemela.coursemela.course.entity;
 
-import io.coursemela.coursemela.course.model.Course;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Objects;
 
 
 //https://www.baeldung.com/jpa-many-to-many

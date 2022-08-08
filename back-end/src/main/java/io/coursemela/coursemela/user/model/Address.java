@@ -1,13 +1,12 @@
 package io.coursemela.coursemela.user.model;
 
-import javax.persistence.Embeddable;
-
 import io.coursemela.coursemela.user.entity.AddressEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import lombok.extern.slf4j.XSlf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.persistence.Embeddable;
 
 @Data
 @Embeddable

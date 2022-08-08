@@ -3,7 +3,6 @@ package io.coursemela.coursemela.course.controller;
 import io.coursemela.coursemela.course.model.Course;
 import io.coursemela.coursemela.course.service.CourseService;
 import io.coursemela.coursemela.instructor.service.InstructorService;
-import io.coursemela.coursemela.storage.StorageService;
 import io.coursemela.coursemela.user.context.UserContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package io.coursemela.coursemela.student.entity;
+
 import io.coursemela.coursemela.student.model.Student;
 import io.coursemela.coursemela.user.entity.UserEntity;
-
 import lombok.Data;
 
 import javax.persistence.Entity;

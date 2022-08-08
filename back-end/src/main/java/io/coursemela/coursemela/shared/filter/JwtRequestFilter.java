@@ -1,7 +1,7 @@
 package io.coursemela.coursemela.shared.filter;
 
-import io.coursemela.coursemela.user.service.CustomUserDetailsService;
 import io.coursemela.coursemela.shared.util.JwtUtils;
+import io.coursemela.coursemela.user.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

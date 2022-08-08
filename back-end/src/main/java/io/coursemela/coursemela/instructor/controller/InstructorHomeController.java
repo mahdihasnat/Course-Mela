@@ -4,11 +4,8 @@ import io.coursemela.coursemela.course.model.Course;
 import io.coursemela.coursemela.course.service.CourseService;
 import io.coursemela.coursemela.instructor.entity.InstructorEntity;
 import io.coursemela.coursemela.instructor.service.InstructorHomeService;
-import io.coursemela.coursemela.course.entity.CourseEntity;
-import io.coursemela.coursemela.shared.util.JwtUtils;
 import io.coursemela.coursemela.user.context.UserContext;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -18,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
