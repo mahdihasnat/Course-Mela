@@ -50,8 +50,9 @@ function AddCourse() {
         // console.log(chosenId, subjects[chosenId])
         TopicService.getAllTopicsBySubject(subjects.filter(subject=>subject.id == id)[0].id)
             .then(response=>{
-                console.log(response)
+                // console.log(response)
                 setTopics(response.data);
+                setChosenTopicId(response.data[0].id);
             }).catch(err=>{
                 console.log(err);
         })
@@ -134,7 +135,7 @@ function AddCourse() {
     const handleSubmit = e => {
         e.preventDefault();
         CourseService.createCourse(
-            topics[chosenTopicId],
+            topics.filter(topic=>topic.id == chosenTopicId)[0],
             courseName,
             description,
             thingsToFocus,
