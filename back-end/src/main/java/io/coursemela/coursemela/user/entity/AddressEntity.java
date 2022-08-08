@@ -7,10 +7,12 @@ import javax.persistence.Entity;
 
 import io.coursemela.coursemela.user.model.Address;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Data
 @Embeddable
 @NoArgsConstructor
+@Slf4j
 public class AddressEntity {
 
     private String country;
@@ -34,7 +36,7 @@ public class AddressEntity {
         }
         catch (NullPointerException e)
         {
-            e.printStackTrace();
+            log.warn("null Address to null AddressEntity");
         }
     }
 
