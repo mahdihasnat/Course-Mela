@@ -2,10 +2,13 @@ package io.coursemela.coursemela.course.model;
 
 import io.coursemela.coursemela.course.entity.CourseEntity;
 import io.coursemela.coursemela.course.entity.CourseTagEntity;
+import io.coursemela.coursemela.course.service.CoursePricingService;
 import io.coursemela.coursemela.instructor.model.Instructor;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +16,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Course {
     private Long id;
     private Instructor instructor;
@@ -21,6 +25,11 @@ public class Course {
     private String cover_photo_path;
     private String description;
     private List<Tag> tags;
+
+    CoursePricing coursePricing;
+
+    @Autowired
+    CoursePricingService coursePricingService;
 
     public Course(CourseEntity courseEntity){
         this.id = courseEntity.getId();
@@ -32,5 +41,6 @@ public class Course {
         this.tags = new ArrayList<>();
         for(CourseTagEntity courseTag: courseEntity.getCourseTagEntities())
             tags.add(new Tag(courseTag.getTagEntity()));
+//        this.coursePricing = coursePricingService.getCurrentCoursePrice(this.id);
     }
 }

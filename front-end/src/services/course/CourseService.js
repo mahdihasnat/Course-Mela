@@ -7,9 +7,9 @@ import {fileAuthorizedHeader, jsonAuthorizedHeader} from "../../shared/Header";
 
 class CourseService {
 
-    createCourse(topic, name, description, tags, coverImage) {
+    createCourse(topic, name, description, tags, coverImage, coursePrice) {
         var formData = new FormData();
-
+        console.log("topic:", topic);
         const course = {
             // id: 1,
             // instructor: null,
@@ -17,8 +17,13 @@ class CourseService {
             name: name,
             description: description,
             tags: tags,
-            coverImage: coverImage
+            coverImage: coverImage,
+            coursePricing: 
+            {
+                subsFee: coursePrice
+            },
         }
+        console.log("course:", course);
 
         return axios({
             method: "POST",

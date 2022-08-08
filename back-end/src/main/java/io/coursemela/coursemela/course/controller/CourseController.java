@@ -30,7 +30,8 @@ public class CourseController {
     Course createCourse(@RequestBody Course course) {
         try {
             System.out.println("course:" + course.toString());
-            // System.out.println("file:"+coverImage);
+//            log.debug(String.valueOf(coursePrice));
+//             System.out.println("file:"+coverImage);
             if (course.getTags() == null)
                 course.setTags(new ArrayList<>());
             String currentUserName = UserContext.getUserName();

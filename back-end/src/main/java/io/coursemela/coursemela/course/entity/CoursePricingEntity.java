@@ -14,16 +14,11 @@ public class CoursePricingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     @ManyToOne
-    CourseEntity courseEntity;
-
-    Date startDate;
-
-    Long subsFee; // actual subscription fee paid by user
-
-    Long insFee; // actual fee get by instructor
-
-    Double offPercent;
+    private CourseEntity courseEntity;
+    private Date startDate;
+    private Long subsFee; // actual subscription fee paid by user
+    private Long insFee; // actual fee get by instructor
+    private Double offPercent;
 
 }
