@@ -14,7 +14,6 @@ function AddCourse() {
     description: "",
     coursePrice: "",
     chosenSubjectId: -1,
-    
   });
 
   const handleChange = (prop) => (event) => {
@@ -30,7 +29,6 @@ function AddCourse() {
   // const handleObjectChange = (prop, callback_function) => (event) => {
   //   setObjectValues({ ...objectValues, [prop]: event.target.value});
   // }
-
 
   const [chosenTopicId, setChosenTopicId] = React.useState(-1);
 
@@ -55,21 +53,13 @@ function AddCourse() {
   const [topics, setTopics] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const [createdCourseId, setCreatedCourseId] = useState(-1);
+  const [tags, setTags] = useState([]);
 
-  const handleSubjectChange = (e) => {
-    const id = parseInt(e.target.value, 10);
-    setValues({ ...values, chosenSubjectId: id });
-    // console.log('this is it')
-    // console.log(e);
-    // console.log( "id no w", chosenId);
-    // console.log(subjects);
-    // console.log(chosenId, subjects[chosenId])
-    TopicService.getAllTopicsBySubject(
-      subjects.filter((subject) => subject.id == id)[0].id
-    )
+  const fetchTopic = () => {
+    console.log("inside fetchTopic");
+    TopicService.getAllTopicsBySubject(values.chosenSubjectId)
       .then((response) => {
-        console.log(response)
+        console.log(response);
         setTopics(response.data);
         setChosenTopicId(response.data[0].id);
       })
@@ -106,6 +96,12 @@ function AddCourse() {
         console.log(error);
       });
   }, []);
+
+  useEffect(
+    () => {
+      fetchTopic();
+    }, [values.chosenSubjectId]
+  )
 
   const handleImgUpload = (e) => {
     if (e.target.files.length !== 0) {
@@ -181,7 +177,7 @@ function AddCourse() {
         <div className="add-course-necessities">
           <SubjectChoice
             subjects={subjects}
-            handleOptionChange={handleSubjectChange}
+            handleOptionChange={handleChange("chosenSubjectId")}
           />
           <div>
             <label htmlFor="topic">
@@ -197,7 +193,7 @@ function AddCourse() {
             >
               {subjects.map((subject) => {
                 return (
-                  subject.id === values.chosenSubjectId &&
+                  subject.id === parseInt(values.chosenSubjectId,10) &&
                   topics.map((topic, index) => (
                     <option key={index} value={index}>
                       {topic.name}
