@@ -1,3 +1,4 @@
+import React from 'react';
 import { Route, Routes } from 'react-router-dom'
 import Navbar from './layout/Navbar/Navbar';
 import GuestView from './views/guestView/GuestView';
@@ -21,6 +22,7 @@ import StudentView from './views/student/StudentView';
 import Test from './helper/Test'
 import InstructorCourseList from "./views/instructor/InstructorCourseList";
 import InstructorCourseDetails from "./views/instructor/course/InstructorCourseDetails";
+
 
 function MainComponent() {
 
