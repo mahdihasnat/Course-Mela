@@ -13,24 +13,24 @@ function AddCourse() {
     courseName: "",
     description: "",
     coursePrice: "",
-    showPassword: false,
+    chosenSubjectId: -1,
+    
   });
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
-  const [objectValuses, setObjectValues] = React.useState({
-    subjects: [],
-    topics: [],
-    tags: [],
-  });
+  // const [objectValues, setObjectValues] = React.useState({
+  //   subjects: [],
+  //   topics: [],
+  //   tags: [],
+  // });
 
-  const handleObjectChange = (prop) => (value) => {
+  // const handleObjectChange = (prop, callback_function) => (event) => {
+  //   setObjectValues({ ...objectValues, [prop]: event.target.value});
+  // }
 
-  }
-
-  const [chosenId, setChosenId] = React.useState(1);
 
   const [chosenTopicId, setChosenTopicId] = React.useState(-1);
 
@@ -57,9 +57,9 @@ function AddCourse() {
 
   const [createdCourseId, setCreatedCourseId] = useState(-1);
 
-  const handleOptionChange = (e) => {
+  const handleSubjectChange = (e) => {
     const id = parseInt(e.target.value, 10);
-    setChosenId(id);
+    setValues({ ...values, chosenSubjectId: id });
     // console.log('this is it')
     // console.log(e);
     // console.log( "id no w", chosenId);
@@ -181,7 +181,7 @@ function AddCourse() {
         <div className="add-course-necessities">
           <SubjectChoice
             subjects={subjects}
-            handleOptionChange={handleOptionChange}
+            handleOptionChange={handleSubjectChange}
           />
           <div>
             <label htmlFor="topic">
@@ -197,7 +197,7 @@ function AddCourse() {
             >
               {subjects.map((subject) => {
                 return (
-                  subject.id === chosenId &&
+                  subject.id === values.chosenSubjectId &&
                   topics.map((topic, index) => (
                     <option key={index} value={index}>
                       {topic.name}
