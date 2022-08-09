@@ -24,13 +24,10 @@ public class CourseController {
     @Autowired
     private InstructorService instructorService;
 
-
     @PostMapping(value = "/")
     Course createCourse(@RequestBody Course course) {
         try {
             System.out.println("course:" + course.toString());
-//            log.debug(String.valueOf(coursePrice));
-//             System.out.println("file:"+coverImage);
             if (course.getTags() == null)
                 course.setTags(new ArrayList<>());
             String currentUserName = UserContext.getUserName();
@@ -45,8 +42,15 @@ public class CourseController {
     }
 
     @PostMapping(value = "updateCoverImage")
-    public ResponseEntity<Boolean> updateCoverImage(@RequestParam("id") String id, @RequestParam("coverImage") MultipartFile coverImage) {
+    public ResponseEntity<Boolean> updateCoverImage(@RequestParam("id") String id,
+            @RequestParam("coverImage") MultipartFile coverImage) {
         try {
+            // coverImage.
+
+            // storageService.store(coverImage, id);
+            // System.out.println();
+            // log.info("IMPLEMENT UPDATE COVER IMAGE CODE HERE");
+            // return null;
             return ResponseEntity.ok(courseService.updateCourseCoverImageLocation(id, coverImage));
         } catch (Exception e) {
             e.printStackTrace();
@@ -58,12 +62,5 @@ public class CourseController {
     List<Course> getCourses() {
         return courseService.getCourses();
     }
-
-    @PostMapping(value = "/uploadVideo")
-    public String uploadVideo() {
-        System.out.println("working on uploading video");
-        return "working on uploading video";
-    }
-
 
 }
