@@ -15,15 +15,14 @@ public class TagController {
     private TagService tagService;
 
     @GetMapping("/")
-    List<Tag> getTags(){
+    List<Tag> getTags() {
         return tagService.getTags();
     }
 
 
     @PostMapping("/")
-    Tag createTag(@RequestBody Tag tag)
-    {
-        System.out.println("post req tag="+tag);
+    Tag createTag(@RequestBody Tag tag) {
+        System.out.println("post req tag=" + tag);
         return tagService.createTag(tag);
     }
 

@@ -26,8 +26,8 @@ public class User {
     protected Address address;
 
     Set<Institution> institutions;
-    public User(UserEntity userEntity)
-    {
+
+    public User(UserEntity userEntity) {
         this.id = userEntity.getId();
         this.userName = userEntity.getUserName();
         this.firstName = userEntity.getFirstName();
@@ -38,12 +38,12 @@ public class User {
         this.dateOfJoin = userEntity.getDateOfJoin();
         this.address = new Address(userEntity.getAddress());
         this.institutions = new HashSet<>();
-        for(InstitutionEntity institutionEntity: userEntity.getInstitutionEntities())
+        for (InstitutionEntity institutionEntity : userEntity.getInstitutionEntities())
             institutions.add(new Institution(institutionEntity));
     }
 
 
-    public void encodePassword(){
+    public void encodePassword() {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         this.password = encoder.encode(this.password);
     }

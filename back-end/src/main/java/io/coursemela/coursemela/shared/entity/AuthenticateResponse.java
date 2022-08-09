@@ -3,16 +3,18 @@ package io.coursemela.coursemela.shared.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter@Setter
+@Getter
+@Setter
 public class AuthenticateResponse {
-    private  String jwtToken;
+    private String jwtToken;
 
 
     public AuthenticateResponse(String jwt) {
         this.jwtToken = jwt;
     }
 
-    public AuthenticateResponse(){}
+    public AuthenticateResponse() {
+    }
 
     public String getJwtToken() {
         return jwtToken;

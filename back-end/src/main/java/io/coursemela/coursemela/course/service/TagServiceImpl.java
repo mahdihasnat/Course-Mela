@@ -15,7 +15,7 @@ public class TagServiceImpl implements TagService {
     private TagRepository tagRepository;
 
     @Override
-    public Tag createTag(Tag tag){
+    public Tag createTag(Tag tag) {
         TagEntity tagEntity = new TagEntity(tag);
         tagEntity = tagRepository.save(tagEntity);
         tag = new Tag(tagEntity);
@@ -23,11 +23,11 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public List<Tag> getTags(){
-        List<TagEntity> tagEntities =tagRepository.findAll();
+    public List<Tag> getTags() {
+        List<TagEntity> tagEntities = tagRepository.findAll();
         List<Tag> tags = tagEntities
                 .stream()
-                .map( tag-> new Tag(tag) )
+                .map(tag -> new Tag(tag))
                 .collect(Collectors.toList());
         return tags;
     }

@@ -23,34 +23,34 @@ import java.util.Optional;
 @RestController
 public class InstructorHomeController {
     @Autowired
-    private  InstructorHomeService instructorHomeService;
+    private InstructorHomeService instructorHomeService;
 
 
     @GetMapping("/")
-    public List<InstructorEntity> getAllInstructor(){
+    public List<InstructorEntity> getAllInstructor() {
         return instructorHomeService.getAllInstructor();
     }
 
     @GetMapping("/details")
-    public Optional<InstructorEntity> getInstructorDetails(){
+    public Optional<InstructorEntity> getInstructorDetails() {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication instanceof AnonymousAuthenticationToken)
             return null;
         String currentUserName = authentication.getName();
-        return  instructorHomeService.getInstructor(currentUserName);
+        return instructorHomeService.getInstructor(currentUserName);
     }
 
     @Autowired
     private CourseService courseService;
 
     @GetMapping("/courses")
-    public List<Course> getMyCourses()throws Exception{
-        return  courseService.getCourseByInstructorUserName(UserContext.getUserName());
+    public List<Course> getMyCourses() throws Exception {
+        return courseService.getCourseByInstructorUserName(UserContext.getUserName());
     }
 
     @GetMapping("/courses/{courseId}")
-    Course getCourse (@PathVariable("courseId") Long id) throws Exception{
+    Course getCourse(@PathVariable("courseId") Long id) throws Exception {
         log.info("got a request of id " + id);
         return instructorHomeService.getCourse(id, UserContext.getUserName());
         // return courseService.getCourse(id);

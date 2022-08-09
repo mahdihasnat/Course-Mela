@@ -14,7 +14,7 @@ import java.util.Optional;
 public class InstructorHomeService {
 
     @Autowired
-    private   InstructorRepository instructorRepository;
+    private InstructorRepository instructorRepository;
     @Autowired
     private CourseService courseService;
 
@@ -23,8 +23,7 @@ public class InstructorHomeService {
     }
 
 
-    public Optional<InstructorEntity> getInstructor(String userName)
-    {
+    public Optional<InstructorEntity> getInstructor(String userName) {
         return instructorRepository.findByUserName(userName);
     }
 
@@ -33,7 +32,7 @@ public class InstructorHomeService {
         // no checking of userName if he is the owner of the course
         Course course = courseService.getCourse(id);
 
-        if(course.getInstructor().getUserName().equals(userName))
+        if (course.getInstructor().getUserName().equals(userName))
             return course;
         else
             return null;

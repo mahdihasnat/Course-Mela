@@ -15,8 +15,7 @@ public class TopicServiceImpl implements TopicService {
     private TopicRepository topicRepository;
 
     @Override
-    public List<Topic> getTopicBySubjectId(Long subjectId)
-    {
+    public List<Topic> getTopicBySubjectId(Long subjectId) {
         List<TopicEntity> topicEntities = topicRepository.findAllBySubjectEntityId(subjectId);
         List<Topic> topics = topicEntities
                 .stream()

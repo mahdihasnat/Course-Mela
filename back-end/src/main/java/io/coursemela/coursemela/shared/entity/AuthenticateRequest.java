@@ -4,19 +4,21 @@ package io.coursemela.coursemela.shared.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter@Setter
+@Getter
+@Setter
 public class AuthenticateRequest {
 
 
     private String userName;
-    private  String password;
+    private String password;
 
     public AuthenticateRequest(String userName, String password) {
         this.userName = userName;
         this.password = password;
     }
 
-    public AuthenticateRequest(){}
+    public AuthenticateRequest() {
+    }
 
 //
 

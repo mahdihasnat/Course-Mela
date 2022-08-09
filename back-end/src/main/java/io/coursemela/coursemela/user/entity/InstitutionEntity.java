@@ -27,8 +27,7 @@ public class InstitutionEntity {
     @ManyToMany
     private Set<UserEntity> userEntities;
 
-    public InstitutionEntity(Institution institution)
-    {
+    public InstitutionEntity(Institution institution) {
         this.id = institution.getId();
         this.name = institution.getName();
         this.location = institution.getLocation();

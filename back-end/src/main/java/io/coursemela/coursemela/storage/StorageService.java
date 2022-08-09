@@ -12,18 +12,17 @@ import java.util.stream.Stream;
 @Component
 public interface StorageService {
 
-	void init();
+    void init();
 
-	Path store(MultipartFile file, String fileName);
+    Path store(MultipartFile file, String fileName);
 
 
+    Stream<Path> loadAll();
 
-	Stream<Path> loadAll();
+    Path load(String filename);
 
-	Path load(String filename);
+    Resource loadAsResource(String filename);
 
-	Resource loadAsResource(String filename);
-
-	void deleteAll();
+    void deleteAll();
 
 }

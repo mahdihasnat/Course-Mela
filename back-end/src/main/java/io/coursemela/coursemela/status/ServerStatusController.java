@@ -17,6 +17,6 @@ public class ServerStatusController {
     public String getServerStatus() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
-        return "Server is up and running @" + dateFormat.format(date) ;
+        return "Server is up and running @" + dateFormat.format(date);
     }
 }

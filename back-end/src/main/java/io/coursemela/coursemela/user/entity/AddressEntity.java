@@ -20,20 +20,16 @@ public class AddressEntity {
     private String postcode;
     private String street;
     private String housenumber;
-    
-    public AddressEntity(Address address)
-    {
-        try
-        {
+
+    public AddressEntity(Address address) {
+        try {
             this.country = address.getCountry();
             this.zilla = address.getZilla();
             this.upazila = address.getUpazila();
             this.postcode = address.getPostcode();
             this.street = address.getStreet();
             this.housenumber = address.getHousenumber();
-        }
-        catch (NullPointerException e)
-        {
+        } catch (NullPointerException e) {
             log.warn("null Address to null AddressEntity");
         }
     }

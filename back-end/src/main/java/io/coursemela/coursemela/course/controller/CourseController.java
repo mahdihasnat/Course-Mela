@@ -43,7 +43,7 @@ public class CourseController {
 
     @PostMapping(value = "updateCoverImage")
     public ResponseEntity<Boolean> updateCoverImage(@RequestParam("id") String id,
-            @RequestParam("coverImage") MultipartFile coverImage) {
+                                                    @RequestParam("coverImage") MultipartFile coverImage) {
         try {
             // coverImage.
 

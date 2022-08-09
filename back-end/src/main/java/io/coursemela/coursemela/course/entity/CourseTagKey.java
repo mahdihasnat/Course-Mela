@@ -21,7 +21,7 @@ public class CourseTagKey implements Serializable {
     @Column(name = "courseId")
     Long courseId;
 
-    @Column(name="tagId")
+    @Column(name = "tagId")
     Long tagId;
 
     @Override

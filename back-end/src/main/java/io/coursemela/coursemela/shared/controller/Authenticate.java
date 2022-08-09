@@ -30,9 +30,8 @@ import java.util.Date;
 
 
 @Data
-class RegisterForm
-{
-    private  String userName;
+class RegisterForm {
+    private String userName;
     private String firstName;
     protected String lastName;
     protected String email;
@@ -58,28 +57,28 @@ public class Authenticate {
     private JwtUtils jwtUtils;
 
     @GetMapping("/hello")
-    public String  hello(@RequestParam("name") String name, @RequestParam("id") int id ,
-    @RequestParam(name = "role", required = false) String role) {
+    public String hello(@RequestParam("name") String name, @RequestParam("id") int id,
+                        @RequestParam(name = "role", required = false) String role) {
         return "hello " + name + " " + id + " " + role;
     }
 
     @PostMapping("/test")
-    public String  helloPost(@RequestParam("name") String name, @RequestParam("id") int id ,
-    @RequestParam(name = "role", required = false) String role,
-    Subject sub) {
+    public String helloPost(@RequestParam("name") String name, @RequestParam("id") int id,
+                            @RequestParam(name = "role", required = false) String role,
+                            Subject sub) {
         return "hello " + name + " " + id + " " + role + " " + sub;
     }
-    
+
 
     @GetMapping("/test")
-    public String test(){
+    public String test() {
         return "Succedd";
     }
 
     @PostMapping("/")
     public ResponseEntity<?> createAuthenticationToken(
             @RequestBody AuthenticateRequest authenticateRequest
-            ) throws Exception{
+    ) throws Exception {
         try {
 //            System.out.println(authenticateRequest);
             authenticationManager.authenticate(
@@ -88,7 +87,7 @@ public class Authenticate {
                     )
             );
 
-        }catch (BadCredentialsException e){
+        } catch (BadCredentialsException e) {
             throw new Exception("incorrect username or password", e);
         }
         final UserDetails userDetails = userDetailsService.loadUserByUsername(
@@ -99,12 +98,12 @@ public class Authenticate {
 //         final String role = userDetails.getAuthorities().iterator().next().toString().substring(5).toLowerCase();
 // //        System.out.println(jwt);
 //         System.out.println(role);
-        return ResponseEntity.ok(new AuthenticateResponse(jwt ));
+        return ResponseEntity.ok(new AuthenticateResponse(jwt));
     }
 
 
     @PostMapping("/role")
-    public Collection<? extends GrantedAuthority> getRole(){
+    public Collection<? extends GrantedAuthority> getRole() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication instanceof AnonymousAuthenticationToken)
             return null;
@@ -123,10 +122,9 @@ public class Authenticate {
     private StudentService studentService;
 
     @PostMapping("/register")
-    User createUser(@RequestBody RegisterForm form){
+    User createUser(@RequestBody RegisterForm form) {
         System.out.println(form.toString());
-        if(form.getRole().equalsIgnoreCase("instructor"))
-        {
+        if (form.getRole().equalsIgnoreCase("instructor")) {
 
             Instructor instructor = new Instructor();
             instructor.setUserName(form.getUserName());
@@ -141,9 +139,7 @@ public class Authenticate {
 
             instructor.encodePassword();
             return instructorService.createInstructor(instructor);
-        }
-        else if(form.getRole().equalsIgnoreCase("student"))
-        {
+        } else if (form.getRole().equalsIgnoreCase("student")) {
             Student student = new Student();
             student.setUserName(form.getUserName());
             student.setFirstName(form.getFirstName());
@@ -156,16 +152,14 @@ public class Authenticate {
             student.setLevel(Level.ELEVEN);
 
             student.encodePassword();
-            return  studentService.createStudent(student);
-        }
-        else return null;
+            return studentService.createStudent(student);
+        } else return null;
     }
 
 
     // sample:   /register?userName=jhon
     @GetMapping("/register")
-    Boolean isAvailableUser(@RequestParam String userName)
-    {
+    Boolean isAvailableUser(@RequestParam String userName) {
         return userService.isAvailableUser(userName);
     }
 

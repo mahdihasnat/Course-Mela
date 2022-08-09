@@ -18,7 +18,7 @@ public class CoursePricingServiceImpl implements CoursePricingService {
 
     @Override
     public CoursePricing getCurrentCoursePricing(Long courseId) {
-        log.debug("CourseId:",courseId);
+        log.debug("CourseId:", courseId);
         List<CoursePricingEntity> coursePricingEntities =
                 coursePricingRepository.findFirstByCourseEntityIdOrderByStartDateDesc(courseId);
         if (coursePricingEntities.isEmpty())

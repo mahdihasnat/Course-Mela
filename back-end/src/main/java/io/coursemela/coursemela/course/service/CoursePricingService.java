@@ -6,5 +6,6 @@ import io.coursemela.coursemela.course.model.CoursePricing;
 
 public interface CoursePricingService {
     CoursePricing getCurrentCoursePricing(Long courseId);
+
     CoursePricing addCoursePricing(CourseEntity courseEntity, CoursePricing coursePricing);
 }

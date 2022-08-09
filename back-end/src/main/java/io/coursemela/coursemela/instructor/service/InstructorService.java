@@ -14,14 +14,14 @@ public class InstructorService {
     @Autowired
     private InstructorRepository instructorRepository;
 
-    public Instructor getInstructor(String userName){
-        Optional<InstructorEntity> instructor =instructorRepository.findByUserName(userName);
-        if (! instructor.isPresent() )
+    public Instructor getInstructor(String userName) {
+        Optional<InstructorEntity> instructor = instructorRepository.findByUserName(userName);
+        if (!instructor.isPresent())
             return null;
         return new Instructor(instructor.get());
     }
 
-    public Instructor createInstructor(Instructor instructor){
+    public Instructor createInstructor(Instructor instructor) {
         InstructorEntity instructorEntity = new InstructorEntity(instructor);
         instructorEntity = instructorRepository.save(instructorEntity);
         return new Instructor(instructorEntity);

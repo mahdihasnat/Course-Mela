@@ -10,7 +10,8 @@ import javax.persistence.Entity;
 import java.util.Date;
 
 //@NoArgsConstructor
-@Getter@Setter
+@Getter
+@Setter
 @Entity
 public class InstructorEntity extends UserEntity {
 
@@ -25,8 +26,7 @@ public class InstructorEntity extends UserEntity {
         this.bio = bio;
     }
 
-    public InstructorEntity(Instructor instructor)
-    {
+    public InstructorEntity(Instructor instructor) {
         super(instructor);
         this.credit = instructor.getCredit();
         this.bio = instructor.getBio();

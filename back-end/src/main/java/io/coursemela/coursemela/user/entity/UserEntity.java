@@ -35,7 +35,7 @@ public class UserEntity {
 
     @Embedded
     protected AddressEntity address;
-//    ''' '''
+    //    ''' '''
     /// make mobile phone oneTomany
     protected String mobileNo;
 
@@ -46,7 +46,7 @@ public class UserEntity {
     @ManyToMany
     private Set<InstitutionEntity> institutionEntities;
 
-    public UserEntity(User user){
+    public UserEntity(User user) {
         this.id = user.getId();
         this.userName = user.getUserName();
         this.firstName = user.getFirstName();
@@ -57,7 +57,7 @@ public class UserEntity {
         this.dateOfJoin = user.getDateOfJoin();
         this.address = new AddressEntity(user.getAddress());
         this.institutionEntities = new HashSet<>();
-        for(Institution institution : user.getInstitutions())
+        for (Institution institution : user.getInstitutions())
             this.institutionEntities.add(new InstitutionEntity(institution));
     }
 

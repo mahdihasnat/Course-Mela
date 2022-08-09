@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 public class Tag {
     private Long id;
     private String name;
-    public Tag(TagEntity tagEntity)
-    {
+
+    public Tag(TagEntity tagEntity) {
         this.id = tagEntity.getId();
         this.name = tagEntity.getName();
     }

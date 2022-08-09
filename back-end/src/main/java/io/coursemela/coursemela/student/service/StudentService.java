@@ -12,7 +12,7 @@ public class StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
-    public Student createStudent(Student student){
+    public Student createStudent(Student student) {
         StudentEntity studentEntity = new StudentEntity(student);
         studentEntity = studentRepository.save(studentEntity);
         return new Student(studentEntity);
