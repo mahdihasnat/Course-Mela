@@ -7,8 +7,8 @@ import {useLoginContext} from '../../../store/contexts/LoginContext';
 import {LoginWithDispatch} from '../../../store/storeIndex';
 import {useNavigate} from 'react-router-dom';
 import LoginService from '../../../services/auth/LoginService';
-import {Container, Form, Row} from 'reactstrap';
-import {Button} from 'reactstrap';
+import {Container, Grid, Stack} from '@mui/material';
+import {Button} from '@mui/material';
 import './Registraion.css'
 // import {Button} from 'bo';	
 
@@ -43,6 +43,7 @@ const Registration = () => {
         }),
         onSubmit: values => {
             // alert(JSON.stringify(values, null, 2));
+            console.log(values)
             RegistrationService.register(
                 values.userName,
                 values.firstName,
@@ -64,13 +65,13 @@ const Registration = () => {
     });
     return (
         <section className="gradient-custom">
-            <Container className=" p-5">
-                <Row className="justify-content-center align-content-center">
-                    <div className="col-12 col-lg-9 col-xl-7">
+            <Container justify={'center'}>
+                <div className="justify-content-center align-content-center">
+                    {/*<div className="col-12 col-lg-9 col-xl-7">*/}
                         <div className="card shadow-2-strong card-registration" style={{borderRadius: "15px"}}>
                             <div className="card-body">
                                 <h3 className="mb-4 pb-2 pb-md-0 mb-md-5">Let's start our journey!</h3>
-                                <Form onSubmit={formik.handleSubmit}>
+                                <form onSubmit={formik.handleSubmit}>
                                     {/*<div className="row">*/}
                                     {/*<div className="col-md-6 mb-4">*/}
                                     <div className="form-outline">
@@ -178,15 +179,27 @@ const Registration = () => {
 
                                     </div>
 
-                                    <Row>
-                                        <Button className="col-md-2 justify-content-center offset-5" type="submit"
-                                                color="primary">Register</Button>
-                                    </Row>
-                                </Form>
+                                    {/*<Row>*/}
+                                    {/*    <Button className="col-md-2 justify-content-center offset-5" type="submit"*/}
+                                    {/*            color="primary">Register</Button>*/}
+                                    {/*</Row>*/}
+                                    {/*<Container>*/}
+                                    <Grid  justify='center'>
+                                        <Button
+                                            variant={'contained'}
+                                            type={'submit'}
+                                        >
+                                            Register
+                                        </Button>
+                                    </Grid>
+
+                                    {/*</Container>*/}
+
+                                </form>
                             </div>
                         </div>
-                    </div>
-                </Row>
+                    {/*</div>*/}
+                </div>
             </Container>
         </section>
     )

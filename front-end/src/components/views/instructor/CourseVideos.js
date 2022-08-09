@@ -1,6 +1,6 @@
 import React from 'react'
 
-const courseTopics = [
+const courseVideos = [
     {
         id: 1,
         title: "Limit-1",
@@ -54,22 +54,22 @@ const courseTopics = [
 const nCols = 7;
 const nColsHalved = Math.floor(nCols/2);
 
-function CourseTopics() {
+function CourseVideos() {
   return (
     <div style={ styles.gridWrap }>
         <ul style={ styles.gridWrap_ul }>
             {
-                courseTopics.map(courseTopic => {
+                courseVideos.map(courseVideo => {
                     // setCurrentGridCol(currentGridCol+2);
                     return(
-                        <li key={courseTopic.id} style={{ gridColumnStart: 2*(courseTopic.id%nColsHalved? courseTopic.id%nColsHalved : nColsHalved)-1, gridColumnEnd: 2*(courseTopic.id%nColsHalved? courseTopic.id%nColsHalved : nColsHalved)+1 }}>
+                        <li key={courseVideo.id} style={{ gridColumnStart: 2*(courseVideo.id%nColsHalved? courseVideo.id%nColsHalved : nColsHalved)-1, gridColumnEnd: 2*(courseVideo.id%nColsHalved? courseVideo.id%nColsHalved : nColsHalved)+1 }}>
                             <div className='course-topic-card-container'>
                                 <div className='card-thumb'>
-                                    <img src={ courseTopic.thumbPath } style={{ borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }} />
+                                    <img src={ courseVideo.thumbPath } style={{ borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }} />
                                 </div>
                                 <div className='card-details' style={{backgroundColor: "rgb(255, 244, 118)"}}>
-                                    <span style={{ fontWeight: "bold" }}>{ courseTopic.title }</span> <br />
-                                    <span >{ courseTopic.time }</span> <br />
+                                    <span style={{ fontWeight: "bold" }}>{ courseVideo.title }</span> <br />
+                                    <span >{ courseVideo.time }</span> <br />
                                     {/* <span style={{ fontSize: "0.9rem" }}>{ teacher }</span> <br /> */}
                                     
                                 </div>
@@ -98,4 +98,4 @@ const styles = {
     },
 }
 
-export default CourseTopics
+export default CourseVideos;

@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from "react-router-dom"
 import { LOGIN_MODAL_PRESSED } from '../../../store/auth/AuthTypes';
 import { useLoginContext } from '../../../store/contexts/LoginContext';
+import {Button} from "@mui/material";
+import {Login} from "@mui/icons-material";
 
 const navlinks = [ "Home", "Subjects", "Free" ]
 
@@ -22,9 +24,24 @@ const SignedOutLinks = () => {
         </ul>
         <span className='nav-right'>
             <span><i className="fa fa-search" style={{ color: "white", fontSize: "20px" }}></i></span>
-            <span className='login-btn' onClick={() => handleLogin()}>LOGIN</span>
-            <span className='login-btn' ><Link to='/register'>Register </Link> </span>
+            {/*<span className='login-btn' onClick={() => handleLogin()}>LOGIN</span>*/}
+            <Button
+                variant={'contained'}
+                onClick={handleLogin}
+                >
+                LOGIN
+            </Button>
+            {/*<span className='login-btn' ><Link to='/register'>Register </Link> </span>*/}
+            <Button
+                variant={'contained'}
+                href={'/register'}
+                startIcon={<Login/>}
+                color={'success'}
+                >
+                Register
+            </Button>
         </span>
+
     </nav>
   )
 }

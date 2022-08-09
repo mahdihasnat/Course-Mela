@@ -10,7 +10,7 @@ import InstructorHome from './views/instructor/InstructorHome';
 import { useLoginContext } from '../store/contexts/LoginContext';
 import LoginModal from './layout/LoginModal/LoginModal';
 import AddCourse from './views/instructor/add_course/AddCourse';
-import EditCourse from './views/instructor/EditCourse';
+import EditCourse from './views/instructor/edit_course/EditCourse';
 import Registration from "./layout/registration/Registration";
 import { PRE_LOGGED_IN } from '../store/auth/AuthTypes';
 
@@ -54,7 +54,7 @@ function MainComponent() {
           <Route exact path='/' element={isSignedIn ? (userRole == ROLE_STUDENT ? <StudentView /> : <InstructorHome />) : <GuestView />} /><Route path='/server' element={<TestServerConncetion />} />
           <Route path='/test' element={<Test />} ></Route>
           <Route path='/add-course' element={<AddCourse />} />
-          <Route path='/edit-course' element={<EditCourse />} />
+          <Route path='/edit-course/:courseId' element={<EditCourse />} />
           <Route path='/register' element={<Registration />} />
           <Route exact path='/instr' element={<InstructorHome />} />
           <Route path='/courses/:courseId' element={<InstructorCourseDetails />}></Route>

@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
 import {
   Card,
-  CardBody,
-  CardImg,
-  CardTitle,
+  CardContent,
+  CardMedia,
+  CardHeader,
   Container,
-  CardText,
-} from "reactstrap";
+  Button, Typography,
+} from "@mui/material";
 import { useParams } from "react-router-dom";
 import CourseService from "../../../../services/course/CourseService";
 import createImageLinkFromByte from "../../../../utils/linker";
 import ImageService from "../../../../services/content/ImageService";
+import ReactPlayer from "react-player";
+
+
 
 const InstructorCourseDetails = () => {
   const { courseId } = useParams();
@@ -46,26 +49,6 @@ const InstructorCourseDetails = () => {
         alert(err.message);
       });
   }, []);
-  // const coverPhotoComponent = ()=>{
-
-  // }
-
-  // const courseDetails = ()=> (
-  //     <Container>
-  //         <Row>
-  //             <Row>
-  //                 {course.id}
-
-  //             </Row>
-  //             <Row>
-  //                 {course.description}
-  //             </Row>
-  //         </Row>
-  //         {/* <Row>
-
-  //         </Row> */}
-  //     </Container>
-  // )
   const loadingMessage = `We are working on a course ${courseId}`;
   return (
     <Container>
@@ -75,41 +58,63 @@ const InstructorCourseDetails = () => {
         loadingMessage
       ) : (
         <Container>
+          <Container>
+            <Button variant={'contained'} href={`/edit-course/${courseId}`}><Typography variant={'body1'} color={'info'} >Edit Course</Typography> </Button>
+          </Container>
           <Card>
-            <CardImg
+            <CardMedia
               alt={`cover photo for id ${courseId}`}
-              src={coverPhoto}
+              // src={coverPhoto}
+              component={'img'}
+              image={coverPhoto}
               // height={"70%"}
             />
-            <CardBody>
-              <CardTitle tag="h5">{course.name}</CardTitle>
-              <CardText>{course.description}</CardText>
-            </CardBody>
+            <CardContent>
+              <CardHeader tag="h5">{course.name}</CardHeader>
+              <CardContent>{course.description}</CardContent>
+            </CardContent>
           </Card>
 
           <Card>
-            <CardBody>
-              <CardTitle tag="h4">Things we will learn</CardTitle>
-            </CardBody>
+            <CardContent>
+              <CardHeader tag="h4">Things we will learn</CardHeader>
+            </CardContent>
           </Card>
 
           <Card>
-            <CardTitle tag="h4"> Info</CardTitle>
+            <CardHeader tag="h4"> Info</CardHeader>
             Topic: {course.topic.name}
             <br></br>
             Subject: {course.topic.subject.name}
           </Card>
-          <Card>
-            <CardTitle>Subscription Fee:</CardTitle>
+          {/* <Card>
+            <CardHeader>Subscription Fee:</CardHeader>
             {course.coursePricing.subsFee}
             <br></br>
-            <CardTitle>Instructor fee</CardTitle>
+            <CardContent>Instructor fee</CardContent>
             {course.coursePricing.insFee}
-            <CardTitle>Off Percent</CardTitle>
+            <CardContent>Off Percent</CardContent>
             {course.coursePricing.offPercent}
-          </Card>
+          </Card> */}
         </Container>
       )}
+
+      <Container>
+
+        <ReactPlayer
+
+            url={'http://localhost:8080/fileserver/video/500.mp4'}
+            controls
+
+        >
+
+        </ReactPlayer>
+
+      </Container>
+
+
+
+
 
       {/* </Card> */}
     </Container>

@@ -45,7 +45,7 @@ class CourseService {
             data: formData,
             headers: fileAuthorizedHeader(),
         }).then(response =>{
-            alert("successfully uploaded the course image");
+            console.log("successfully uploaded the course image");
         }).catch(err =>{
             alert("error in sending the image! try again later.");
         })

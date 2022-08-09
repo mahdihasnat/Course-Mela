@@ -5,7 +5,7 @@ import { getHeader } from "../../shared/Header";
 
 import ReactPlayer from 'react-player';
 
-import Image, { Card, Container, Row } from "reactstrap"
+import Image, { Card, Container } from "@mui/material"
 import ImageService from "../../services/content/ImageService";
 
 
@@ -39,11 +39,11 @@ const Test = () => {
         {/*<img width={100} src={image} />*/}
 
         <Container>
-            <Row>
+            <div>
                 <Card className="col-6 offset-3">
                     <img src={image} />
                 </Card>
-            </Row>
+            </div>
 
             <ReactPlayer
              controls 

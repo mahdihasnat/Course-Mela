@@ -2,7 +2,7 @@ import React from 'react'
 import AreaChart from './AreaChart'
 import PieChart from './PieChart'
 import VerticalBarChart from './VerticalBarChart'
-import {Badge} from 'reactstrap'
+import {Badge} from '@mui/material'
 
 function Dashboard(props) {
 
