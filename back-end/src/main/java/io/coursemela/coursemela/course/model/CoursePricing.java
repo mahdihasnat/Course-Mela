@@ -8,12 +8,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CoursePricing {
     private Long id;
-    private Long subsFee; // actual subscription fee  = subsFee *(1 - offPercent/100)
+    private Long subsFee; // actual subscription fee = subsFee *(1 - offPercent/100)
     private Long insFee; // actual fee get by instructor
     private Double offPercent;
 
-    public CoursePricing(CoursePricingEntity coursePricingEntity)
-    {
+    public CoursePricing(CoursePricingEntity coursePricingEntity) {
         this.id = coursePricingEntity.getId();
         this.subsFee = coursePricingEntity.getSubsFee();
         this.insFee = coursePricingEntity.getInsFee();
