@@ -1,9 +1,11 @@
-import React, {useEffect} from "react";
-import {useState} from "react";
+import React, { useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
-import {getHeader} from "../../shared/Header";
+import { getHeader } from "../../shared/Header";
 
-import Image, {Card, Container, Row} from "reactstrap"
+import ReactPlayer from 'react-player';
+
+import Image, { Card, Container, Row } from "reactstrap"
 import ImageService from "../../services/content/ImageService";
 
 
@@ -19,33 +21,44 @@ const Test = () => {
             setImage(srcurl);
 
         }).catch(err => {
-                console.log(err.message)
-            }
+            console.log(err.message)
+        }
         )
     }
 
     useEffect(
         () => {
             getFile("http://localhost:8080/fileserver/image/?fileId=24");
-        },[]
+        }, []
     );
 
 
     return (<div>
-            {/*<img  src="http://localhost:8080/fileserver/14" />*/}
+        {/*<img  src="http://localhost:8080/fileserver/14" />*/}
 
-            {/*<img width={100} src={image} />*/}
+        {/*<img width={100} src={image} />*/}
 
-            <Container>
-                <Row>
-                    <Card className="col-6 offset-3">
-                        <img  src={image}/>
-                    </Card>
-                </Row>
-            </Container>
+        <Container>
+            <Row>
+                <Card className="col-6 offset-3">
+                    <img src={image} />
+                </Card>
+            </Row>
+
+            <ReactPlayer
+             controls 
+             width='480px' 
+            //  url='https://www.youtube.com/watch?v=y8bRLf3SFBI&list=RDy8bRLf3SFBI&start_radio=1&ab_channel=AdityaMusic' \
+            url = 'http://localhost:8080/fileserver/video'
+             onReady={()=> console.log('video is ready')}
+             onEnded={()=> console.log('video has ended')}
+             >
+
+            </ReactPlayer>
+        </Container>
 
 
-        </div>
+    </div>
     )
 }
 
