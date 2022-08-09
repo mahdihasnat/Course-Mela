@@ -19,11 +19,11 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-       /// TODO WHEN student has and teacher has same username
+        /// TODO WHEN student has and teacher has same username
         Optional<UserEntity> user = userRepository.findByUserName(userName);
         user.orElseThrow(() -> new UsernameNotFoundException("not found" + userName));
 
-        return  user.map(CustomUserDetails::new).get();
+        return user.map(CustomUserDetails::new).get();
 
         //TODO  do same for admin. Need a elegant solution
 

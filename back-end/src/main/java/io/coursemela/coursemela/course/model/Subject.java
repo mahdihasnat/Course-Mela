@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class Subject {
     private Long id;
     private String name;
+
     public Subject(SubjectEntity subject) {
         this.id = subject.getId();
         this.name = subject.getName();

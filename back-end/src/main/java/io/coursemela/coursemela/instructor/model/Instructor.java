@@ -13,7 +13,7 @@ public class Instructor extends User {
     private double credit;
     private String bio;
 
-    public Instructor(InstructorEntity instructorEntity){
+    public Instructor(InstructorEntity instructorEntity) {
         super(instructorEntity);
         this.credit = instructorEntity.getCredit();
         this.bio = instructorEntity.getBio();

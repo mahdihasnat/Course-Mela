@@ -16,10 +16,10 @@ public class TopicController {
 
     @Autowired
     private TopicService topicService;
+
     @GetMapping("/")
-    List<Topic> getTopicBySubjectId(@RequestParam Long subjectId)
-    {
-        System.out.println("SubjectId:"+subjectId);
+    List<Topic> getTopicBySubjectId(@RequestParam Long subjectId) {
+        System.out.println("SubjectId:" + subjectId);
         return topicService.getTopicBySubjectId(subjectId);
     }
 

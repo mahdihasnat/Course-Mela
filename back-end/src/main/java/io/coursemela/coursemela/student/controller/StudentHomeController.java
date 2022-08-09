@@ -12,7 +12,7 @@ public class StudentHomeController {
 //    private StudentRepository  studentRepository;
 
     @GetMapping("/")
-    public String home(){
+    public String home() {
         return "hello from student home";
     }
 }

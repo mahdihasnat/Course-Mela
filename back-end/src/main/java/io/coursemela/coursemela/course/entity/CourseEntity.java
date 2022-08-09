@@ -38,7 +38,7 @@ public class CourseEntity {
     Set<CourseTagEntity> courseTagEntities;
 
 
-    public CourseEntity(Course course){
+    public CourseEntity(Course course) {
         this.id = course.getId();
         this.name = course.getName();
         this.instructorEntity = new InstructorEntity(course.getInstructor());
@@ -46,8 +46,8 @@ public class CourseEntity {
         this.name = course.getName();
         this.description = course.getDescription();
         this.courseTagEntities = new HashSet<>();
-        for(Tag tag:course.getTags())
-            this.courseTagEntities.add(new CourseTagEntity(this,new TagEntity(tag)));
+        for (Tag tag : course.getTags())
+            this.courseTagEntities.add(new CourseTagEntity(this, new TagEntity(tag)));
 
     }
 

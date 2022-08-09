@@ -13,22 +13,22 @@ import java.util.List;
 
 public class CustomUserDetails implements UserDetails {
     /// TODO this should be revisited with a good implementation
-    private String userName;
-    private String password;
+    private final String userName;
+    private final String password;
 
     private List<GrantedAuthority> authorities;
 
-    public CustomUserDetails(UserEntity userEntity){
+    public CustomUserDetails(UserEntity userEntity) {
         this.userName = userEntity.getUserName();
         this.password = userEntity.getPasssword();
 //        this.active = tru
-        if(userEntity instanceof InstructorEntity){
-            authorities = Arrays.asList(new SimpleGrantedAuthority("ROLE_INSTRUCTOR"));
+        if (userEntity instanceof InstructorEntity) {
+            authorities = List.of(new SimpleGrantedAuthority("ROLE_INSTRUCTOR"));
 
-        }else if(userEntity instanceof StudentEntity){
-            authorities = Arrays.asList(new SimpleGrantedAuthority("ROLE_STUDENT"));
+        } else if (userEntity instanceof StudentEntity) {
+            authorities = List.of(new SimpleGrantedAuthority("ROLE_STUDENT"));
 
-        }else{
+        } else {
             System.out.println("NEED to implement system admin ");
             System.exit(-1);
         }

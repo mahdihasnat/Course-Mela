@@ -16,22 +16,21 @@ public class SubjectServiceImpl implements SubjectService {
     private SubjectRepository subjectRepository;
 
     @Override
-    public Optional<Subject> getSubject(Long id)
-    {
+    public Optional<Subject> getSubject(Long id) {
         Optional<SubjectEntity> subjectEntity = subjectRepository.findById(id);
         return subjectEntity.map(subject -> new Subject(subject.getId(), subject.getName()));
     }
+
     @Override
-    public List<Subject> getAllSubject()
-    {
+    public List<Subject> getAllSubject() {
         List<SubjectEntity> subjectEntities = subjectRepository.findAll();
         List<Subject> subjects = subjectEntities
                 .stream()
                 .map(sub -> new Subject(
                         sub.getId(),
                         sub.getName()
-                        ))
+                ))
                 .collect(Collectors.toList());
-        return  subjects;
+        return subjects;
     }
 }

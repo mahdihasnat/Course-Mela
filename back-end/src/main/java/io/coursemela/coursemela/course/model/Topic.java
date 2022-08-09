@@ -14,8 +14,7 @@ public class Topic {
     private Subject subject;
     private String name;
 
-    public Topic(TopicEntity topic)
-    {
+    public Topic(TopicEntity topic) {
         this.id = topic.getId();
         this.subject = new Subject(topic.getSubjectEntity());
         this.name = topic.getName();

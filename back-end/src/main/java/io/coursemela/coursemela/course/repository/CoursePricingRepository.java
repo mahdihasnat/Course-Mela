@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CoursePricingRepository extends JpaRepository<CoursePricingEntity,Long> {
-//    List<CoursePricingEntity> findByCourseEntityId(Long courseEntityId);
+public interface CoursePricingRepository extends JpaRepository<CoursePricingEntity, Long> {
+    //    List<CoursePricingEntity> findByCourseEntityId(Long courseEntityId);
     List<CoursePricingEntity> findFirstByCourseEntityIdOrderByStartDateDesc(Long courseEntityId);
 }

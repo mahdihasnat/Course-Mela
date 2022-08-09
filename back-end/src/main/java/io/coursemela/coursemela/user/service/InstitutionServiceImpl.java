@@ -14,7 +14,7 @@ public class InstitutionServiceImpl implements InstitutionService {
 
     @Override
     public Institution createInstitution(Institution institution) {
-        InstitutionEntity institutionEntity=new InstitutionEntity(institution);
+        InstitutionEntity institutionEntity = new InstitutionEntity(institution);
         institutionEntity = institutionRepository.save(institutionEntity);
         institution = new Institution(institutionEntity);
         return institution;

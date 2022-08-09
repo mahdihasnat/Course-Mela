@@ -11,8 +11,7 @@ public class Institution {
     private String location;
     private String description;
 
-    public Institution(InstitutionEntity institution)
-    {
+    public Institution(InstitutionEntity institution) {
         this.id = institution.getId();
         this.name = institution.getName();
         this.location = institution.getLocation();

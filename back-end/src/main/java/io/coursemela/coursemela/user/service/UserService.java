@@ -11,6 +11,7 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
     public User createUser(User user) {
         UserEntity userEntity = new UserEntity(user);
         userEntity = userRepository.save(userEntity);
@@ -19,6 +20,6 @@ public class UserService {
     }
 
     public Boolean isAvailableUser(String userName) {
-        return   !(userRepository.findByUserName(userName).isPresent());
+        return !(userRepository.findByUserName(userName).isPresent());
     }
 }

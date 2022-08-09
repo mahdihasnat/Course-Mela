@@ -23,9 +23,11 @@ public class StudentEntity extends UserEntity {
         this.level = level;
     }
 
-    public StudentEntity(){super();}
+    public StudentEntity() {
+        super();
+    }
 
-    public StudentEntity(Student student){
+    public StudentEntity(Student student) {
         super(student);
         this.setLevel(student.getLevel());
     }

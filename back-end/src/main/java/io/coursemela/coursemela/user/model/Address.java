@@ -25,8 +25,7 @@ public class Address {
     @Autowired
 
 
-    public Address(AddressEntity address)
-    {
+    public Address(AddressEntity address) {
         try {
             this.country = address.getCountry();
             this.zilla = address.getZilla();

@@ -11,8 +11,9 @@ import java.nio.file.Path;
 public class FileServerService {
     @Autowired
     StorageService storageService;
-    public Resource  getFileByteArray(String fileId){
-         Path path =  storageService.load(fileId);
+
+    public Resource getFileByteArray(String fileId) {
+        Path path = storageService.load(fileId);
 
         Resource resource = storageService.loadAsResource(fileId);
 

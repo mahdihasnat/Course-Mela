@@ -31,7 +31,8 @@ public class TopicEntity {
         this.id = topic.getId();
         this.subjectEntity = new SubjectEntity(topic.getSubject());
     }
-    public TopicEntity(){
+
+    public TopicEntity() {
 
     }
 }

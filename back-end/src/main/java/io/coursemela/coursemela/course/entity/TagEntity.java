@@ -13,21 +13,20 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @ToString(exclude = "courseTagEntities")
-@EqualsAndHashCode(exclude="courseTagEntities")
+@EqualsAndHashCode(exclude = "courseTagEntities")
 public class TagEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false, unique = true)
     String name;
 
     @OneToMany(mappedBy = "tagEntity")
     Set<CourseTagEntity> courseTagEntities;
 
-    public TagEntity(Tag tag)
-    {
+    public TagEntity(Tag tag) {
         this.id = tag.getId();
         this.name = tag.getName();
     }

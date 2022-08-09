@@ -25,7 +25,7 @@ public class SubjectEntity {
     public SubjectEntity() {
     }
 
-    public SubjectEntity(Subject subject){
+    public SubjectEntity(Subject subject) {
         this.id = subject.getId();
         this.name = subject.getName();
     }

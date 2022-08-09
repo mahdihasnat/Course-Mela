@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class Student extends User {
     Level level;
 
-    public Student(StudentEntity studentEntity){
+    public Student(StudentEntity studentEntity) {
         super(studentEntity);
         this.setLevel(studentEntity.getLevel());
     }
