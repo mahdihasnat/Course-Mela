@@ -5,10 +5,8 @@ import io.coursemela.coursemela.fileserver.payload.UploadFileResponse;
 import io.coursemela.coursemela.fileserver.service.FileServerService;
 import io.coursemela.coursemela.fileserver.service.FileStorageService;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.core.io.support.ResourceRegion;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +19,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static java.lang.Math.min;
 
 @RestController
 @RequestMapping("/fileserver")
@@ -50,31 +46,23 @@ public class FileServerController {
                 file.getContentType(), file.getSize());
     }
 
+    @PostMapping("/uploadVideo")
+    public UploadFileResponse uploadVideo(@RequestParam("file") MultipartFile file, @RequestParam("fileName") String fileName) {
+        fileName = fileStorageService.storeFile(file, fileName);
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/fileserver/video/")
+                .path(fileName)
+                .toUriString();
+        return new UploadFileResponse(fileName, fileDownloadUri,
+                file.getContentType(), file.getSize());
+    }
+
 
     @PostMapping("/uploadMultipleFiles")
     public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
         return Arrays.stream(files)
                 .map(this::uploadFile)
                 .collect(Collectors.toList());
-    }
-
-    @GetMapping(value = "/image",
-            produces = MediaType.IMAGE_JPEG_VALUE)
-    public ResponseEntity<Object> getFile(@PathParam("fileId") String fileId) throws IOException {
-
-        Resource resource = fileServerService.getFileByteArray(fileId);
-
-        HttpHeaders headers = new HttpHeaders();
-
-        headers.add("Content-Disposition", String.format("attachment; filename=\"%s\"", resource.getFilename()));
-        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-        headers.add("Pragma", "no-cache");
-        headers.add("Expires", "0");
-
-
-        ResponseEntity<Object> responseEntity = ResponseEntity.ok().headers(headers).contentLength(resource.contentLength()).body(resource);
-
-        return responseEntity;
     }
 
 
@@ -104,48 +92,28 @@ public class FileServerController {
     }
 
 
-//    @GetMapping("{name}")
-//    public ResponseEntity<Resource> getVideoByName(@PathVariable("name") String name){
-//        return ResponseEntity
-//                .ok(new ByteArrayResource(videoService.getVideo(name).getData()));
-//    }
+    @GetMapping(value = "/image")
+    public ResponseEntity<Object> getFile(@PathParam("fileId") String fileId) throws IOException {
+//        Resource resource = fileServerService.getFileByteArray(fileId);
+        Resource resource = fileStorageService.loadFileAsResource(fileId);
+        ResponseEntity<Object> responseEntity = ResponseEntity.ok()
+//                .headers(headers)
+                .contentType(MediaTypeFactory
+                        .getMediaType(resource)
+                        .orElse(MediaType.APPLICATION_OCTET_STREAM))
+                .contentLength(resource.contentLength())
+                .body(resource);
 
-//    @GetMapping(value = "/video"
-//    )
-//    public ResponseEntity<Resource> getVideoById(@PathVariable("videoId") String videoId){
-//        return ResponseEntity.ok(
-//                new ByteArrayResource(videoServerService.getVideo(videoId).getData())
-//        );
-//    }
+        return responseEntity;
+    }
 
+    @GetMapping("/video/{fileName}")
+    ResponseEntity<ResourceRegion> getVideo(@RequestHeader HttpHeaders headers, @PathVariable("fileName") String fileName) throws IOException {
+//        System.out.println(headers);
 
-//    ResponseBody byte[] getImageFile(){
-//        return null;
-//    }
-
-
-//    @GetMapping("/video")
-//    ResponseEntity<UrlResource> getFullVideo() throws MalformedURLException {
-//        val video = new UrlResource("file:/mnt/disc/Course-Mela/back-end/file-bucket/video/toystory.mp4");
-//        System.out.println( "video type " +
-//                MediaTypeFactory
-//                        .getMediaType(video)
-//        );
-//        return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT)
-//                .contentType(MediaTypeFactory
-//                        .getMediaType(video)
-//                        .orElse(MediaType.APPLICATION_OCTET_STREAM))
-//                .body(video);
-//    }
-
-
-    @GetMapping("/video")
-    ResponseEntity<ResourceRegion> getVideo(@RequestHeader HttpHeaders headers) throws IOException {
-        System.out.println(headers);
-
-        UrlResource video = new UrlResource("file:/mnt/disc/Course-Mela/back-end/file-bucket/video/toystory.mp4");
-
-        val region = resourceRegion(video, headers);
+//        UrlResource video = new UrlResource("file:/mnt/disc/Course-Mela/back-end/file-bucket/video/toystory.mp4");
+        Resource video = fileStorageService.loadFileAsResource(fileName);
+        ResourceRegion region = fileStorageService.loadResourceAsResourceRegion(headers, video);
         return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT)
                 .contentType(MediaTypeFactory
                         .getMediaType(video)
@@ -170,26 +138,6 @@ public class FileServerController {
 ////                        .orElse(MediaType.APPLICATION_OCTET_STREAM))
 ////                .body(region);
 //    }
-
-    private ResourceRegion resourceRegion(UrlResource video, HttpHeaders headers) throws IOException {
-        val contentLength = video.contentLength();
-
-        try {
-            HttpRange range = headers.getRange().get(0);
-            val start = range.getRangeStart(contentLength);
-            val end = range.getRangeEnd(contentLength);
-            val rangeLength = min(1024 * 1024, end - start + 1);
-            log.info(" video range : " + start + " -> " + rangeLength + " out of " + contentLength);
-            return new ResourceRegion(video, start, rangeLength);
-
-        } catch (IndexOutOfBoundsException e) {
-            log.warn("no range for the video");
-            val rangeLength = min(1024 * 1024, contentLength);
-            return new ResourceRegion(video, 0, rangeLength);
-        }
-
-
-    }
 
 
 }

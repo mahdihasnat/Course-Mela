@@ -5,7 +5,7 @@ import io.coursemela.coursemela.course.entity.CourseTagEntity;
 import io.coursemela.coursemela.course.model.Course;
 import io.coursemela.coursemela.course.repository.CourseRepository;
 import io.coursemela.coursemela.course.repository.CourseTagRepository;
-import io.coursemela.coursemela.shared.util.BaseUrl;
+import io.coursemela.coursemela.shared.util.UrlCollections;
 import io.coursemela.coursemela.storage.StorageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +75,7 @@ public class CourseServiceImpl implements CourseService {
         System.out.println(path);
 
 
-        String url = BaseUrl.getBaseUrl() + "/fileserver/image/?fileId=" + courseId;
+        String url = UrlCollections.getBaseUrl() + "/fileserver/image/?fileId=" + courseId;
         CourseEntity course = courseRepository.findById(Long.valueOf(courseId)).get();
         course.setCover_photo_path(url);
         courseRepository.save(course);
