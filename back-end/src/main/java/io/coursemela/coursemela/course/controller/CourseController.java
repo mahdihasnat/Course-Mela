@@ -24,53 +24,43 @@ public class CourseController {
     @Autowired
     private InstructorService instructorService;
 
-
-
     @PostMapping(value = "/")
     Course createCourse(@RequestBody Course course) {
         try {
             System.out.println("course:" + course.toString());
-//            log.debug(String.valueOf(coursePrice));
-//             System.out.println("file:"+coverImage);
             if (course.getTags() == null)
                 course.setTags(new ArrayList<>());
             String currentUserName = UserContext.getUserName();
             course.setInstructor(instructorService.getInstructor(currentUserName));
             course = courseService.createCourse(course);
             return course;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
 
     }
 
-    @PostMapping(value="updateCoverImage")
-    public ResponseEntity<Boolean> updateCoverImage(@RequestParam("id") String id, @RequestParam("coverImage")MultipartFile coverImage)
-    {
+    @PostMapping(value = "updateCoverImage")
+    public ResponseEntity<Boolean> updateCoverImage(@RequestParam("id") String id,
+            @RequestParam("coverImage") MultipartFile coverImage) {
         try {
-//            coverImage.
+            // coverImage.
 
-//            storageService.store(coverImage, id);
-//            System.out.println();
-//            log.info("IMPLEMENT UPDATE COVER IMAGE CODE HERE");
-//            return null;
-             return ResponseEntity.ok(courseService.updateCourseCoverImageLocation(id, coverImage));
-        }
-        catch (Exception e)
-        {
+            // storageService.store(coverImage, id);
+            // System.out.println();
+            // log.info("IMPLEMENT UPDATE COVER IMAGE CODE HERE");
+            // return null;
+            return ResponseEntity.ok(courseService.updateCourseCoverImageLocation(id, coverImage));
+        } catch (Exception e) {
             e.printStackTrace();
-            return  ResponseEntity.ok(false);
+            return ResponseEntity.ok(false);
         }
     }
 
     @GetMapping("/")
-    List<Course> getCourses(){
+    List<Course> getCourses() {
         return courseService.getCourses();
     }
-
-    
 
 }

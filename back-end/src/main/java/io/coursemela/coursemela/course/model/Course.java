@@ -8,7 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Slf4j
+@Component
 public class Course {
     private Long id;
     private Instructor instructor;
@@ -29,9 +33,9 @@ public class Course {
     CoursePricing coursePricing;
 
     @Autowired
-    CoursePricingService coursePricingService;
+    private CoursePricingService coursePricingService;
 
-    public Course(CourseEntity courseEntity){
+    public Course initFromEntity(CourseEntity courseEntity) {
         this.id = courseEntity.getId();
         this.instructor = new Instructor((courseEntity.getInstructorEntity()));
         this.topic = new Topic(courseEntity.getTopicEntity());
@@ -39,8 +43,10 @@ public class Course {
         this.cover_photo_path = courseEntity.getCover_photo_path();
         this.description = courseEntity.getDescription();
         this.tags = new ArrayList<>();
-        for(CourseTagEntity courseTag: courseEntity.getCourseTagEntities())
+        for (CourseTagEntity courseTag : courseEntity.getCourseTagEntities())
             tags.add(new Tag(courseTag.getTagEntity()));
-//        this.coursePricing = coursePricingService.getCurrentCoursePrice(this.id);
+        log.debug("coursePricing Service:" + coursePricingService.toString());
+        this.coursePricing = coursePricingService.getCurrentCoursePricing(this.id);
+        return this;
     }
 }

@@ -1,9 +1,10 @@
 package io.coursemela.coursemela.course.service;
 
+import io.coursemela.coursemela.course.entity.CourseEntity;
 import io.coursemela.coursemela.course.model.CoursePricing;
-import org.springframework.stereotype.Service;
 
-@Service
+
 public interface CoursePricingService {
-    CoursePricing getCurrentCoursePrice(Long courseId);
+    CoursePricing getCurrentCoursePricing(Long courseId);
+    CoursePricing addCoursePricing(CourseEntity courseEntity, CoursePricing coursePricing);
 }
