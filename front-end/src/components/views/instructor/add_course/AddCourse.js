@@ -19,8 +19,12 @@ function AddCourse() {
     coursePrice: "",
     chosenSubjectId: "-1",
     chosenTopicId: "-1",
-    topics: [],
+    
   });
+
+  const [subjects, setSubjects] = React.useState([defaultSubject]);
+  const [topics, setTopics] = React.useState([]);
+
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -43,7 +47,7 @@ function AddCourse() {
     "Provide an optional course description to let students know about your course...";
   const navigate = useNavigate();
 
-  const [subjects, setSubjects] = useState([]);
+  // const [subjects, setSubjects] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const [tags, setTags] = useState([]);
@@ -52,46 +56,65 @@ function AddCourse() {
     console.log("inside fetchTopic");
     TopicService.getAllTopicsBySubject(values.chosenSubjectId)
       .then((response) => {
-        console.log(response);
-        setValues({ ...values, topics: response.data });
+        setTopics(response.data);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  useEffect(() => {
-    setIsLoading(true);
-    SubjectService.getAllSubjects()
-      .then((response) => {
-        console.log(response.data);
-        setSubjects([defaultSubject, ...response.data]);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+  const fetchSubject = () => {
+    SubjectService.getAllSubjects().then((response) => {
+      console.log("subjects ", response.data);
+      
+      setSubjects([defaultSubject,  ...response.data]);
+  
+    }).catch((err) => {
+      console.log(err);
+    }).finally(() => {
+      setIsLoading(false);
+    })
+  }
+
+
+  const fetchTags = () => {
+
     TagService.getTags()
       .then((response) => {
-        console.log(response.data);
+        console.log("tags :", response.data);
         setRemainingThingsToFocus(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
+  }
+
+ 
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetchSubject();
+    fetchTags(); 
   }, []);
 
   useEffect(() => {
+    console.log("subjects values ", subjects);
+  }, [subjects])
+
+  useEffect(() => {
+    console.log("choosen subject id ", values.chosenSubjectId);
     fetchTopic();
   }, [values.chosenSubjectId]);
 
   useEffect(() => {
-    if (values.topics.length > 0) {
-      setValues({ ...values, chosenTopicId: values.topics[0].id });
+    if (topics.length > 0) {
+      setValues({ ...values, chosenTopicId: topics[0].id });
     }
-  }, [values.topics]);
+  }, [topics]);
+
+
+
+
 
   const handleImgUpload = (e) => {
     if (e.target.files.length !== 0) {
@@ -132,8 +155,9 @@ function AddCourse() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
     CourseService.createCourse(
-      values.topics.filter(
+      topics.filter(
         (topic) => topic.id == parseInt(values.chosenTopicId, 10)
       )[0],
       values.courseName,
@@ -157,6 +181,9 @@ function AddCourse() {
 
   return (
     <div className="container">
+
+      
+
       <form
         onSubmit={handleAddThingToFocusSubmit}
         id="addThingsToFocusForm"
@@ -164,7 +191,7 @@ function AddCourse() {
       <form onSubmit={handleSubmit}>
         <div className="add-course-necessities">
           <div className="add-course-necessities">
-            <div>
+            <div >
               <label htmlFor="subject">
                 <b>Select Subject</b>
               </label>
@@ -196,8 +223,8 @@ function AddCourse() {
               required
               onChange={handleChange("chosenTopicId")}
             >
-              {values.topics.map((topic, index) => (
-                <option key={index} value={topic.id}>
+              {topics.map((topic, index) => (
+                <option key={topic.id} value={topic.id}>
                   {topic.name}
                 </option>
               ))}
