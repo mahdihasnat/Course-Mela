@@ -9,8 +9,8 @@ import javax.persistence.ManyToOne;
 @Entity
 @Data
 public class InstructorCashOutEntity extends TransactionEntity {
-
+    
     @ManyToOne
     private InstructorEntity instructor;
-    
+
 }

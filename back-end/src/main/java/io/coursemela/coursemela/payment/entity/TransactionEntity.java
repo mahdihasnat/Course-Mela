@@ -3,14 +3,14 @@ package io.coursemela.coursemela.payment.entity;
 import io.coursemela.coursemela.payment.enumeration.TransactionMedium;
 import lombok.Data;
 
-import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import java.time.ZonedDateTime;
 
 
-@Entity
 @Data
-public class TransactionEntity {
+@MappedSuperclass
+public abstract class TransactionEntity {
     @Id
     private Long id;
     private Long amount;
