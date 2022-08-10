@@ -7,10 +7,12 @@ import {useLoginContext} from '../../../store/contexts/LoginContext';
 import {LoginWithDispatch} from '../../../store/storeIndex';
 import {useNavigate} from 'react-router-dom';
 import LoginService from '../../../services/auth/LoginService';
-import {Container, Grid, Stack} from '@mui/material';
-import {Button} from '@mui/material';
+import {Box, Container, Grid, Paper, Stack} from '@mui/material';
+import {
+    Button,
+    TextField
+} from '@mui/material';
 import './Registraion.css'
-// import {Button} from 'bo';	
 
 
 const Registration = () => {
@@ -64,17 +66,14 @@ const Registration = () => {
         },
     });
     return (
-        <section className="gradient-custom">
-            <Container justify={'center'}>
-                <div className="justify-content-center align-content-center">
-                    {/*<div className="col-12 col-lg-9 col-xl-7">*/}
-                        <div className="card shadow-2-strong card-registration" style={{borderRadius: "15px"}}>
-                            <div className="card-body">
-                                <h3 className="mb-4 pb-2 pb-md-0 mb-md-5">Let's start our journey!</h3>
-                                <form onSubmit={formik.handleSubmit}>
-                                    {/*<div className="row">*/}
-                                    {/*<div className="col-md-6 mb-4">*/}
-                                    <div className="form-outline">
+        <Paper className="gradient-custom" sx={{padding: '32px'}} elevation={2}>
+            <h3 className="mb-4 pb-2 pb-md-0 mb-md-5">Let's start our journey!</h3>
+            <form onSubmit={formik.handleSubmit}>
+                <Stack container spacing={4}>
+
+                    {/*<div className="row">*/}
+                    {/*<div className="col-md-6 mb-4">*/}
+                    {/* <div className="form-outline">
                                         <label className="form-label" htmlFor="userName">User Name</label>
 
                                         <input
@@ -84,124 +83,132 @@ const Registration = () => {
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
                                             value={formik.values.userName}
-
                                             className="form-control form-control-lg"
                                         />
                                         {formik.touched.userName && formik.errors.userName ? (
                                             <div>{formik.errors.userName}</div>
-                                        ) : null}
-                                        {/*</div>*/}
-                                        {/*</div>*/}
-                                    </div>
+                                        ) : null} */}
+                    {/*</div>*/}
+                    {/*</div>*/}
+                    {/* </div> */}
+                    <Stack>
+                        <TextField
+                            label={'User Name'}
+                            id={'userName'}
+                            type={'text'}
+                            variant={'outlined'}
+                            value={formik.values.userName}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={formik.touched.userName && Boolean(formik.errors.userName)}
+                            helperText={formik.touched.userName && formik.errors.userName}
+                            required
+                        />
 
-                                    <label htmlFor="firstName">First Name</label>
-                                    <input
-                                        id="firstName"
-                                        name="firstName"
-                                        type="text"
-                                        onChange={formik.handleChange}
-                                        onBlur={formik.handleBlur}
-                                        value={formik.values.firstName}
-                                    />
-                                    {formik.touched.firstName && formik.errors.firstName ? (
-                                        <div>{formik.errors.firstName}</div>
-                                    ) : null}
+                    </Stack>
 
-                                    <label htmlFor="lastName">Last Name</label>
-                                    <input
-                                        id="lastName"
-                                        name="lastName"
-                                        type="text"
-                                        onChange={formik.handleChange}
-                                        onBlur={formik.handleBlur}
-                                        value={formik.values.lastName}
-                                    />
-                                    {formik.touched.lastName && formik.errors.lastName ? (
-                                        <div>{formik.errors.lastName}</div>
-                                    ) : null}
 
-                                    <label htmlFor="email">Email Address</label>
-                                    <input
-                                        id="email"
-                                        name="email"
-                                        type="text"
-                                        onChange={formik.handleChange}
-                                        onBlur={formik.handleBlur}
-                                        value={formik.values.email}
-                                    />
-                                    {formik.touched.email && formik.errors.email ? (
-                                        <div>{formik.errors.email}</div>
-                                    ) : null}
+                    <label htmlFor="firstName">First Name</label>
+                    <input
+                        id="firstName"
+                        name="firstName"
+                        type="text"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.firstName}
+                    />
+                    {formik.touched.firstName && formik.errors.firstName ? (
+                        <div>{formik.errors.firstName}</div>
+                    ) : null}
 
-                                    {/* <label htmlFor='password'>Password</label>
+                    <label htmlFor="lastName">Last Name</label>
+                    <input
+                        id="lastName"
+                        name="lastName"
+                        type="text"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.lastName}
+                    />
+                    {formik.touched.lastName && formik.errors.lastName ? (
+                        <div>{formik.errors.lastName}</div>
+                    ) : null}
+
+                    <label htmlFor="email">Email Address</label>
+                    <input
+                        id="email"
+                        name="email"
+                        type="text"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.email}
+                    />
+                    {formik.touched.email && formik.errors.email ? (
+                        <div>{formik.errors.email}</div>
+                    ) : null}
+
+                    {/* <label htmlFor='password'>Password</label>
             <input
                 id = 'password' */}
 
-                                    <label htmlFor="password">Password </label>
-                                    <input
-                                        id="password"
-                                        name="password"
-                                        type="password"
-                                        onChange={formik.handleChange}
-                                        onBlur={formik.handleBlur}
-                                        value={formik.values.password}
-                                    />
-                                    {formik.touched.password && formik.errors.password ? (
-                                        <div>{formik.errors.password}</div>
-                                    ) : null}
+                    <label htmlFor="password">Password </label>
+                    <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.password}
+                    />
+                    {formik.touched.password && formik.errors.password ? (
+                        <div>{formik.errors.password}</div>
+                    ) : null}
 
-                                    <label htmlFor="confirmPassword">Confirm Password</label>
-                                    <input
-                                        id="confirmPassword"
-                                        name="confirmPassword"
-                                        type="password"
-                                        onChange={formik.handleChange}
-                                        onBlur={formik.handleBlur}
-                                        value={formik.values.confirmPassword}
-                                    />
-                                    {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
-                                        <div>{formik.errors.confirmPassword}</div>
-                                    ) : null}
+                    <label htmlFor="confirmPassword">Confirm Password</label>
+                    <input
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        type="password"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.confirmPassword}
+                    />
+                    {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
+                        <div>{formik.errors.confirmPassword}</div>
+                    ) : null}
 
-                                    <div id="my-radio-group">Role</div>
-                                    <div role="group" aria-labelledby="my-radio-group">
-                                        <label>
-                                            <input type="radio" name="picked" value={STUDENT}
-                                                   onClick={formik.handleChange}/>
-                                            student
-                                        </label>
-                                        <label>
-                                            <input type="radio" name="picked" value={INSTRUCTOR}
-                                                   onClick={formik.handleChange}/>
-                                            instructor
-                                        </label>
+                    <div id="my-radio-group">Role</div>
+                    <div role="group" aria-labelledby="my-radio-group">
+                        <label>
+                            <input type="radio" name="picked" value={STUDENT}
+                                   onClick={formik.handleChange}/>
+                            student
+                        </label>
+                        <label>
+                            <input type="radio" name="picked" value={INSTRUCTOR}
+                                   onClick={formik.handleChange}/>
+                            instructor
+                        </label>
 
 
-                                    </div>
+                    </div>
 
-                                    {/*<Row>*/}
-                                    {/*    <Button className="col-md-2 justify-content-center offset-5" type="submit"*/}
-                                    {/*            color="primary">Register</Button>*/}
-                                    {/*</Row>*/}
-                                    {/*<Container>*/}
-                                    <Grid  justify='center'>
-                                        <Button
-                                            variant={'contained'}
-                                            type={'submit'}
-                                        >
-                                            Register
-                                        </Button>
-                                    </Grid>
 
-                                    {/*</Container>*/}
+                    <Grid justify='center'>
+                        <Button
+                            variant={'contained'}
+                            type={'submit'}
+                        >
+                            Register
+                        </Button>
+                    </Grid>
 
-                                </form>
-                            </div>
-                        </div>
-                    {/*</div>*/}
-                </div>
-            </Container>
-        </section>
+                    {/*</Container>*/}
+
+                </Stack>
+            </form>
+
+        </Paper>
     )
 
 };

@@ -7,6 +7,7 @@ import ReactPlayer from 'react-player';
 
 import Image, { Card, Container } from "@mui/material"
 import ImageService from "../../services/content/ImageService";
+import {MuiTextField} from "./TextFieldTest";
 
 
 const Test = () => {
@@ -38,26 +39,26 @@ const Test = () => {
 
         {/*<img width={100} src={image} />*/}
 
-        <Container>
-            <div>
-                <Card className="col-6 offset-3">
-                    <img src={image} />
-                </Card>
-            </div>
+        {/*<Container>*/}
+        {/*    <div>*/}
+        {/*        <Card className="col-6 offset-3">*/}
+        {/*            <img src={image} />*/}
+        {/*        </Card>*/}
+        {/*    </div>*/}
 
-            <ReactPlayer
-             controls 
-             width='480px' 
-            //  url='https://www.youtube.com/watch?v=y8bRLf3SFBI&list=RDy8bRLf3SFBI&start_radio=1&ab_channel=AdityaMusic' \
-            url = 'http://localhost:8080/fileserver/video'
-             onReady={()=> console.log('video is ready')}
-             onEnded={()=> console.log('video has ended')}
-             >
+        {/*    <ReactPlayer*/}
+        {/*     controls */}
+        {/*     width='480px' */}
+        {/*    //  url='https://www.youtube.com/watch?v=y8bRLf3SFBI&list=RDy8bRLf3SFBI&start_radio=1&ab_channel=AdityaMusic' \*/}
+        {/*    url = 'http://localhost:8080/fileserver/video'*/}
+        {/*     onReady={()=> console.log('video is ready')}*/}
+        {/*     onEnded={()=> console.log('video has ended')}*/}
+        {/*     >*/}
 
-            </ReactPlayer>
-        </Container>
+        {/*    </ReactPlayer>*/}
+        {/*</Container>*/}
 
-
+        <MuiTextField></MuiTextField>
     </div>
     )
 }
