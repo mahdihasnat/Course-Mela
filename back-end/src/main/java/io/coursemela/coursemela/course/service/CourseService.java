@@ -1,13 +1,11 @@
 package io.coursemela.coursemela.course.service;
 
 import io.coursemela.coursemela.course.model.Course;
-import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 
-@Service
 public interface CourseService {
     Course createCourse(Course course);
 
