@@ -23,7 +23,8 @@ public class PromoEntity {
     private Long value;
     private Long minimumPrice;
     private Long maximumDiscount;
-
+    private Long maximumAttempt;
+    
     @OneToMany(mappedBy = "promoEntity")
     Set<StudentPromoEntity> studentPromoEntities;
 }
