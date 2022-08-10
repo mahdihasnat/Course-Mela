@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.coursemela.coursemela.user.model.Institution;
 import io.coursemela.coursemela.user.model.User;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -13,6 +15,8 @@ import java.util.Set;
 
 @Data
 @Entity
+@Slf4j
+@NoArgsConstructor
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -55,10 +59,18 @@ public class UserEntity {
         this.passsword = user.getPassword();
         this.mobileNo = user.getMobileNo();
         this.dateOfJoin = user.getDateOfJoin();
-        this.address = new AddressEntity(user.getAddress());
+        try {
+            this.address = new AddressEntity(user.getAddress());
+        } catch (NullPointerException e) {
+            log.trace(e.getStackTrace().toString());
+        }
         this.institutionEntities = new HashSet<>();
-        for (Institution institution : user.getInstitutions())
-            this.institutionEntities.add(new InstitutionEntity(institution));
+        try {
+            for (Institution institution : user.getInstitutions())
+                this.institutionEntities.add(new InstitutionEntity(institution));
+        } catch (NullPointerException e) {
+            log.trace(e.getStackTrace().toString());
+        }
     }
 
     public UserEntity(String userName, String firstName, String lastName, String email, String passsword, String mobileNo, Date dateOfJoin) {
@@ -71,6 +83,4 @@ public class UserEntity {
         this.dateOfJoin = dateOfJoin;
     }
 
-    public UserEntity() {
-    }
 }

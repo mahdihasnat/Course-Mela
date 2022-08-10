@@ -5,6 +5,7 @@ import io.coursemela.coursemela.user.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Date;
@@ -14,6 +15,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Slf4j
 public class User {
     protected Long id;
     protected String userName;
@@ -36,10 +38,19 @@ public class User {
         this.password = userEntity.getPasssword();
         this.mobileNo = userEntity.getMobileNo();
         this.dateOfJoin = userEntity.getDateOfJoin();
-        this.address = new Address(userEntity.getAddress());
+        try {
+            this.address = new Address(userEntity.getAddress());
+        } catch (NullPointerException e) {
+            log.trace(e.getStackTrace().toString());
+        }
+
         this.institutions = new HashSet<>();
-        for (InstitutionEntity institutionEntity : userEntity.getInstitutionEntities())
-            institutions.add(new Institution(institutionEntity));
+        try {
+            for (InstitutionEntity institutionEntity : userEntity.getInstitutionEntities())
+                institutions.add(new Institution(institutionEntity));
+        } catch (NullPointerException e) {
+            log.trace(e.getStackTrace().toString());
+        }
     }
 
 
