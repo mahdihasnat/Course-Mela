@@ -20,7 +20,7 @@ public class StudentPromoEntity {
     @JoinColumn(name = "promoId")
     private PromoEntity promoEntity;
 
-    private int remainingTime;
+    private int remainingAttempt;
 
     private ZonedDateTime startTime;
     private ZonedDateTime endTime;
