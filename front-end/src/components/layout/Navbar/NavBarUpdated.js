@@ -45,7 +45,7 @@ const MuiNavbar = () => {
   };
 
   const instructorNavbarOption = () => {
-    return <Button color={"inherit"}>Add Course</Button>;
+    return <Button color={"inherit"} href={'/add-course'}>Add Course</Button>;
   };
 
   const guestNavbarOption = () => {
@@ -90,7 +90,7 @@ const MuiNavbar = () => {
 
         {isSignedIn ? (
           <Stack direction="row" spacing={buttonSpacing}>
-            <Button color="inherit" href={"./"}>
+            <Button color="inherit" href={"/"}>
               Home
             </Button>
             {userRole === ROLE_INSTRUCTOR

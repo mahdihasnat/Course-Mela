@@ -49,15 +49,15 @@ function InstructorHome() {
 
   return (
     <div className='container'>
-        <div className='instr-top-container'>
-            <CoTD />
-            {/* <Dashboard name={instructorDetail.userName} institution={instructorDetail.institution} sales={instructorDetail.sales} salesPercentage={instructorDetail.salesPercentage} balance={instructorDetail.balance} /> */}
-            <Dashboard name={instructorDetail.userName} institution='BUET' sales={100} salesPercentage={40} balance={instructorDetail.credit} />
+        {/*<div className='instr-top-container'>*/}
+        {/*    <CoTD />*/}
+        {/*    /!* <Dashboard name={instructorDetail.userName} institution={instructorDetail.institution} sales={instructorDetail.sales} salesPercentage={instructorDetail.salesPercentage} balance={instructorDetail.balance} /> *!/*/}
+        {/*    <Dashboard name={instructorDetail.userName} institution='BUET' sales={100} salesPercentage={40} balance={instructorDetail.credit} />*/}
         
-        </div>
-        <Recommendations />
+        {/*</div>*/}
+        {/*<Recommendations />*/}
         <div style={ styles.courseList }><InstructorCourseList title={"Your Courses"} name={instructorDetail.name} /></div>
-        <div style={ styles.courseList }><CourseList title={"Most Popular Now"} /></div>
+        {/*<div style={ styles.courseList }><CourseList title={"Most Popular Now"} /></div>*/}
     </div>
   )
 }
