@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
@@ -33,6 +34,7 @@ public class CoursePricingServiceImpl implements CoursePricingService {
                 .subsFee(coursePricing.getSubsFee())
                 .insFee(coursePricing.getSubsFee())
                 .offPercent(0.0)
+                .startDate(ZonedDateTime.now())
                 .build();
         coursePricingEntity = coursePricingRepository.save(coursePricingEntity);
         coursePricing = new CoursePricing(coursePricingEntity);
