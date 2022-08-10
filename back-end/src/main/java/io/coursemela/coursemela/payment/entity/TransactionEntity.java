@@ -1,6 +1,6 @@
 package io.coursemela.coursemela.payment.entity;
 
-import io.coursemela.coursemela.payment.enumeration.TRANSACTION_MEDIUM;
+import io.coursemela.coursemela.payment.enumeration.TransactionMedium;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -16,7 +16,7 @@ public class TransactionEntity {
     private Long amount;
     private ZonedDateTime timestamp;
 
-    private TRANSACTION_MEDIUM transactionMedium;
+    private TransactionMedium transactionMedium;
     private String bankInfo;
     private String accountInfo;
     private String merchantTransactionId;

@@ -1,6 +1,6 @@
 package io.coursemela.coursemela.payment.model;
 
-import io.coursemela.coursemela.payment.enumeration.TRANSACTION_MEDIUM;
+import io.coursemela.coursemela.payment.enumeration.TransactionMedium;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -15,7 +15,7 @@ public class Transaction implements Serializable {
     private final Long id;
     private final Long amount;
     private final ZonedDateTime timestamp;
-    private final TRANSACTION_MEDIUM transactionMedium;
+    private final TransactionMedium transactionMedium;
     private final String bankInfo;
     private final String accountInfo;
     private final String merchantTransactionId;

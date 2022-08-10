@@ -1,6 +1,6 @@
 package io.coursemela.coursemela.payment.enumeration;
 
-public enum TRANSACTION_MEDIUM {
+public enum TransactionMedium {
     MFS,
     BANK,
     CARD;
