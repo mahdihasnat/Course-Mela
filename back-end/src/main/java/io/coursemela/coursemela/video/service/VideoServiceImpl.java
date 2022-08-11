@@ -29,12 +29,20 @@ public class VideoServiceImpl implements VideoService {
             System.out.println("after : " + videoEntity);
 
 
-
         return new Video(videoEntity);
 //        }else{
 //            throw new Exception("Course Entity not found" + courseId);
 //        }
 
 
+    }
+
+
+    @Override
+    public Video updateVideoUrl(Long videoId, String videoUrl) {
+        VideoEntity videoEntity = videoRepository.findById(videoId).stream().findFirst().orElse(null);
+        videoEntity.setVideoPath(videoUrl);
+        videoRepository.save(videoEntity);
+        return new Video(videoEntity);
     }
 }

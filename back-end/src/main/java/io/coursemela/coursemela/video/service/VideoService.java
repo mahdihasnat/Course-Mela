@@ -5,5 +5,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface VideoService {
-    public Video createVideoMetadata( Video video) throws Exception;
+    Video createVideoMetadata(Video video) throws Exception;
+
+    Video updateVideoUrl(Long videoId, String videoUrl);
 }
