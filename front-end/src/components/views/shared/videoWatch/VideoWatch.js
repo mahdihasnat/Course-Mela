@@ -22,7 +22,7 @@ import { LOG_CAUGHT_ERR } from "../../../../shared/utils";
 const VideoWatch = ({}) => {
   const comments = [
     { commentId: "2", commenter: "Abul", comment: "What is sign used for" },
-    { commentId: "2", commenter: "Amir", comment: "What is sign used? " },
+    { commentId: "1", commenter: "Amir", comment: "What is sign used? " },
   ];
 
   const { videoId } = useParams();

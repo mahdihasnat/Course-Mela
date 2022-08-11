@@ -14,4 +14,6 @@ public interface VideoService {
     Video getVideoById(Long videoId);
 
     List<Video> getAllVideoByCourse(Long courseId);
+
+    Video updateThumbUrl(Long videoId, String thumbUrl);
 }

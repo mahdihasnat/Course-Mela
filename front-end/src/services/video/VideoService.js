@@ -64,6 +64,15 @@ class VideoService {
       headers: jsonAuthorizedHeader(),
     });
   }
+  updateVideoImage(videoId, path) {
+    const formData = new FormData();
+    formData.set("videoId", videoId);
+    formData.set("thumbUrl", path);
+    console.log({ videoId: videoId, url: path });
+    return axios.post(joinUrl(VIDEO_ULR, "updateThumbUrl"), formData, {
+      headers: jsonAuthorizedHeader(),
+    });
+  }
 
   getVideoById(videoId) {
     return axios.get(joinUrl(VIDEO_ULR, "getVideo", videoId), {

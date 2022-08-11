@@ -11,7 +11,7 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import CourseService from "../../../../services/course/CourseService";
 import createImageLinkFromByte from "../../../../utils/linker";
 import ImageService from "../../../../services/content/ImageService";
@@ -26,6 +26,8 @@ const InstructorCourseDetails = () => {
   const [isImageLoading, setImageLoading] = useState(true);
   const [coverPhoto, setCoverPhoto] = useState("");
 
+  const navigate = useNavigate();
+
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
@@ -35,11 +37,11 @@ const InstructorCourseDetails = () => {
         console.log(res);
 
         setCourse(res.data);
+        setIsLoading(false);
+
         // now fetch the image
         ImageService.loadImage(res.data.cover_photo_path)
           .then((response) => {
-            // setCoverPhoto(createImageLinkFromByte(response.data));
-            // const srcurl =
             setCoverPhoto(
               window.URL.createObjectURL(new Blob([response.data]))
             );
@@ -61,7 +63,6 @@ const InstructorCourseDetails = () => {
       .then((res) => {
         console.log({ videoList: res.data });
         setVideos(res.data);
-        setIsLoading(false);
       })
       .catch(LOG_CAUGHT_ERR);
   }, []);
@@ -91,7 +92,7 @@ const InstructorCourseDetails = () => {
               // height={"70%"}
             />
             <CardContent>
-              <CardHeader tag="h5">{course.name}</CardHeader>
+              <CardHeader tag="h5">{course.title}</CardHeader>
               <CardContent>{course.description}</CardContent>
             </CardContent>
           </Card>
@@ -121,10 +122,33 @@ const InstructorCourseDetails = () => {
       )}
 
       <Container>
+        <Typography variant={"h4"}>Videos Belonging to this course</Typography>
         <List>
           {videos.map((video) => (
-            <ListItem key={video.id}>
-              <ListItemText primary={video.title} />
+            <ListItem
+              key={video.id}
+              onClick={(e) => {
+                navigate(`/watchVideo/${video.id}`);
+              }}
+            >
+              <Card>
+                <CardHeader tag="h4" title={video.title}></CardHeader>
+                <CardContent>{video.description}</CardContent>
+                <CardMedia
+                  component="img"
+                  image={video.thumbPath}
+                  media={"img"}
+                  height={25}
+                >
+                  {/* {video.thumbPath} */}
+                </CardMedia>
+                {/* <img
+                  // src={"http://localhost:8080/fileserver/downloadFile/212.png"}
+                  // src={createImageLinkFromByte(video.thumbPath)}
+                  alt={video.title}
+                /> */}
+              </Card>
+              {/* <ListItemText primary={video.title} /> */}
             </ListItem>
           ))}
         </List>

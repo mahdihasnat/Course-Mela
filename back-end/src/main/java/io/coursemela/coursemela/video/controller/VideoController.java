@@ -25,9 +25,16 @@ public class VideoController {
 
     @PostMapping(value = "/updateVideoUrl")
     public Video saveVideoUrl(@RequestParam String videoId, @RequestParam String videoUrl) {
-        log.info(videoUrl);
+//        log.info(videoUrl);
         return videoService.updateVideoUrl(new Long(videoId), videoUrl);
     }
+
+
+    @PostMapping(value = "/updateThumbUrl")
+    public Video saveVideoUrl(@RequestParam Long videoId, @RequestParam String thumbUrl) {
+        return videoService.updateThumbUrl(videoId, thumbUrl);
+    }
+
 
     @GetMapping(value = "/getVideo/{videoId}")
     public Video getVideoById(@PathVariable String videoId) {

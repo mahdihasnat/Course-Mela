@@ -59,6 +59,14 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
+    public Video updateThumbUrl(Long videoId, String thumbUrl) {
+        VideoEntity videoEntity = videoRepository.findById(videoId).stream().findFirst().orElse(null);
+        videoEntity.setThumbPath(thumbUrl);
+        videoRepository.save(videoEntity);
+        return new Video(videoEntity);
+    }
+
+    @Override
     public Video getVideoById(Long videoId) {
         VideoEntity videoEntity = videoRepository.findById(videoId).stream().findFirst().orElse(null);
         return new Video(videoEntity);
