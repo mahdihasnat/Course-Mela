@@ -27,7 +27,7 @@ function InstructorCourseList({ title, name }) {
     setIsLoading(true);
     InstructorHomeService.getMyCourses()
       .then((response) => {
-        console.log(response.data);
+        console.log({ "course list": response.data });
         setCourses(response.data);
       })
       .catch((error) => {
@@ -47,19 +47,13 @@ function InstructorCourseList({ title, name }) {
 
       <Paper style={{ overflow: "auto" }}>
         <List component={Stack} direction={"row"}>
-          {courses.map((course) => (
-            <ListItem key={course.id}>
-              <CourseCard
-                id={course.id}
-                title={course.name}
-                teacher={name}
-                rating={2.5}
-                price={100}
-                discount={40}
-                thumbPath={course.cover_photo_path}
-              />
-            </ListItem>
-          ))}
+          {courses.map((course) => {
+            return (
+              <ListItem key={course.id}>
+                <CourseCard course={course} />
+              </ListItem>
+            );
+          })}
         </List>
       </Paper>
     </Container>
