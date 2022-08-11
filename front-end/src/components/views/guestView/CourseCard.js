@@ -26,7 +26,7 @@ const CourseCard = ({ course }) => {
 
   return (
     <Container
-      sx={{ maxWidth: 300, minWidth: 300 }}
+      sx={{ maxWidth: 300 }}
       onClick={() => navigate(`/courses/${course.id}`)}
     >
       <Card>

@@ -37,10 +37,10 @@ function SearchView() {
               }}
             />
 
-            <Grid container spacing={3}>
+            <Grid container my={1} spacing={1}>
               {courses.map((course) => {
                 return (
-                  <Grid item xs={3} md={4} key={course.id}>
+                  <Grid item my={1} xs={4} lg={3} key={course.id}>
                     <CourseCard course={course} />
                   </Grid>
                 );
