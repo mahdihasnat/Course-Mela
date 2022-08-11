@@ -101,14 +101,8 @@ const InstructorCourseDetails = () => {
 
       <Container>
 
-        <ReactPlayer
 
-            url={'http://localhost:8080/fileserver/video/500.mp4'}
-            controls
 
-        >
-
-        </ReactPlayer>
 
       </Container>
 

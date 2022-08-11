@@ -45,7 +45,11 @@ const MuiNavbar = () => {
   };
 
   const instructorNavbarOption = () => {
-    return <Button color={"inherit"} href={'/add-course'}>Add Course</Button>;
+    return (
+      <Button color={"inherit"} href={"/add-course"}>
+        Add Course
+      </Button>
+    );
   };
 
   const guestNavbarOption = () => {
@@ -79,7 +83,7 @@ const MuiNavbar = () => {
           edge="start"
           color="inherit"
           aria-label="logo"
-          href={"./"}
+          href={"/"}
         >
           <CatchingPokemonIcon />
         </IconButton>

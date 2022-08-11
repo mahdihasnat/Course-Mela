@@ -8,4 +8,6 @@ public interface VideoService {
     Video createVideoMetadata(Video video) throws Exception;
 
     Video updateVideoUrl(Long videoId, String videoUrl);
+
+    Video getVideoById(Long videoId);
 }

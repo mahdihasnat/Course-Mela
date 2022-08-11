@@ -203,6 +203,7 @@ function AddCourse() {
                 helperText={"Select a subject you want to teach"}
                 required
                 onChange={handleChange("chosenSubjectId")}
+                multiline
               >
                 {subjects.map((subject) => (
                   <MenuItem key={subject.id} value={subject.id}>

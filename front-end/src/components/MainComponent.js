@@ -26,6 +26,7 @@ import InstructorCourseList from "./views/instructor/InstructorCourseList";
 import InstructorCourseDetails from "./views/instructor/course/InstructorCourseDetails";
 import MuiNavbar from "./layout/Navbar/NavBarUpdated";
 import Login from "./layout/login/Login";
+import VideoWatch from "./views/shared/videoWatch/VideoWatch";
 
 function MainComponent() {
   const [{ isSignedIn, userRole }, dispatch] = useLoginContext();
@@ -64,6 +65,8 @@ function MainComponent() {
               <Route path="/login" element={<Login />} />
             </>
           ) : null}
+
+          <Route path='/watchVideo/:videoId' element={<VideoWatch/>} />
 
           <Route exact path="/instr" element={<InstructorHome />} />
           <Route

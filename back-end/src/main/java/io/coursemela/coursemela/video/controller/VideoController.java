@@ -15,8 +15,7 @@ public class VideoController {
 
     @PostMapping(value = "/newVideo", consumes = "application/json")
     public Video saveVideoMetadataToDatabase(
-            @RequestBody Video video
-    ) throws Exception {
+            @RequestBody Video video) throws Exception {
 
         return videoService.createVideoMetadata(video);
 
@@ -26,5 +25,10 @@ public class VideoController {
     public Video saveVideoUrl(@RequestParam String videoId, @RequestParam String videoUrl) {
         log.info(videoUrl);
         return videoService.updateVideoUrl(new Long(videoId), videoUrl);
+    }
+
+    @GetMapping(value = "/getVideo/{videoId}")
+    public Video getVideoById(@PathVariable String videoId) {
+        return videoService.getVideoById(new Long(videoId));
     }
 }
