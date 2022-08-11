@@ -1,14 +1,16 @@
 import React, {useState} from "react";
 import FormatSeconds from "../../helper/FormatSeconds";
-import {Button} from "@mui/material";
+import {Button, Container, Stack, TextField} from "@mui/material";
 import {
     Delete, Update
 } from "@mui/icons-material"
+import VideoService from "../../../services/video/VideoService";
+import {LOG_CAUGHT_ERR, LOG_ERR} from "../../../shared/utils";
 
 
-function AddNewVideo() {
+function AddNewVideo({courseId}) {
     const [state, setState] = useState({
-        title: "", description: "",
+        title: "Math-1", description: "Sikhbo Math",
     });
 
     const [selectedImg, setSelectedImg] = useState(null);
@@ -80,20 +82,37 @@ function AddNewVideo() {
     const handleSubmit = (e) => {
         console.log("Submit clicked");
         e.preventDefault();
+
+        VideoService.createVideoMetadata(courseId, state.title, state.description)
+            .then((res) => {
+                console.log({res: res});
+                if(selectedVideo) {
+                    VideoService.uploadVideo(res.data.id, selectedVideo)
+                        .then(
+                            (res1) => {
+                                console.log({res1: res1});
+                            })
+                        .catch(LOG_CAUGHT_ERR);
+                }
+            }).catch(LOG_CAUGHT_ERR);
+
+
         // console.log(state);
 
 
     };
 
-    return (<div
-        className="container"
-        style={{
-            position: "relative",
-            backgroundColor: "rgb(255, 244, 118)",
-            padding: "20px",
-            borderRadius: "20px",
-            marginTop: "10vh",
-        }}
+    return (<Container
+        // style={{
+        //     position: "relative",
+        //     backgroundColor: "rgb(255, 244, 118)",
+        //     padding: "20px",
+        //     borderRadius: "20px",
+        //     marginTop: "10vh",
+        // }}
+        sx={{bgcolor: 'success.light'}}
+        p={5}
+        my={5}
     >
         <div
             style={{fontSize: "1.5rem", fontWeight: "bold", marginBottom: "20px"}}
@@ -108,22 +127,25 @@ function AddNewVideo() {
             }}
             onSubmit={handleSubmit}
         >
-            <div>
-                <label htmlFor="title">Title</label>
-                <input
-                    name="title"
-                    type={"text"}
-                    id="title"
+            <Stack>
+
+                <TextField
+                    label={'title'}
+                    name={'title'}
+                    type={'text'}
+                    id={'title'}
                     onChange={handleChange}
+                    size={'small'}
                 />
                 <br/>
 
-                <label htmlFor="description">Description</label>
-                <input
+                <TextField
+                    label={"description"}
                     name="description"
                     type={"text"}
                     id="description"
                     onChange={handleChange}
+                    size={'small'}
                 />
 
                 <label
@@ -193,7 +215,7 @@ function AddNewVideo() {
                         accept="video/mp4"
                     />
                 </label>
-            </div>
+            </Stack>
             <div>
                 Questions
                 <i
@@ -254,21 +276,21 @@ function AddNewVideo() {
                 </Button>
                 <Button
 
-                  variant={'contained'}
-                  startIcon={<Delete/>}
+                    variant={'contained'}
+                    startIcon={<Delete/>}
                 >
-                Delete
+                    Delete
                 </Button>
 
-            {/*    <span*/}
-            {/*        className="upload-courseimg-label"*/}
-            {/*        style={{marginLeft: "10px"}}*/}
-            {/*    >*/}
-            {/*<span>Delete</span>*/}
-          {/*</span>*/}
+                {/*    <span*/}
+                {/*        className="upload-courseimg-label"*/}
+                {/*        style={{marginLeft: "10px"}}*/}
+                {/*    >*/}
+                {/*<span>Delete</span>*/}
+                {/*</span>*/}
             </div>
         </form>
-    </div>);
+    </Container>);
 }
 
 export default AddNewVideo;

@@ -12,4 +12,9 @@ public class UrlCollections {
     public static String getFileServerUrl() {
         return ServletUriComponentsBuilder.fromCurrentContextPath().path("/fileserver/").toUriString();
     }
+
+    public static String getVideoServerUrl(String id){
+        /// NOT TESTED
+        return ServletUriComponentsBuilder.fromCurrentContextPath().path("/fileserver/video/" + id + ".mp4").toUriString();
+    }
 }

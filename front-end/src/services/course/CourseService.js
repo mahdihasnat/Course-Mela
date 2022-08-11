@@ -38,7 +38,7 @@ class CourseService {
         const formData = new FormData();
         formData.append("coverImage", courseImage)
         formData.append("id", remoteCourseId)
-        alert(formData)
+        // alert(formData)
         axios({
             method: "POST",
             url: joinUrl(COURSE_URL, "updateCoverImage"),

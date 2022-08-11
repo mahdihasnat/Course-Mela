@@ -12,4 +12,8 @@ export const TOPIC_URL = joinUrl(baseUrl, 'topic')
 
 export const COURSE_URL = joinUrl(baseUrl, 'course')
 
+export const VIDEO_ULR = joinUrl(baseUrl, 'video')
+
 export const TAG_URL = joinUrl(baseUrl,'tag')
+
+export const FILE_SERVER_URL = joinUrl(baseUrl, 'fileserver')
