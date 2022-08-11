@@ -88,9 +88,13 @@ public class DataLoader implements CommandLineRunner {
             this.topicRepository.save(math_geometry);
 
         }
+        try {
+            tagService.createTag(new Tag(0L, "Simple"));
+            tagService.createTag(new Tag(0L, "Gorgeus"));
 
-        tagService.createTag(new Tag(0L, "Simple"));
-        tagService.createTag(new Tag(0L, "Gorgeus"));
+        } catch (Exception e) {
+            ;
+        }
 
     }
 }
