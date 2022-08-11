@@ -29,7 +29,7 @@ public class CourseEntity {
     private String name;
 
     @Column(nullable = true)
-    private String cover_photo_path;
+    private String coverPhotoPath;
 
     @Column(nullable = true)
     private String description;
@@ -54,12 +54,12 @@ public class CourseEntity {
     public CourseEntity() {
     }
 
-    public CourseEntity(Long id, InstructorEntity instructorEntity, TopicEntity topicEntity, String name, String cover_photo_path, String description) {
+    public CourseEntity(Long id, InstructorEntity instructorEntity, TopicEntity topicEntity, String name, String coverPhotoPath, String description) {
         this.id = id;
         this.instructorEntity = instructorEntity;
         this.topicEntity = topicEntity;
         this.name = name;
-        this.cover_photo_path = cover_photo_path;
+        this.coverPhotoPath = coverPhotoPath;
         this.description = description;
     }
 }

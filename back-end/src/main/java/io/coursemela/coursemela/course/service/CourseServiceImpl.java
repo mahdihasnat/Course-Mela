@@ -94,7 +94,7 @@ public class CourseServiceImpl implements CourseService {
 
         String url = UrlCollections.getBaseUrl() + "/fileserver/image/?fileId=" + courseId;
         CourseEntity course = courseRepository.findById(Long.valueOf(courseId)).get();
-        course.setCover_photo_path(url);
+        course.setCoverPhotoPath(url);
         courseRepository.save(course);
         return true;
 

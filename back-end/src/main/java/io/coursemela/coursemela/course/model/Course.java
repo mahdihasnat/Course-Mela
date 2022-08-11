@@ -28,7 +28,7 @@ public class Course {
     private Instructor instructor;
     private Topic topic;
     private String name;
-    private String cover_photo_path;
+    private String coverPhotoPath;
     private String description;
     private List<Tag> tags;
 
@@ -42,7 +42,7 @@ public class Course {
         this.instructor = new Instructor((courseEntity.getInstructorEntity()));
         this.topic = new Topic(courseEntity.getTopicEntity());
         this.name = courseEntity.getName();
-        this.cover_photo_path = courseEntity.getCover_photo_path();
+        this.coverPhotoPath = courseEntity.getCoverPhotoPath();
         this.description = courseEntity.getDescription();
         this.tags = new ArrayList<>();
         for (CourseTagEntity courseTag : courseEntity.getCourseTagEntities())
