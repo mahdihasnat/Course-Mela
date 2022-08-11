@@ -47,7 +47,8 @@ public class FileServerController {
     }
 
     @PostMapping("/uploadVideo")
-    public UploadFileResponse uploadVideo(@RequestParam("file") MultipartFile file, @RequestParam("fileName") String fileName) {
+    public UploadFileResponse uploadVideo(@RequestParam("fileName") String fileName, @RequestParam("file") MultipartFile file) {
+        System.out.println(fileName);
         fileName = fileStorageService.storeFile(file, fileName);
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/fileserver/video/")

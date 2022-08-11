@@ -3,6 +3,7 @@ import {COURSE_URL, FILE_SERVER_URL, VIDEO_ULR} from "../../shared/urls";
 import {fileAuthorizedHeader, jsonAuthorizedHeader} from "../../shared/Header";
 import joinUrl from "../../utils/url";
 import {VIDEO_EXTENSION} from "../../shared/StringConstant";
+import {LOG_CAUGHT_ERR, LOG_RESPONSE} from "../../shared/utils";
 
 
 class VideoService {
@@ -36,7 +37,7 @@ class VideoService {
         if(selectedVideo ==null){
             alert("how can you send null videos to save ")
         }
-        console.log({size: selectedVideo})
+        // console.log({size: selectedVideo})
         const formData = new FormData();
         const fileName = id + '.' + VIDEO_EXTENSION;
         formData.append('fileName', fileName);
@@ -48,6 +49,24 @@ class VideoService {
             data: formData,
             headers: fileAuthorizedHeader(),
         })
+    }
+
+    updateVideoPath(videoId, path){
+        axios.post(
+            joinUrl(VIDEO_ULR, "updateVideoPath"),
+            {
+                videoId : videoId,
+                path:path
+            },
+            {
+                headers: jsonAuthorizedHeader()
+            },
+
+        ).then(
+            LOG_RESPONSE
+        ).catch(
+            LOG_CAUGHT_ERR
+        )
     }
 }
 

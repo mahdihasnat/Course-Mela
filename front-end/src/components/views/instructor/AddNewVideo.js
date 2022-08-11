@@ -15,6 +15,7 @@ function AddNewVideo({courseId}) {
 
     const [selectedImg, setSelectedImg] = useState(null);
     const [selectedVideo, setSelectedVideo] = useState(null);
+    const [selectedVideoFile, setSelectedVideoFile] = useState(null);
 
     const [addQuestions, setAddQuestions] = useState(false);
     const [errorOnAddQuestion, setErrorOnAddQuestion] = useState("");
@@ -48,6 +49,7 @@ function AddNewVideo({courseId}) {
         var reader = new FileReader();
         reader.onload = () => {
             setSelectedVideo(reader.result);
+            setSelectedVideoFile(e.target.files[0])
             // console.log(reader);
             setErrorOnAddQuestion("");
         };
@@ -87,7 +89,7 @@ function AddNewVideo({courseId}) {
             .then((res) => {
                 console.log({res: res});
                 if(selectedVideo) {
-                    VideoService.uploadVideo(res.data.id, selectedVideo)
+                    VideoService.uploadVideo(res.data.id, selectedVideoFile)
                         .then(
                             (res1) => {
                                 console.log({res1: res1});
