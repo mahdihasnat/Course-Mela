@@ -5,6 +5,7 @@ import io.coursemela.coursemela.course.repository.CourseRepository;
 import io.coursemela.coursemela.video.entity.VideoEntity;
 import io.coursemela.coursemela.video.model.Video;
 import io.coursemela.coursemela.video.repository.VideoRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class VideoServiceImpl implements VideoService {
 
     @Autowired
@@ -58,7 +60,7 @@ public class VideoServiceImpl implements VideoService {
         List<VideoEntity> videoEntities = videoRepository.findByCourseEntityId(courseId);
         List<Video> videos = videoEntities.stream().
                 map((video) -> new Video(video)).collect(Collectors.toList());
-        System.out.println(videos);
+        log.info(videos.toString());
         return videos;
     }
 }
