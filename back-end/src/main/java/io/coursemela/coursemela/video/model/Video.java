@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 @AllArgsConstructor
 @Data
+//@Scope("prototype")
 public class Video implements Serializable {
     private Long courseId;
     private Long id;

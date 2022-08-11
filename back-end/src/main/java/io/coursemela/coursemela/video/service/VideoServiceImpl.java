@@ -8,6 +8,9 @@ import io.coursemela.coursemela.video.repository.VideoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class VideoServiceImpl implements VideoService {
 
@@ -16,6 +19,7 @@ public class VideoServiceImpl implements VideoService {
 
     @Autowired
     private CourseRepository courseRepository;
+
 
     @Override
     public Video createVideoMetadata(Video video) throws Exception {
@@ -47,5 +51,14 @@ public class VideoServiceImpl implements VideoService {
     public Video getVideoById(Long videoId) {
         VideoEntity videoEntity = videoRepository.findById(videoId).stream().findFirst().orElse(null);
         return new Video(videoEntity);
+    }
+
+    @Override
+    public List<Video> getAllVideoByCourse(Long courseId) {
+        List<VideoEntity> videoEntities = videoRepository.findByCourseEntityId(courseId);
+        List<Video> videos = videoEntities.stream().
+                map((video) -> new Video(video)).collect(Collectors.toList());
+        System.out.println(videos);
+        return videos;
     }
 }

@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/video")
 @Slf4j
@@ -30,5 +32,10 @@ public class VideoController {
     @GetMapping(value = "/getVideo/{videoId}")
     public Video getVideoById(@PathVariable String videoId) {
         return videoService.getVideoById(new Long(videoId));
+    }
+
+    @GetMapping(value = "/getVideoByCourse/{courseId}")
+    public List<Video> getAllVideosByCourse(@PathVariable Long courseId) {
+        return videoService.getAllVideoByCourse(courseId);
     }
 }
