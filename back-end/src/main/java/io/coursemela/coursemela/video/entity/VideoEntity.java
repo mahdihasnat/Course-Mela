@@ -28,7 +28,7 @@ public class VideoEntity {
     String title;
     String description;
 
-//    @Column(columnDefinition = "long default 0")
+    @Column(columnDefinition = "long default 0")
     private Long likeCount;
     Integer serial;
     Boolean hidden;
