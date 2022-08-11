@@ -4,7 +4,16 @@ import CourseService from "../../../../services/course/CourseService";
 import TagService from "../../../../services/course/TagService";
 import SubjectService from "../../../../services/subject/SubjectService";
 import TopicService from "../../../../services/topic/TopicService";
-import { Box, Container, MenuItem, Stack, TextField } from "@mui/material";
+import {
+  Box,
+  Chip,
+  Container,
+  ListItem,
+  MenuItem,
+  Paper,
+  Stack,
+  TextField,
+} from "@mui/material";
 
 // const thingsWeFocus = ["Area", "Calculus", "Trigonometric Ratios", "Divergence"]
 
@@ -32,6 +41,9 @@ function AddCourse() {
   const [selectedImg, setSelectedImg] = React.useState(null);
   const [selectedImgName, setSelectedImgName] = React.useState(null);
 
+  const [selectedTags, setSelectedTags] = React.useState([]);
+  const [tags, setTags] = React.useState([]);
+
   const [remainingThingsToFocus, setRemainingThingsToFocus] = React.useState(
     []
   );
@@ -46,10 +58,7 @@ function AddCourse() {
     "Provide an optional course description to let students know about your course...";
   const navigate = useNavigate();
 
-  // const [subjects, setSubjects] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  const [tags, setTags] = useState([]);
 
   const fetchTopic = () => {
     console.log("inside fetchTopic");
@@ -82,6 +91,8 @@ function AddCourse() {
       .then((response) => {
         console.log("tags :", response.data);
         setRemainingThingsToFocus(response.data);
+        setTags(response.data);
+        setSelectedTags(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -144,6 +155,10 @@ function AddCourse() {
       });
     setNewThingToFocus("");
     setAddingThings(false);
+  };
+
+  const handleTagRemove = (tag) => () => {
+    setSelectedTags(selectedTags.filter((t) => t.id !== tag.id));
   };
 
   const handleSubmit = (e) => {
@@ -291,6 +306,15 @@ function AddCourse() {
               multiline={true}
             ></TextField>
           </Box>
+          <Stack direction={"row"}>
+            {selectedTags.map((tag) => {
+              return (
+                <ListItem key={tag.id}>
+                  <Chip onDelete={handleTagRemove(tag)} label={tag.name}></Chip>
+                </ListItem>
+              );
+            })}
+          </Stack>
 
           <div className="container add-course-desc">
             <span style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
