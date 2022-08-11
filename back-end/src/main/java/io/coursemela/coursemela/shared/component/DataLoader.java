@@ -2,13 +2,16 @@ package io.coursemela.coursemela.shared.component;
 
 import io.coursemela.coursemela.course.entity.SubjectEntity;
 import io.coursemela.coursemela.course.entity.TopicEntity;
+import io.coursemela.coursemela.course.model.Tag;
 import io.coursemela.coursemela.course.repository.SubjectRepository;
 import io.coursemela.coursemela.course.repository.TopicRepository;
+import io.coursemela.coursemela.course.service.TagService;
 import io.coursemela.coursemela.instructor.entity.InstructorEntity;
 import io.coursemela.coursemela.instructor.repository.InstructorRepository;
 import io.coursemela.coursemela.student.entity.Level;
 import io.coursemela.coursemela.student.entity.StudentEntity;
 import io.coursemela.coursemela.student.repository.StudentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -18,15 +21,21 @@ import java.util.Date;
 @Component
 public class DataLoader implements CommandLineRunner {
 
-    private final InstructorRepository instructorRepository;
+    @Autowired
+    private InstructorRepository instructorRepository;
 
-    private final StudentRepository studentRepository;
+    @Autowired
+    private StudentRepository studentRepository;
 
 
-    private final SubjectRepository subjectRepository;
+    @Autowired
+    private SubjectRepository subjectRepository;
 
-    private final TopicRepository topicRepository;
+    @Autowired
+    private TopicRepository topicRepository;
 
+    @Autowired
+    private TagService tagService;
 
 //    private TopicRepository
 
@@ -37,12 +46,6 @@ public class DataLoader implements CommandLineRunner {
 ////        loadInstructors();
 //    }
 
-    public DataLoader(InstructorRepository instructorRepository, StudentRepository studentRepository, SubjectRepository subjectRepository, TopicRepository topicRepository) {
-        this.instructorRepository = instructorRepository;
-        this.studentRepository = studentRepository;
-        this.subjectRepository = subjectRepository;
-        this.topicRepository = topicRepository;
-    }
 
     @Override
     public void run(String... args) {
@@ -85,6 +88,9 @@ public class DataLoader implements CommandLineRunner {
             this.topicRepository.save(math_geometry);
 
         }
+
+        tagService.createTag(new Tag(0L, "Simple"));
+        tagService.createTag(new Tag(0L, "Gorgeus"));
 
     }
 }

@@ -4,6 +4,7 @@ import io.coursemela.coursemela.payment.entity.StudentPromoEntity;
 import io.coursemela.coursemela.payment.entity.SubscriptionEntity;
 import io.coursemela.coursemela.student.model.Student;
 import io.coursemela.coursemela.user.entity.UserEntity;
+import io.coursemela.coursemela.video.entity.ViewLogEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -27,6 +28,9 @@ public class StudentEntity extends UserEntity {
 
     @OneToMany(mappedBy = "studentEntity")
     Set<SubscriptionEntity> subscriptionEntities;
+
+    @OneToMany(mappedBy = "studentEntity")
+    Set<ViewLogEntity> viewLogEntities;
 
     public StudentEntity(String userName, String firstName, String lastName, String email, String passsword, String mobileNo, Date dateOfJoin, Level level) {
         super(userName, firstName, lastName, email, passsword, mobileNo, dateOfJoin);
