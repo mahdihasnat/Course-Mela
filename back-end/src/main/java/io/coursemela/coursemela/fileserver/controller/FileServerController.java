@@ -16,9 +16,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.PathParam;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/fileserver")
@@ -47,7 +44,7 @@ public class FileServerController {
 //    }
 
     @PostMapping("/uploadFile")
-    public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("fileName")String fileName) {
+    public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("fileName") String fileName) {
         fileName = fileStorageService.storeFile(file, fileName);
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -72,12 +69,12 @@ public class FileServerController {
     }
 
 
-    @PostMapping("/uploadMultipleFiles")
-    public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
-        return Arrays.stream(files)
-                .map(this::uploadFile)
-                .collect(Collectors.toList());
-    }
+//    @PostMapping("/uploadMultipleFiles")
+//    public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
+//        return Arrays.stream(files)
+//                .map(this.uploadFile())
+//                .collect(Collectors.toList());
+//    }
 
 
     @GetMapping("/downloadFile/{fileName:.+}")
