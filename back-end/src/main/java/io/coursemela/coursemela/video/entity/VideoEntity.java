@@ -1,7 +1,6 @@
 package io.coursemela.coursemela.video.entity;
 
 import io.coursemela.coursemela.course.entity.CourseEntity;
-import io.coursemela.coursemela.video.model.Video;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,19 +32,7 @@ public class VideoEntity {
     private Long likeCount = Long.valueOf(0);
     Integer serial;
     Boolean hidden;
-
-    public VideoEntity(CourseEntity courseEntity, Video video) {
-        this.courseEntity = courseEntity;
-        this.videoPath = video.getVideoPath();
-        this.thumbPath = video.getThumbPath();
-        this.title = video.getTitle();
-        this.description = video.getDescription();
-        this.likeCount = video.getLikeCount();
-        this.serial = video.getSerial();
-        this.hidden = video.getHidden();
-    }
-
-
+    
 }
 
 
