@@ -5,15 +5,19 @@ import {
   CardMedia,
   CardHeader,
   Container,
-  Button, Typography,
+  Button,
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
 } from "@mui/material";
 import { useParams } from "react-router-dom";
 import CourseService from "../../../../services/course/CourseService";
 import createImageLinkFromByte from "../../../../utils/linker";
 import ImageService from "../../../../services/content/ImageService";
 import ReactPlayer from "react-player";
-
-
+import VideoService from "../../../../services/video/VideoService";
+import { LOG_CAUGHT_ERR } from "../../../../shared/utils";
 
 const InstructorCourseDetails = () => {
   const { courseId } = useParams();
@@ -22,6 +26,8 @@ const InstructorCourseDetails = () => {
   const [isImageLoading, setImageLoading] = useState(true);
   const [coverPhoto, setCoverPhoto] = useState("");
 
+  const [videos, setVideos] = useState([]);
+
   useEffect(() => {
     setIsLoading(true);
     CourseService.getCourseInstructorView(courseId)
@@ -29,7 +35,6 @@ const InstructorCourseDetails = () => {
         console.log(res);
 
         setCourse(res.data);
-        setIsLoading(false);
         // now fetch the image
         ImageService.loadImage(res.data.cover_photo_path)
           .then((response) => {
@@ -49,6 +54,18 @@ const InstructorCourseDetails = () => {
         alert(err.message);
       });
   }, []);
+
+  // useEffect for videoList
+  useEffect(() => {
+    VideoService.getVideosByCourseId(courseId)
+      .then((res) => {
+        console.log({ videoList: res.data });
+        setVideos(res.data);
+        setIsLoading(false);
+      })
+      .catch(LOG_CAUGHT_ERR);
+  }, []);
+
   const loadingMessage = `We are working on a course ${courseId}`;
   return (
     <Container>
@@ -59,13 +76,17 @@ const InstructorCourseDetails = () => {
       ) : (
         <Container>
           <Container>
-            <Button variant={'contained'} href={`/edit-course/${courseId}`}><Typography variant={'body1'} color={'info'} >Edit Course</Typography> </Button>
+            <Button variant={"contained"} href={`/edit-course/${courseId}`}>
+              <Typography variant={"body1"} color={"info"}>
+                Edit Course
+              </Typography>{" "}
+            </Button>
           </Container>
           <Card>
             <CardMedia
               alt={`cover photo for id ${courseId}`}
               // src={coverPhoto}
-              component={'img'}
+              component={"img"}
               image={coverPhoto}
               // height={"70%"}
             />
@@ -100,15 +121,14 @@ const InstructorCourseDetails = () => {
       )}
 
       <Container>
-
-
-
-
+        <List>
+          {videos.map((video) => (
+            <ListItem key={video.id}>
+              <ListItemText primary={video.title} />
+            </ListItem>
+          ))}
+        </List>
       </Container>
-
-
-
-
 
       {/* </Card> */}
     </Container>
