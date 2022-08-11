@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Grid, Stack, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import CourseCard from "../CourseCard";
+import CourseCard, { CourseCardFromCourse } from "../CourseCard";
 // https://www.npmjs.com/package/material-ui-search-bar
 import SearchBar from "material-ui-search-bar";
+import CourseService from "../../../../services/course/CourseService";
+import { LOG_CAUGHT_ERR } from "../../../../shared/utils";
 
 function SearchView() {
+  const [courses, setCourses] = React.useState([]);
+  useEffect(() => {
+    CourseService.getAllCourses()
+      .then((res) => {
+        console.log({ "allCourses:": res });
+        setCourses(res.data);
+      })
+      .catch(LOG_CAUGHT_ERR);
+  }, []);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={3}>
@@ -25,14 +36,15 @@ function SearchView() {
                 console.log("reqsrc:", data);
               }}
             />
-            <Typography variant="h6"> Hello 6 </Typography>
+
             <Grid container spacing={3}>
-              <Grid item xs={3}>
-                THis is choto
-              </Grid>
-              <Grid item xs={3}>
-                <CourseCard></CourseCard>
-              </Grid>
+              {courses.map((course) => {
+                return (
+                  <Grid item xs={3} md={4} key={course.id}>
+                    <CourseCard course={course} />
+                  </Grid>
+                );
+              })}
             </Grid>
           </Stack>
         </Grid>

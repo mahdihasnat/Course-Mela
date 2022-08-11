@@ -17,9 +17,11 @@ import { useLoginContext } from "../../../store/contexts/LoginContext";
 import SignedInLinks from "./SignedInLinks";
 import SignedOutLinks from "./SignedOutLinks";
 import { INSTRUCTOR, ROLE_INSTRUCTOR } from "../../../shared/StringConstant";
-import { Login } from "@mui/icons-material";
+import { Login, Search } from "@mui/icons-material";
 import { LOG_OUT, LOGIN_MODAL_PRESSED } from "../../../store/auth/AuthTypes";
 import { useNavigate } from "react-router-dom";
+import SearchBar from "material-ui-search-bar";
+import { Box } from "@mui/system";
 
 const MuiNavbar = () => {
   const [{ isSignedIn, userRole }, dispatch] = useLoginContext();
@@ -91,6 +93,15 @@ const MuiNavbar = () => {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           COURSEMELA
         </Typography>
+
+        <Box pr={3}>
+          <SearchBar
+            style={{ height: "2.5rem" }}
+            onRequestSearch={(data) => {
+              navigate(`/course/search/?search=${data}`);
+            }}
+          />
+        </Box>
 
         {isSignedIn ? (
           <Stack direction="row" spacing={buttonSpacing}>
