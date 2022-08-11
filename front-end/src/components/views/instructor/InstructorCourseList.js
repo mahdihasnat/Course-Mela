@@ -1,10 +1,9 @@
-import React, {useEffect} from 'react'
-import CourseCard from '../guestView/CourseCard'
+import React, { useEffect } from "react";
+import CourseCard from "../guestView/CourseCard";
 
-import InstructorHomeService from '../../../services/instructor/InstructorHomeService';
-import {Container, List, ListItem, Stack} from "@mui/material";
+import InstructorHomeService from "../../../services/instructor/InstructorHomeService";
+import { Container, List, ListItem, Paper, Stack } from "@mui/material";
 import Typography from "@mui/material/Typography";
-
 
 /*export const courses = [
   { id: 1, title: "Thermodynamics", rating: 4.5, price: 100, discount: 0, thumbPath: require('../../../assets/coursethumb1.png') },
@@ -17,47 +16,54 @@ import Typography from "@mui/material/Typography";
   { id: 8, title: "Organic", rating: 4.6, price: 100, discount: 30, thumbPath: require('../../../assets/coursethumb4.png') }
 ]*/
 
-function InstructorCourseList({title, name}) {
+function InstructorCourseList({ title, name }) {
+  const [courses, setCourses] = React.useState([]);
 
-    const [courses, setCourses] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(true);
 
-    const [isLoading, setIsLoading] = React.useState(true);
+  useEffect(() => {
+    console.log("now loading the course list ");
 
-    useEffect(() => {
-            console.log('now loading the course list ')
+    setIsLoading(true);
+    InstructorHomeService.getMyCourses()
+      .then((response) => {
+        console.log(response.data);
+        setCourses(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
 
-            setIsLoading(true);
-            InstructorHomeService.getMyCourses().then(response => {
-                console.log(response.data);
-                setCourses(response.data);
-            }).catch(error => {
-                    console.log(error);
-                }
-            ).finally(() => {
-                setIsLoading(false);
-            });
-        }, []
-    )
+  return (
+    <Container>
+      <Typography variant={"h5"} gutterBottom>
+        {title}
+      </Typography>
+      <hr />
 
-    return (
-        <Container>
-            <Typography variant={'h5'} gutterBottom >{title}</Typography>
-            <hr/>
-            {/*<List style={{ display: 'flex', flexDirection: 'row', padding: 0 }}>*/}
-            <List component={Stack}  direction={'row'}>
-
-                    {courses.map(course =>
-
-                        // <li key={course.id}><CourseCard title={course.title} teacher={name} rating={course.rating} price={course.price} discount={course.discount} thumbPath={course.thumbPath} /></li>
-                        //   <li key={course.id}><CourseCard title={course.name} teacher={name} rating={2.5} price={100} discount={40} thumbPath={require('../../../assets/coursethumb4.png')} /></li>
-                        <ListItem key={course.id}><CourseCard id={course.id} title={course.name} teacher={name}
-                                                              rating={2.5} price={100} discount={40}
-                                                              thumbPath={course.cover_photo_path}/></ListItem>
-                    )}
-                {/*</ul>*/}
-            </List>
-        </Container>
-    )
+      <Paper style={{ overflow: "auto" }}>
+        <List component={Stack} direction={"row"}>
+          {courses.map((course) => (
+            <ListItem key={course.id}>
+              <CourseCard
+                id={course.id}
+                title={course.name}
+                teacher={name}
+                rating={2.5}
+                price={100}
+                discount={40}
+                thumbPath={course.cover_photo_path}
+              />
+            </ListItem>
+          ))}
+        </List>
+      </Paper>
+    </Container>
+  );
 }
 
 export default InstructorCourseList;
