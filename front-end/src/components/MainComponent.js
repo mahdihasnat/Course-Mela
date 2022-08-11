@@ -27,6 +27,7 @@ import InstructorCourseDetails from "./views/instructor/course/InstructorCourseD
 import MuiNavbar from "./layout/Navbar/NavBarUpdated";
 import Login from "./layout/login/Login";
 import VideoWatch from "./views/shared/videoWatch/VideoWatch";
+import SearchView from "./views/guestView/search/SearchView";
 
 function MainComponent() {
   const [{ isSignedIn, userRole }, dispatch] = useLoginContext();
@@ -57,6 +58,7 @@ function MainComponent() {
         <LoginModal />
         <Routes>
           <Route path="/test" element={<Test />}></Route>
+          <Route path="/course/search" element={<SearchView />}></Route>
           <Route path="/add-course" element={<AddCourse />} />
           <Route path="/edit-course/:courseId" element={<EditCourse />} />
           {!isSignedIn ? (
@@ -66,7 +68,7 @@ function MainComponent() {
             </>
           ) : null}
 
-          <Route path='/watchVideo/:videoId' element={<VideoWatch/>} />
+          <Route path="/watchVideo/:videoId" element={<VideoWatch />} />
 
           <Route exact path="/instr" element={<InstructorHome />} />
           <Route

@@ -1,13 +1,13 @@
-import React from 'react'
-import ImageSliderComponent from '../../helper/ImgSlider'
-import CourseList from './CourseList'
-import FeaturedTopics from './FeaturedTopics'
-import GuestViewEnhancer from './GuestViewEnhancer'
-import Tron from './Tron'
+import React from "react";
+import ImageSliderComponent from "../../helper/ImgSlider";
+import CourseList from "./CourseList";
+import FeaturedTopics from "./FeaturedTopics";
+import GuestViewEnhancer from "./GuestViewEnhancer";
+import Tron from "./Tron";
 
 function GuestView() {
   return (
-    <div className='container'>
+    <div className="container">
       {/* <div className='img-slider-helper'>
         <ImageSliderComponent />
       </div> */}
@@ -18,7 +18,7 @@ function GuestView() {
       <hr />
       <FeaturedTopics />
     </div>
-  )
+  );
 }
 
-export default GuestView
+export default GuestView;
