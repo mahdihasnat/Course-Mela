@@ -73,7 +73,8 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public List<Course> getCourseByInstructorUserName(String userName) {
-        List<CourseEntity> courseEntities = courseRepository.findCourseEntitiesByInstructorEntityUserName(userName);
+        List<CourseEntity> courseEntities = courseRepository.findAllByInstructorEntityUserName(userName);
+        log.info(courseEntities.toString());
         List<Course> courses = courseEntities
                 .stream()
                 .map(courseEntity -> applicationContext.getBean(Course.class)
