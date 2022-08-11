@@ -29,7 +29,16 @@ public class VideoServiceImpl implements VideoService {
         // courseEntity.orElseThrow(())
         // if(courseEntity.isPresent()) {
 
-        VideoEntity videoEntity = new VideoEntity(courseEntity, video);
+        VideoEntity videoEntity = VideoEntity.builder()
+                .courseEntity(courseEntity)
+                .videoPath(video.getVideoPath())
+                .thumbPath(video.getThumbPath())
+                .title(video.getTitle())
+                .description(video.getDescription())
+                .serial(video.getSerial())
+                .hidden(video.getHidden())
+                .build();
+
         System.out.println(videoEntity);
         videoRepository.save(videoEntity);
         System.out.println("after : " + videoEntity);
