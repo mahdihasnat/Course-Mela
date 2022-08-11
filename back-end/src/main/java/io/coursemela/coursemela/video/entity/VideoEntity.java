@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Entity
@@ -26,13 +27,15 @@ public class VideoEntity {
 
     String title;
     String description;
-
-    @Column(columnDefinition = "long default 0")
+    
     @Builder.Default
     private Long likeCount = Long.valueOf(0);
     Integer serial;
     Boolean hidden;
-    
+
+    @OneToMany(mappedBy = "videoEntity")
+    Set<ViewLogEntity> viewLogEntities;
+
 }
 
 
