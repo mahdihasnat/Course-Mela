@@ -1,5 +1,5 @@
 import axios from "axios";
-import {COURSE_URL, FILE_SERVER_URL, VIDEO_ULR} from "../../shared/urls";
+import {AUTH_URL, COURSE_URL, FILE_SERVER_URL, VIDEO_ULR} from "../../shared/urls";
 import {fileAuthorizedHeader, jsonAuthorizedHeader} from "../../shared/Header";
 import joinUrl from "../../utils/url";
 import {VIDEO_EXTENSION} from "../../shared/StringConstant";
@@ -11,9 +11,7 @@ class VideoService {
     createVideoMetadata(courseId, title, description) {
 
         const formData = {
-            courseId:courseId,
-            title: title,
-            description:description,
+            courseId: courseId, title: title, description: description,
         }
 
         // const formData = new FormData();
@@ -25,16 +23,13 @@ class VideoService {
         // formData.append('description', description)
 
         return axios({
-            method: 'post',
-            url: joinUrl(VIDEO_ULR, 'newVideo'),
-            headers: jsonAuthorizedHeader(),
-            data: formData
+            method: 'post', url: joinUrl(VIDEO_ULR, 'newVideo'), headers: jsonAuthorizedHeader(), data: formData
         })
 
     }
 
     uploadVideo(id, selectedVideo) {
-        if(selectedVideo ==null){
+        if (selectedVideo == null) {
             alert("how can you send null videos to save ")
         }
         // console.log({size: selectedVideo})
@@ -51,22 +46,16 @@ class VideoService {
         })
     }
 
-    updateVideoPath(videoId, path){
-        axios.post(
-            joinUrl(VIDEO_ULR, "updateVideoPath"),
-            {
-                videoId : videoId,
-                path:path
-            },
-            {
-                headers: jsonAuthorizedHeader()
-            },
+    updateVideoPath(videoId, path) {
+        const formData = new FormData();
+        formData.set("videoId", videoId);
+        formData.set("videoUrl", path);
+        console.log({videoId: videoId, url: path})
+        return axios.post(joinUrl(VIDEO_ULR, "updateVideoUrl"), formData, {
 
-        ).then(
-            LOG_RESPONSE
-        ).catch(
-            LOG_CAUGHT_ERR
-        )
+            headers: jsonAuthorizedHeader()
+        })
+
     }
 }
 

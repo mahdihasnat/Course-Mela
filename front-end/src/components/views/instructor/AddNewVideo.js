@@ -23,6 +23,9 @@ function AddNewVideo({courseId}) {
     const [videoLengthInSec, setVideoLengthInSec] = useState(420);
     const [questionToBeAddedAt, setQuestionToBeAddedAt] = useState(0);
 
+
+    const [videoDetails, setVideoDetails] = useState(null);
+
     const vidDuration = React.useRef(null);
 
     const handleChange = (event) => {
@@ -88,11 +91,19 @@ function AddNewVideo({courseId}) {
         VideoService.createVideoMetadata(courseId, state.title, state.description)
             .then((res) => {
                 console.log({res: res});
+                setVideoDetails(res.data);
                 if(selectedVideo) {
                     VideoService.uploadVideo(res.data.id, selectedVideoFile)
                         .then(
                             (res1) => {
-                                console.log({res1: res1});
+                                console.log({uploadVideoResponse: res1});
+                                VideoService.updateVideoPath(res.data.id, res1.data.fileDownloadUri)
+                                    .then(res2=>{
+                                        console.log({
+                                            "updated videoUrl": res2.data
+                                        })
+                                        setVideoDetails(res2.data)
+                                    })
                             })
                         .catch(LOG_CAUGHT_ERR);
                 }
