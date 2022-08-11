@@ -16,7 +16,9 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public Tag createTag(Tag tag) {
-        TagEntity tagEntity = new TagEntity(tag);
+        TagEntity tagEntity = TagEntity.builder()
+                .name(tag.getName())
+                .build();
         tagEntity = tagRepository.save(tagEntity);
         tag = new Tag(tagEntity);
         return tag;
