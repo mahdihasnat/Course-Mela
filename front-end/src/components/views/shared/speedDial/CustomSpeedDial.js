@@ -9,7 +9,7 @@ import DifferenceIcon from "@mui/icons-material/Difference";
 import ShoppingCartSharpIcon from "@mui/icons-material/ShoppingCartSharp";
 import RestartAltSharpIcon from "@mui/icons-material/RestartAltSharp";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelectedCourseContext } from "../../../../store/contexts/SelectedCourseContext";
 import {
   removeAllCourseFromCart,
@@ -18,7 +18,7 @@ import {
 
 export const CartSpeedDial = () => {
   const [, dispatch] = useSelectedCourseContext();
-
+  const navigate = useNavigate();
   return (
     <SpeedDial
       ariaLabel="Cart  SpeedDial"
@@ -32,7 +32,10 @@ export const CartSpeedDial = () => {
       <SpeedDialAction
         icon={<ShoppingCartCheckoutIcon />}
         tooltipTitle="Checkout"
-        href="/checkout"
+        // href="/checkout"
+        onClick={() => {
+          navigate("/checkout");
+        }}
       ></SpeedDialAction>
 
       <SpeedDialAction
@@ -48,7 +51,7 @@ export const CartSpeedDial = () => {
 
 export const CompareSpeedDial = () => {
   const [, dispatch] = useSelectedCourseContext();
-
+  const navigate = useNavigate();
   return (
     <SpeedDial
       ariaLabel="Compare SpeedDial"
@@ -63,7 +66,10 @@ export const CompareSpeedDial = () => {
       <SpeedDialAction
         icon={<DifferenceIcon />}
         tooltipTitle="Compare"
-        href="/course/compare"
+        // href="/course/compare"
+        onClick={() => {
+          navigate("/course/compare");
+        }}
       ></SpeedDialAction>
       {/* </Link> */}
 
