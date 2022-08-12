@@ -38,7 +38,7 @@ public class SubscriptionEntity extends TransactionEntity {
     private CoursePricingEntity coursePricingEntity;
 
     @ManyToOne
-    private PromoEntity promoEntity;
+    private PaymentEntity paymentEntity;
 
     private ZonedDateTime startTime;
     private ZonedDateTime endTime;
