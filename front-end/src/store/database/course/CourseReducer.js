@@ -4,6 +4,8 @@ import {
   SELECTED_COURSE_FOR_SEARCH,
   ADD_COURSE_TO_CART,
   REMOVED_COURSE_FROM_CART,
+  REMOVE_ALL_COURSE_FROM_CART,
+  REMOVE_ALL_COURSE_FROM_COMPARE,
 } from "./CourseTypes";
 
 // both for cart and search
@@ -49,6 +51,17 @@ const SelectedCourseReducer = (state = courseSelectedState, action) => {
           (course) => course.id !== action.payload.id
         ),
       };
+    case REMOVE_ALL_COURSE_FROM_CART:
+      return {
+        ...state,
+        cartCourses: [],
+      };
+    case REMOVE_ALL_COURSE_FROM_COMPARE:
+      return {
+        ...state,
+        compareCourses: [],
+      };
+
     default:
       return state;
   }

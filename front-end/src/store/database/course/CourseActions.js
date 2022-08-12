@@ -3,6 +3,8 @@ import {
   ADD_COURSE_TO_COMPARE,
   REMOVED_COURSE_FROM_CART,
   REMOVED_COURSE_FROM_COMPARE,
+  REMOVE_ALL_COURSE_FROM_CART,
+  REMOVE_ALL_COURSE_FROM_COMPARE,
 } from "./CourseTypes";
 
 export const addCourseToCompare = (course) => {
@@ -30,5 +32,17 @@ export const removeCourseFromCart = (course) => {
   return {
     type: REMOVED_COURSE_FROM_CART,
     payload: course,
+  };
+};
+
+export const removeAllCourseFromCompare = (course) => {
+  return {
+    type: REMOVE_ALL_COURSE_FROM_COMPARE,
+  };
+};
+
+export const removeAllCourseFromCart = (course) => {
+  return {
+    type: REMOVE_ALL_COURSE_FROM_CART,
   };
 };

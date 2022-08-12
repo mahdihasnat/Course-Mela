@@ -8,6 +8,10 @@ import CourseService from "../../../../services/course/CourseService";
 import { LOG_CAUGHT_ERR } from "../../../../shared/utils";
 import { CourseCardSearch } from "../../shared/courseCard/CourseCardSearch";
 import { useNavigate } from "react-router-dom";
+import {
+  CartSpeedDial,
+  CompareSpeedDial,
+} from "../../shared/speedDial/CustomSpeedDial";
 
 function SearchView() {
   const [courses, setCourses] = React.useState([]);
@@ -67,6 +71,8 @@ function SearchView() {
           </Stack>
         </Grid>
       </Grid>
+      <CartSpeedDial />
+      <CompareSpeedDial />
     </Box>
   );
 }

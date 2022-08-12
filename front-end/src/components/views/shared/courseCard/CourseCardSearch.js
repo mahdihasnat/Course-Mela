@@ -1,5 +1,5 @@
 import { Button, Container, Grid, Stack, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import CourseCard from "../../guestView/course/CourseCard";
 import AddShoppingCartRoundedIcon from "@mui/icons-material/AddShoppingCartRounded";
 import DifferenceIcon from "@mui/icons-material/Difference";
@@ -12,9 +12,13 @@ import {
 } from "../../../../store/database/course/CourseActions";
 
 export const CourseCardSearch = ({ course }) => {
-  const [{}, dispatch] = useSelectedCourseContext();
-  const [addedToCart, setAddedToCart] = React.useState(false);
-  const [addedToCompare, setAddedToCompare] = React.useState(false);
+  const [state, dispatch] = useSelectedCourseContext();
+  const [addedToCart, setAddedToCart] = React.useState(
+    state.cartCourses.includes(course)
+  );
+  const [addedToCompare, setAddedToCompare] = React.useState(
+    state.compareCourses.includes(course)
+  );
 
   const addToCart = () => {
     if (!addedToCart) {
@@ -43,6 +47,11 @@ export const CourseCardSearch = ({ course }) => {
     // console.log({ "addCourseToCompare:": course });
     // dispatch(addCourseToCompare(course));
   };
+
+  useEffect(() => {
+    setAddedToCart(state.cartCourses.includes(course));
+    setAddedToCompare(state.compareCourses.includes(course));
+  }, [state]);
 
   return (
     <Stack direction={"column"}>
