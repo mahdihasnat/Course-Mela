@@ -4,51 +4,67 @@ import {
   Paper,
   Stack,
   Table,
+  TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
+  Typography,
 } from "@mui/material";
 import { Container } from "@mui/system";
 import React, { useEffect } from "react";
 import { useSelectedCourseContext } from "../../../../store/contexts/SelectedCourseContext";
 
+const CustomTableRow = ({ heading, cellValues }) => {
+  return (
+    <TableRow>
+      <TableCell>{heading}</TableCell>
+      {cellValues.map((cellValue) => (
+        <TableCell key={cellValue.id}>
+          <Typography variant="body2">{cellValue.value}</Typography>
+        </TableCell>
+      ))}
+    </TableRow>
+  );
+};
+
 export const CompareView = () => {
-  const [state, dispatch] = useSelectedCourseContext();
+  const [{ compareCourses }, dispatch] = useSelectedCourseContext();
 
   useEffect(() => {
-    console.log({ compareCourses: state });
+    console.log({ compareCourses: compareCourses });
   });
 
   return (
     <Container>
-      {/* <Breadcrumbs>CompareView</Breadcrumbs> */}
-      {/* <Stack>
-        <Grid container spacing={3}>
-          <Grid item xs={3}>
-            <h1>CompareView</h1>
-          </Grid>
-          <Grid item xs={5}>
-            <h1>CompareView</h1>
-          </Grid>
-          <Grid item xs={4}>
-            <h1>CompareView</h1>
-          </Grid>
-        </Grid>
-      </Stack> */}
-
       <TableContainer component={Paper}>
         <Table aria-label="compare">
           <TableHead>
             <TableRow>
               <TableCell />
-              <TableCell>Dessert (100g serving)</TableCell>
-              <TableCell align="right">Calories</TableCell>
-              <TableCell align="right">Fat&nbsp;(g)</TableCell>
-              <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-              <TableCell align="right">Protein&nbsp;(g)</TableCell>
+              {compareCourses.map((course) => (
+                <TableCell key={course.id}>
+                  <Typography variant="h6">{course.name}</Typography>
+                </TableCell>
+              ))}
             </TableRow>
           </TableHead>
+          <TableBody>
+            <CustomTableRow
+              heading="Name"
+              cellValues={compareCourses.map((course) => ({
+                id: course.id,
+                value: course.name,
+              }))}
+            />
+            <CustomTableRow
+              heading="Description"
+              cellValues={compareCourses.map((course) => ({
+                id: course.id,
+                value: course.description,
+              }))}
+            />
+          </TableBody>
         </Table>
       </TableContainer>
     </Container>
