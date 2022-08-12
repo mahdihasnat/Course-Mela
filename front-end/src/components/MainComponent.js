@@ -1,18 +1,18 @@
-import React, {useEffect} from "react";
-import {Route, Routes} from "react-router-dom";
+import React, { useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
 import GuestView from "./views/guestView/GuestView";
 // import NavBar from './layout/'
 import Footer from "./layout/Footer/Footer";
 import TestServerConncetion from "./views/serverTester/TestServerConncetion";
-import {Provider} from "react-redux";
+import { Provider } from "react-redux";
 import store from "../store/store";
 import InstructorHome from "./views/instructor/InstructorHome";
-import {useLoginContext} from "../store/contexts/LoginContext";
+import { useLoginContext } from "../store/contexts/LoginContext";
 import AddCourse from "./views/instructor/add_course/AddCourse";
 import EditCourse from "./views/instructor/edit_course/EditCourse";
 import Registration from "./layout/registration/Registration";
-import {PRE_LOGGED_IN} from "../store/auth/AuthTypes";
-import {ROLE_INSTRUCTOR, ROLE_STUDENT,} from "../shared/StringConstant";
+import { PRE_LOGGED_IN } from "../store/auth/AuthTypes";
+import { ROLE_INSTRUCTOR, ROLE_STUDENT } from "../shared/StringConstant";
 import StudentView from "./views/student/StudentView";
 
 import Test from "./helper/Test";
@@ -22,7 +22,7 @@ import Login from "./layout/login/Login";
 import VideoWatch from "./views/shared/videoWatch/VideoWatch";
 import SearchView from "./views/guestView/search/SearchView";
 
-import {CompareView} from "./views/guestView/compare/CompareView";
+import { CompareView } from "./views/guestView/compare/CompareView";
 import CourseGuestView from "./views/guestView/course/CourseGuestView";
 
 function MainComponent() {
@@ -66,7 +66,7 @@ function MainComponent() {
               <>
                 <Route path="/register" element={<Registration />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="*" element={<GuestView />} />
+                <Route path="/" element={<GuestView />} />
               </>
             )}
 
@@ -99,7 +99,13 @@ function MainComponent() {
               </>
             )}
 
-            <Route exact path="/instr" element={<InstructorHome />} />
+            {isSignedIn && userRole === ROLE_STUDENT && (
+              <>
+                <Route path="/" element={<StudentView />} />
+              </>
+            )}
+
+            {/* <Route exact path="/instr" element={<InstructorHome />} /> */}
           </Routes>
 
           <Footer
