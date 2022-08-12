@@ -7,6 +7,7 @@ import TopicService from "../../../../services/topic/TopicService";
 import {
   Autocomplete,
   Box,
+  Button,
   Chip,
   Container,
   createFilterOptions,
@@ -160,7 +161,7 @@ function AddCourse() {
   return (
     <Container>
       <form onSubmit={handleSubmit}>
-        <Stack p={5}>
+        <Stack p={5} spacing={2}>
           <Stack direction={"row"} columnGap={5}>
             <Box>
               <TextField
@@ -369,26 +370,17 @@ function AddCourse() {
               value={values.coursePrice}
               InputProps={{
                 startAdornment: (
-                  <InputAdornment position="start">৳</InputAdornment>
+                  <InputAdornment position="start" sx={{ fontWeight: "bold" }}>
+                    ৳
+                  </InputAdornment>
                 ),
               }}
             />
           </Box>
 
-          <div
-            className="container"
-            style={{ display: "flex", justifyContent: "flex-end" }}
-          >
-            <input
-              type="submit"
-              className="upload-courseimg-label"
-              style={{
-                fontSize: "1.0rem",
-                marginTop: "30px",
-              }}
-              value="Create Course"
-            />
-          </div>
+          <Button variant="contained" color="primary" type="submit">
+            Create Course
+          </Button>
         </Stack>
       </form>
     </Container>
