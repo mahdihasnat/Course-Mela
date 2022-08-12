@@ -6,6 +6,7 @@ import CourseCard, { CourseCardFromCourse } from "../CourseCard";
 import SearchBar from "material-ui-search-bar";
 import CourseService from "../../../../services/course/CourseService";
 import { LOG_CAUGHT_ERR } from "../../../../shared/utils";
+import { CourseCardSearch } from "../../shared/courseCard/CourseCardSearch";
 
 function SearchView() {
   const [courses, setCourses] = React.useState([]);
@@ -41,7 +42,7 @@ function SearchView() {
               {courses.map((course) => {
                 return (
                   <Grid item my={1} xs={4} lg={3} key={course.id}>
-                    <CourseCard course={course} />
+                    <CourseCardSearch course={course} />
                   </Grid>
                 );
               })}
