@@ -1,24 +1,8 @@
-import React, { useState, useEffect } from "react";
-import ReactStars from "react-rating-stars-component";
-import { Link, useNavigate } from "react-router-dom";
-import ImageService from "../../../../services/content/ImageService";
-import {
-  Avatar,
-  Button,
-  ButtonGroup,
-  Card,
-  CardContent,
-  CardHeader,
-  CardMedia,
-  Container,
-  Grid,
-  IconButton,
-  Rating,
-  Stack,
-} from "@mui/material";
+import React, {useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {Button, Card, CardContent, CardMedia, Container, Grid, Rating, Stack,} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import { red } from "@mui/material/colors";
-import { AttachMoney } from "@mui/icons-material";
+import {AttachMoney} from "@mui/icons-material";
 
 const CourseCard = ({ course }) => {
   const [image, setImage] = useState("");

@@ -1,37 +1,29 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
+import React, {useEffect} from "react";
+import {Route, Routes} from "react-router-dom";
 import GuestView from "./views/guestView/GuestView";
 // import NavBar from './layout/'
 import Footer from "./layout/Footer/Footer";
 import TestServerConncetion from "./views/serverTester/TestServerConncetion";
-import { Provider } from "react-redux";
+import {Provider} from "react-redux";
 import store from "../store/store";
 import InstructorHome from "./views/instructor/InstructorHome";
-import { useLoginContext } from "../store/contexts/LoginContext";
-import LoginModal from "./layout/LoginModal/LoginModal";
+import {useLoginContext} from "../store/contexts/LoginContext";
 import AddCourse from "./views/instructor/add_course/AddCourse";
 import EditCourse from "./views/instructor/edit_course/EditCourse";
 import Registration from "./layout/registration/Registration";
-import { PRE_LOGGED_IN } from "../store/auth/AuthTypes";
-
-import { useEffect } from "react";
-import LoginService from "../services/auth/LoginService";
-import {
-  INSTRUCTOR,
-  ROLE_INSTRUCTOR,
-  ROLE_STUDENT,
-} from "../shared/StringConstant";
+import {PRE_LOGGED_IN} from "../store/auth/AuthTypes";
+import {ROLE_INSTRUCTOR, ROLE_STUDENT,} from "../shared/StringConstant";
 import StudentView from "./views/student/StudentView";
 
 import Test from "./helper/Test";
-import InstructorCourseList from "./views/instructor/InstructorCourseList";
 import InstructorCourseDetails from "./views/instructor/course/InstructorCourseDetails";
 import MuiNavbar from "./layout/Navbar/NavBarUpdated";
 import Login from "./layout/login/Login";
 import VideoWatch from "./views/shared/videoWatch/VideoWatch";
 import SearchView from "./views/guestView/search/SearchView";
 
-import { CompareView } from "./views/guestView/compare/CompareView";
+import {CompareView} from "./views/guestView/compare/CompareView";
+import CourseGuestView from "./views/guestView/course/CourseGuestView";
 
 function MainComponent() {
   const [{ isSignedIn, userRole }, dispatch] = useLoginContext();
@@ -83,10 +75,15 @@ function MainComponent() {
                 <Route path="/course/search" element={<SearchView />}></Route>
                 <Route path="/course/compare" element={<CompareView />}></Route>
                 <Route path="/watchVideo/:videoId" element={<VideoWatch />} />
+              </>
+            )}
+            {isSignedIn && userRole === ROLE_STUDENT && (
+              <>
                 <Route
                   path="/courses/:courseId"
-                  element={<InstructorCourseDetails />}
-                ></Route>
+                  element={<CourseGuestView />}
+                />
+                <Route path="*" element={<StudentView />} />
               </>
             )}
 
@@ -94,13 +91,11 @@ function MainComponent() {
               <>
                 <Route path="/add-course" element={<AddCourse />} />
                 <Route path="/edit-course/:courseId" element={<EditCourse />} />
-
+                <Route
+                  path="/courses/:courseId"
+                  element={<InstructorCourseDetails />}
+                />
                 <Route path="*" element={<InstructorHome />} />
-              </>
-            )}
-            {isSignedIn && userRole === ROLE_STUDENT && (
-              <>
-                <Route path="*" element={<StudentView />} />
               </>
             )}
 
