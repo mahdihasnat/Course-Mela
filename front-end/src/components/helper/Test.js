@@ -15,6 +15,7 @@ import { MuiTextField } from "./TextFieldTest";
 import joinUrl from "../../utils/url";
 import { AUTH_URL, baseUrl, VIDEO_ULR } from "../../shared/urls";
 import { LOG_CAUGHT_ERR, LOG_RESPONSE } from "../../shared/utils";
+import { useSelectedCourseContext } from "../../store/contexts/SelectedCourseContext";
 
 const Test = () => {
   const [image, setImage] = useState("");
@@ -68,12 +69,18 @@ const Test = () => {
   //     }).then(LOG_RESPONSE).catch(LOG_CAUGHT_ERR)
   // }
 
+  const [{ compareCourses }] = useSelectedCourseContext();
   const handleClick = () => {
     const formData = new FormData();
-    formData.set("courses", []);
-    console.log({ formData: formData });
+    // formData.set("courses", []);
+    // console.log({ formData: formData });
+
+    // const data = { ...compareCourses };
+    const data = compareCourses;
+
+    console.log({ data: data });
     axios
-      .post(joinUrl(baseUrl, "subscribe/abc"), formData, {
+      .post(joinUrl(baseUrl, "subscribe/"), data, {
         headers: jsonAuthorizedHeader(),
       })
       .then(LOG_RESPONSE)
