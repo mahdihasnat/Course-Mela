@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Grid, Stack, TextField, Typography } from "@mui/material";
+import { Button, Grid, Stack, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import CourseCard, { CourseCardFromCourse } from "../CourseCard";
 // https://www.npmjs.com/package/material-ui-search-bar
@@ -7,9 +7,12 @@ import SearchBar from "material-ui-search-bar";
 import CourseService from "../../../../services/course/CourseService";
 import { LOG_CAUGHT_ERR } from "../../../../shared/utils";
 import { CourseCardSearch } from "../../shared/courseCard/CourseCardSearch";
+import { useNavigate } from "react-router-dom";
 
 function SearchView() {
   const [courses, setCourses] = React.useState([]);
+
+  const navigate = useNavigate();
   useEffect(() => {
     CourseService.getAllCourses()
       .then((res) => {
@@ -47,6 +50,20 @@ function SearchView() {
                 );
               })}
             </Grid>
+            <Stack direction={"row-reverse"}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                  navigate("/course/compare");
+                }}
+              >
+                Compare Now
+              </Button>
+              <Button variant="contained" color="primary">
+                Buy Now
+              </Button>
+            </Stack>
           </Stack>
         </Grid>
       </Grid>
