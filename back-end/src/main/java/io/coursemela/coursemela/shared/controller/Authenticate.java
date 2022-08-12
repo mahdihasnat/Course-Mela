@@ -5,6 +5,7 @@ import io.coursemela.coursemela.instructor.model.Instructor;
 import io.coursemela.coursemela.instructor.service.InstructorService;
 import io.coursemela.coursemela.shared.entity.AuthenticateRequest;
 import io.coursemela.coursemela.shared.entity.AuthenticateResponse;
+import io.coursemela.coursemela.shared.model.CustomJson;
 import io.coursemela.coursemela.shared.util.JwtUtils;
 import io.coursemela.coursemela.student.entity.Level;
 import io.coursemela.coursemela.student.model.Student;
@@ -13,6 +14,7 @@ import io.coursemela.coursemela.user.model.User;
 import io.coursemela.coursemela.user.service.CustomUserDetailsService;
 import io.coursemela.coursemela.user.service.UserService;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -45,6 +47,7 @@ class RegisterForm {
 
 @RestController
 @RequestMapping("/authenticate")
+@Slf4j
 public class Authenticate {
 
     @Autowired
@@ -67,6 +70,12 @@ public class Authenticate {
                             @RequestParam(name = "role", required = false) String role,
                             Subject sub) {
         return "hello " + name + " " + id + " " + role + " " + sub;
+    }
+
+    @GetMapping("/conv")
+    public String conv(@RequestBody CustomJson customJson) {
+        log.info(customJson.toString());
+        return "ok: " + customJson.toString();
     }
 
 
