@@ -67,6 +67,13 @@ class CourseService {
       headers: jsonAuthorizedHeader(),
     });
   }
+  getCourseGuestView(id) {
+    return axios({
+      method: "GET",
+      url: joinUrl(COURSE_URL, id),
+      headers: jsonAuthorizedHeader(),
+    });
+  }
 }
 
 export default new CourseService();

@@ -63,4 +63,12 @@ public class CourseController {
         return courseService.getCourses();
     }
 
+
+    @GetMapping("/{courseId}")
+    Course getCourse(@PathVariable("courseId") String courseId) {
+        log.info("get course: " + courseId);
+        return courseService.getCourse(Long.valueOf(courseId));
+
+    }
+
 }
