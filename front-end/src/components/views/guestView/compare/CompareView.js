@@ -1,4 +1,5 @@
 import {
+  Box,
   Breadcrumbs,
   Grid,
   Paper,
@@ -15,13 +16,66 @@ import { Container } from "@mui/system";
 import React, { useEffect } from "react";
 import { useSelectedCourseContext } from "../../../../store/contexts/SelectedCourseContext";
 
+const RowIndex = ({ heading }) => {
+  return (
+    <TableCell>
+      <Typography variant="h5" gutterBottom>
+        {heading}
+      </Typography>
+    </TableCell>
+  );
+};
+
 const CustomTableRow = ({ heading, cellValues }) => {
   return (
     <TableRow>
-      <TableCell>{heading}</TableCell>
+      <RowIndex heading={heading} />
       {cellValues.map((cellValue) => (
         <TableCell key={cellValue.id}>
           <Typography variant="body2">{cellValue.value}</Typography>
+        </TableCell>
+      ))}
+    </TableRow>
+  );
+};
+
+const ImageTableRow = ({ heading, cellValues }) => {
+  return (
+    <TableRow>
+      <RowIndex heading={heading} />
+
+      {cellValues.map((cellValue) => (
+        <TableCell key={cellValue.id}>
+          <Box
+            component={"img"}
+            sx={{
+              height: 233,
+              width: 350,
+              maxHeight: { xs: 233, md: 167 },
+              maxWidth: { xs: 350, md: 250 },
+            }}
+            src={cellValue.value}
+            alt={cellValue.id}
+          />
+        </TableCell>
+      ))}
+    </TableRow>
+  );
+};
+
+const TagTableRow = ({ heading, cellValues }) => {
+  console.log({ cellValues: cellValues });
+  return (
+    <TableRow>
+      <RowIndex heading={heading} />
+
+      {cellValues.map((cellValue) => (
+        <TableCell key={cellValue.id}>
+          {cellValue.value.map((value) => (
+            <Typography key={value.id} variant="body2">
+              {value.name}
+            </Typography>
+          ))}
         </TableCell>
       ))}
     </TableRow>
@@ -62,6 +116,35 @@ export const CompareView = () => {
               cellValues={compareCourses.map((course) => ({
                 id: course.id,
                 value: course.description,
+              }))}
+            />
+            <ImageTableRow
+              heading="Image"
+              cellValues={compareCourses.map((course) => ({
+                id: course.id,
+                value: course.coverPhotoPath,
+              }))}
+            />
+
+            <CustomTableRow
+              heading="Price"
+              cellValues={compareCourses.map((course) => ({
+                id: course.id,
+                value: course.coursePricing.subsFee,
+              }))}
+            />
+            <CustomTableRow
+              heading="Price"
+              cellValues={compareCourses.map((course) => ({
+                id: course.id,
+                value: course.coursePricing.offPercent,
+              }))}
+            />
+            <TagTableRow
+              heading="Tags"
+              cellValues={compareCourses.map((course) => ({
+                id: course.id,
+                value: course.tags,
               }))}
             />
           </TableBody>
