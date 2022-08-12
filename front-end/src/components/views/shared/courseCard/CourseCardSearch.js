@@ -1,6 +1,6 @@
 import { Button, Container, Grid, Stack, Typography } from "@mui/material";
 import React from "react";
-import CourseCard from "../../guestView/CourseCard";
+import CourseCard from "../../guestView/course/CourseCard";
 import AddShoppingCartRoundedIcon from "@mui/icons-material/AddShoppingCartRounded";
 import DifferenceIcon from "@mui/icons-material/Difference";
 import { useSelectedCourseContext } from "../../../../store/contexts/SelectedCourseContext";

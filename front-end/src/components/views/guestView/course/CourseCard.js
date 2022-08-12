@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactStars from "react-rating-stars-component";
 import { Link, useNavigate } from "react-router-dom";
-import ImageService from "../../../services/content/ImageService";
+import ImageService from "../../../../services/content/ImageService";
 import {
   Avatar,
   Button,

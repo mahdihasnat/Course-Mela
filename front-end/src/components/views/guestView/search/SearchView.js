@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Button, Grid, Stack, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import CourseCard, { CourseCardFromCourse } from "../CourseCard";
+import CourseCard, { CourseCardFromCourse } from "../course/CourseCard";
 // https://www.npmjs.com/package/material-ui-search-bar
 import SearchBar from "material-ui-search-bar";
 import CourseService from "../../../../services/course/CourseService";

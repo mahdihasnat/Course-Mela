@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import CourseCard from "../guestView/CourseCard";
+import CourseCard from "../guestView/course/CourseCard";
 
 import InstructorHomeService from "../../../services/instructor/InstructorHomeService";
 import CourseService from "../../../services/course/CourseService";
