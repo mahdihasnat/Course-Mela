@@ -16,7 +16,11 @@ import { PRE_LOGGED_IN } from "../store/auth/AuthTypes";
 
 import { useEffect } from "react";
 import LoginService from "../services/auth/LoginService";
-import { INSTRUCTOR, ROLE_STUDENT } from "../shared/StringConstant";
+import {
+  INSTRUCTOR,
+  ROLE_INSTRUCTOR,
+  ROLE_STUDENT,
+} from "../shared/StringConstant";
 import StudentView from "./views/student/StudentView";
 
 import Test from "./helper/Test";
@@ -53,50 +57,56 @@ function MainComponent() {
     checkLogin();
   }, []);
 
+  useEffect(() => {}, [isSignedIn]);
+
   return (
     <Provider store={store}>
-      {isLoading ? null : (
+      {!isLoading && (
         <div className="">
           <MuiNavbar />
           <Routes>
             {/* all acceess */}
 
             <Route path="/test" element={<Test />}></Route>
-            <Route path="/add-course" element={<AddCourse />} />
-            <Route path="/edit-course/:courseId" element={<EditCourse />} />
-            <Route path="/course/search" element={<SearchView />}></Route>
-            <Route path="/course/compare" element={<CompareView />}></Route>
-            {!isSignedIn ? (
+            <Route path="/server" element={<TestServerConncetion />} />
+
+            {!isSignedIn && (
               <>
                 <Route path="/register" element={<Registration />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="*" element={<GuestView />} />
               </>
-            ) : null}
+            )}
 
-            <Route path="/watchVideo/:videoId" element={<VideoWatch />} />
+            {isSignedIn && (
+              <>
+                <Route path="/course/search" element={<SearchView />}></Route>
+                <Route path="/course/compare" element={<CompareView />}></Route>
+                <Route path="/watchVideo/:videoId" element={<VideoWatch />} />
+                <Route
+                  path="/courses/:courseId"
+                  element={<InstructorCourseDetails />}
+                ></Route>
+              </>
+            )}
+
+            {isSignedIn && userRole === ROLE_INSTRUCTOR && (
+              <>
+                <Route path="/add-course" element={<AddCourse />} />
+                <Route path="/edit-course/:courseId" element={<EditCourse />} />
+
+                <Route path="*" element={<InstructorHome />} />
+              </>
+            )}
+            {isSignedIn && userRole === ROLE_STUDENT && (
+              <>
+                <Route path="*" element={<StudentView />} />
+              </>
+            )}
 
             <Route exact path="/instr" element={<InstructorHome />} />
-            <Route
-              path="/courses/:courseId"
-              element={<InstructorCourseDetails />}
-            ></Route>
-
-            <Route path="/server" element={<TestServerConncetion />} />
-            <Route
-              path="*"
-              element={
-                isSignedIn ? (
-                  userRole == ROLE_STUDENT ? (
-                    <StudentView />
-                  ) : (
-                    <InstructorHome />
-                  )
-                ) : (
-                  <GuestView />
-                )
-              }
-            />
           </Routes>
+
           <Footer
             title={"CourseMela"}
             description={"We are course providing site"}
@@ -108,3 +118,21 @@ function MainComponent() {
 }
 
 export default MainComponent;
+
+{
+  /* <Route
+              path="*"
+              element={
+                isSignedIn ? (
+                  userRole === ROLE_STUDENT ? (
+                    <StudentView />
+                  ) : (
+                    <InstructorHome />
+                  )
+                ) : (
+                  <GuestView />
+                )
+              }
+            />
+          </Routes> */
+}
