@@ -398,7 +398,7 @@ input.radio {
 .panel-ul li {
   padding: 10px;
 }
-input[type=text],
+/* input[type=text],
 input[type=password] {
     width: 100%;
     padding: 12px 15px;
@@ -406,7 +406,7 @@ input[type=password] {
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
-}
+} */
 
 /* set a hover effect for the button*/
 button:hover {
