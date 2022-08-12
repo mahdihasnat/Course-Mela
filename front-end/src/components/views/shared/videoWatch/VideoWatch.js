@@ -19,6 +19,20 @@ import ReactPlayer from "react-player";
 import VideoService from "../../../../services/video/VideoService";
 import { LOG_CAUGHT_ERR } from "../../../../shared/utils";
 
+const videoPlayerStyle = {
+  bgcolor: "primary.main",
+  height: {
+    xs: 400,
+    md: 500,
+    xl: 700,
+  },
+  width: {
+    xs: 500,
+    md: 900,
+    xl: 1200,
+  },
+};
+
 const VideoWatch = ({}) => {
   const comments = [
     { commentId: "2", commenter: "Abul", comment: "What is sign used for" },
@@ -107,20 +121,6 @@ const VideoWatch = ({}) => {
       )}
     </Box>
   );
-
-  const videoPlayerStyle = {
-    bgcolor: "primary.main",
-    height: {
-      xs: 400,
-      md: 500,
-      xl: 700,
-    },
-    width: {
-      xs: 500,
-      md: 900,
-      xl: 1200,
-    },
-  };
 };
 
 export default VideoWatch;
