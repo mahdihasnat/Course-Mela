@@ -27,6 +27,8 @@ import Login from "./layout/login/Login";
 import VideoWatch from "./views/shared/videoWatch/VideoWatch";
 import SearchView from "./views/guestView/search/SearchView";
 
+import { CompareView } from "./views/guestView/compare/CompareView";
+
 function MainComponent() {
   const [{ isSignedIn, userRole }, dispatch] = useLoginContext();
   const [isLoading, setIsLoading] = React.useState(true);
@@ -57,10 +59,13 @@ function MainComponent() {
         <div className="">
           <MuiNavbar />
           <Routes>
+            {/* all acceess */}
+
             <Route path="/test" element={<Test />}></Route>
             <Route path="/add-course" element={<AddCourse />} />
             <Route path="/edit-course/:courseId" element={<EditCourse />} />
             <Route path="/course/search" element={<SearchView />}></Route>
+            <Route path="/course/compare" element={<CompareView />}></Route>
             {!isSignedIn ? (
               <>
                 <Route path="/register" element={<Registration />} />

@@ -1,15 +1,17 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 // import './static/css/styles.css'
-import { BrowserRouter } from 'react-router-dom'
-import LoginContextProvider from './store/contexts/LoginContext';
-import MainComponent from './components/MainComponent';
+import { BrowserRouter } from "react-router-dom";
+import LoginContextProvider from "./store/contexts/LoginContext";
+import MainComponent from "./components/MainComponent";
+import SelectedCourseContextProvider from "./store/contexts/SelectedCourseContext";
 
 function App() {
   return (
     <LoginContextProvider>
-      <BrowserRouter>
-        {/* <div className="">
+      <SelectedCourseContextProvider>
+        <BrowserRouter>
+          {/* <div className="">
           <Navbar />
           <Routes>
             <Route path='/' element={ <GuestView /> } />
@@ -18,8 +20,9 @@ function App() {
           <LoginModal />
           <Footer />
         </div> */}
-        <MainComponent />
-      </BrowserRouter>
+          <MainComponent />
+        </BrowserRouter>
+      </SelectedCourseContextProvider>
     </LoginContextProvider>
   );
 }
