@@ -10,8 +10,13 @@ import {
   Chip,
   Container,
   createFilterOptions,
+  FormControl,
+  Input,
+  InputAdornment,
+  InputLabel,
   ListItem,
   MenuItem,
+  OutlinedInput,
   Paper,
   Stack,
   TextField,
@@ -51,9 +56,6 @@ function AddCourse() {
   );
 
   const [thingsToFocus, setThingsToFocus] = React.useState([]);
-  const [addingThings, setAddingThings] = React.useState(false);
-
-  const [newThingToFocus, setNewThingToFocus] = React.useState("");
 
   const helper_text_coursename = "Let your course have an enticing name";
   const helper_text_desc =
@@ -94,9 +96,7 @@ function AddCourse() {
     TagService.getTags()
       .then((response) => {
         console.log("tags :", response.data);
-        setRemainingThingsToFocus(response.data);
         setTags(response.data);
-        // setSelectedTags(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -131,40 +131,6 @@ function AddCourse() {
     }
   };
 
-  const handleFocusedThingsChange = (thing, id) => {
-    setThingsToFocus(thingsToFocus.filter((_, index) => index !== id));
-    setRemainingThingsToFocus([...remainingThingsToFocus, thing]);
-  };
-
-  const handleRemainingFocusedThingsChange = (thing, id) => {
-    setRemainingThingsToFocus(
-      remainingThingsToFocus.filter((_, index) => index !== id)
-    );
-    setThingsToFocus([...thingsToFocus, thing]);
-  };
-
-  const handleAddThingToFocusClick = () => {
-    setAddingThings(true);
-  };
-
-  const handleAddThingToFocusSubmit = (e) => {
-    e.preventDefault();
-    newThingToFocus &&
-      TagService.createTag({
-        name: newThingToFocus,
-      }).then((response) => {
-        console.log(response);
-
-        setThingsToFocus([...thingsToFocus, response.data]);
-      });
-    setNewThingToFocus("");
-    setAddingThings(false);
-  };
-
-  const handleTagRemove = (tag) => () => {
-    setSelectedTags(selectedTags.filter((t) => t.id !== tag.id));
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -174,7 +140,7 @@ function AddCourse() {
       )[0],
       values.courseName,
       values.description,
-      thingsToFocus,
+      selectedTags,
       selectedImg,
       values.coursePrice
     )
@@ -193,10 +159,6 @@ function AddCourse() {
 
   return (
     <Container>
-      <form
-        onSubmit={handleAddThingToFocusSubmit}
-        id="addThingsToFocusForm"
-      ></form>
       <form onSubmit={handleSubmit}>
         <Stack p={5}>
           <Stack direction={"row"} columnGap={5}>
@@ -292,7 +254,6 @@ function AddCourse() {
                 </span>
               )}
             </div>
-            {/* </div> */}
           </Stack>
           <Box>
             <TextField
@@ -313,26 +274,6 @@ function AddCourse() {
             ></TextField>
           </Box>
           <Box>
-            {/* {selectedTags.map((tag) => {
-              return (
-                <ListItem key={tag.id} alignItems="flex-start">
-                  <Chip onDelete={handleTagRemove(tag)} label={tag.name}></Chip>
-                </ListItem>
-              );
-            })}
-            <TextField
-              label={"Type To Add Tags"}
-              select
-              helperText={"Add existing tag or create new tag"}
-            >
-              {tags.map((tag) => {
-                return (
-                  <MenuItem key={tag.id} value={tag.id}>
-                    {tag.name}
-                  </MenuItem>
-                );
-              })}
-            </TextField> */}
             <Autocomplete
               filterOptions={(options, params) => {
                 const filtered = filter(options, params);
@@ -360,21 +301,20 @@ function AddCourse() {
               freeSolo
               defaultValue={[]}
               value={selectedTags}
-              // onDelete={handleTagRemove}
               getOptionLabel={(option) => {
                 // Value selected with enter, right from the input
                 if (typeof option === "string") {
                   return option;
                 }
-                // // Add "xyz" option created dynamically
-                // if (option.inputValue) {
-                //   return "Add: " + option.inputValue;
-                // }
                 // Regular option
                 return option.name;
               }}
               renderInput={(params) => (
-                <TextField {...params} label="label" variant="outlined" />
+                <TextField
+                  {...params}
+                  label="Add existing tag or create new tag"
+                  variant="outlined"
+                />
               )}
               // onchange create option
               // documents:
@@ -390,44 +330,51 @@ function AddCourse() {
                 console.log("values", values);
                 console.log("selectedTags", selectedTags);
                 console.log("reason", reason);
-                // if (reason === "createOption") {
-                //   setSelectedTags([...selectedTags, values[0]]);
-                // } else if (reason === "selectOption") {
-                //   setSelectedTags([...selectedTags, values[0]]);
-                // }
-                // for all value in valuse
                 for (let i = 0; i < values.length; i++) {
                   if (typeof values[i] === "string") {
                     values[i] = { id: -1, name: values[i] };
+                    TagService.createTag({
+                      name: values[i].name,
+                    })
+                      .catch((err) => {
+                        console.log({ Err: err });
+                      })
+                      .then((res) => {
+                        setTags([...tags, res.data]);
+                      });
                   } else if (values[i].inputValue) {
                     values[i] = { id: -1, name: values[i].inputValue };
+                    TagService.createTag({
+                      name: values[i].name,
+                    })
+                      .catch((err) => {
+                        console.log({ Err: err });
+                      })
+                      .then((res) => {
+                        setTags([...tags, res.data]);
+                      });
                   } else {
                   }
                 }
-
                 setSelectedTags(values);
               }}
             />
           </Box>
-
-          <div className="container add-course-desc">
-            <span
-              style={{
-                fontSize: "1.3rem",
-                fontWeight: "bold",
-                marginRight: "10px",
-              }}
-            >
-              Price (Tk.)
-            </span>
-            <input
-              name="price"
-              type={"number"}
-              style={{ border: "1px solid", fontSize: "1.3rem" }}
-              min={"0"}
+          <Box>
+            <TextField
+              label="Subscription Fee"
+              required
               onChange={handleChange("coursePrice")}
+              type="number"
+              value={values.coursePrice}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">৳</InputAdornment>
+                ),
+              }}
             />
-          </div>
+          </Box>
+
           <div
             className="container"
             style={{ display: "flex", justifyContent: "flex-end" }}
