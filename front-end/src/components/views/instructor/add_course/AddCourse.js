@@ -5,9 +5,11 @@ import TagService from "../../../../services/course/TagService";
 import SubjectService from "../../../../services/subject/SubjectService";
 import TopicService from "../../../../services/topic/TopicService";
 import {
+  Autocomplete,
   Box,
   Chip,
   Container,
+  createFilterOptions,
   ListItem,
   MenuItem,
   Paper,
@@ -60,6 +62,8 @@ function AddCourse() {
 
   const [isLoading, setIsLoading] = useState(true);
 
+  const filter = createFilterOptions();
+
   const fetchTopic = () => {
     console.log("inside fetchTopic");
     TopicService.getAllTopicsBySubject(values.chosenSubjectId)
@@ -92,7 +96,7 @@ function AddCourse() {
         console.log("tags :", response.data);
         setRemainingThingsToFocus(response.data);
         setTags(response.data);
-        setSelectedTags(response.data);
+        // setSelectedTags(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -305,111 +309,107 @@ function AddCourse() {
               helperText={helper_text_desc}
               onChange={handleChange("description")}
               multiline={true}
+              minRows={4}
             ></TextField>
           </Box>
-          <Stack direction={"row"}>
-            {selectedTags.map((tag) => {
+          <Box>
+            {/* {selectedTags.map((tag) => {
               return (
-                <ListItem key={tag.id}>
+                <ListItem key={tag.id} alignItems="flex-start">
                   <Chip onDelete={handleTagRemove(tag)} label={tag.name}></Chip>
                 </ListItem>
               );
             })}
-          </Stack>
+            <TextField
+              label={"Type To Add Tags"}
+              select
+              helperText={"Add existing tag or create new tag"}
+            >
+              {tags.map((tag) => {
+                return (
+                  <MenuItem key={tag.id} value={tag.id}>
+                    {tag.name}
+                  </MenuItem>
+                );
+              })}
+            </TextField> */}
+            <Autocomplete
+              filterOptions={(options, params) => {
+                const filtered = filter(options, params);
+                const { inputValue } = params;
 
-          <div className="container add-course-desc">
-            <span style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
-              Things we focus
-            </span>
-            <br />
-            <div className="things-we-focus">
-              <div style={{ marginTop: "15px", marginLeft: "3px" }}>
-                {thingsToFocus.map((thing, index) => (
-                  <span
-                    key={index}
-                    className="upload-courseimg-label"
-                    style={{ marginRight: "10px" }}
-                    onClick={() => handleFocusedThingsChange(thing, index)}
-                  >
-                    {thing.name}
-                    <i
-                      className="fa fa-times"
-                      style={{
-                        color: "white",
-                        fontSize: "15px",
-                        marginLeft: "5px",
-                      }}
-                    ></i>
-                  </span>
-                ))}
-              </div>
-            </div>
-            <div style={{ marginTop: "20px" }}>
-              {remainingThingsToFocus.map((thing, index) => (
-                <span
-                  key={index}
-                  className="upload-courseimg-label"
-                  style={{ marginRight: "10px" }}
-                  onClick={() =>
-                    handleRemainingFocusedThingsChange(thing, index)
+                // Suggest the creation of a new value
+                const isExisting = options.some(
+                  (option) => inputValue === option.name
+                );
+                if (inputValue !== "" && !isExisting) {
+                  filtered.push({
+                    inputValue,
+                    name: `Add "${inputValue}"`,
+                  });
+                }
+                return filtered;
+              }}
+              autoComplete={true}
+              selectOnFocus
+              clearOnBlur
+              handleHomeEndKeys
+              multiple={true}
+              options={tags}
+              select
+              freeSolo
+              defaultValue={[]}
+              value={selectedTags}
+              // onDelete={handleTagRemove}
+              getOptionLabel={(option) => {
+                // Value selected with enter, right from the input
+                if (typeof option === "string") {
+                  return option;
+                }
+                // // Add "xyz" option created dynamically
+                // if (option.inputValue) {
+                //   return "Add: " + option.inputValue;
+                // }
+                // Regular option
+                return option.name;
+              }}
+              renderInput={(params) => (
+                <TextField {...params} label="label" variant="outlined" />
+              )}
+              // onchange create option
+              // documents:
+              // OnChange:               Callback fired when the value changes.
+
+              // Signature:
+              // function(event: React.SyntheticEvent, value: T | Array<T>, reason: string, details?: string) => void
+              // event: The event source of the callback.
+              // value: The new value of the component.
+              // reason: One of "createOption", "selectOption", "removeOption", "blur" or "clear".
+              onChange={(event, values, reason) => {
+                console.log("event", event);
+                console.log("values", values);
+                console.log("selectedTags", selectedTags);
+                console.log("reason", reason);
+                // if (reason === "createOption") {
+                //   setSelectedTags([...selectedTags, values[0]]);
+                // } else if (reason === "selectOption") {
+                //   setSelectedTags([...selectedTags, values[0]]);
+                // }
+                // for all value in valuse
+                for (let i = 0; i < values.length; i++) {
+                  if (typeof values[i] === "string") {
+                    values[i] = { id: -1, name: values[i] };
+                  } else if (values[i].inputValue) {
+                    values[i] = { id: -1, name: values[i].inputValue };
+                  } else {
                   }
-                >
-                  <i
-                    className="fa fa-plus"
-                    style={{
-                      color: "white",
-                      fontSize: "15px",
-                      marginRight: "5px",
-                    }}
-                  ></i>
-                  {thing.name}
-                </span>
-              ))}
-              {addingThings && (
-                <span
-                  className="upload-courseimg-label"
-                  style={{ marginRight: "10px", backgroundColor: "red" }}
-                  onClick={handleAddThingToFocusClick}
-                >
-                  <i
-                    className="fa fa-plus"
-                    style={{
-                      color: "white",
-                      fontSize: "15px",
-                      marginRight: "5px",
-                    }}
-                  ></i>
-                  {newThingToFocus}
-                </span>
-              )}
-              <span
-                className="upload-courseimg-label"
-                style={{ marginRight: "10px", backgroundColor: "green" }}
-                onClick={handleAddThingToFocusClick}
-              >
-                Add New Tag...
-              </span>
-              {addingThings && (
-                <div style={{ marginTop: "15px" }}>
-                  <input
-                    type={"text"}
-                    name="new_thing_to_focus"
-                    form="addThingsToFocusForm"
-                    placeholder="Add New Tag"
-                    style={{ boxShadow: "1px 1px black" }}
-                    onChange={(e) => setNewThingToFocus(e.target.value)}
-                    value={newThingToFocus}
-                  />
-                  <input
-                    type={"submit"}
-                    className="upload-courseimg-label"
-                    value={newThingToFocus ? "Add" : "Cancel"}
-                    form="addThingsToFocusForm"
-                  />
-                </div>
-              )}
-            </div>
-          </div>
+                }
+
+                setSelectedTags(values);
+              }}
+            />
+          </Box>
+
           <div className="container add-course-desc">
             <span
               style={{
