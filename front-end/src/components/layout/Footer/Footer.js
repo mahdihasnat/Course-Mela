@@ -5,7 +5,9 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import {Stack} from "@mui/material";
+import Paper from '@mui/material/Paper';
 import {Facebook, Instagram, Twitter, YouTube} from "@mui/icons-material";
+import { styled } from '@mui/material/styles';
 
 function Copyright() {
     return (
@@ -20,13 +22,21 @@ function Copyright() {
     );
 }
 
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  }));
+
 function Footer(props) {
     const {description, title} = props;
 
     return (
         <Box component="footer" sx={{backgroundColor: 'secondary.light', py: 6}}>
             <Container maxWidth="lg">
-                <Stack spacing={4} width={'25%'} direction={"row"}>
+                <Stack direction={"row"} justifyContent="space-between" alignItems="center" spacing={4} width={'100%'}>
                     <Stack>
                         <Typography variant="h6" align="center" gutterBottom>
                             {title}
@@ -46,7 +56,7 @@ function Footer(props) {
                         <Copyright/>
                     </Stack>
 
-                    <Stack px={'70%'} direction={'row'}  >
+                    <Stack direction={'row'}  >
                         <Facebook/>
                         <Instagram/>
                         <Twitter/>
