@@ -1,7 +1,5 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Navbar from "./layout/Navbar/Navbar";
-// import MuiNavbar from "./layout/Navbar/NavBarUpdated";
 import GuestView from "./views/guestView/GuestView";
 // import NavBar from './layout/'
 import Footer from "./layout/Footer/Footer";
@@ -31,6 +29,7 @@ import SearchView from "./views/guestView/search/SearchView";
 
 function MainComponent() {
   const [{ isSignedIn, userRole }, dispatch] = useLoginContext();
+  const [isLoading, setIsLoading] = React.useState(true);
 
   useEffect(() => {
     async function checkLogin() {
@@ -44,6 +43,9 @@ function MainComponent() {
             userName: localStorage.getItem("userName"),
           },
         });
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
       }
     }
     checkLogin();
@@ -51,52 +53,51 @@ function MainComponent() {
 
   return (
     <Provider store={store}>
-      <div className="">
-        {/*<Navbar />*/}
-        {/*<Navbar/>*/}
-        <MuiNavbar />
-        <LoginModal />
-        <Routes>
-          <Route path="/test" element={<Test />}></Route>
-          <Route path="/course/search" element={<SearchView />}></Route>
-          <Route path="/add-course" element={<AddCourse />} />
-          <Route path="/edit-course/:courseId" element={<EditCourse />} />
-          {!isSignedIn ? (
-            <>
-              <Route path="/register" element={<Registration />} />
-              <Route path="/login" element={<Login />} />
-            </>
-          ) : null}
+      {isLoading ? null : (
+        <div className="">
+          <MuiNavbar />
+          <Routes>
+            <Route path="/test" element={<Test />}></Route>
+            <Route path="/add-course" element={<AddCourse />} />
+            <Route path="/edit-course/:courseId" element={<EditCourse />} />
+            <Route path="/course/search" element={<SearchView />}></Route>
+            {!isSignedIn ? (
+              <>
+                <Route path="/register" element={<Registration />} />
+                <Route path="/login" element={<Login />} />
+              </>
+            ) : null}
 
-          <Route path="/watchVideo/:videoId" element={<VideoWatch />} />
+            <Route path="/watchVideo/:videoId" element={<VideoWatch />} />
 
-          <Route exact path="/instr" element={<InstructorHome />} />
-          <Route
-            path="/courses/:courseId"
-            element={<InstructorCourseDetails />}
-          ></Route>
+            <Route exact path="/instr" element={<InstructorHome />} />
+            <Route
+              path="/courses/:courseId"
+              element={<InstructorCourseDetails />}
+            ></Route>
 
-          <Route path="/server" element={<TestServerConncetion />} />
-          <Route
-            path="*"
-            element={
-              isSignedIn ? (
-                userRole == ROLE_STUDENT ? (
-                  <StudentView />
+            <Route path="/server" element={<TestServerConncetion />} />
+            <Route
+              path="*"
+              element={
+                isSignedIn ? (
+                  userRole == ROLE_STUDENT ? (
+                    <StudentView />
+                  ) : (
+                    <InstructorHome />
+                  )
                 ) : (
-                  <InstructorHome />
+                  <GuestView />
                 )
-              ) : (
-                <GuestView />
-              )
-            }
+              }
+            />
+          </Routes>
+          <Footer
+            title={"CourseMela"}
+            description={"We are course providing site"}
           />
-        </Routes>
-        <Footer
-          title={"CourseMela"}
-          description={"We are course providing site"}
-        />
-      </div>
+        </div>
+      )}
     </Provider>
   );
 }
