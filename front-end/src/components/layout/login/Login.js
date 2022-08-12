@@ -29,16 +29,14 @@ const Login = () => {
     },
     validationSchema: Yup.object({
       username: Yup.string().required("User name is required"),
-      password: Yup.string()
-        .min(3, "Password is weak")
-        .required("Required"),
+      password: Yup.string().min(3, "Password is weak").required("Required"),
     }),
 
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       /// TODO do something to login
       // event.preventDefault();
 
-      LoginService.LoginWithDispatch(
+      await LoginService.LoginWithDispatch(
         values.username,
         values.password,
         dispatch
