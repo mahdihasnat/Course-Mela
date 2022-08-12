@@ -10,9 +10,16 @@ import {
   TableRow,
 } from "@mui/material";
 import { Container } from "@mui/system";
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelectedCourseContext } from "../../../../store/contexts/SelectedCourseContext";
 
 export const CompareView = () => {
+  const [state, dispatch] = useSelectedCourseContext();
+
+  useEffect(() => {
+    console.log({ compareCourses: state });
+  });
+
   return (
     <Container>
       {/* <Breadcrumbs>CompareView</Breadcrumbs> */}
