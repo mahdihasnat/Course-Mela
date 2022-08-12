@@ -10,7 +10,7 @@ import {
 export const courseSelectedState = {
   cartCourses: [],
   searchCourses: [],
-  comapreCourses: [],
+  compareCourses: [],
 };
 
 const SelectedCourseReducer = (state = courseSelectedState, action) => {
@@ -23,12 +23,12 @@ const SelectedCourseReducer = (state = courseSelectedState, action) => {
     case ADD_COURSE_TO_COMPARE:
       return {
         ...state,
-        comapreCourses: [...state.comapreCourses, action.payload],
+        compareCourses: [...state.compareCourses, action.payload],
       };
     case REMOVED_COURSE_FROM_COMPARE:
       return {
         ...state,
-        comapreCourses: state.comapreCourses.filter(
+        compareCourses: state.compareCourses.filter(
           (course) => course.id !== action.payload.id
         ),
       };
