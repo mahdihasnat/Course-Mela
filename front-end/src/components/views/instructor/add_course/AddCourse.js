@@ -161,6 +161,70 @@ function AddCourse() {
 			});
 	};
 
+	const tagAutocompleteFilterOptions = (options, params) => {
+		const filtered = filter(options, params);
+		const { inputValue } = params;
+
+		// Suggest the creation of a new value
+		const isExisting = options.some(
+			(option) => inputValue === option.name
+		);
+		if (inputValue !== "" && !isExisting) {
+			filtered.push({
+				inputValue,
+				name: `Add "${inputValue}"`,
+			});
+		}
+		return filtered;
+	}
+
+	const tagAutocompleteGetOptionsLabel =(option) => {
+		// Value selected with enter, right from the input
+		if (typeof option === "string") {
+			return option;
+		}
+		// Regular option
+		return option.name;
+	}
+	const tagAutocompleteOnChange = (event, values, reason) => {
+		console.log("event", event);
+		console.log("values", values);
+		console.log("selectedTags", selectedTags);
+		console.log("reason", reason);
+		for (let i = 0; i < values.length; i++) {
+			if (typeof values[i] === "string") {
+				values[i] = { id: -1, name: values[i] };
+				TagService.createTag({
+					name: values[i].name,
+				})
+					.catch((err) => {
+						console.log({ Err: err });
+					})
+					.then((res) => {
+						setTags([...tags, res.data]);
+						values[i] = res.data;
+					});
+			} else if (values[i].inputValue) {
+				values[i] = {
+					id: -1,
+					name: values[i].inputValue,
+				};
+				TagService.createTag({
+					name: values[i].name,
+				})
+					.catch((err) => {
+						console.log({ Err: err });
+					})
+					.then((res) => {
+						setTags([...tags, res.data]);
+						values[i] = res.data;
+					});
+			} else {
+			}
+		}
+		setSelectedTags(values);
+	}
+
 	return (
 		<Container>
 			<form onSubmit={handleSubmit}>
@@ -291,94 +355,26 @@ function AddCourse() {
 					</Box>
 					<Box>
 						<Autocomplete
-							filterOptions={(options, params) => {
-								const filtered = filter(options, params);
-								const { inputValue } = params;
-
-								// Suggest the creation of a new value
-								const isExisting = options.some(
-									(option) => inputValue === option.name
-								);
-								if (inputValue !== "" && !isExisting) {
-									filtered.push({
-										inputValue,
-										name: `Add "${inputValue}"`,
-									});
-								}
-								return filtered;
-							}}
+							filterOptions={tagAutocompleteFilterOptions}
 							autoComplete={true}
 							selectOnFocus
 							clearOnBlur
 							handleHomeEndKeys
 							multiple={true}
 							options={tags}
-							select
+							
 							freeSolo
 							defaultValue={[]}
 							value={selectedTags}
-							getOptionLabel={(option) => {
-								// Value selected with enter, right from the input
-								if (typeof option === "string") {
-									return option;
-								}
-								// Regular option
-								return option.name;
-							}}
-							renderInput={(params) => (
-								<TextField
+							getOptionLabel={tagAutocompleteGetOptionsLabel}
+							renderInput={(params) =>(
+								<TextField select
 									{...params}
 									label="Add existing tag or create new tag"
 									variant="outlined"
 								/>
 							)}
-							// onchange create option
-							// documents:
-							// OnChange:               Callback fired when the value changes.
-
-							// Signature:
-							// function(event: React.SyntheticEvent, value: T | Array<T>, reason: string, details?: string) => void
-							// event: The event source of the callback.
-							// value: The new value of the component.
-							// reason: One of "createOption", "selectOption", "removeOption", "blur" or "clear".
-							onChange={(event, values, reason) => {
-								console.log("event", event);
-								console.log("values", values);
-								console.log("selectedTags", selectedTags);
-								console.log("reason", reason);
-								for (let i = 0; i < values.length; i++) {
-									if (typeof values[i] === "string") {
-										values[i] = { id: -1, name: values[i] };
-										TagService.createTag({
-											name: values[i].name,
-										})
-											.catch((err) => {
-												console.log({ Err: err });
-											})
-											.then((res) => {
-												setTags([...tags, res.data]);
-												values[i] = res.data;
-											});
-									} else if (values[i].inputValue) {
-										values[i] = {
-											id: -1,
-											name: values[i].inputValue,
-										};
-										TagService.createTag({
-											name: values[i].name,
-										})
-											.catch((err) => {
-												console.log({ Err: err });
-											})
-											.then((res) => {
-												setTags([...tags, res.data]);
-												values[i] = res.data;
-											});
-									} else {
-									}
-								}
-								setSelectedTags(values);
-							}}
+							onChange={tagAutocompleteOnChange}
 						/>
 					</Box>
 					<Box>
