@@ -43,7 +43,7 @@ const comments = [
 
 function CoTD() {
   return (
-    <Container  >
+    <Container sx={{ backgroundColor: "pink" }} >
       <Stack marginTop={5} bgcolor={"primary.main"} >
         <Stack bgcolor={"primary.main"} justifyContent="space-between" >
           <span style={{ fontSize: "1.7rem", fontWeight: "bold", marginLeft: "20px", marginTop: "20px", textShadow: "1px 1px red" }}>Comments of the Day</span>
