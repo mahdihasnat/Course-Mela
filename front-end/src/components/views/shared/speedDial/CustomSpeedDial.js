@@ -23,7 +23,7 @@ export const CartSpeedDial = () => {
     <SpeedDial
       ariaLabel="Cart  SpeedDial"
       sx={{
-        position: "absolute",
+        position: "fixed",
         bottom: 16,
         right: 16,
       }}
@@ -56,7 +56,7 @@ export const CompareSpeedDial = () => {
     <SpeedDial
       ariaLabel="Compare SpeedDial"
       sx={{
-        position: "absolute",
+        position: "fixed",
         bottom: 16,
         right: 80,
       }}

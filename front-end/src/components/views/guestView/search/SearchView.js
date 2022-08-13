@@ -54,7 +54,7 @@ function SearchView() {
                 );
               })}
             </Grid>
-            <Stack direction={"row-reverse"}>
+            {/* <Stack direction={"row-reverse"}>
               <Button
                 variant="contained"
                 color="primary"
@@ -67,7 +67,7 @@ function SearchView() {
               <Button variant="contained" color="primary">
                 Buy Now
               </Button>
-            </Stack>
+            </Stack> */}
           </Stack>
         </Grid>
       </Grid>
