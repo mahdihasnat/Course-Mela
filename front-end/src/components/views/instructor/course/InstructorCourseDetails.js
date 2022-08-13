@@ -88,26 +88,8 @@ const InstructorCourseDetails = () => {
                 Subject: {course.topic.subject.name}
               </CardContent>
             </CardContent>
-            {/* <CardContent>
-            <CardHeader tag="h4"> Info</CardHeader>
-              Topic: {course.topic.name}
-              <br></br>
-              Subject: {course.topic.subject.name}
-            </CardContent> */}
           </Card>
 
-          {/* <Card>
-            <CardContent>
-              <CardHeader tag="h4">Things we will learn</CardHeader>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader tag="h4"> Info</CardHeader>
-            Topic: {course.topic.name}
-            <br></br>
-            Subject: {course.topic.subject.name}
-          </Card> */}
           {/* <Card>
             <CardHeader>Subscription Fee:</CardHeader>
             {course.coursePricing.subsFee}
