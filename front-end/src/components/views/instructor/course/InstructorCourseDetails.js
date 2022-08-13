@@ -106,7 +106,7 @@ const InstructorCourseDetails = () => {
 
       <Container sx={{ margin: 2 }}>
         <Typography variant={"h4"}>Videos Belonging to this course</Typography>
-        <List>
+        <List sx={{ display: "flex", flexDirection: "row" }}>
           {videos.map((video) => (
             <ListItem
               key={video.id}
