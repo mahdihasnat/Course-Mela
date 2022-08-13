@@ -65,9 +65,9 @@ const InstructorCourseDetails = () => {
       ) : (
         <Container>
           <Container>
-            <Button variant={"contained"} href={`/edit-course/${courseId}`}>
-              <Typography variant={"body1"} color={"info"}>
-                Edit Course
+            <Button variant={"contained"} href={`/edit-course/${courseId}`} sx={{ width: "100%", margin: 2 }}>
+              <Typography variant={"body1"} color={"info"} sx={{ padding: 0.5 }}>
+                Edit This Course
               </Typography>{" "}
             </Button>
           </Container>
