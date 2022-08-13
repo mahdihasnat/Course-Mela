@@ -7,6 +7,7 @@ import Grid from '@mui/material/Grid';
 import { useSelectedCourseContext } from '../../../store/contexts/SelectedCourseContext';
 import { getPayableAmountForACourse, getTotalAmountForAllCourses } from '../../../utils/coursePricing';
 import { Box } from '@mui/material';
+import { TakaSign } from '../../helper/CustomIcons';
 
 
 
@@ -29,14 +30,14 @@ export default function Review() {
         {cartCourses.map((course) => (
           <ListItem key={course.name} sx={{ py: 1, px: 0 }}>
             <ListItemText primary={course.name} />
-            <Typography variant="body2">{getPayableAmountForACourse(course)}</Typography>
+            <Typography variant="body2">{getPayableAmountForACourse(course)} <TakaSign/></Typography>
           </ListItem>
         ))}
         <Box sx={{ borderTop: '1px solid rgba(0, 0, 0, 0.12)', px: 3 }} marginBottom={4}/>
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />
-          <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-            {getTotalAmountForAllCourses(cartCourses)}
+          <Typography variant="subtitle1" sx={{ fontWeight: 700 }} >
+            {getTotalAmountForAllCourses(cartCourses)} <TakaSign/>
           </Typography>
         </ListItem>
       </List>
