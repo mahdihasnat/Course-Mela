@@ -1,6 +1,9 @@
 import React from 'react'
 // import CourseList from './CourseList'
 // import CourseList from '../guestView/CourseList'
+import GuestViewEnhancer from '../guestView/GuestViewEnhancer'
+import FeaturedTopics from '../guestView/FeaturedTopics'
+
 
 import Tron from '../guestView/Tron'
 import StudentCourseList from './StudentCourseList'
@@ -15,9 +18,9 @@ function StudentView() {
       <StudentCourseList title="All Courses" />
       <StudentCourseList title="Popular Courses" />
       <hr />
-      {/* <GuestViewEnhancer />
+      <GuestViewEnhancer />
       <hr />
-      <FeaturedTopics /> */}
+      <FeaturedTopics />
     </div>
   )
 }
