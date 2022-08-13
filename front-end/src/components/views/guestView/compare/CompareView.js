@@ -19,7 +19,7 @@ import { useSelectedCourseContext } from "../../../../store/contexts/SelectedCou
 const RowIndex = ({ heading }) => {
   return (
     <TableCell>
-      <Typography variant="h5" gutterBottom>
+      <Typography variant="h6" gutterBottom sx={{ textShadow: "1px 1px 1px orange", fontWeight: "bold" }}>
         {heading}
       </Typography>
     </TableCell>
@@ -91,14 +91,15 @@ export const CompareView = () => {
 
   return (
     <Container>
-      <TableContainer component={Paper}>
+      <Box sx={{ textAlign: "center", fontSize: "1.9rem", margin: 2 }}>Comparison Results</Box>
+      <TableContainer component={Paper} sx={{ margin: 2, border: "1px dotted" }}>
         <Table aria-label="compare">
           <TableHead>
             <TableRow>
               <TableCell />
               {compareCourses.map((course) => (
                 <TableCell key={course.id}>
-                  <Typography variant="h6">{course.name}</Typography>
+                  <Typography variant="h6" sx={{ textShadow: "1px 1px 1px orange", fontWeight: "bold" }}>{course.name}</Typography>
                 </TableCell>
               ))}
             </TableRow>
@@ -134,7 +135,7 @@ export const CompareView = () => {
               }))}
             />
             <CustomTableRow
-              heading="Price"
+              heading="Discount"
               cellValues={compareCourses.map((course) => ({
                 id: course.id,
                 value: course.coursePricing.offPercent,
