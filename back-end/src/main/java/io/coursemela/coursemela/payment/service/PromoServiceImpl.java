@@ -31,6 +31,7 @@ public class PromoServiceImpl implements PromoService {
     @Override
     public Promo createPromo(Promo promo) {
         PromoEntity promoEntity = PromoEntity.builder()
+                .code(promo.getCode())
                 .promoType(promo.getPromoType())
                 .value(promo.getValue())
                 .minimumPrice(promo.getMinimumPrice())
@@ -45,6 +46,7 @@ public class PromoServiceImpl implements PromoService {
     private Promo getPromoFromPromoEntity(PromoEntity promoEntity) {
         Promo promo = Promo.builder()
                 .id(promoEntity.getId())
+                .code(promoEntity.getCode())
                 .promoType(promoEntity.getPromoType())
                 .value(promoEntity.getValue())
                 .minimumPrice(promoEntity.getMinimumPrice())

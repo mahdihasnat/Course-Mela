@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Promo {
     private Long id;
+    private String code;
     private PromoType promoType;
     private Long value;
     private Long minimumPrice;

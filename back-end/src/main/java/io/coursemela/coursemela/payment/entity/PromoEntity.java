@@ -19,12 +19,13 @@ import java.util.Set;
 public class PromoEntity {
     @Id
     private Long id;
+    private String code;
     private PromoType promoType;
     private Long value;
     private Long minimumPrice;
     private Long maximumDiscount;
     private Long maximumAttempt;
-    
+
     @OneToMany(mappedBy = "promoEntity")
     Set<StudentPromoEntity> studentPromoEntities;
 }
