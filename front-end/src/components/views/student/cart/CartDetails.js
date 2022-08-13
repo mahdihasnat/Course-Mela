@@ -25,8 +25,8 @@ import React, { useEffect, useState } from "react";
 import { useSelectedCourseContext } from "../../../../store/contexts/SelectedCourseContext";
 import CourseCard from "../../guestView/course/CourseCard";
 
-import CancelIcon from '@mui/icons-material/Cancel';
-import SendIcon from '@mui/icons-material/Send';
+import CancelIcon from "@mui/icons-material/Cancel";
+import SendIcon from "@mui/icons-material/Send";
 import { useNavigate } from "react-router-dom";
 import PromoService from "../../../../services/promo/PromoService";
 import { LOG_CAUGHT_ERR } from "../../../../shared/utils";
@@ -77,17 +77,14 @@ export const CartDetails = () => {
 
   const [submitSureModalOpen, setSubmiSureModalOpen] = useState(false);
 
-  
-
-  const handleCheckoutProceed = ()=>{
+  const handleCheckoutProceed = () => {
     setSubmiSureModalOpen(false);
     navigate("/checkout");
-
-  }
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmiSureModalOpen(true);
-  }
+  };
 
   useEffect(() => {
     const total = cartCourses
@@ -106,20 +103,14 @@ export const CartDetails = () => {
     setTotalPrice(subTotal);
   }, [subTotal, promoCode]);
 
-  useEffect(()=>{
+  useEffect(() => {
     PromoService.getGeneralizedPromos()
-    .then((response) =>
-    {
-      console.log({"generalizedPromoResponse:":response})
-      setPromoList(response.data);
-    }
-    )
-    .catch(
-      LOG_CAUGHT_ERR
-    )
-  },[]
-  );
-
+      .then((response) => {
+        console.log({ "generalizedPromoResponse:": response });
+        setPromoList(response.data);
+      })
+      .catch(LOG_CAUGHT_ERR);
+  }, []);
 
   return (
     <Grid container>
@@ -138,7 +129,7 @@ export const CartDetails = () => {
         </Box>
       </Grid>
       <Grid item xs={6} lg={5}>
-        <Box sx={{ height: "100vh", width: "100%" }} >
+        <Box sx={{ height: "100vh", width: "100%" }}>
           <Typography variant="h4" px={15} marginTop={3}>
             Cart Summary
           </Typography>
@@ -153,42 +144,32 @@ export const CartDetails = () => {
                   {subTotal}
                 </Typography>
               </Stack>
-              
+
               {
                 /// TODO: work with promo deduction. make similar to add Tag
               }
-              <Stack direction={"row"}>
-                {/* <TextField
-                  label="promo code"
-                  variant="outlined"
-                  margin="normal"
-                  fullWidth
-                  
-                /> */}
-                <Box>
-						<Autocomplete
-							autoComplete={true}
-							selectOnFocus
-							clearOnBlur
-							handleHomeEndKeys
-							multiple={false}
-							options={promoList}
-              value={promoCode}
-              getOptionLabel={(option) => option.code}
-							renderInput={(params) =>(
-								<TextField
-									{...params}
-                  fullWidth={true}
-                  margin="normal"
-									label="Select Or Type PROMO CODE"
-									variant="outlined"
-								/>
-							)}
-							// onChange={tagAutocompleteOnChange}
-						/>
-					</Box>
-
-
+              <Stack direction={"row"} marginTop={2}>
+                <Box sx={{ width: "100vw" }}>
+                  <Autocomplete
+                    autoComplete={true}
+                    selectOnFocus
+                    clearOnBlur
+                    handleHomeEndKeys
+                    multiple={false}
+                    options={promoList}
+                    value={promoCode}
+                    getOptionLabel={(option) => option.code}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        fullWidth={true}
+                        margin="normal"
+                        label="Select Or Type PROMO CODE"
+                        variant="outlined"
+                      />
+                    )}
+                  />
+                </Box>
               </Stack>
               <Stack
                 direction={"row"}
@@ -202,7 +183,11 @@ export const CartDetails = () => {
               </Stack>
               {/* <Grid xs={12} justifyContent={"center"}> */}
               <Stack paddingTop={10}>
-                <Button variant="contained" color="primary" onClick={handleSubmit}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleSubmit}
+                >
                   Checkout
                 </Button>
               </Stack>
@@ -211,24 +196,32 @@ export const CartDetails = () => {
           </Box>
         </Box>
       </Grid>
-      <Dialog open={submitSureModalOpen} onClose={() => setSubmiSureModalOpen(false)}>
+      <Dialog
+        open={submitSureModalOpen}
+        onClose={() => setSubmiSureModalOpen(false)}
+      >
         <DialogTitle>
-          <Typography variant="h4">
-            Sure to checkout?
-          </Typography>
+          <Typography variant="h4">Sure to checkout?</Typography>
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
             <Typography variant="h6"> Total price: {totalPrice}</Typography>
-
             You will be redirected to the payment page.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setSubmiSureModalOpen(false)} color="primary" endIcon={<CancelIcon/>} >
+          <Button
+            onClick={() => setSubmiSureModalOpen(false)}
+            color="primary"
+            endIcon={<CancelIcon />}
+          >
             Cancel
           </Button>
-          <Button onClick={handleCheckoutProceed} color="primary" endIcon={<SendIcon/>}>
+          <Button
+            onClick={handleCheckoutProceed}
+            color="primary"
+            endIcon={<SendIcon />}
+          >
             Checkout
           </Button>
         </DialogActions>
