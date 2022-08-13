@@ -115,8 +115,6 @@ const InstructorCourseDetails = () => {
               }}
             >
               <Card>
-                <CardHeader title={video.title}></CardHeader>
-                <CardContent>{video.description}</CardContent>
                 <CardMedia
                   component="img"
                   image={video.thumbPath ? video.thumbPath : require('../../../../assets/broken.png').default}
@@ -125,6 +123,12 @@ const InstructorCourseDetails = () => {
                 >
                   {/* {video.thumbPath} */}
                 </CardMedia>
+                <CardHeader title={video.title}></CardHeader>
+                <CardContent>
+                  <CardContent>{video.description}</CardContent>
+                  <CardContent>{video.duration}</CardContent>
+                  <CardContent>{video.rating}</CardContent>
+                </CardContent>
                 {/* <img
                   // src={"http://localhost:8080/fileserver/downloadFile/212.png"}
                   // src={createImageLinkFromByte(video.thumbPath)}
