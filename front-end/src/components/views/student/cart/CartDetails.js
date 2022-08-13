@@ -58,6 +58,7 @@ export const CartDetails = () => {
   const [subTotal, setSubTotal] = useState();
   const [totalPrice, setTotalPrice] = useState();
   const [promoCode, setPromoCode] = useState();
+  const [promoList, setPromoList] = useState();
 
   useEffect(() => {
     const total = cartCourses
@@ -92,8 +93,8 @@ export const CartDetails = () => {
         </Box>
       </Grid>
       <Grid item xs={6} lg={5}>
-        <Box sx={{ height: "100vh", width: "100%" }}>
-          <Typography variant="h4" px={10} marginTop={3}>
+        <Box sx={{ height: "100vh", width: "100%" }} >
+          <Typography variant="h4" px={15} marginTop={3}>
             Cart Summary
           </Typography>
           <Box marginTop={5} mx={5}>
@@ -107,12 +108,17 @@ export const CartDetails = () => {
                   {subTotal}
                 </Typography>
               </Stack>
+              
+              {
+                /// TODO: work with promo deduction. make similar to add Tag
+              }
               <Stack direction={"row"}>
                 <TextField
                   label="promo code"
                   variant="outlined"
                   margin="normal"
                   fullWidth
+                  
                 />
               </Stack>
               <Stack

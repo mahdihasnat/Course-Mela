@@ -17,3 +17,6 @@ export const VIDEO_ULR = joinUrl(baseUrl, 'video')
 export const TAG_URL = joinUrl(baseUrl,'tag')
 
 export const FILE_SERVER_URL = joinUrl(baseUrl, 'fileserver')
+
+
+export const PROMO_URL = joinUrl(baseUrl, 'promo');
