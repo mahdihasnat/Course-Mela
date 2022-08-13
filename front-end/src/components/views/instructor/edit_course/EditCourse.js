@@ -12,8 +12,8 @@ function EditCourse() {
       {/*    Course Videos*/}
       {/*</div>*/}
 
-      <CourseVideos />
       <AddNewVideo courseId={courseId} />
+      <CourseVideos />
     </Stack>
   );
 }
