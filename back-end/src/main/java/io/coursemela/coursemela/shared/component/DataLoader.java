@@ -8,9 +8,13 @@ import io.coursemela.coursemela.course.repository.TopicRepository;
 import io.coursemela.coursemela.course.service.TagService;
 import io.coursemela.coursemela.instructor.entity.InstructorEntity;
 import io.coursemela.coursemela.instructor.repository.InstructorRepository;
+import io.coursemela.coursemela.payment.enumeration.PromoType;
+import io.coursemela.coursemela.payment.model.Promo;
+import io.coursemela.coursemela.payment.service.PromoService;
 import io.coursemela.coursemela.student.entity.Level;
 import io.coursemela.coursemela.student.entity.StudentEntity;
 import io.coursemela.coursemela.student.repository.StudentRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,6 +23,7 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 @Component
+@Slf4j
 public class DataLoader implements CommandLineRunner {
 
     @Autowired
@@ -37,15 +42,8 @@ public class DataLoader implements CommandLineRunner {
     @Autowired
     private TagService tagService;
 
-//    private TopicRepository
-
-//    @Autowired
-//    public DataLoader(InstructorRepository instructorRepository, StudentRepository studentRepository) {
-//        this.instructorRepository = instructorRepository;
-//        this.studentRepository = studentRepository;
-////        loadInstructors();
-//    }
-
+    @Autowired
+    private PromoService promoService;
 
     @Override
     public void run(String... args) {
@@ -92,6 +90,21 @@ public class DataLoader implements CommandLineRunner {
             tagService.createTag(new Tag(0L, "Simple"));
             tagService.createTag(new Tag(0L, "Gorgeus"));
 
+        } catch (Exception e) {
+            ;
+        }
+
+        try {
+            promoService.createPromo(
+                    Promo.builder()
+                            .code("WLCM")
+                            .maximumDiscount(100L)
+                            .maximumAttempt(5L)
+                            .promoType(PromoType.FIXED)
+                            .value(10L)
+                            .minimumPrice(100L)
+                            .build()
+            );
         } catch (Exception e) {
             ;
         }
