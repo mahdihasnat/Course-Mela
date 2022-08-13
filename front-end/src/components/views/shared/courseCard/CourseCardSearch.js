@@ -56,28 +56,28 @@ export const CourseCardSearch = ({ course }) => {
   return (
     <Stack direction={"column"}>
       <CourseCard course={course} />
-      <Container sx={{ maxWidth: 300 }} m={3}>
-        <Grid container spacing={3}>
-          <Grid item xs={6}>
-            {/* <AddShoppingCartRoundedIcon onClick={addToCart}  />
-             */}
-            <Button
-              variant={addedToCart ? "contained" : "outlined"}
-              color="primary"
-              startIcon={<AddShoppingCartRoundedIcon />}
-              onClick={addToCart}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <Button
-              variant={addedToCompare ? "contained" : "outlined"}
-              color="primary"
-              startIcon={<DifferenceIcon />}
-              onClick={addToCompare}
-            />
-          </Grid>
+      {/* <Container sx={{ maxWidth: 300 }} m={3}> */}
+      <Grid container marginTop={1} paddingLeft={7}>
+        <Grid item xs={6}>
+          {/* <AddShoppingCartRoundedIcon onClick={addToCart}  />
+           */}
+          <Button
+            variant={addedToCart ? "contained" : "outlined"}
+            color="primary"
+            startIcon={<AddShoppingCartRoundedIcon />}
+            onClick={addToCart}
+          />
         </Grid>
-      </Container>
+        <Grid item xs={6}>
+          <Button
+            variant={addedToCompare ? "contained" : "outlined"}
+            color="primary"
+            startIcon={<DifferenceIcon />}
+            onClick={addToCompare}
+          />
+        </Grid>
+      </Grid>
+      {/* </Container> */}
     </Stack>
   );
 };
