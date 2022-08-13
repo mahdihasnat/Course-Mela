@@ -24,6 +24,8 @@ class SubscriptionKey {
 
 }
 
+
+// TODO: remove TransactionEntity
 @Entity
 @Data
 @Builder
