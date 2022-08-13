@@ -25,6 +25,7 @@ import SearchView from "./views/guestView/search/SearchView";
 import { CompareView } from "./views/guestView/compare/CompareView";
 import CourseGuestView from "./views/guestView/course/CourseGuestView";
 import { CartDetails } from "./views/student/cart/CartDetails";
+import Checkout from "./templates/checkout/Checkout";
 
 function MainComponent() {
   const [{ isSignedIn, userRole }, dispatch] = useLoginContext();
@@ -85,6 +86,7 @@ function MainComponent() {
                   element={<CourseGuestView />}
                 />
                 <Route path="/cartDetails" element={<CartDetails />} />
+                <Route path='/checkout' element={<Checkout/>} />
                 <Route path="*" element={<StudentView />} />
               </>
             )}

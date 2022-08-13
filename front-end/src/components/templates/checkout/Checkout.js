@@ -12,32 +12,22 @@ import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
-const steps = ['Shipping address', 'Payment details', 'Review your order'];
+
+
+// const steps = ['Shipping address', 'Payment details', 'Review your order'];
+const steps = ['Payment details', 'Review your order'];
 
 function getStepContent(step) {
   switch (step) {
+    // case 0:
+    //   return <AddressForm />;
     case 0:
-      return <AddressForm />;
-    case 1:
       return <PaymentForm />;
-    case 2:
+    case 1:
       return <Review />;
     default:
       throw new Error('Unknown step');
@@ -57,24 +47,12 @@ export default function Checkout() {
     setActiveStep(activeStep - 1);
   };
 
+  const handleOrderSubmit=()=>{
+    alert('Order submitted');
+  } 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppBar
-        position="absolute"
-        color="default"
-        elevation={0}
-        sx={{
-          position: 'relative',
-          borderBottom: (t) => `1px solid ${t.palette.divider}`,
-        }}
-      >
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            Company name
-          </Typography>
-        </Toolbar>
-      </AppBar>
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
           <Typography component="h1" variant="h4" align="center">
@@ -111,17 +89,17 @@ export default function Checkout() {
 
                   <Button
                     variant="contained"
-                    onClick={handleNext}
+                    onClick={ activeStep === steps.length - 1 ? handleOrderSubmit:  handleNext  }
                     sx={{ mt: 3, ml: 1 }}
+                    // onClick={}
                   >
-                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                    {activeStep === steps.length - 1 ? 'Subscribe' : 'Next'}
                   </Button>
                 </Box>
               </React.Fragment>
             )}
           </React.Fragment>
         </Paper>
-        <Copyright />
       </Container>
     </ThemeProvider>
   );
