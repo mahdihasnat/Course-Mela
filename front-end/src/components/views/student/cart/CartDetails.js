@@ -20,7 +20,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Container } from "@mui/system";
+import { Container } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useSelectedCourseContext } from "../../../../store/contexts/SelectedCourseContext";
 import CourseCard from "../../guestView/course/CourseCard";
@@ -30,6 +30,11 @@ import SendIcon from "@mui/icons-material/Send";
 import { useNavigate } from "react-router-dom";
 import PromoService from "../../../../services/promo/PromoService";
 import { LOG_CAUGHT_ERR } from "../../../../shared/utils";
+import {
+  getPayableAmountForACourse,
+  getTotalAmountForAllCourses,
+} from "../../../../utils/coursePricing";
+import { TakaSign } from "../../../helper/CustomIcons";
 
 const CartPricingDetails = ({ courses }) => {
   return (
@@ -40,8 +45,8 @@ const CartPricingDetails = ({ courses }) => {
             <TableRow>
               <TableCell> Course</TableCell>
               <TableCell> Price </TableCell>
-              <TableCell>Discount</TableCell>
-              <TableCell>Price for you</TableCell>
+              <TableCell> Discount</TableCell>
+              <TableCell> Price for you</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -53,8 +58,10 @@ const CartPricingDetails = ({ courses }) => {
                 <TableCell>{course.coursePricing.subsFee}</TableCell>
                 <TableCell>{course.coursePricing.offPercent}%</TableCell>
                 <TableCell>
-                  {course.coursePricing.subsFee *
-                    (1 - course.coursePricing.offPercent / 100)}
+                  {/* {course.coursePricing.subsFee *
+                    (1 - course.coursePricing.offPercent / 100)} */}
+                  {getPayableAmountForACourse(course)}
+                  <TakaSign />
                 </TableCell>
               </TableRow>
             ))}
@@ -86,22 +93,27 @@ export const CartDetails = () => {
     setSubmiSureModalOpen(true);
   };
 
-  useEffect(() => {
-    const total = cartCourses
-      .map(
-        (course) =>
-          course.coursePricing.subsFee * (1 - course.coursePricing.offPercent)
-      )
-      .reduce((a, b) => a + b, 0);
+  // useEffect(() => {
+  //   const total = cartCourses
+  //     .map(
+  //       (course) =>
+  //         course.coursePricing.subsFee * (1 - course.coursePricing.offPercent)
+  //     )
+  //     .reduce((a, b) => a + b, 0);
 
-    setSubTotal(total);
-  }, [cartCourses]);
+  //   setSubTotal(total);
+  // }, [cartCourses]);
 
-  useEffect(() => {
-    // alert(`work with promo deduction`);
+  // useEffect(() => {
+  //   // alert(`work with promo deduction`);
 
-    setTotalPrice(subTotal);
-  }, [subTotal, promoCode]);
+  //   setTotalPrice(subTotal);
+  // }, [subTotal, promoCode]);
+
+  const handleChangeOfPromoCode = (e, value) => {
+    setPromoCode(value);
+    console.log({ "promoCode:": promoCode });
+  };
 
   useEffect(() => {
     PromoService.getGeneralizedPromos()
@@ -141,7 +153,8 @@ export const CartDetails = () => {
               <Stack direction={"row"} justifyContent={"space-between"}>
                 <Typography variant="h5">SubTotal</Typography>
                 <Typography variant="h6" marginRight={5}>
-                  {subTotal}
+                  {getTotalAmountForAllCourses(cartCourses)}
+                  <TakaSign />
                 </Typography>
               </Stack>
 
@@ -158,6 +171,8 @@ export const CartDetails = () => {
                     multiple={false}
                     options={promoList}
                     value={promoCode}
+                    /// TODO how to fetch autocomplete's value
+                    // onChange={}
                     getOptionLabel={(option) => option.code}
                     renderInput={(params) => (
                       <TextField

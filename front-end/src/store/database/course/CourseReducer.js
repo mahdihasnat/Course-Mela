@@ -6,6 +6,8 @@ import {
   REMOVED_COURSE_FROM_CART,
   REMOVE_ALL_COURSE_FROM_CART,
   REMOVE_ALL_COURSE_FROM_COMPARE,
+  REMOVE_PROMO,
+  ADD_PROMO,
 } from "./CourseTypes";
 
 // both for cart and search
@@ -13,6 +15,7 @@ export const courseSelectedState = {
   cartCourses: [],
   searchCourses: [],
   compareCourses: [],
+  selectedPromo: null,
 };
 
 const SelectedCourseReducer = (state = courseSelectedState, action) => {
@@ -60,6 +63,17 @@ const SelectedCourseReducer = (state = courseSelectedState, action) => {
       return {
         ...state,
         compareCourses: [],
+      };
+
+    case ADD_PROMO:
+      return {
+        ...state,
+        selectedPromo: action.payload,
+      };
+    case REMOVE_PROMO:
+      return {
+        ...state,
+        selectedPromo: null,
       };
 
     default:
