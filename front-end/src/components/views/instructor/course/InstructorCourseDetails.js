@@ -102,7 +102,9 @@ const InstructorCourseDetails = () => {
         </Container>
       )}
 
-      <Container>
+      <hr style={{ margin: 20 }}/>
+
+      <Container sx={{ margin: 2 }}>
         <Typography variant={"h4"}>Videos Belonging to this course</Typography>
         <List>
           {videos.map((video) => (
