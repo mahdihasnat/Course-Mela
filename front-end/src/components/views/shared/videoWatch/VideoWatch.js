@@ -43,6 +43,14 @@ const VideoWatch = ({}) => {
   const playlists = [
     { id: 1, thumbpath: require('../../../../assets/coursethumb1.png'), title: "Differentiation", description: "Limits and Conjugates", duration: "07:00", rating: 4.5 },
     { id: 2, thumbpath: require('../../../../assets/coursethumb3.png'), title: "Integration", description: "Integration By Parts", duration: "03:00", rating: 5 },
+    { id: 1, thumbpath: require('../../../../assets/coursethumb1.png'), title: "Differentiation", description: "Limits and Conjugates", duration: "07:00", rating: 4.5 },
+    { id: 2, thumbpath: require('../../../../assets/coursethumb3.png'), title: "Integration", description: "Integration By Parts", duration: "03:00", rating: 5 },
+    { id: 1, thumbpath: require('../../../../assets/coursethumb1.png'), title: "Differentiation", description: "Limits and Conjugates", duration: "07:00", rating: 4.5 },
+    { id: 2, thumbpath: require('../../../../assets/coursethumb3.png'), title: "Integration", description: "Integration By Parts", duration: "03:00", rating: 5 },
+    { id: 1, thumbpath: require('../../../../assets/coursethumb1.png'), title: "Differentiation", description: "Limits and Conjugates", duration: "07:00", rating: 4.5 },
+    { id: 2, thumbpath: require('../../../../assets/coursethumb3.png'), title: "Integration", description: "Integration By Parts", duration: "03:00", rating: 5 },
+    { id: 1, thumbpath: require('../../../../assets/coursethumb1.png'), title: "Differentiation", description: "Limits and Conjugates", duration: "07:00", rating: 4.5 },
+    { id: 2, thumbpath: require('../../../../assets/coursethumb3.png'), title: "Integration", description: "Integration By Parts", duration: "03:00", rating: 5 },
   ]
 
   const { videoId } = useParams();
@@ -76,7 +84,7 @@ const VideoWatch = ({}) => {
                 controls
               ></ReactPlayer>
             </Box>
-            <Box>
+            <Box sx={{ height: 700, width: 450, overflow: "auto" }}>
               {
                 playlists.map(playlist => <Playlist key={playlist.id} playlist={playlist} /> )
               }
