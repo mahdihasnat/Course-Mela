@@ -14,12 +14,6 @@ public class PromoServiceImpl implements PromoService {
     @Autowired
     PromoRepository promoRepository;
 
-    List<Promo> getPromosFromPromoEntities(List<PromoEntity> promoEntities) {
-        return promoEntities.stream()
-                .map(promoEntity -> getPromoFromPromoEntity(promoEntity))
-                .collect(Collectors.toList());
-    }
-
     @Override
     public List<Promo> getPromosOfStudent(Long studentId) {
 //        return getPromos();
@@ -34,18 +28,6 @@ public class PromoServiceImpl implements PromoService {
     }
 
 
-    private Promo getPromoFromPromoEntity(PromoEntity promoEntity) {
-        Promo promo = Promo.builder()
-                .id(promoEntity.getId())
-                .promoType(promoEntity.getPromoType())
-                .value(promoEntity.getValue())
-                .minimumPrice(promoEntity.getMinimumPrice())
-                .maximumDiscount(promoEntity.getMaximumDiscount())
-                .maximumAttempt(promoEntity.getMaximumAttempt())
-                .build();
-        return promo;
-    }
-
     @Override
     public Promo createPromo(Promo promo) {
         PromoEntity promoEntity = PromoEntity.builder()
@@ -58,5 +40,23 @@ public class PromoServiceImpl implements PromoService {
         promoEntity = promoRepository.save(promoEntity);
         promo = getPromoFromPromoEntity(promoEntity);
         return promo;
+    }
+
+    private Promo getPromoFromPromoEntity(PromoEntity promoEntity) {
+        Promo promo = Promo.builder()
+                .id(promoEntity.getId())
+                .promoType(promoEntity.getPromoType())
+                .value(promoEntity.getValue())
+                .minimumPrice(promoEntity.getMinimumPrice())
+                .maximumDiscount(promoEntity.getMaximumDiscount())
+                .maximumAttempt(promoEntity.getMaximumAttempt())
+                .build();
+        return promo;
+    }
+
+    List<Promo> getPromosFromPromoEntities(List<PromoEntity> promoEntities) {
+        return promoEntities.stream()
+                .map(promoEntity -> getPromoFromPromoEntity(promoEntity))
+                .collect(Collectors.toList());
     }
 }

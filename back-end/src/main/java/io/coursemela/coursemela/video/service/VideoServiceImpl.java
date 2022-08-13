@@ -7,10 +7,10 @@ import io.coursemela.coursemela.video.model.Video;
 import io.coursemela.coursemela.video.repository.VideoRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -84,19 +84,34 @@ public class VideoServiceImpl implements VideoService {
 
 
     @Override
-    public ResponseEntity<List<Video>> getSimilarVideo(Long videoId) {
-        /// TODO implement this
-        try {
-            throw new Exception("Similar videos by video ID not implemented ");
-        } catch (Exception e) {
-//            throw new RuntimeException(e);
-            e.printStackTrace();
-            return
-                    null;
-
-        }
-
-
-
+    public List<Video> getSimilarVideos(Long videoId) {
+        Optional<VideoEntity> videoEntity = videoRepository.findById(videoId);
+        if (!videoEntity.isPresent())
+            return null;
+        Long courseId = videoEntity.get().getCourseEntity().getId();
+        return getVideosFromVideoEntities(
+                videoRepository.findByCourseEntityId(courseId)
+        );
     }
+
+    private Video getVideoFromVideoEntity(VideoEntity videoEntity) {
+        return Video.builder()
+                .courseId(videoEntity.getCourseEntity().getId())
+                .id(videoEntity.getId())
+                .title(videoEntity.getTitle())
+                .description(videoEntity.getDescription())
+                .likeCount(videoEntity.getLikeCount())
+                .serial(videoEntity.getSerial())
+                .hidden(videoEntity.getHidden())
+                .videoPath(videoEntity.getVideoPath())
+                .thumbPath(videoEntity.getThumbPath())
+                .build();
+    }
+
+    private List<Video> getVideosFromVideoEntities(List<VideoEntity> videoEntities) {
+        return videoEntities.stream()
+                .map(videoEntity -> getVideoFromVideoEntity(videoEntity))
+                .collect(Collectors.toList());
+    }
+
 }

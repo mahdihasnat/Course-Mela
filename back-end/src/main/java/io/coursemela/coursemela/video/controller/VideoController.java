@@ -49,7 +49,7 @@ public class VideoController {
 
 
     @GetMapping(value = "/getSimilarVideo/{videoId}")
-    public ResponseEntity<List<Video>> getSimilarVideo(@PathVariable Long videoId) {
-        return videoService.getSimilarVideo(videoId);
+    public ResponseEntity<List<Video>> getSimilarVideos(@PathVariable Long videoId) {
+        return ResponseEntity.ok(videoService.getSimilarVideos(videoId));
     }
 }
