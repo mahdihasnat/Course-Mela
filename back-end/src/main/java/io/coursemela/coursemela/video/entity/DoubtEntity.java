@@ -3,9 +3,12 @@ package io.coursemela.coursemela.video.entity;
 import io.coursemela.coursemela.student.entity.StudentEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.time.ZonedDateTime;
@@ -14,8 +17,10 @@ import java.time.ZonedDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
 public class DoubtEntity {
     @Id
+    @GeneratedValue
     Long id;
 
     @ManyToOne
