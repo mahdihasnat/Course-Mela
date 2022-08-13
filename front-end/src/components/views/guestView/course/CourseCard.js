@@ -4,13 +4,21 @@ import {Button, Card, CardContent, CardMedia, Container, Grid, Rating, Stack,} f
 import Typography from "@mui/material/Typography";
 import {AttachMoney} from "@mui/icons-material";
 
+const courseCardStyle = {
+  maxWidth: 300,
+  "&:hover": {
+    cursor: "pointer",
+    opacity: "0.8"
+  }
+}
+
 const CourseCard = ({ course }) => {
   const [image, setImage] = useState("");
   const navigate = useNavigate();
 
   return (
     <Container
-      sx={{ maxWidth: 300 }}
+      sx={courseCardStyle}
       onClick={() => navigate(`/courses/${course.id}`)}
     >
       <Card>
