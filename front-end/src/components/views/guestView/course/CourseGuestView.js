@@ -24,7 +24,7 @@ function CourseGuestView() {
   const [course, setCourse] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [isImageLoading, setImageLoading] = useState(true);
-  const [coverPhoto, setCoverPhoto] = useState("");
+  // const [coverPhoto, setCoverPhoto] = useState("");
 
   const navigate = useNavigate();
 
@@ -36,17 +36,6 @@ function CourseGuestView() {
       .then((res) => {
         console.log(res);
         setCourse(res.data);
-        // now fetch the image
-        ImageService.loadImage(res.data.cover_photo_path)
-          .then((response) => {
-            setCoverPhoto(
-              window.URL.createObjectURL(new Blob([response.data]))
-            );
-          })
-          .catch((err) => {
-            console.log(err);
-            console.log("cover photo was not found ");
-          });
       })
       .catch((err) => {
         console.log(err.message);
@@ -81,7 +70,7 @@ function CourseGuestView() {
               alt={`cover photo for id ${courseId}`}
               // src={coverPhoto}
               component={"img"}
-              image={coverPhoto}
+              image={course.coverPhotoPath}
               // height={"70%"}
             />
             <CardContent>
@@ -151,3 +140,15 @@ function CourseGuestView() {
 }
 
 export default CourseGuestView;
+
+// now fetch the image
+// ImageService.loadImage(res.data.cover_photo_path)
+//   .then((response) => {
+//     setCoverPhoto(
+//       window.URL.createObjectURL(new Blob([response.data]))
+//     );
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//     console.log("cover photo was not found ");
+//   });
