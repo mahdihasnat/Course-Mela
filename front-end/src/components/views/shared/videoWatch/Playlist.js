@@ -11,6 +11,11 @@ const playlistStyle = {
         xs: 1,
         md: 1,
         xl: 1
+    },
+    "&:hover": {
+        opacity: 0.7,
+        // backgroundColor: "black"
+        cursor: "pointer"
     }
   };
 
