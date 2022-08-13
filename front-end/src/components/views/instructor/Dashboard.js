@@ -9,7 +9,7 @@ function Dashboard(props) {
 
   return (
     // <div className='dashboard-container'>
-    <Container>
+    <Container sx={{backgroundColor:"primary.main"}}>
       <Badge>
         {" "}
         <h3> Dashboard </h3>
