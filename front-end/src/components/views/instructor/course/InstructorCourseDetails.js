@@ -57,20 +57,11 @@ const InstructorCourseDetails = () => {
 
   const loadingMessage = `We are working on a course ${courseId}`;
   return (
-    <Container>
-      {/* <Card> */}
-
+    <>
       {isLoading ? (
         loadingMessage
       ) : (
         <Container>
-          <Container>
-            <Button variant={"contained"} href={`/edit-course/${courseId}`} sx={{ width: "100%", margin: 2 }}>
-              <Typography variant={"body1"} color={"info"} sx={{ padding: 0.5 }}>
-                Edit This Course
-              </Typography>{" "}
-            </Button>
-          </Container>
           <Card>
             <CardMedia
               alt={`cover photo for id ${courseId}`}
@@ -80,8 +71,12 @@ const InstructorCourseDetails = () => {
               // height={"70%"}
             />
             <CardContent>
-              <CardContent sx={{ fontSize: "2rem", fontWeight: "bold" }}>{course.name}</CardContent>
-              <CardContent sx={{ fontSize: "1.3rem", fontWeight: "bold" }}>{course.description}</CardContent>
+              <CardContent sx={{ fontSize: "2rem", fontWeight: "bold" }}>
+                {course.name}
+              </CardContent>
+              <CardContent sx={{ fontSize: "1.3rem", fontWeight: "bold" }}>
+                {course.description}
+              </CardContent>
               <CardContent tag="h4">Things we will learn...</CardContent>
               <CardContent>
                 Topic: {course.topic.name} <br />
@@ -89,20 +84,10 @@ const InstructorCourseDetails = () => {
               </CardContent>
             </CardContent>
           </Card>
-
-          {/* <Card>
-            <CardHeader>Subscription Fee:</CardHeader>
-            {course.coursePricing.subsFee}
-            <br></br>
-            <CardContent>Instructor fee</CardContent>
-            {course.coursePricing.insFee}
-            <CardContent>Off Percent</CardContent>
-            {course.coursePricing.offPercent}
-          </Card> */}
         </Container>
       )}
 
-      <hr style={{ margin: 20 }}/>
+      <hr style={{ margin: 20 }} />
 
       <Container sx={{ margin: 2 }}>
         <Typography variant={"h4"}>Videos Belonging to this course</Typography>
@@ -117,7 +102,11 @@ const InstructorCourseDetails = () => {
               <Card>
                 <CardMedia
                   component="img"
-                  image={video.thumbPath ? video.thumbPath : require('../../../../assets/broken.png').default}
+                  image={
+                    video.thumbPath
+                      ? video.thumbPath
+                      : require("../../../../assets/broken.png").default
+                  }
                   media={"img"}
                   height={100}
                 >
@@ -140,9 +129,20 @@ const InstructorCourseDetails = () => {
           ))}
         </List>
       </Container>
+      <Container>
+        <Button
+          variant={"contained"}
+          href={`/edit-course/${courseId}`}
+          sx={{ width: "100%", margin: 2 }}
+        >
+          <Typography variant={"body1"} color={"info"} sx={{ padding: 0.5 }}>
+            Edit This Course
+          </Typography>{" "}
+        </Button>
+      </Container>
 
       {/* </Card> */}
-    </Container>
+    </>
   );
 };
 

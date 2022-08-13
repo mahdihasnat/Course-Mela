@@ -33,8 +33,10 @@ import { LOG_CAUGHT_ERR } from "../../../../shared/utils";
 import {
   getPayableAmountForACourse,
   getTotalAmountForAllCourses,
+  getTotalAmountWithPromo,
 } from "../../../../utils/coursePricing";
 import { TakaSign } from "../../../helper/CustomIcons";
+import { addPromo } from "../../../../store/database/course/CourseActions";
 
 const CartPricingDetails = ({ courses }) => {
   return (
@@ -75,7 +77,7 @@ const CartPricingDetails = ({ courses }) => {
 export const CartDetails = () => {
   const navigate = useNavigate();
 
-  const [{ cartCourses }] = useSelectedCourseContext();
+  const [{ cartCourses, selectedPromo }, dispatch] = useSelectedCourseContext();
   console.log({ cartCourses: cartCourses });
   const [subTotal, setSubTotal] = useState();
   const [totalPrice, setTotalPrice] = useState();
@@ -111,8 +113,10 @@ export const CartDetails = () => {
   // }, [subTotal, promoCode]);
 
   const handleChangeOfPromoCode = (e, value) => {
-    setPromoCode(value);
-    console.log({ "promoCode:": promoCode });
+    // setPromoCode(value);
+    // console.log({ "promoCode:": promoCode });
+    console.log({ "value:": value });
+    dispatch(addPromo(value));
   };
 
   useEffect(() => {
@@ -172,7 +176,7 @@ export const CartDetails = () => {
                     options={promoList}
                     value={promoCode}
                     /// TODO how to fetch autocomplete's value
-                    // onChange={}
+                    onChange={handleChangeOfPromoCode}
                     getOptionLabel={(option) => option.code}
                     renderInput={(params) => (
                       <TextField
@@ -193,7 +197,8 @@ export const CartDetails = () => {
               >
                 <Typography variant="h5">Total</Typography>
                 <Typography variant="h6" marginRight={5}>
-                  {subTotal}
+                  {getTotalAmountWithPromo(cartCourses, selectedPromo)}{" "}
+                  <TakaSign />
                 </Typography>
               </Stack>
               {/* <Grid xs={12} justifyContent={"center"}> */}
@@ -220,7 +225,9 @@ export const CartDetails = () => {
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            <Typography variant="h6"> Total price: {totalPrice}</Typography>
+            <Typography variant="h6">
+              Total price: {getTotalAmountWithPromo(cartCourses, selectedPromo)}
+            </Typography>
             You will be redirected to the payment page.
           </DialogContentText>
         </DialogContent>
