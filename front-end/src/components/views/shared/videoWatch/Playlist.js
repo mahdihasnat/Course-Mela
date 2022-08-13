@@ -2,11 +2,6 @@ import { Box, Stack } from '@mui/system'
 import React from 'react'
 
 const playlistStyle = {
-    width: {
-      xs: 500,
-      md: 900,
-      xl: 200,
-    },
     marginLeft: {
         xs: 1,
         md: 1,
@@ -19,17 +14,27 @@ const playlistStyle = {
     }
   };
 
+const playlistImgStyle = {
+    width: {
+      xs: 500,
+      md: 900,
+      xl: 200,
+    },
+  };
+
 function Playlist({playlist}) {
   return (
-    <Stack direction={"row"}>
-        <Box sx={playlistStyle}>
+    <Stack direction={"row"} sx={playlistStyle}>
+        <Box sx={playlistImgStyle}>
             <img src={playlist.thumbpath} style={{ width: "100%", height: "100%" }} />
             {/* <img src={require('../../../../assets/coursethumb1.png')} style={{ width: "100%", height: "100%" }} /> */}
             {/* {videothumb} */}
         </Box>
-        <Box sx={{ alignItems: "center", justifyContent: "center" }}>
-            <span>{playlist.title}</span><br/>
-            <span style={{  }}>{playlist.description}</span>
+        <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", marginLeft: "10px" }}>
+            <span style={{ fontWeight: "bold" }}>{playlist.title}</span>
+            <span style={{ fontSize: "0.9rem" }}>{playlist.description}</span>
+            <span style={{ fontSize: "0.9rem", fontWeight: "lighter" }}>{playlist.duration}</span>
+            <span style={{ fontSize: "0.9rem", fontWeight: "lighter" }}>Rating: {playlist.rating}</span>
         </Box>
     </Stack>
   )
