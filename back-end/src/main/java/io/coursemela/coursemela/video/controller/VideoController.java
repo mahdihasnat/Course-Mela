@@ -4,6 +4,7 @@ import io.coursemela.coursemela.video.model.Video;
 import io.coursemela.coursemela.video.service.VideoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,5 +45,11 @@ public class VideoController {
     @GetMapping(value = "/getVideoByCourse/{courseId}")
     public List<Video> getAllVideosByCourse(@PathVariable Long courseId) {
         return videoService.getAllVideoByCourse(courseId);
+    }
+
+
+    @GetMapping(value = "/getSimilarVideo/{videoId}")
+    public ResponseEntity<List<Video>> getSimilarVideo(@PathVariable Long videoId) {
+        return videoService.getSimilarVideo(videoId);
     }
 }

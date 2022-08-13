@@ -85,6 +85,12 @@ class VideoService {
       headers: jsonAuthorizedHeader(),
     });
   }
+
+  getSimilarVideos(videoId){
+    return axios.get(joinUrl(VIDEO_ULR, "getSimilarVideo", videoId), {
+      headers: jsonAuthorizedHeader(),
+      });
+    }
 }
 
 export default new VideoService();
