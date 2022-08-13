@@ -162,7 +162,7 @@ function AddNewVideo({ courseId }) {
           //     borderRadius: "20px",
           //     marginTop: "10vh",
           // }}
-          sx={{ bgcolor: "success.light", padding: 5 }}
+          sx={{ bgcolor: "rgba(130, 200, 130, 0.95)", padding: 5 }}
           p={5}
           my={5}
         >
