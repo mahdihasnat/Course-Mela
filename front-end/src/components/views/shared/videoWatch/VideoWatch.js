@@ -90,12 +90,12 @@ const VideoWatch = ({}) => {
               }
             </Box>
           </Stack>
-          <Stack>
-            <Box sx={{ bgcolor: "primary.dark" }}>
-              <Typography variant="h4" color="textPrimary">
+          <Stack sx={{ margin: 5 }}>
+            <Box sx={{ bgcolor: "rgba(160, 111, 205, 0.7)" }}>
+              <Typography variant="h4" color="textPrimary" sx={{ padding: 2 }}>
                 Comments
               </Typography>
-              <Grid container spacing={3}>
+              <Grid container spacing={3} sx={{ padding: 2 }}>
                 {comments.map((comment) => (
                   <Grid item xs={12}>
                     <Card>
@@ -107,7 +107,7 @@ const VideoWatch = ({}) => {
                   </Grid>
                 ))}
               </Grid>
-              <Box sx={{ bgcolor: "success.light" }}>
+              <Box sx={{  padding: 2 }}>
                 <form
                   onSubmit={(e) => {
                     alert("Please complete the add comment section");
@@ -123,12 +123,14 @@ const VideoWatch = ({}) => {
                     multiline
                     rows={4}
                     colums={8}
+                    sx={{ borderRadius: "5px", backgroundColor: "rgba(200, 200, 200, 0.4)" }}
                   />
                   <Button
                     variant="contained"
                     color="primary"
                     endIcon={<AddComment />}
                     type="submit"
+                    sx={{ marginTop: 2 }}
                   >
                     submit
                   </Button>
