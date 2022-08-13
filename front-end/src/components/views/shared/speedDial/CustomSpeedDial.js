@@ -34,7 +34,7 @@ export const CartSpeedDial = () => {
         tooltipTitle="Checkout"
         // href="/checkout"
         onClick={() => {
-          navigate("/checkout");
+          navigate("/cartDetails");
         }}
       ></SpeedDialAction>
 

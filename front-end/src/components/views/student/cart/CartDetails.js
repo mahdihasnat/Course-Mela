@@ -1,6 +1,11 @@
 import {
   Box,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Grid,
   Paper,
   Stack,
@@ -17,6 +22,10 @@ import { Container } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useSelectedCourseContext } from "../../../../store/contexts/SelectedCourseContext";
 import CourseCard from "../../guestView/course/CourseCard";
+
+import CancelIcon from '@mui/icons-material/Cancel';
+import SendIcon from '@mui/icons-material/Send';
+import { useNavigate } from "react-router-dom";
 
 const CartPricingDetails = ({ courses }) => {
   return (
@@ -53,12 +62,28 @@ const CartPricingDetails = ({ courses }) => {
 };
 
 export const CartDetails = () => {
+  const navigate = useNavigate();
+
   const [{ cartCourses }] = useSelectedCourseContext();
   console.log({ cartCourses: cartCourses });
   const [subTotal, setSubTotal] = useState();
   const [totalPrice, setTotalPrice] = useState();
   const [promoCode, setPromoCode] = useState();
   const [promoList, setPromoList] = useState();
+
+  const [submitSureModalOpen, setSubmiSureModalOpen] = useState(false);
+
+  
+
+  const handleCheckoutProceed = ()=>{
+    setSubmiSureModalOpen(false);
+    navigate("/checkout");
+
+  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmiSureModalOpen(true);
+  }
 
   useEffect(() => {
     const total = cartCourses
@@ -133,7 +158,7 @@ export const CartDetails = () => {
               </Stack>
               {/* <Grid xs={12} justifyContent={"center"}> */}
               <Stack paddingTop={10}>
-                <Button variant="contained" color="primary">
+                <Button variant="contained" color="primary" onClick={handleSubmit}>
                   Checkout
                 </Button>
               </Stack>
@@ -142,6 +167,28 @@ export const CartDetails = () => {
           </Box>
         </Box>
       </Grid>
+      <Dialog open={submitSureModalOpen} onClose={() => setSubmiSureModalOpen(false)}>
+        <DialogTitle>
+          <Typography variant="h4">
+            Sure to checkout?
+          </Typography>
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            <Typography variant="h6"> Total price: {totalPrice}</Typography>
+
+            You will be redirected to the payment page.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setSubmiSureModalOpen(false)} color="primary" endIcon={<CancelIcon/>} >
+            Cancel
+          </Button>
+          <Button onClick={handleCheckoutProceed} color="primary" endIcon={<SendIcon/>}>
+            Checkout
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Grid>
   );
 };

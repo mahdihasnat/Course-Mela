@@ -84,7 +84,7 @@ function MainComponent() {
                   path="/courses/:courseId"
                   element={<CourseGuestView />}
                 />
-                <Route path="/checkout" element={<CartDetails />} />
+                <Route path="/cartDetails" element={<CartDetails />} />
                 <Route path="*" element={<StudentView />} />
               </>
             )}
