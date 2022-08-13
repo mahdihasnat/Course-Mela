@@ -124,9 +124,9 @@ const InstructorCourseDetails = () => {
                 <CardContent>{video.description}</CardContent>
                 <CardMedia
                   component="img"
-                  image={video.thumbPath}
+                  image={video.thumbPath ? video.thumbPath : require('../../../../assets/broken.png').default}
                   media={"img"}
-                  height={25}
+                  height={100}
                 >
                   {/* {video.thumbPath} */}
                 </CardMedia>

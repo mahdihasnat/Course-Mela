@@ -18,9 +18,10 @@ import { AddComment } from "@mui/icons-material";
 import ReactPlayer from "react-player";
 import VideoService from "../../../../services/video/VideoService";
 import { LOG_CAUGHT_ERR } from "../../../../shared/utils";
+import Playlist from "./Playlist";
 
 const videoPlayerStyle = {
-  bgcolor: "primary.main",
+  // bgcolor: "primary.main",
   height: {
     xs: 400,
     md: 500,
@@ -38,6 +39,11 @@ const VideoWatch = ({}) => {
     { commentId: "2", commenter: "Abul", comment: "What is sign used for" },
     { commentId: "1", commenter: "Amir", comment: "What is sign used? " },
   ];
+
+  const playlists = [
+    { id: 1, thumbpath: require('../../../../assets/coursethumb1.png'), title: "Differentiation", description: "Limits and Conjugates", duration: "07:00", rating: 4.5 },
+    { id: 2, thumbpath: require('../../../../assets/coursethumb3.png'), title: "Integration", description: "Integration By Parts", duration: "03:00", rating: 5 },
+  ]
 
   const { videoId } = useParams();
 
@@ -61,7 +67,7 @@ const VideoWatch = ({}) => {
         <CircularProgress height="100%" />
       ) : (
         <Stack>
-          <Stack direction={"row"}>
+          <Stack direction={"row"} sx={{ marginBottom: 2 }}>
             <Box sx={videoPlayerStyle}>
               <ReactPlayer
                 width={"100%"}
@@ -69,6 +75,11 @@ const VideoWatch = ({}) => {
                 url={video.videoPath}
                 controls
               ></ReactPlayer>
+            </Box>
+            <Box>
+              {
+                playlists.map(playlist => <Playlist key={playlist.id} playlist={playlist} /> )
+              }
             </Box>
           </Stack>
           <Stack>
