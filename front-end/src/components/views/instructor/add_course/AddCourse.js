@@ -362,13 +362,13 @@ function AddCourse() {
 							handleHomeEndKeys
 							multiple={true}
 							options={tags}
-							
+							select
 							freeSolo
 							defaultValue={[]}
 							value={selectedTags}
 							getOptionLabel={tagAutocompleteGetOptionsLabel}
 							renderInput={(params) =>(
-								<TextField select
+								<TextField
 									{...params}
 									label="Add existing tag or create new tag"
 									variant="outlined"

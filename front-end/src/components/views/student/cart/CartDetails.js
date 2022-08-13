@@ -1,6 +1,8 @@
 import {
+  Autocomplete,
   Box,
   Button,
+  createFilterOptions,
   Dialog,
   DialogActions,
   DialogContent,
@@ -26,6 +28,8 @@ import CourseCard from "../../guestView/course/CourseCard";
 import CancelIcon from '@mui/icons-material/Cancel';
 import SendIcon from '@mui/icons-material/Send';
 import { useNavigate } from "react-router-dom";
+import PromoService from "../../../../services/promo/PromoService";
+import { LOG_CAUGHT_ERR } from "../../../../shared/utils";
 
 const CartPricingDetails = ({ courses }) => {
   return (
@@ -69,7 +73,7 @@ export const CartDetails = () => {
   const [subTotal, setSubTotal] = useState();
   const [totalPrice, setTotalPrice] = useState();
   const [promoCode, setPromoCode] = useState();
-  const [promoList, setPromoList] = useState();
+  const [promoList, setPromoList] = useState([]);
 
   const [submitSureModalOpen, setSubmiSureModalOpen] = useState(false);
 
@@ -97,9 +101,25 @@ export const CartDetails = () => {
   }, [cartCourses]);
 
   useEffect(() => {
-    alert(`work with promo deduction`);
+    // alert(`work with promo deduction`);
+
     setTotalPrice(subTotal);
   }, [subTotal, promoCode]);
+
+  useEffect(()=>{
+    PromoService.getGeneralizedPromos()
+    .then((response) =>
+    {
+      console.log({"generalizedPromoResponse:":response})
+      setPromoList(response.data);
+    }
+    )
+    .catch(
+      LOG_CAUGHT_ERR
+    )
+  },[]
+  );
+
 
   return (
     <Grid container>
@@ -138,13 +158,37 @@ export const CartDetails = () => {
                 /// TODO: work with promo deduction. make similar to add Tag
               }
               <Stack direction={"row"}>
-                <TextField
+                {/* <TextField
                   label="promo code"
                   variant="outlined"
                   margin="normal"
                   fullWidth
                   
-                />
+                /> */}
+                <Box>
+						<Autocomplete
+							autoComplete={true}
+							selectOnFocus
+							clearOnBlur
+							handleHomeEndKeys
+							multiple={false}
+							options={promoList}
+              value={promoCode}
+              getOptionLabel={(option) => option.code}
+							renderInput={(params) =>(
+								<TextField
+									{...params}
+                  fullWidth={true}
+                  margin="normal"
+									label="Select Or Type PROMO CODE"
+									variant="outlined"
+								/>
+							)}
+							// onChange={tagAutocompleteOnChange}
+						/>
+					</Box>
+
+
               </Stack>
               <Stack
                 direction={"row"}
