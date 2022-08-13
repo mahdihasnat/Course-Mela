@@ -7,6 +7,7 @@ import io.coursemela.coursemela.video.model.Video;
 import io.coursemela.coursemela.video.repository.VideoRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -79,5 +80,23 @@ public class VideoServiceImpl implements VideoService {
                 map((video) -> new Video(video)).collect(Collectors.toList());
         log.info(videos.toString());
         return videos;
+    }
+
+
+    @Override
+    public ResponseEntity<List<Video>> getSimilarVideo(Long videoId) {
+        /// TODO implement this
+        try {
+            throw new Exception("Similar videos by video ID not implemented ");
+        } catch (Exception e) {
+//            throw new RuntimeException(e);
+            e.printStackTrace();
+            return
+                    null;
+
+        }
+
+
+
     }
 }

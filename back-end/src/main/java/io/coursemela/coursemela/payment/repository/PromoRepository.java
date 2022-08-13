@@ -4,6 +4,9 @@ import io.coursemela.coursemela.payment.entity.PromoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface PromoRepository extends JpaRepository<PromoEntity, Long> {
+    List<PromoEntity> findByStudentPromoEntitiesStudentEntityId(Long studentId);
 }

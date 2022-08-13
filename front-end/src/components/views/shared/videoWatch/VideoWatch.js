@@ -59,6 +59,7 @@ const VideoWatch = ({}) => {
 
   const [isLoading, setIsLoading] = useState(true);
 
+
   useEffect(() => {
     VideoService.getVideoById(videoId)
       .then((response) => {
@@ -67,6 +68,15 @@ const VideoWatch = ({}) => {
         setIsLoading(false);
       })
       .catch(LOG_CAUGHT_ERR);
+    
+    VideoService.getSimilarVideos(videoId).then((response) => {
+      console.log({
+        currentVideos: videoId,
+        similarVideos: response.data,
+
+      })
+    }).catch(LOG_CAUGHT_ERR);
+
   }, []);
 
   return (
