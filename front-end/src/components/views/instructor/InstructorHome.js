@@ -46,39 +46,41 @@ function InstructorHome() {
 
   return (
     // <Stack className="container">
-    <Container maxWidth={'false'}>
+    <Container maxWidth={"false"}>
       <Stack spacing={5}>
-      <Stack spacing={3}>
-      <Grid container>
-      <Grid item xs={12} lg={6}>
-        <CoTD />
+        <Stack spacing={3}>
+          <Grid container>
+            <Grid item xs={12} lg={6}>
+              <CoTD />
+            </Grid>
+            <Grid item xs={12} lg={6}>
+              <Dashboard
+                name={instructorDetail.userName}
+                institution="BUET"
+                sales={100}
+                salesPercentage={40}
+                balance={instructorDetail.credit}
+              />
+            </Grid>
+          </Grid>
 
-        </Grid>
-        <Grid item xs={12} lg={6}>
-          
-          <Dashboard name={instructorDetail.userName} institution='BUET' sales={100} salesPercentage={40} balance={instructorDetail.credit} />
-        </Grid>
-        
-      </Grid>
-
-      {/* </div> */}
-
-      </Stack>
-      <Stack>
-      <Recommendations />
-       </Stack>
-      <Stack >
-        <InstructorCourseList
-          title={"Your Courses"}
-          name={instructorDetail.name}
-        />
-      </Stack>
-      <Stack >
-        <InstructorCourseList
-          title={"Most Popular Courses"}
-          name={instructorDetail.name}
-        />
-      </Stack>
+          {/* </div> */}
+        </Stack>
+        <Stack>
+          <Recommendations />
+        </Stack>
+        <Stack>
+          <InstructorCourseList
+            title={"Your Courses"}
+            name={instructorDetail.name}
+          />
+        </Stack>
+        <Stack>
+          <InstructorCourseList
+            title={"Most Popular Courses"}
+            name={instructorDetail.name}
+          />
+        </Stack>
       </Stack>
     </Container>
     // </Stack>
@@ -93,10 +95,16 @@ function InstructorHome() {
 
 export default InstructorHome;
 
+{
+  /* <div className='instr-top-container'> */
+}
 
-      {/* <div className='instr-top-container'> */}
-
-
-      {/*    /!* <Dashboard name={instructorDetail.userName} institution={instructorDetail.institution} sales={instructorDetail.sales} salesPercentage={instructorDetail.salesPercentage} balance={instructorDetail.balance} /> *!/*/}
-      {/* {/*</div> */}
-      {/*<div style={ styles.courseList }><CourseList title={"Most Popular Now"} /></div>*/}
+{
+  /*    /!* <Dashboard name={instructorDetail.userName} institution={instructorDetail.institution} sales={instructorDetail.sales} salesPercentage={instructorDetail.salesPercentage} balance={instructorDetail.balance} /> *!/*/
+}
+{
+  /* {/*</div> */
+}
+{
+  /*<div style={ styles.courseList }><CourseList title={"Most Popular Now"} /></div>*/
+}

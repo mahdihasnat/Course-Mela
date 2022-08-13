@@ -14,6 +14,9 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import PaymentForm from "./PaymentForm";
 import Review from "./Review";
+import PaymentService from "../../../services/payment/PaymentService";
+import { useSelectedCourseContext } from "../../../store/contexts/SelectedCourseContext";
+import { LOG_CAUGHT_ERR } from "../../../shared/utils";
 
 // const steps = ['Shipping address', 'Payment details', 'Review your order'];
 const steps = ["Payment details", "Review your order"];
@@ -35,6 +38,7 @@ const theme = createTheme();
 
 export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0);
+  const [{ cartCourses, selectedPromo }, dispatch] = useSelectedCourseContext();
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -46,6 +50,11 @@ export default function Checkout() {
 
   const handleOrderSubmit = () => {
     alert("Order submitted");
+    // PaymentService.buyCourses(cartCourses, selectedPromo)
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch(LOG_CAUGHT_ERR);
   };
   return (
     <ThemeProvider theme={theme}>
