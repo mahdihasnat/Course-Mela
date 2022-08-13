@@ -3,11 +3,13 @@ import AreaChart from './AreaChart'
 import PieChart from './PieChart'
 import VerticalBarChart from './VerticalBarChart'
 import {Badge} from '@mui/material'
+import { Container } from '@mui/system'
 
 function Dashboard(props) {
 
   return (
-    <div className='dashboard-container'>
+    // <div className='dashboard-container'>
+    <Container>
       <Badge>
         {" "}
         <h3> Dashboard </h3>
@@ -35,7 +37,8 @@ function Dashboard(props) {
           <AreaChart />
         </div>
       </div>
-    </div>
+      </Container>
+    // </div>
   )
 }
 
