@@ -1,5 +1,5 @@
-import { Container } from '@mui/material'
-import { Stack } from '@mui/system'
+import { Container, List, ListItem, Typography } from '@mui/material'
+import { Box, Stack } from '@mui/system'
 import React from 'react'
 import CommentCard from './CommentCard'
 
@@ -43,18 +43,21 @@ const comments = [
 
 function CoTD() {
   return (
-    <Container sx={{ bgcolor : "success.info"}} >
-      <Stack marginTop={5}>
-      <span style={{ fontSize: "1.7rem", fontWeight: "bold", marginTop: "20px", textShadow: "1px 1px red" }}>Comments of the Day</span>
-      <ul className='comment-cards'>
-        {
-          comments.map(comment => (
-            <li key={comment.id}>
-              <CommentCard title={comment.title} thumbPath={comment.thumbPath} commenters={comment.commenters} />
-            </li>
-          ))
-        }
-      </ul>
+    <Container  >
+      <Stack marginTop={5} bgcolor={"primary.main"} >
+        <Stack bgcolor={"primary.main"} justifyContent="space-between" >
+          <span style={{ fontSize: "1.7rem", fontWeight: "bold", marginLeft: "20px", marginTop: "20px", textShadow: "1px 1px red" }}>Comments of the Day</span>
+        </Stack>
+
+        <List>
+          {
+            comments.map(comment => (
+              <ListItem key={comment.id}>
+                <CommentCard title={comment.title} thumbPath={comment.thumbPath} commenters={comment.commenters} />
+              </ListItem>
+            ))
+          }
+        </List>
       </Stack>
     </Container>
   )
