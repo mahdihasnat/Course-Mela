@@ -11,7 +11,6 @@ import io.coursemela.coursemela.video.repository.VideoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.StackWalker.Option;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,15 +40,16 @@ public class CommentServiceImpl implements CommentService {
 
 
     @Override
-    public Comment createDoubt(Long videoId, Long studentId, String text) throws Exception{
+    public Comment createDoubt(Long videoId, Long studentId, String text) throws Exception {
         Optional<VideoEntity> optionalVideoEntity = videoRepository.findById(videoId);
-        if(!optionalVideoEntity.isPresent()){
+        if (!optionalVideoEntity.isPresent()) {
             throw new Exception("Video not found");
         }
         Optional<StudentEntity> optionalStudentEntity = studentRepository.findById(studentId);
-        if(!optionalStudentEntity.isPresent()){
+        if (!optionalStudentEntity.isPresent()) {
             throw new Exception("Student not found");
         }
+//        TODO: check if student has access to this video
         DoubtEntity doubtEntity = DoubtEntity.builder()
                 .videoEntity(optionalVideoEntity.get())
                 .studentEntity(optionalStudentEntity.get())
