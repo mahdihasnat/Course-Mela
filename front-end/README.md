@@ -1,9 +1,3 @@
-
-https://github.com/nodesource/distributions/blob/master/README.md#debinstall
-
-`node - 16 is working`
-install using the link
-
 ## Create app
 ### `npx create-react-app coursemela`
 
@@ -44,3 +38,4 @@ Use `npm install` to install the following packages:
 - `npm i redux-devtools-extension`
 
 Make sure the packages are installed correctly checking `package.json` file.
+
