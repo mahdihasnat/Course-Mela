@@ -79,13 +79,15 @@ const InstructorCourseDetails = () => {
               image={course.coverPhotoPath}
               // height={"70%"}
             />
-            <CardContent>
-              <CardHeader tag="h5">{course.title}</CardHeader>
-              <CardContent>{course.description}</CardContent>
-            </CardContent>
+            {/* <CardContent>
+            <CardHeader tag="h4"> Info</CardHeader>
+              Topic: {course.topic.name}
+              <br></br>
+              Subject: {course.topic.subject.name}
+            </CardContent> */}
           </Card>
 
-          <Card>
+          {/* <Card>
             <CardContent>
               <CardHeader tag="h4">Things we will learn</CardHeader>
             </CardContent>
@@ -96,7 +98,7 @@ const InstructorCourseDetails = () => {
             Topic: {course.topic.name}
             <br></br>
             Subject: {course.topic.subject.name}
-          </Card>
+          </Card> */}
           {/* <Card>
             <CardHeader>Subscription Fee:</CardHeader>
             {course.coursePricing.subsFee}
