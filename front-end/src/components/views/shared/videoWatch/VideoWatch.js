@@ -40,20 +40,22 @@ const VideoWatch = ({}) => {
     { commentId: "1", commenter: "Amir", comment: "What is sign used? " },
   ];
 
-  const playlists = [
-    { id: 1, thumbpath: require('../../../../assets/coursethumb1.png'), title: "Differentiation", description: "Limits and Conjugates", duration: "07:00", rating: 4.5 },
-    { id: 2, thumbpath: require('../../../../assets/coursethumb3.png'), title: "Integration", description: "Integration By Parts", duration: "03:00", rating: 5 },
-    { id: 3, thumbpath: require('../../../../assets/coursethumb1.png'), title: "Differentiation", description: "Limits and Conjugates", duration: "07:00", rating: 4.5 },
-    { id: 4, thumbpath: require('../../../../assets/coursethumb3.png'), title: "Integration", description: "Integration By Parts", duration: "03:00", rating: 5 },
-    { id: 5, thumbpath: require('../../../../assets/coursethumb1.png'), title: "Differentiation", description: "Limits and Conjugates", duration: "07:00", rating: 4.5 },
-    { id: 6, thumbpath: require('../../../../assets/coursethumb3.png'), title: "Integration", description: "Integration By Parts", duration: "03:00", rating: 5 },
-    { id: 7, thumbpath: require('../../../../assets/coursethumb1.png'), title: "Differentiation", description: "Limits and Conjugates", duration: "07:00", rating: 4.5 },
-    { id: 8, thumbpath: require('../../../../assets/coursethumb3.png'), title: "Integration", description: "Integration By Parts", duration: "03:00", rating: 5 },
-    { id: 9, thumbpath: require('../../../../assets/coursethumb1.png'), title: "Differentiation", description: "Limits and Conjugates", duration: "07:00", rating: 4.5 },
-    { id: 0, thumbpath: require('../../../../assets/coursethumb3.png'), title: "Integration", description: "Integration By Parts", duration: "03:00", rating: 5 },
-  ]
+  // const playlists = [
+  //   { id: 1, thumbpath: require('../../../../assets/coursethumb1.png'), title: "Differentiation", description: "Limits and Conjugates", duration: "07:00", rating: 4.5 },
+  //   { id: 2, thumbpath: require('../../../../assets/coursethumb3.png'), title: "Integration", description: "Integration By Parts", duration: "03:00", rating: 5 },
+  //   { id: 3, thumbpath: require('../../../../assets/coursethumb1.png'), title: "Differentiation", description: "Limits and Conjugates", duration: "07:00", rating: 4.5 },
+  //   { id: 4, thumbpath: require('../../../../assets/coursethumb3.png'), title: "Integration", description: "Integration By Parts", duration: "03:00", rating: 5 },
+  //   { id: 5, thumbpath: require('../../../../assets/coursethumb1.png'), title: "Differentiation", description: "Limits and Conjugates", duration: "07:00", rating: 4.5 },
+  //   { id: 6, thumbpath: require('../../../../assets/coursethumb3.png'), title: "Integration", description: "Integration By Parts", duration: "03:00", rating: 5 },
+  //   { id: 7, thumbpath: require('../../../../assets/coursethumb1.png'), title: "Differentiation", description: "Limits and Conjugates", duration: "07:00", rating: 4.5 },
+  //   { id: 8, thumbpath: require('../../../../assets/coursethumb3.png'), title: "Integration", description: "Integration By Parts", duration: "03:00", rating: 5 },
+  //   { id: 9, thumbpath: require('../../../../assets/coursethumb1.png'), title: "Differentiation", description: "Limits and Conjugates", duration: "07:00", rating: 4.5 },
+  //   { id: 0, thumbpath: require('../../../../assets/coursethumb3.png'), title: "Integration", description: "Integration By Parts", duration: "03:00", rating: 5 },
+  // ]
 
   const { videoId } = useParams();
+
+  const [playlists, setPlaylists] = useState([]);
 
   const [video, setvideo] = useState(null);
 
@@ -61,6 +63,8 @@ const VideoWatch = ({}) => {
 
 
   useEffect(() => {
+  /// loading the videos here 
+
     VideoService.getVideoById(videoId)
       .then((response) => {
         console.log({ video: response.data });
@@ -68,6 +72,7 @@ const VideoWatch = ({}) => {
         setIsLoading(false);
       })
       .catch(LOG_CAUGHT_ERR);
+  /// similar videos will be loaded here
     
     VideoService.getSimilarVideos(videoId).then((response) => {
       console.log({
@@ -75,9 +80,12 @@ const VideoWatch = ({}) => {
         similarVideos: response.data,
 
       })
+
+      setPlaylists(response.data);
+
     }).catch(LOG_CAUGHT_ERR);
 
-  }, []);
+  }, [videoId]);
 
   return (
     <Box>
@@ -96,7 +104,8 @@ const VideoWatch = ({}) => {
             </Box>
             <Box sx={{ height: 700, width: 450, overflow: "auto" }}>
               {
-                playlists.map(playlist => <Playlist key={playlist.id} playlist={playlist} /> )
+                /// TODO : check if it actually works 
+                playlists &&  playlists.map(playlist => <Playlist key={playlist.id} playlist={playlist} /> )
               }
             </Box>
           </Stack>

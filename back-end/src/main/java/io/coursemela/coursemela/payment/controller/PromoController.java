@@ -14,7 +14,7 @@ public class PromoController {
     @Autowired
     PromoService promoService;
 
-    @GetMapping("/")
+    @GetMapping("/generalized")
     List<Promo> getPromos() {
         return promoService.getPromos();
     }
