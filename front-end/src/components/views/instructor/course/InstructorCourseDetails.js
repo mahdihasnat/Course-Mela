@@ -79,6 +79,15 @@ const InstructorCourseDetails = () => {
               image={course.coverPhotoPath}
               // height={"70%"}
             />
+            <CardContent>
+              <CardContent sx={{ fontSize: "2rem", fontWeight: "bold" }}>{course.name}</CardContent>
+              <CardContent>{course.description}</CardContent>
+              <CardContent tag="h4">Things we will learn...</CardContent>
+              <CardContent>
+                Topic: {course.topic.name} <br />
+                Subject: {course.topic.subject.name}
+              </CardContent>
+            </CardContent>
             {/* <CardContent>
             <CardHeader tag="h4"> Info</CardHeader>
               Topic: {course.topic.name}
