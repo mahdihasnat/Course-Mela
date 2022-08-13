@@ -3,6 +3,7 @@ package io.coursemela.coursemela.payment.entity;
 import io.coursemela.coursemela.payment.enumeration.TransactionMedium;
 import lombok.Data;
 
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.time.ZonedDateTime;
@@ -12,6 +13,7 @@ import java.time.ZonedDateTime;
 @MappedSuperclass
 public abstract class TransactionEntity {
     @Id
+    @GeneratedValue
     private Long id;
     private Long amount;
     private ZonedDateTime timestamp;
