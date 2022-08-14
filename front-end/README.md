@@ -1,3 +1,7 @@
+## Update node version
+- `sudo npm install n -g`
+- `sudo n stable`
+
 ## Create app
 ### `npx create-react-app coursemela`
 
