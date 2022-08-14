@@ -2,7 +2,7 @@
   "name": "front-end",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://mahdihasnat.github.io/coursemela",
+  "homepage": "https://mahdihasnat.github.io/Course-Mela",
   "dependencies": {
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
