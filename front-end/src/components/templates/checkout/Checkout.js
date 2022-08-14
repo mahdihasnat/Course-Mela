@@ -50,11 +50,11 @@ export default function Checkout() {
 
   const handleOrderSubmit = () => {
     alert("Order submitted");
-    // PaymentService.buyCourses(cartCourses, selectedPromo)
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch(LOG_CAUGHT_ERR);
+    PaymentService.buyCourses(cartCourses, selectedPromo)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch(LOG_CAUGHT_ERR);
   };
   return (
     <ThemeProvider theme={theme}>
