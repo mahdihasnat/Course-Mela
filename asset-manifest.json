@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/coursemela/static/css/main.d86d10ab.css",
-    "main.js": "/coursemela/static/js/main.ddae9b45.js",
-    "static/js/787.22edae46.chunk.js": "/coursemela/static/js/787.22edae46.chunk.js",
-    "static/media/coursethumb2.png": "/coursemela/static/media/coursethumb2.0e2714420aa5619699d4.png",
-    "static/media/coursethumb4.png": "/coursemela/static/media/coursethumb4.d8203d082334d1e6a691.png",
-    "static/media/coursethumb1.png": "/coursemela/static/media/coursethumb1.7328a684d3eda45822e6.png",
-    "static/media/coursethumb3.png": "/coursemela/static/media/coursethumb3.b8fd2d66d12bc540f999.png",
-    "static/media/lohp-category-design-2x-v2.jpg": "/coursemela/static/media/lohp-category-design-2x-v2.39992edc40649e9b396d.jpg",
-    "static/media/lohp-category-it-and-software-2x-v2.jpg": "/coursemela/static/media/lohp-category-it-and-software-2x-v2.eced9656e2723644013b.jpg",
-    "static/media/pngegg2.png": "/coursemela/static/media/pngegg2.f63efaefad40e3b2c32c.png",
-    "static/media/pngegg.png": "/coursemela/static/media/pngegg.16210cb5f8c4512263b3.png",
-    "index.html": "/coursemela/index.html",
-    "main.d86d10ab.css.map": "/coursemela/static/css/main.d86d10ab.css.map",
-    "main.ddae9b45.js.map": "/coursemela/static/js/main.ddae9b45.js.map",
-    "787.22edae46.chunk.js.map": "/coursemela/static/js/787.22edae46.chunk.js.map"
+    "main.css": "/Course-Mela/static/css/main.d86d10ab.css",
+    "main.js": "/Course-Mela/static/js/main.1572a249.js",
+    "static/js/787.22edae46.chunk.js": "/Course-Mela/static/js/787.22edae46.chunk.js",
+    "static/media/coursethumb2.png": "/Course-Mela/static/media/coursethumb2.0e2714420aa5619699d4.png",
+    "static/media/coursethumb4.png": "/Course-Mela/static/media/coursethumb4.d8203d082334d1e6a691.png",
+    "static/media/coursethumb1.png": "/Course-Mela/static/media/coursethumb1.7328a684d3eda45822e6.png",
+    "static/media/coursethumb3.png": "/Course-Mela/static/media/coursethumb3.b8fd2d66d12bc540f999.png",
+    "static/media/lohp-category-design-2x-v2.jpg": "/Course-Mela/static/media/lohp-category-design-2x-v2.39992edc40649e9b396d.jpg",
+    "static/media/lohp-category-it-and-software-2x-v2.jpg": "/Course-Mela/static/media/lohp-category-it-and-software-2x-v2.eced9656e2723644013b.jpg",
+    "static/media/pngegg2.png": "/Course-Mela/static/media/pngegg2.f63efaefad40e3b2c32c.png",
+    "static/media/pngegg.png": "/Course-Mela/static/media/pngegg.16210cb5f8c4512263b3.png",
+    "index.html": "/Course-Mela/index.html",
+    "main.d86d10ab.css.map": "/Course-Mela/static/css/main.d86d10ab.css.map",
+    "main.1572a249.js.map": "/Course-Mela/static/js/main.1572a249.js.map",
+    "787.22edae46.chunk.js.map": "/Course-Mela/static/js/787.22edae46.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.d86d10ab.css",
-    "static/js/main.ddae9b45.js"
+    "static/js/main.1572a249.js"
   ]
 }
