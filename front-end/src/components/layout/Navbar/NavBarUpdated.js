@@ -43,7 +43,14 @@ const MuiNavbar = () => {
   };
 
   const studentNavbarOption = () => {
-    return <Button color={"inherit"}>My Courses</Button>;
+    return (
+      <>
+        <Button color={"inherit"}>My Courses</Button>
+        <Button color={"inherit"} href={"/plans"}>
+          My Plans
+        </Button>
+      </>
+    );
   };
 
   const instructorNavbarOption = () => {
