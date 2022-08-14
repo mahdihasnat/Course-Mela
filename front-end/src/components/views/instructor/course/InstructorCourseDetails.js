@@ -10,6 +10,7 @@ import {
   List,
   ListItem,
   ListItemText,
+  Stack,
 } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import CourseService from "../../../../services/course/CourseService";
@@ -18,6 +19,7 @@ import ImageService from "../../../../services/content/ImageService";
 import ReactPlayer from "react-player";
 import VideoService from "../../../../services/video/VideoService";
 import { LOG_CAUGHT_ERR } from "../../../../shared/utils";
+import { TakaSign } from "../../../helper/CustomIcons";
 
 const InstructorCourseDetails = () => {
   const { courseId } = useParams();
@@ -71,16 +73,57 @@ const InstructorCourseDetails = () => {
               // height={"70%"}
             />
             <CardContent>
-              <CardContent sx={{ fontSize: "2rem", fontWeight: "bold" }}>
-                {course.name}
+              <CardContent
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexDirection: "column",
+                }}
+              >
+                <CardContent sx={{ fontSize: "2rem", fontWeight: "bold" }}>
+                  {course.name}
+                </CardContent>
+                <CardContent sx={{ fontSize: "1.3rem", fontWeight: "bold" }}>
+                  {course.description}
+                </CardContent>
+                <CardContent sx={{ display: "flex" }}>
+                  <CardContent>
+                    Price: {course.coursePricing.subsFee} <TakaSign />
+                  </CardContent>
+                  <CardContent>
+                    Your portion: {course.coursePricing.insFee} <TakaSign />
+                  </CardContent>
+                </CardContent>
               </CardContent>
-              <CardContent sx={{ fontSize: "1.3rem", fontWeight: "bold" }}>
-                {course.description}
-              </CardContent>
-              <CardContent tag="h4">Things we will learn...</CardContent>
-              <CardContent>
-                Topic: {course.topic.name} <br />
-                Subject: {course.topic.subject.name}
+              {/* <CardContent tag="h4">Things we will learn...</CardContent> */}
+              <CardContent
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                <CardContent
+                  sx={{
+                    backgroundColor: "black",
+                    padding: 2,
+                    borderRadius: 5,
+                    color: "white",
+                  }}
+                >
+                  Topic: {course.topic.name}
+                </CardContent>
+                <CardContent
+                  sx={{
+                    backgroundColor: "black",
+                    padding: 2,
+                    borderRadius: 5,
+                    color: "white",
+                  }}
+                >
+                  Subject: {course.topic.subject.name}
+                </CardContent>
               </CardContent>
             </CardContent>
           </Card>
@@ -99,31 +142,33 @@ const InstructorCourseDetails = () => {
                 navigate(`/watchVideo/${video.id}`);
               }}
             >
-              <Card>
-                <CardMedia
-                  component="img"
-                  image={
-                    video.thumbPath
-                      ? video.thumbPath
-                      : require("../../../../assets/broken.png").default
-                  }
-                  media={"img"}
-                  height={100}
-                >
-                  {/* {video.thumbPath} */}
-                </CardMedia>
-                <CardHeader title={video.title}></CardHeader>
-                <CardContent>
-                  <CardContent>{video.description}</CardContent>
-                  <CardContent>{video.duration}</CardContent>
-                  <CardContent>{video.rating}</CardContent>
-                </CardContent>
-                {/* <img
+              <Stack maxHeight={250}>
+                <Card>
+                  <CardMedia
+                    component="img"
+                    image={
+                      video.thumbPath
+                        ? video.thumbPath
+                        : require("../../../../assets/broken.png").default
+                    }
+                    media={"img"}
+                    height={100}
+                  >
+                    {/* {video.thumbPath} */}
+                  </CardMedia>
+                  <CardHeader title={video.title}></CardHeader>
+                  <CardContent>
+                    <CardContent>{video.description}</CardContent>
+                    <CardContent>{video.duration}</CardContent>
+                    <CardContent>{video.rating}</CardContent>
+                  </CardContent>
+                  {/* <img
                   // src={"http://localhost:8080/fileserver/downloadFile/212.png"}
                   // src={createImageLinkFromByte(video.thumbPath)}
                   alt={video.title}
                 /> */}
-              </Card>
+                </Card>
+              </Stack>
               {/* <ListItemText primary={video.title} /> */}
             </ListItem>
           ))}
