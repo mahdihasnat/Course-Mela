@@ -5,19 +5,16 @@ import joinUrl from "../../utils/url";
 
 class PaymentService {
   buyCourses(courses, promo) {
-    return axios.post(
-      joinUrl(
-        SUBSCRIPTION_URL,
-        "",
-        {
-          courses: courses,
-          promo: promo,
-        },
-        {
-          headers: jsonAuthorizedHeader(),
-        }
-      )
-    );
+    const data = {
+      courses: courses,
+      promo: promo,
+    };
+
+    console.log({ "data sent : ": data });
+
+    return axios.post(joinUrl(SUBSCRIPTION_URL, ""), data, {
+      headers: jsonAuthorizedHeader(),
+    });
   }
 }
 
