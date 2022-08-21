@@ -18,5 +18,7 @@ public class Comment {
     private String text;
     private ZonedDateTime postTime;
     private ClarificationStatus clarificationStatus;
+    private Long userId;
+    private String userName;
     List<Comment> replies;
 }

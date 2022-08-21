@@ -4,6 +4,7 @@ import io.coursemela.coursemela.student.entity.StudentEntity;
 import io.coursemela.coursemela.video.enemuration.ClarificationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import java.time.ZonedDateTime;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 public class ClarificationEntity extends DoubtEntity {
 
     ClarificationStatus clarificationStatus;
