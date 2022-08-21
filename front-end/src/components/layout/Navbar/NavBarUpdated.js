@@ -99,7 +99,6 @@ const MuiNavbar = () => {
               src={require("../../../assets/logo.png")}
               alt="logo"
               width="125"
-              borderRadius="50%"
             />
           </Box>
         </IconButton>
