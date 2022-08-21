@@ -72,6 +72,5 @@ public class VideoController {
                     .status(HttpStatus.NOT_FOUND)
                     .body(false);
         }
-        
     }
 }

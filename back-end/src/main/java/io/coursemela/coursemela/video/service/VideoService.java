@@ -1,13 +1,12 @@
 package io.coursemela.coursemela.video.service;
 
 import io.coursemela.coursemela.video.model.Video;
-import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.util.List;
 
-@Service
+
 public interface VideoService {
     Video createVideoMetadata(Video video) throws Exception;
 

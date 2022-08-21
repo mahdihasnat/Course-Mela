@@ -1,9 +1,7 @@
 package io.coursemela.coursemela.video.entity;
 
 import io.coursemela.coursemela.student.entity.StudentEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.Duration;
@@ -13,6 +11,8 @@ import java.time.ZonedDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Getter
+@Setter
 public class ViewLogEntity {
     @EmbeddedId
     ViewLogKey id;
