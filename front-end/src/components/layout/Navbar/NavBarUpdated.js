@@ -94,12 +94,21 @@ const MuiNavbar = () => {
           aria-label="logo"
           href={"/"}
         >
-          <CatchingPokemonIcon />
+          <Box>
+            <img
+              src={require("../../../assets/logo.png")}
+              alt="logo"
+              width="125"
+              borderRadius="50%"
+            />
+          </Box>
         </IconButton>
 
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          COURSEMELA
-        </Typography>
+        <Typography
+          variant="h6"
+          component="div"
+          sx={{ flexGrow: 1 }}
+        ></Typography>
 
         <Box pr={3}>
           <SearchBar
