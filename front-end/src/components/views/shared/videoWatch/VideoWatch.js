@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {
+  Avatar,
   Box,
   Button,
   Card,
@@ -13,17 +14,22 @@ import {
   Typography,
 } from "@mui/material";
 
-import { AddComment } from "@mui/icons-material";
+// import { AddComment } from "@mui/icons-material";
+
+// import { createAvatar } from "@dicebear/avatars";
+// import * as style from "@dicebear/avatars-identicon-sprites";
 
 import ReactPlayer from "react-player";
 import VideoService from "../../../../services/video/VideoService";
 import { LOG_CAUGHT_ERR } from "../../../../shared/utils";
 import Playlist from "./Playlist";
+import Avaatar, { getAvatar } from "../../../../utils/Avatar";
+import { CommentCard } from "../../../helper/CommentCard";
 
 const VideoWatch = ({}) => {
   const comments = [
-    { commentId: "2", commenter: "Abul", comment: "What is sign used for" },
-    { commentId: "1", commenter: "Amir", comment: "What is sign used? " },
+    { id: "2", userName: "Abul", text: "What is sign used for" },
+    { id: "1", userName: "Amir", text: "What is sign used? " },
   ];
 
   const { videoId } = useParams();
@@ -89,7 +95,13 @@ const VideoWatch = ({}) => {
               <Typography variant="h4" color="textPrimary" align={"center"}>
                 Doubts people had...
               </Typography>
-              {/* Abul said */}
+            </Stack>
+            <Stack spacing={2}>
+              {comments.map((comment) => (
+                <Box key={comment.id}>
+                  <CommentCard {...comment} />
+                </Box>
+              ))}
             </Stack>
           </Grid>
         </Grid>
