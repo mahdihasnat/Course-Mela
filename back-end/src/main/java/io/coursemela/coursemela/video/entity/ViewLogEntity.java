@@ -1,21 +1,18 @@
 package io.coursemela.coursemela.video.entity;
 
 import io.coursemela.coursemela.student.entity.StudentEntity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.Duration;
 import java.time.ZonedDateTime;
 
-@Embeddable
-class ViewLogKey implements Serializable {
-    @Column(name = "studentId")
-    Long studentId;
-    @Column(name = "videoId")
-    Long videoId;
-}
-
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class ViewLogEntity {
     @EmbeddedId
     ViewLogKey id;

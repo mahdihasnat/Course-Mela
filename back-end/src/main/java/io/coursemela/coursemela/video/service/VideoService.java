@@ -3,6 +3,8 @@ package io.coursemela.coursemela.video.service;
 import io.coursemela.coursemela.video.model.Video;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
@@ -16,6 +18,12 @@ public interface VideoService {
     List<Video> getAllVideoByCourse(Long courseId);
 
     Video updateThumbUrl(Long videoId, String thumbUrl);
-    
+
     List<Video> getSimilarVideos(Long videoId);
+
+    Boolean addVideoLog(Long videoId,
+                        Long studentId,
+                        Duration watchTime,
+                        Duration lastVisitDuration,
+                        ZonedDateTime lastVisitTime);
 }

@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -92,6 +94,12 @@ public class VideoServiceImpl implements VideoService {
         return getVideosFromVideoEntities(
                 videoRepository.findByCourseEntityId(courseId)
         );
+    }
+
+    @Override
+    public Boolean addVideoLog(Long videoId, Long studentId, Duration watchTime, Duration lastVisitDuration, ZonedDateTime lastVisitTime) {
+//        TODO: implement this
+        return false;
     }
 
     private Video getVideoFromVideoEntity(VideoEntity videoEntity) {
