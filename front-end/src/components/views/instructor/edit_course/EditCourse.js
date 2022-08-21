@@ -8,12 +8,8 @@ function EditCourse() {
   const { courseId } = useParams();
   return (
     <Stack>
-      {/*<div style={{fontSize: "1.5rem", fontWeight: "bold", margin: "20px", textAlign: "center"}}>*/}
-      {/*    Course Videos*/}
-      {/*</div>*/}
-
       <AddNewVideo courseId={courseId} />
-      <CourseVideos />
+      <CourseVideos courseId={courseId} />
     </Stack>
   );
 }
