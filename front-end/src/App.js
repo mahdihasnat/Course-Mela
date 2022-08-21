@@ -7,24 +7,15 @@ import MainComponent from "./components/MainComponent";
 import SelectedCourseContextProvider from "./store/contexts/SelectedCourseContext";
 
 function App() {
-  return (
-    <LoginContextProvider>
-      <SelectedCourseContextProvider>
-        <BrowserRouter>
-          {/* <div className="">
-          <Navbar />
-          <Routes>
-            <Route path='/' element={ <GuestView /> } />
-            <Route exact path='/instr' element={ <InstructorHome /> } />
-          </Routes>
-          <LoginModal />
-          <Footer />
-        </div> */}
-          <MainComponent />
-        </BrowserRouter>
-      </SelectedCourseContextProvider>
-    </LoginContextProvider>
-  );
+	return (
+		<LoginContextProvider>
+			<SelectedCourseContextProvider>
+				<BrowserRouter>
+					<MainComponent />
+				</BrowserRouter>
+			</SelectedCourseContextProvider>
+		</LoginContextProvider>
+	);
 }
 
 export default App;
