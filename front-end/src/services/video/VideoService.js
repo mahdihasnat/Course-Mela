@@ -3,7 +3,7 @@ import {
   AUTH_URL,
   COURSE_URL,
   FILE_SERVER_URL,
-  VIDEO_ULR,
+  VIDEO_URL,
 } from "../../shared/urls";
 import {
   fileAuthorizedHeader,
@@ -31,7 +31,7 @@ class VideoService {
 
     return axios({
       method: "post",
-      url: joinUrl(VIDEO_ULR, "newVideo"),
+      url: joinUrl(VIDEO_URL, "newVideo"),
       headers: jsonAuthorizedHeader(),
       data: formData,
     });
@@ -60,7 +60,7 @@ class VideoService {
     formData.set("videoId", videoId);
     formData.set("videoUrl", path);
     console.log({ videoId: videoId, url: path });
-    return axios.post(joinUrl(VIDEO_ULR, "updateVideoUrl"), formData, {
+    return axios.post(joinUrl(VIDEO_URL, "updateVideoUrl"), formData, {
       headers: jsonAuthorizedHeader(),
     });
   }
@@ -69,25 +69,25 @@ class VideoService {
     formData.set("videoId", videoId);
     formData.set("thumbUrl", path);
     console.log({ videoId: videoId, url: path });
-    return axios.post(joinUrl(VIDEO_ULR, "updateThumbUrl"), formData, {
+    return axios.post(joinUrl(VIDEO_URL, "updateThumbUrl"), formData, {
       headers: jsonAuthorizedHeader(),
     });
   }
 
   getVideoById(videoId) {
-    return axios.get(joinUrl(VIDEO_ULR, "getVideo", videoId), {
+    return axios.get(joinUrl(VIDEO_URL, "getVideo", videoId), {
       headers: jsonAuthorizedHeader(),
     });
   }
 
   getVideosByCourseId(courseId) {
-    return axios.get(joinUrl(VIDEO_ULR, "getVideoByCourse", courseId), {
+    return axios.get(joinUrl(VIDEO_URL, "getVideoByCourse", courseId), {
       headers: jsonAuthorizedHeader(),
     });
   }
 
   getSimilarVideos(videoId){
-    return axios.get(joinUrl(VIDEO_ULR, "getSimilarVideo", videoId), {
+    return axios.get(joinUrl(VIDEO_URL, "getSimilarVideo", videoId), {
       headers: jsonAuthorizedHeader(),
       });
     }

@@ -25,6 +25,7 @@ import { LOG_CAUGHT_ERR } from "../../../../shared/utils";
 import Playlist from "./Playlist";
 import Avaatar, { getAvatar } from "../../../../utils/Avatar";
 import { CommentCard } from "../../../helper/CommentCard";
+import CommentService from "../../../../services/comment/CommentService";
 
 const VideoWatch = ({}) => {
   const comments = [
@@ -63,6 +64,19 @@ const VideoWatch = ({}) => {
       })
       .catch(LOG_CAUGHT_ERR);
   }, [videoId]);
+
+  useEffect(
+    ()=>
+    {
+      CommentService.fetchAllComments(videoId)
+      .then((response)=>
+      {
+        console.log({response});
+      })
+      .catch(LOG_CAUGHT_ERR);
+
+    },[]
+  );
 
   return (
     <>
