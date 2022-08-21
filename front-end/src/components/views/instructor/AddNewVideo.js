@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import FormatSeconds from "../../helper/FormatSeconds";
-import { Button, Container, Modal, Stack, TextField } from "@mui/material";
+import { Button, Container, Modal, modalClasses, Stack, TextField } from "@mui/material";
 import { Delete, Update } from "@mui/icons-material";
 import VideoService from "../../../services/video/VideoService";
 import { LOG_CAUGHT_ERR, LOG_ERR } from "../../../shared/utils";
@@ -138,6 +138,7 @@ function AddNewVideo({ courseId }) {
         } else {
           console.log({ Image: "image not selected" });
         }
+        setOpen(false);
       })
       .catch(LOG_CAUGHT_ERR);
 

@@ -37,7 +37,7 @@ function Playlist({playlist}) {
     <Stack>
         <Stack direction={"row"} sx={playlistStyle}>
             <Box sx={playlistImgStyle}>
-                <img src={playlist.thumbpath} style={{ width: "100%", height: "100%" }} />
+                <img src={playlist.thumbPath} style={{ width: "100%", height: "100%" }} />
                 {/* <img src={require('../../../../assets/coursethumb1.png')} style={{ width: "100%", height: "100%" }} /> */}
                 {/* {videothumb} */}
             </Box>
