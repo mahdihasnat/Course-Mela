@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {
-  Avatar,
-  Box,
-  Button,
-  Card,
-  CardHeader,
-  CircularProgress,
-  Container,
-  Grid,
-  Stack,
-  TextField,
-  Typography,
+	Avatar,
+	Box,
+	Button,
+	Card,
+	CardHeader,
+	CircularProgress,
+	Container,
+	Grid,
+	Paper,
+	Stack,
+	TextField,
+	Typography,
 } from "@mui/material";
 
 // import { AddComment } from "@mui/icons-material";
@@ -26,102 +27,104 @@ import Playlist from "./Playlist";
 import Avaatar, { getAvatar } from "../../../../utils/Avatar";
 import { CommentCard } from "../../../helper/CommentCard";
 import CommentService from "../../../../services/comment/CommentService";
+import { VideoCardHorizontal } from "../../../helper/VideoCard";
 
 const VideoWatch = ({}) => {
-  const comments = [
-    { id: "2", userName: "Abul", text: "What is sign used for" },
-    { id: "1", userName: "Amir", text: "What is sign used? " },
-  ];
+	const { comments, setComments } = useState([]);
 
-  const { videoId } = useParams();
+	const { videoId } = useParams();
 
-  const [playlists, setPlaylists] = useState([]);
+	const [playlists, setPlaylists] = useState([]);
 
-  const [video, setvideo] = useState(null);
+	const [video, setvideo] = useState(null);
 
-  const [isLoading, setIsLoading] = useState(true);
+	const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    /// loading the videos here
+	useEffect(() => {
+		/// loading the videos here
 
-    VideoService.getVideoById(videoId)
-      .then((response) => {
-        console.log({ video: response.data });
-        setvideo(response.data);
-        setIsLoading(false);
-      })
-      .catch(LOG_CAUGHT_ERR);
-    /// similar videos will be loaded here
+		VideoService.getVideoById(videoId)
+			.then((response) => {
+				console.log({ video: response.data });
+				setvideo(response.data);
+				setIsLoading(false);
+			})
+			.catch(LOG_CAUGHT_ERR);
+		/// similar videos will be loaded here
 
-    VideoService.getSimilarVideos(videoId)
-      .then((response) => {
-        console.log({
-          currentVideos: videoId,
-          similarVideos: response.data,
-        });
+		VideoService.getSimilarVideos(videoId)
+			.then((response) => {
+				console.log({
+					currentVideos: videoId,
+					similarVideos: response.data,
+				});
 
-        setPlaylists(response.data);
-      })
-      .catch(LOG_CAUGHT_ERR);
-  }, [videoId]);
+				setPlaylists(response.data);
+			})
+			.catch(LOG_CAUGHT_ERR);
+	}, [videoId]);
 
-  useEffect(
-    ()=>
-    {
-      CommentService.fetchAllComments(videoId)
-      .then((response)=>
-      {
-        console.log({response});
-      })
-      .catch(LOG_CAUGHT_ERR);
+	useEffect(() => {
+		CommentService.fetchAllComments(videoId)
+			.then((response) => {
+				console.log({ response });
+				setComments(response.data);
+			})
+			.catch(LOG_CAUGHT_ERR);
+	}, []);
 
-    },[]
-  );
-
-  return (
-    <>
-      {isLoading ? (
-        <CircularProgress height="100%" />
-      ) : (
-        <Grid container my={5}>
-          <Grid item sm={12} md={8} px={5}>
-            <ReactPlayer
-              width={"100%"}
-              height={"100%"}
-              url={video.videoPath}
-              controls
-            ></ReactPlayer>
-          </Grid>
-          <Grid item sm={12} md={4}>
-            <Stack spacing={2}>
-              {/* <Box sx={{ height: 700, width: 450, overflow: "auto" }}>
+	return (
+		<>
+			{isLoading ? (
+				<CircularProgress height="100%" />
+			) : (
+				<Grid container my={5}>
+					<Grid item sm={12} md={8} px={5}>
+						<ReactPlayer
+							width={"100%"}
+							height={"100%"}
+							url={video.videoPath}
+							controls
+						></ReactPlayer>
+					</Grid>
+					{/* TODO: simplify this and add scrollbar */}
+					<Grid item sm={12} md={3} marginLeft={10}>
+						<Paper style={{ overflow: "auto" }}>
+							<Stack spacing={2}>
+								{/* <Box sx={{ height: 700, width: 450, overflow: "auto" }}>
                 { */}
-              {
-                /// TODO : check if it actually works playlists &&
-                playlists.map((playlist) => (
-                  <Playlist key={playlist.id} playlist={playlist} />
-                ))
-              }
-            </Stack>
-          </Grid>
-          <Grid item sm={12} md={8}>
-            <Stack spacing={2}>
-              <Typography variant="h4" color="textPrimary" align={"center"}>
-                Doubts people had...
-              </Typography>
-            </Stack>
-            <Stack spacing={2}>
-              {comments.map((comment) => (
-                <Box key={comment.id}>
-                  <CommentCard {...comment} />
-                </Box>
-              ))}
-            </Stack>
-          </Grid>
-        </Grid>
-      )}
-    </>
-  );
+								{
+									/// TODO : check if it actually works playlists &&
+									playlists.map((playlist) => (
+										<VideoCardHorizontal {...playlist} />
+									))
+								}
+							</Stack>
+						</Paper>
+					</Grid>
+					<Grid item sm={12} md={8}>
+						<Stack spacing={2}>
+							<Typography
+								variant="h4"
+								color="textPrimary"
+								align={"center"}
+							>
+								Doubts people had...
+							</Typography>
+						</Stack>
+						<Stack spacing={2}>
+							{comments &&
+								comments.map((comment) => (
+									<Box key={comment.id}>
+										<CommentCard {...comment} />
+									</Box>
+								))}
+						</Stack>
+					</Grid>
+				</Grid>
+			)}
+		</>
+	);
 };
 
 export default VideoWatch;
