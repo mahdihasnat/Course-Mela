@@ -19,8 +19,6 @@ const plans = [
   },
 ];
 
-
-
 function StudyPlans() {
   return (
     <Stack
@@ -30,12 +28,14 @@ function StudyPlans() {
         justifyContent: "center",
         margin: 3,
       }}
+      spacing={5}
     >
       <Typography style={{ fontSize: "2rem", fontWeight: "bold" }}>
         Study Plans
       </Typography>
+      {/* <Stack spacing={}></Stack> */}
       {plans.map((plan) => (
-        <PlanCard key={plan.id} plan={plan} />
+        <PlanCard key={plan.id} {...plan} />
       ))}
     </Stack>
   );
