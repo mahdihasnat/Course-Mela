@@ -73,9 +73,9 @@ export const PlanCard = ({ title }) => {
 
   return (
     <Container sx={{ borderRadius: "16px", border: 1, paddingTop: "10" }}>
-      <Box>
+      <Box justifyContent={"center"} alignContent={"center"}>
         <Typography style={{ fontSize: "2rem", fontWeight: "bold" }}>
-          This is {title}
+          {title}
         </Typography>
       </Box>
       <Grid container my={5}>
