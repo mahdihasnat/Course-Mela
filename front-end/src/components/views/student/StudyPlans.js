@@ -1,6 +1,7 @@
 import { Typography } from "@material-ui/core";
 import { Stack } from "@mui/material";
 import React from "react";
+import { PlanCard } from "./plan/PlanCard";
 import PlanStruct from "./PlanStruct";
 
 const plans = [
@@ -18,6 +19,8 @@ const plans = [
   },
 ];
 
+
+
 function StudyPlans() {
   return (
     <Stack
@@ -32,7 +35,7 @@ function StudyPlans() {
         Study Plans
       </Typography>
       {plans.map((plan) => (
-        <PlanStruct plan={plan} />
+        <PlanCard key={plan.id} plan={plan} />
       ))}
     </Stack>
   );

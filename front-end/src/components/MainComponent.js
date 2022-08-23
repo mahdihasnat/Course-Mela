@@ -30,151 +30,106 @@ import StudyPlans from "./views/student/StudyPlans";
 import { Box } from "@mui/system";
 
 function MainComponent() {
-	const [{ isSignedIn, userRole }, dispatch] = useLoginContext();
-	const [isLoading, setIsLoading] = React.useState(true);
+  const [{ isSignedIn, userRole }, dispatch] = useLoginContext();
+  const [isLoading, setIsLoading] = React.useState(true);
 
-	useEffect(() => {
-		async function checkLogin() {
-			if (localStorage.getItem("jwtToken") !== null) {
-				/// TODO give a call to server to check jwtToken expired
+  useEffect(() => {
+    async function checkLogin() {
+      if (localStorage.getItem("jwtToken") !== null) {
+        /// TODO give a call to server to check jwtToken expired
 
-				await dispatch({
-					type: PRE_LOGGED_IN,
-					payload: {
-						userRole: localStorage.getItem("userRole"),
-						userName: localStorage.getItem("userName"),
-					},
-				});
-				setIsLoading(false);
-			} else {
-				setIsLoading(false);
-			}
-		}
-		checkLogin();
-	}, []);
+        await dispatch({
+          type: PRE_LOGGED_IN,
+          payload: {
+            userRole: localStorage.getItem("userRole"),
+            userName: localStorage.getItem("userName"),
+          },
+        });
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
+      }
+    }
+    checkLogin();
+  }, []);
 
-	useEffect(() => {}, [isSignedIn]);
+  useEffect(() => {}, [isSignedIn]);
 
-	return (
-		<Provider store={store}>
-			{!isLoading && (
-				<div className="">
-					<MuiNavbar />
-					<Box minHeight={450}>
-						<Routes>
-							{/* all acceess */}
+  return (
+    <Provider store={store}>
+      {!isLoading && (
+        <div className="">
+          <MuiNavbar />
+          <Box minHeight={450}>
+            <Routes>
+              {/* all acceess */}
 
-							<Route path="/test" element={<Test />}></Route>
-							<Route
-								path="/server"
-								element={<TestServerConncetion />}
-							/>
+              <Route path="/test" element={<Test />}></Route>
+              <Route path="/server" element={<TestServerConncetion />} />
 
-							{!isSignedIn && (
-								<>
-									<Route
-										path="/register"
-										element={<Registration />}
-									/>
-									<Route path="/login" element={<Login />} />
-									<Route path="/" element={<GuestView />} />
-								</>
-							)}
+              {!isSignedIn && (
+                <>
+                  <Route path="/register" element={<Registration />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/" element={<GuestView />} />
+                </>
+              )}
 
-							{isSignedIn && (
-								<>
-									<Route
-										path="/course/search"
-										element={<SearchView />}
-									></Route>
-									<Route
-										path="/course/compare"
-										element={<CompareView />}
-									></Route>
-									<Route
-										path="/watchVideo/:videoId"
-										element={<VideoWatch />}
-									/>
-								</>
-							)}
-							{isSignedIn && userRole === ROLE_STUDENT && (
-								<>
-									<Route
-										path="/courses/:courseId"
-										element={<CourseGuestView />}
-									/>
-									<Route
-										path="/cartDetails"
-										element={<CartDetails />}
-									/>
-									<Route
-										path="/checkout"
-										element={<Checkout />}
-									/>
-									<Route path="*" element={<StudentView />} />
-								</>
-							)}
+              {isSignedIn && (
+                <>
+                  <Route path="/course/search" element={<SearchView />}></Route>
+                  <Route
+                    path="/course/compare"
+                    element={<CompareView />}
+                  ></Route>
+                  <Route path="/watchVideo/:videoId" element={<VideoWatch />} />
+                </>
+              )}
+              {isSignedIn && userRole === ROLE_STUDENT && (
+                <>
+                  <Route
+                    path="/courses/:courseId"
+                    element={<CourseGuestView />}
+                  />
+                  <Route path="/cartDetails" element={<CartDetails />} />
+                  <Route path="/checkout" element={<Checkout />} />
+                  <Route path="*" element={<StudentView />} />
+                </>
+              )}
 
-							{isSignedIn && userRole === ROLE_INSTRUCTOR && (
-								<>
-									<Route
-										path="/add-course"
-										element={<AddCourse />}
-									/>
-									<Route
-										path="/edit-course/:courseId"
-										element={<EditCourse />}
-									/>
-									<Route
-										path="/courses/:courseId"
-										element={<InstructorCourseDetails />}
-									/>
-									<Route
-										path="*"
-										element={<InstructorHome />}
-									/>
-								</>
-							)}
+              {isSignedIn && userRole === ROLE_INSTRUCTOR && (
+                <>
+                  <Route path="/add-course" element={<AddCourse />} />
+                  <Route
+                    path="/edit-course/:courseId"
+                    element={<EditCourse />}
+                  />
+                  <Route
+                    path="/courses/:courseId"
+                    element={<InstructorCourseDetails />}
+                  />
+                  <Route path="*" element={<InstructorHome />} />
+                </>
+              )}
 
-							{isSignedIn && userRole === ROLE_STUDENT && (
-								<>
-									<Route path="/" element={<StudentView />} />
-									<Route
-										path="/plans"
-										element={<StudyPlans />}
-									/>
-								</>
-							)}
+              {isSignedIn && userRole === ROLE_STUDENT && (
+                <>
+                  <Route path="/" element={<StudentView />} />
+                  <Route path="/plans" element={<StudyPlans />} />
+                </>
+              )}
 
-							{/* <Route exact path="/instr" element={<InstructorHome />} /> */}
-						</Routes>
-					</Box>
-					<Footer
-						title={"CourseMela"}
-						description={"We are course providing site"}
-					/>
-				</div>
-			)}
-		</Provider>
-	);
+              {/* <Route exact path="/instr" element={<InstructorHome />} /> */}
+            </Routes>
+          </Box>
+          <Footer
+            title={"CourseMela"}
+            description={"We are course providing site"}
+          />
+        </div>
+      )}
+    </Provider>
+  );
 }
 
 export default MainComponent;
-
-{
-	/* <Route
-              path="*"
-              element={
-                isSignedIn ? (
-                  userRole === ROLE_STUDENT ? (
-                    <StudentView />
-                  ) : (
-                    <InstructorHome />
-                  )
-                ) : (
-                  <GuestView />
-                )
-              }
-            />
-          </Routes> */
-}
