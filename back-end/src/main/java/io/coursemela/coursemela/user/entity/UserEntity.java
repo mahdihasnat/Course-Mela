@@ -23,7 +23,7 @@ public class UserEntity {
     @Column(updatable = false, nullable = false)
     protected Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = false)
     protected String userName;
 
     protected String firstName;

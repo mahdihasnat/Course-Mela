@@ -7,7 +7,17 @@ import { useLoginContext } from "../../../store/contexts/LoginContext";
 import { LoginWithDispatch } from "../../../store/storeIndex";
 import { useNavigate } from "react-router-dom";
 import LoginService from "../../../services/auth/LoginService";
-import { Box, Container, Grid, Paper, Stack } from "@mui/material";
+import {
+	Box,
+	Container,
+	FormControlLabel,
+	FormLabel,
+	Grid,
+	Paper,
+	Radio,
+	RadioGroup,
+	Stack,
+} from "@mui/material";
 import { Button, TextField } from "@mui/material";
 import "./Registraion.css";
 
@@ -101,7 +111,7 @@ const Registration = () => {
 					{/*</div>*/}
 					{/*</div>*/}
 					{/* </div> */}
-					<Stack>
+					<Stack spacing={2}>
 						<TextField
 							label={"User Name"}
 							id={"userName"}
@@ -214,29 +224,30 @@ const Registration = () => {
 							}
 							required
 						/>
-					</Stack>
 
-					<div id="my-radio-group">Role</div>
-					<div role="group" aria-labelledby="my-radio-group">
-						<label>
-							<input
-								type="radio"
-								name="picked"
+						<FormLabel id="role-label"> Who are you? </FormLabel>
+						<RadioGroup
+							aria-labelledby="role-lebel"
+							name="picked"
+							row
+						>
+							<FormControlLabel
 								value={STUDENT}
+								control={<Radio />}
+								label="Student"
+								// onChange={formik.handleChange}
 								onClick={formik.handleChange}
 							/>
-							student
-						</label>
-						<label>
-							<input
-								type="radio"
-								name="picked"
+
+							<FormControlLabel
 								value={INSTRUCTOR}
+								control={<Radio />}
+								label="Instructor"
+								// onChange={formik.handleChange}
 								onClick={formik.handleChange}
 							/>
-							instructor
-						</label>
-					</div>
+						</RadioGroup>
+					</Stack>
 
 					<Grid justify="center">
 						<Button variant={"contained"} type={"submit"}>
