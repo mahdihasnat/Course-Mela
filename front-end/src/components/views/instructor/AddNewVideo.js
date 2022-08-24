@@ -105,61 +105,63 @@ function AddNewVideo({ courseId }) {
 	const handleSubmit = (e) => {
 		console.log("Submit clicked");
 		e.preventDefault();
-
-		VideoService.createVideoMetadata(
-			courseId,
-			state.title,
-			state.description
-		)
-			.then((res) => {
-				console.log({ res: res });
-				setVideoDetails(res.data);
-
-				if (selectedVideo) {
-					VideoService.uploadVideo(res.data.id, selectedVideoFile)
-						.then((res1) => {
-							console.log({ uploadVideoResponse: res1 });
-							return VideoService.updateVideoPath(
-								res.data.id,
-								res1.data.fileDownloadUri
-							);
-						})
-						.then((res2) => {
-							console.log({
-								"updated videoUrl": res2,
-							});
-							setVideoDetails(res2.data);
-							window.location.reload();
-						})
-						.catch(LOG_CAUGHT_ERR);
-				}
-
-				if (selectedImg) {
-					fileService
-						.saveFile(selectedImg, res.data.id, IMAGE_EXTENSION)
-						.then((res1) => {
-							console.log({ imageURL: res1.data });
-							VideoService.updateVideoImage(
-								res.data.id,
-								res1.data.fileDownloadUri
-							).then((res2) => {
-								console.log({
-									videoAfterImageUpdate: res2.data,
-								});
-								setVideoDetails(res2.data);
-								// refresh the page
-							});
-						})
-						.catch(LOG_CAUGHT_ERR);
-				} else {
-					console.log({ Image: "image not selected" });
-				}
-				setOpen(false);
-			})
-			.catch(LOG_CAUGHT_ERR);
+		if (selectedVideo && selectedImg) {
+			VideoService.createVideoMetadata(
+				courseId,
+				state.title,
+				state.description
+			)
+				.then((res) => {
+					console.log({ res: res });
+					setVideoDetails(res.data);
+				})
+				.catch(LOG_CAUGHT_ERR);
+		}
 
 		// console.log(state);
 	};
+
+	useEffect(() => {
+		console.log("VideoDetails = ", videoDetails);
+		if (videoDetails && selectedVideo && selectedImg) {
+			VideoService.uploadVideo(videoDetails.id, selectedVideoFile)
+				.then((res) => {
+					console.log({ uploadVideoResponse: res });
+					console.log({ videoDetails: videoDetails });
+					return VideoService.updateVideoPath(
+						// res.data.id,
+						// res1.data.fileDownloadUri
+						videoDetails.id,
+						res.data.fileDownloadUri
+					);
+				})
+				.then((res2) => {
+					console.log({
+						"updated videoUrl": res2,
+					});
+					setVideoDetails(res2.data);
+					return fileService.saveFile(
+						selectedImg,
+						videoDetails.id,
+						IMAGE_EXTENSION
+					);
+				})
+				.then(async (res1) => {
+					console.log({ imageURL: res1.data });
+					const res2 = await VideoService.updateVideoImage(
+						videoDetails.id,
+
+						res1.data.fileDownloadUri
+					);
+					console.log({
+						videoAfterImageUpdate: res2.data,
+					});
+					setVideoDetails(res2.data);
+					window.location.reload();
+				})
+				.catch(LOG_CAUGHT_ERR);
+		}
+	}, [videoDetails]);
 
 	return (
 		<React.Fragment>
