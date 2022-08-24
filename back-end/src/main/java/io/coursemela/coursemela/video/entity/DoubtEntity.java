@@ -2,9 +2,9 @@ package io.coursemela.coursemela.video.entity;
 
 import io.coursemela.coursemela.user.entity.UserEntity;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,7 +15,7 @@ import java.time.ZonedDateTime;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Getter
 public class DoubtEntity {
     @Id

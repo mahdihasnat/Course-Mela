@@ -3,6 +3,7 @@ package io.coursemela.coursemela.video.controller;
 import io.coursemela.coursemela.shared.model.CustomJson;
 import io.coursemela.coursemela.user.service.UserService;
 import io.coursemela.coursemela.video.model.Comment;
+import io.coursemela.coursemela.video.model.NewClarificationDTO;
 import io.coursemela.coursemela.video.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,4 +46,22 @@ public class CommentController {
                     .body(e.getMessage());
         }
     }
+
+    @PostMapping("reply/add")
+    ResponseEntity addReply(@RequestBody NewClarificationDTO newClarificationDTO) {
+        try {
+            Long userId = userService.getUserId();
+            return ResponseEntity.ok(commentService.createClarification(
+                    newClarificationDTO.getParentClarificationId(),
+                    newClarificationDTO.getVideoId(),
+                    userId,
+                    newClarificationDTO.getText()
+            ));
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(e.getMessage());
+        }
+    }
+
 }
