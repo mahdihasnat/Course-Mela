@@ -11,7 +11,9 @@ class CommentService {
 	}
 
 	addComment(videoId, comment) {
-		return axios.post(joinUrl(COMMENT_URL, "video", videoId, "add"), comment, {
+		console.log({"inside comment service": comment});
+		console.log(comment);
+		return axios.post(joinUrl(COMMENT_URL, "video", videoId, "add"),comment, {
 			headers: jsonAuthorizedHeader(),
 		});
 	}

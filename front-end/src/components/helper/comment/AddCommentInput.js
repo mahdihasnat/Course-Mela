@@ -5,17 +5,29 @@ import CommentService from "../../../services/comment/CommentService";
 import {LOG_CAUGHT_ERR} from "../../../shared/utils";
 
 
-const AddCommentInput = ({videoId, submitDoubt}) => {
-    const [comment, setComment] = React.useState("");
+const AddCommentInput = ({videoId, setCommentsUpdated}) => {
+    const [comment, setComment] = React.useState('');
 
     const updateComment = (e) => {
         setComment(e.target.value);
+        console.log(comment);
     }
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log({comment});
-        submitDoubt(comment);
-        setComment("");
+
+        console.log({comment})
+        CommentService.addComment(videoId, comment).then(
+            (response) => {
+                // alert("Comment added successfully");
+                console.log({"Doubt submitted ": response});
+                setComment('');
+
+                setCommentsUpdated(true);
+                // now update the comments
+            }
+        ).catch(LOG_CAUGHT_ERR);
     }
 
     return (<Box padding={2}>

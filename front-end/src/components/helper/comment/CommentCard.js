@@ -21,7 +21,6 @@ export const CommentCard = ({
           <Typography variant="body1" align="justify">
             {text}
           </Typography>
-          {console.log({ text })}
         </Grid>
       </Grid>
     </div>

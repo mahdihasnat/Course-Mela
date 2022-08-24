@@ -23,17 +23,7 @@ export const CommentSection = ({videoId}) => {
     }, [commentsUpdated]);
 
 
-    const submitDoubt = (comment) => {
-        console.log({comment})
-        CommentService.addComment(videoId, comment).then(
-            (response) => {
-                // alert("Comment added successfully");
-                console.log({"Doubt submitted ": response})
-                setCommentsUpdated(true);
-                // now update the comments
-            }
-        ).catch(LOG_CAUGHT_ERR);
-    }
+
 
 
 
@@ -52,7 +42,7 @@ export const CommentSection = ({videoId}) => {
                     </Box>
                 ))}
         </Stack>
-        <AddCommentInput videoId={videoId} submitDoubt={submitDoubt}></AddCommentInput>
+        <AddCommentInput videoId={videoId} setCommentsUpdated={setCommentsUpdated}></AddCommentInput>
         </Box>
     )
 }

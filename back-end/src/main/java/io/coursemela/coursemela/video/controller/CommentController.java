@@ -1,5 +1,6 @@
 package io.coursemela.coursemela.video.controller;
 
+import io.coursemela.coursemela.shared.model.CustomJson;
 import io.coursemela.coursemela.user.service.UserService;
 import io.coursemela.coursemela.video.model.Comment;
 import io.coursemela.coursemela.video.service.CommentService;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.List;
 
@@ -28,9 +31,13 @@ public class CommentController {
     }
 
     @PostMapping("video/{videoId}/add")
-    ResponseEntity addComment(@PathVariable("videoId") Long videoId, @RequestBody String text) {
+    ResponseEntity addComment(@PathVariable("videoId") Long videoId, @RequestBody CustomJson json) {
         try {
             Long userId = userService.getUserId();
+
+            JsonNode jsonNode = json.getJsonNode();
+            String text = jsonNode.asText();
+
             return ResponseEntity.ok(commentService.createDoubt(videoId, userId, text));
         } catch (Exception e) {
             return ResponseEntity
