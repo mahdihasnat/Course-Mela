@@ -9,6 +9,12 @@ class CommentService {
 			headers: jsonAuthorizedHeader(),
 		});
 	}
+
+	addComment(videoId, comment) {
+		return axios.post(joinUrl(COMMENT_URL, "video", videoId, "add"), comment, {
+			headers: jsonAuthorizedHeader(),
+		});
+	}
 }
 
 export default new CommentService();

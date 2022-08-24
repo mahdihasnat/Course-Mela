@@ -1,6 +1,6 @@
 import { Grid, Typography } from "@mui/material";
 import React from "react";
-import Avaatar from "../../utils/Avatar";
+import Avaatar from "../../../utils/Avatar";
 
 export const CommentCard = ({
   id,
