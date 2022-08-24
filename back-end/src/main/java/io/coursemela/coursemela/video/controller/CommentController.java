@@ -23,12 +23,12 @@ public class CommentController {
 
     @GetMapping("video/{videoId}")
     ResponseEntity<List<Comment>> getCommentsFromVideo(@PathVariable("videoId") Long videoId) {
-        
+
         return ResponseEntity.ok(commentService.getCommentsFromVideo(videoId));
     }
 
     @PostMapping("video/{videoId}/add")
-    ResponseEntity addComment(@RequestParam("videoId") Long videoId, @RequestBody String text) {
+    ResponseEntity addComment(@PathVariable("videoId") Long videoId, @RequestBody String text) {
         try {
             Long userId = userService.getUserId();
             return ResponseEntity.ok(commentService.createDoubt(videoId, userId, text));
