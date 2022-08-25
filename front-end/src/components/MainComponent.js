@@ -27,7 +27,8 @@ import CourseGuestView from "./views/guestView/course/CourseGuestView";
 import { CartDetails } from "./views/student/cart/CartDetails";
 import Checkout from "./templates/checkout/Checkout";
 import StudyPlans from "./views/student/StudyPlans";
-import { Box } from "@mui/system";
+import { Box } from "@material-ui/core";
+import PromoContainer from "./views/student/promo/PromoContainer";
 
 function MainComponent() {
   const [{ isSignedIn, userRole }, dispatch] = useLoginContext();
@@ -50,17 +51,19 @@ function MainComponent() {
         setIsLoading(false);
       }
     }
-    checkLogin();
-  }, []);
+    checkLogin().then(r => {
+      // console.log(r);
+    });
+  }, [isSignedIn, dispatch]);
 
-  useEffect(() => {}, [isSignedIn]);
+  // useEffect(() => {}, [isSignedIn]);
 
   return (
     <Provider store={store}>
       {!isLoading && (
         <div className="">
           <MuiNavbar />
-          <Box minHeight={450}>
+          <Box minHeight={600}>
             <Routes>
               {/* all acceess */}
 
@@ -87,6 +90,7 @@ function MainComponent() {
               )}
               {isSignedIn && userRole === ROLE_STUDENT && (
                 <>
+                  <Route path="/promo" element={<PromoContainer/>} />
                   <Route
                     path="/courses/:courseId"
                     element={<CourseGuestView />}
