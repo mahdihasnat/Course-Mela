@@ -105,17 +105,36 @@ public class VideoServiceImpl implements VideoService {
     @Autowired
     private StudentRepository studentRepository;
 
-
     @Override
-    public Boolean addVideoLog(VideoLog videoLog,
-                               Long studentId) throws Exception {
+    public Long updateVideoLog(VideoLog videoLog, Long studentId) throws Exception {
         Optional<StudentEntity> optionalStudentEntity = studentRepository.findById(studentId);
         if (!optionalStudentEntity.isPresent())
             throw new Exception("Student not found");
         Optional<VideoEntity> optionalVideoEntity = videoRepository.findById(videoLog.getVideoId());
         if (!optionalVideoEntity.isPresent())
             throw new Exception("Video not found");
-        ViewLogEntity viewLogEntity = ViewLogEntity.builder()
+
+        ViewLogEntity viewLogEntity = null;
+        viewLogEntity = viewLogRepository.findById(videoLog.getVideoId()).get();
+        viewLogEntity.setWatchTime(viewLogEntity.getWatchTime() + videoLog.getWatchTime());
+        viewLogEntity.setLastVisitPoint(videoLog.getLastVisitPoint());
+        
+        viewLogEntity = viewLogRepository.save(viewLogEntity);
+        return viewLogEntity.getId();
+    }
+
+    @Override
+    public Long addVideoLog(VideoLog videoLog,
+                            Long studentId) throws Exception {
+        Optional<StudentEntity> optionalStudentEntity = studentRepository.findById(studentId);
+        if (!optionalStudentEntity.isPresent())
+            throw new Exception("Student not found");
+        Optional<VideoEntity> optionalVideoEntity = videoRepository.findById(videoLog.getVideoId());
+        if (!optionalVideoEntity.isPresent())
+            throw new Exception("Video not found");
+
+        ViewLogEntity viewLogEntity = null;
+        viewLogEntity = ViewLogEntity.builder()
                 .watchTime(videoLog.getWatchTime())
                 .lastVisitPoint(videoLog.getLastVisitPoint())
                 .visitTime(videoLog.getVisitTime())
@@ -123,8 +142,8 @@ public class VideoServiceImpl implements VideoService {
                 .videoEntity(optionalVideoEntity.get())
                 .build();
 
-        viewLogRepository.save(viewLogEntity);
-        return true;
+        viewLogEntity = viewLogRepository.save(viewLogEntity);
+        return viewLogEntity.getId();
     }
 
     private Video getVideoFromVideoEntity(VideoEntity videoEntity) {

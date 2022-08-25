@@ -20,6 +20,9 @@ public interface VideoService {
     List<Video> getSimilarVideos(Long videoId);
 
 
-    Boolean addVideoLog(VideoLog videoLog,
+    Long addVideoLog(VideoLog videoLog,
+                     Long studentId) throws Exception;
+
+    Long updateVideoLog(VideoLog videoLog,
                         Long studentId) throws Exception;
 }

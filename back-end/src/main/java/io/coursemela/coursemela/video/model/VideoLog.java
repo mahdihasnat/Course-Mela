@@ -8,6 +8,7 @@ import java.time.ZonedDateTime;
 @Data
 @Builder
 public class VideoLog {
+    Long id;
     Long videoId;
     Double watchTime;
     Double lastVisitPoint;

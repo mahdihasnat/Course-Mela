@@ -60,15 +60,29 @@ public class VideoController {
     private UserService userService;
 
 
+    @PutMapping(value = "log/add")
+
+    public ResponseEntity<Long> updateVideoLog(@RequestBody VideoLog videoLog) {
+        try {
+            Long userId = userService.getUserId();
+            return ResponseEntity.ok(videoService.updateVideoLog(videoLog, userId));
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(-1L);
+        }
+    }
+
     @PostMapping(value = "log/add")
-    public ResponseEntity<Boolean> addVideoLog(@RequestBody VideoLog videoLog) {
+    public ResponseEntity<Long> addVideoLog(@RequestBody VideoLog videoLog) {
         try {
             Long userId = userService.getUserId();
             return ResponseEntity.ok(videoService.addVideoLog(videoLog, userId));
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
-                    .body(false);
+                    .body(-1L);
         }
     }
+
 }
