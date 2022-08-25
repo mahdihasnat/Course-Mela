@@ -18,4 +18,5 @@ public interface CourseService {
     Course getCourse(Long id);
 
 
+    List<Course> getMyCourses(Long userId);
 }

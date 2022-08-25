@@ -4,8 +4,10 @@ import io.coursemela.coursemela.course.model.Course;
 import io.coursemela.coursemela.course.service.CourseService;
 import io.coursemela.coursemela.instructor.service.InstructorService;
 import io.coursemela.coursemela.user.context.UserContext;
+import io.coursemela.coursemela.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -69,6 +71,19 @@ public class CourseController {
         log.info("get course: " + courseId);
         return courseService.getCourse(Long.valueOf(courseId));
 
+    }
+
+    @Autowired
+    UserService userService;
+
+    @GetMapping("/my")
+    ResponseEntity<List<Course>> getMyCourses() {
+        try {
+            Long userId = userService.getUserId();
+            return ResponseEntity.ok(courseService.getMyCourses(userId));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
     }
 
 }

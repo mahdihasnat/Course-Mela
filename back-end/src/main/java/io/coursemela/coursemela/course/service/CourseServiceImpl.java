@@ -72,6 +72,17 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public List<Course> getMyCourses(Long userId) {
+//    TODO: change logic to fetch only subscribed course
+        List<CourseEntity> courseEntities = courseRepository.findAll();
+        List<Course> courses = courseEntities
+                .stream()
+                .map(courseEntity -> getCourseFromCourseEntity(courseEntity))
+                .collect(Collectors.toList());
+        return courses;
+    }
+
+    @Override
     public List<Course> getCourseByInstructorUserName(String userName) {
         List<CourseEntity> courseEntities = courseRepository.findAllByInstructorEntityUserName(userName);
         log.info(courseEntities.toString());

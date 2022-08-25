@@ -14,6 +14,14 @@ class VideoLogService {
 			headers: jsonAuthorizedHeader(),
 		});
 	}
+	getViewLogStatOfCourse(dayCount, courseId) {
+		return axios.get(
+			joinUrl(VIDEO_URL, "log", "getStatOfCourse", dayCount, courseId),
+			{
+				headers: jsonAuthorizedHeader(),
+			}
+		);
+	}
 }
 
 export default new VideoLogService();

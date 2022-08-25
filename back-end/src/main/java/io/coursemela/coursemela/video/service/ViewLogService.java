@@ -11,4 +11,6 @@ public interface ViewLogService {
                         Long studentId) throws Exception;
 
     ViewLogStatDTO getViewLogStat(Long userId, int dayCount);
+
+    ViewLogStatDTO getViewLogStatOfCourse(Long userId, int dayCount, Long courseId);
 }

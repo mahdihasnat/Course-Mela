@@ -80,4 +80,17 @@ public class ViewLogController {
                     .body(null);
         }
     }
+
+    @GetMapping(value = "getStatOfCourse/{dayCount}/{courseId}")
+    ResponseEntity<ViewLogStatDTO> getViewLogStatOfCourse(@PathVariable("dayCount") int dayCount, @PathVariable("courseId") Long courseId) {
+        try {
+            Long userId = userService.getUserId();
+            return ResponseEntity.ok(viewLogService.getViewLogStatOfCourse(userId, dayCount, courseId));
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(null);
+        }
+    }
 }
