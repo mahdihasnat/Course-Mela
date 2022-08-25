@@ -31,6 +31,7 @@ import { Box } from "@material-ui/core";
 import PromoContainer from "./views/student/promo/PromoContainer";
 import TrackYourProgressContainer from "./views/student/trackYourProgress/TrackYourProgressContainer";
 import Home from "./views/admin/pages/home/Home";
+import AddPromo from "./views/admin/pages/promo/AddPromo";
 
 function MainComponent() {
   const [{ isSignedIn, userRole }, dispatch] = useLoginContext();
@@ -129,6 +130,7 @@ function MainComponent() {
               { !isSignedIn && (  // no sign-in + role required for now
                 <>
                   <Route path="/admin" element={<Home />} />
+                  <Route path="/add-promo" element={<AddPromo />} />
                 </>
               ) }
 

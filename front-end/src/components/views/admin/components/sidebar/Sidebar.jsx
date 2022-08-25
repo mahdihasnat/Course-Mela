@@ -47,9 +47,11 @@ const Sidebar = () => {
           </Link>
           <li>
             <CreditCardIcon className="icon" />
-            <span>Promo</span>
+            <span>
+              <Link to="/add-promo" style={{ textDecoration: "none" }}>Promo</Link>
+            </span>
           </li>
-          <p className="title">USEFUL</p>
+          {/* <p className="title">USEFUL</p>
           <li>
             <InsertChartIcon className="icon" />
             <span>Stats</span>
@@ -58,7 +60,7 @@ const Sidebar = () => {
             <NotificationsNoneIcon className="icon" />
             <span>Notifications</span>
           </li>
-          {/* <p className="title">SERVICE</p>
+          <p className="title">SERVICE</p>
           <li>
             <SettingsSystemDaydreamOutlinedIcon className="icon" />
             <span>System Health</span>
