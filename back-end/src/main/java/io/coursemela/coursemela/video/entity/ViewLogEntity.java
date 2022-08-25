@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import java.time.Duration;
 import java.time.ZonedDateTime;
 
 @Entity
@@ -26,7 +25,7 @@ public class ViewLogEntity {
     @ManyToOne
     VideoEntity videoEntity;
 
-    Duration watchTime;
-    Duration lastVisitDuration;
+    Double watchTime;
+    Double lastVisitDuration;
     ZonedDateTime visitTime;
 }
