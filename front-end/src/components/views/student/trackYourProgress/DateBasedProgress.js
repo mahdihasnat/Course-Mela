@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import videoLogService from "../../../../services/video/VideoLogService";
 
 const DaySlider = ({setDateCount}) => {
     return (
@@ -29,7 +30,16 @@ const DayBasedProgress = ({}) => {
     useEffect(() => {
         // alert("get  the stats here");
         /// TODO get the stats here
+        videoLogService.getViewLogStat(dayCount)
+            .then(response => {
+                console.log({response});
+                return setStats(response.data);
+            })
+            .then(() => setLoaded(true))
+            .catch(err => console.log(err.message));
     }, [dayCount]);
+
+
 
     return (<Container>
         <Grid container border={1}>
@@ -56,9 +66,9 @@ const DayBasedProgress = ({}) => {
                         {loaded &&
                             <TableBody>
                                 <TableRow>
-                                    <TableCell align={'center'}>{stats.totalVideoWatched}</TableCell>
-                                    <TableCell align={'center'}>{stats.totalTimeWatched} min</TableCell>
-                                    <TableCell align={'center'}>{stats.participationInQuiz}</TableCell>
+                                    <TableCell align={'center'}>{stats.totalVideWatched}</TableCell>
+                                    <TableCell align={'center'}>{stats.totalDurationWatched} Sec</TableCell>
+                                    <TableCell align={'center'}>{stats.totalQuizAttempted}</TableCell>
                                     <TableCell align={'center'}>{stats.performanceScore}</TableCell>
                                 </TableRow>
                             </TableBody>

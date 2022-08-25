@@ -22,7 +22,7 @@ public class ViewLogEntity {
     Long id;
     @ManyToOne
     StudentEntity studentEntity;
-    @ManyToOne
+    @ManyToOne()
     VideoEntity videoEntity;
 
     Double watchTime;
