@@ -80,7 +80,7 @@ public class ViewLogServiceImpl implements ViewLogService {
         Long videoCount = viewLogRepository.getVideoCount(userId, ZonedDateTime.now().minusDays(dayCount));
         ViewLogStatDTO viewLogStatDTO = ViewLogStatDTO.builder()
                 .totalVideWatched(videoCount)
-                .totalDurationWatched(0.0)
+                .totalDurationWatched(5.0)
                 .totalQuizAttempted(0L)
                 .performanceScore(0.0)
                 .build();

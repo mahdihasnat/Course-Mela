@@ -48,7 +48,7 @@ public class ViewLogController {
         }
     }
 
-    @GetMapping(value = "get-stat/{dayCount}")
+    @GetMapping(value = "getStat/{dayCount}")
     ResponseEntity<ViewLogStatDTO> getViewLogStat(@PathVariable("dayCount") int dayCount) {
         try {
             Long userId = userService.getUserId();
