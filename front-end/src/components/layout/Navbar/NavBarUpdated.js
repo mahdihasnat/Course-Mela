@@ -37,12 +37,14 @@ const MuiNavbar = () => {
     return (
       <>
         <Button color={"inherit"}>My Courses</Button>
+        <Button color={"inherit"} href={'/track-progress'}>Progress</Button>
         <Button color={"inherit"} href={"/plans"}>
           My Plans
         </Button>
         <Button color={"inherit"} href={"/promo"}>
           Gifts
         </Button>
+
       </>
     );
   };
