@@ -93,12 +93,13 @@ class VideoService {
         });
     }
 
-    updateWatchTime(videoId, watchTime, playedSeconds, visitTime) {
+    updateWatchTime(videoLogId, videoId, watchTime, playedSeconds, visitTime) {
 
         const seconds = Math.floor(watchTime);
         const nanos = (watchTime - seconds) * 1000000000;
 
         const data = {
+            id:videoLogId,
             videoId: videoId,
             watchTime: watchTime,
             lastVisitPoint:playedSeconds,
@@ -106,12 +107,24 @@ class VideoService {
         }
 
 
-        return axios.post(joinUrl(VIDEO_URL, "log", "add"), data, {
+        return axios.put(joinUrl(VIDEO_URL, "log", "update"), data, {
                 headers: jsonAuthorizedHeader(),
             }
         );
 
     }
+
+    createVideoWatchLog(videoId, visitTime){
+        const data = {
+            videoId: videoId,
+            visitTime: visitTime
+        }
+        return axios.post(joinUrl(VIDEO_URL, "log", "add"), data,
+            {
+                headers: jsonAuthorizedHeader(),
+            },)
+    }
+
 }
 
 export default new VideoService();

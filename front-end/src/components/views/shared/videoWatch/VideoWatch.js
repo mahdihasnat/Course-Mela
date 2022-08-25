@@ -34,12 +34,13 @@ const CustomPlayer = ({video}) => {
     // const [last, setLast] = useState(initState);
     const [lastRecorededTime, setLastRecorededTime] = useState(0);
     const [visitTime, setVisitTime] = useState(getCurrentDateTime());
+    const [videoLogId, setVideoLogId] = useState(null);
     const progressCallback = ({played, playedSeconds,loaded, loadedSeconds}) => {
         // alert("5 sec por por eta aseh kora hoye");
         console.log({played, playedSeconds,loaded, loadedSeconds});
         const watchTime = playedSeconds - lastRecorededTime;
         if(watchTime > 0){
-            VideoService.updateWatchTime(video.id, watchTime, playedSeconds, visitTime).then(
+            VideoService.updateWatchTime(videoLogId, video.id, watchTime, playedSeconds, visitTime).then(
                 (response) => {
                     console.log({response});
                 }
@@ -51,7 +52,13 @@ const CustomPlayer = ({video}) => {
     }
     const onReadyCallback = () => {
         console.log("onReadyCallback");
+
         setVisitTime(getCurrentDateTime());
+        VideoService.createVideoWatchLog(video.id, visitTime).then(
+            (response) => {
+                console.log({"created video record": response.data});
+                setVideoLogId(response.data);
+            }).catch(err=>console.log(err.message));
     }
     const seekCallback = (second) =>{
         console.log({"seeked to ":second});
@@ -68,7 +75,7 @@ const CustomPlayer = ({video}) => {
             light={video.thumbPath}
             onReady={onReadyCallback}
             onSeek={seekCallback}
-
+            playing
         ></ReactPlayer>
     )
 }
