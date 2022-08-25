@@ -37,7 +37,7 @@ const DayBasedProgress = ({}) => {
                 <Typography variant={"h6"} align={"center"}>Last {dayCount} Days</Typography>
             </Grid>
             <Grid item={true} xs={12} md={7} marginTop={3}>
-                <Box marginRight={3}>
+                <Box marginX={3}>
                     <DaySlider setDateCount={setDayCount}/>
                 </Box>
             </Grid>
