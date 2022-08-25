@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React,   from "react";
 
 import {
   AppBar,
@@ -7,18 +7,14 @@ import {
   Typography,
   Button,
   Stack,
-  Menu,
-  MenuItem,
-  ButtonGroup,
+
 } from "@mui/material";
-import CatchingPokemonIcon from "@mui/icons-material/CatchingPokemon";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+
 import { useLoginContext } from "../../../store/contexts/LoginContext";
-import SignedInLinks from "./SignedInLinks";
-import SignedOutLinks from "./SignedOutLinks";
-import { INSTRUCTOR, ROLE_INSTRUCTOR } from "../../../shared/StringConstant";
-import { Login, Search } from "@mui/icons-material";
-import { LOG_OUT, LOGIN_MODAL_PRESSED } from "../../../store/auth/AuthTypes";
+
+import {  ROLE_INSTRUCTOR } from "../../../shared/StringConstant";
+import { Login } from "@mui/icons-material";
+import { LOG_OUT } from "../../../store/auth/AuthTypes";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "material-ui-search-bar";
 import { Box } from "@mui/system";
@@ -29,9 +25,7 @@ const MuiNavbar = () => {
 
   const buttonSpacing = 2;
 
-  const handleLogin = () => {
-    dispatch({ type: LOGIN_MODAL_PRESSED });
-  };
+
 
   const handleLogout = () => {
     console.log("logout");
@@ -49,6 +43,7 @@ const MuiNavbar = () => {
         <Button color={"inherit"} href={"/plans"}>
           My Plans
         </Button>
+        <Button color={"inherit"} href={"/promo"}>Gifts</Button>
       </>
     );
   };

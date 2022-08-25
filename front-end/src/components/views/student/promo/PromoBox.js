@@ -1,4 +1,4 @@
-import {Box, Container, Grid, Stack} from "@mui/material";
+import {Box, Container, Grid, Paper, Stack} from "@mui/material";
 import {useEffect, useState} from "react";
 import PromoService from "../../../../services/promo/PromoService";
 import Typography from "@mui/material/Typography";
@@ -7,11 +7,10 @@ import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
-import TableHead from "@mui/material/TableHead";
 
-const PromoCard = ({id, code, promoType, value, minimumPrice, maximumDiscount, maximumAttempt}) => {
-    return (<Container>
-        <Grid container={true} border={1} borderRadius={5} marginTop={3}>
+const PromoCard = ({ code, promoType, value, minimumPrice, maximumDiscount, maximumAttempt}) => {
+    return (<Container >
+        <Grid container={true} border={1} borderRadius={5} my={2}>
             <Grid item={true} xs={12} md={7}>
                 <Box sx={{
                     display: "flex", justifyContent: "center", alignItems: "center", height: "100%",
@@ -73,9 +72,9 @@ const PromoBox = () => {
         })
     }, [])
 
-    return (<Container>
+    return (<Paper>
         {promos.map(promo => (<PromoCard key={promo.id} {...promo}/>))}
-    </Container>)
+    </Paper>)
 }
 
 
