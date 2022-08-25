@@ -1,6 +1,5 @@
 package io.coursemela.coursemela.fileserver.service;
 
-
 import io.coursemela.coursemela.fileserver.exeption.FileStorageException;
 import io.coursemela.coursemela.fileserver.exeption.MyFileNotFoundException;
 import io.coursemela.coursemela.fileserver.property.FileStorageProperties;
@@ -40,7 +39,8 @@ public class FileStorageService {
         try {
             Files.createDirectories(this.fileStorageLocation);
         } catch (Exception ex) {
-            throw new FileStorageException("Could not create the directory where the uploaded files will be stored.", ex);
+            throw new FileStorageException("Could not create the directory where the uploaded files will be stored.",
+                    ex);
         }
     }
 
@@ -60,7 +60,6 @@ public class FileStorageService {
             throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
         }
     }
-
 
     public String storeFile(MultipartFile file) {
         // Normalize file name
@@ -94,7 +93,8 @@ public class FileStorageService {
             val start = range.getRangeStart(contentLength);
             val end = range.getRangeEnd(contentLength);
             val rangeLength = min(1024 * 1024, end - start + 1);
-            log.info(" file range : " + start + " -> " + rangeLength + " out of " + contentLength);
+            // log.info(" file range : " + start + " -> " + rangeLength + " out of " +
+            // contentLength);
             return new ResourceRegion(video, start, rangeLength);
 
         } catch (IndexOutOfBoundsException e) {
@@ -103,7 +103,5 @@ public class FileStorageService {
             return new ResourceRegion(video, 0, rangeLength);
         }
 
-
     }
 }
-
