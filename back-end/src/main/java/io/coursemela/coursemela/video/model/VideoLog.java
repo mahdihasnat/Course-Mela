@@ -10,6 +10,6 @@ import java.time.ZonedDateTime;
 public class VideoLog {
     Long videoId;
     Double watchTime;
-    Double lastVisitDuration;
+    Double lastVisitPoint;
     ZonedDateTime visitTime;
 }

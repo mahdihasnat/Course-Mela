@@ -117,7 +117,7 @@ public class VideoServiceImpl implements VideoService {
             throw new Exception("Video not found");
         ViewLogEntity viewLogEntity = ViewLogEntity.builder()
                 .watchTime(videoLog.getWatchTime())
-                .lastVisitDuration(videoLog.getLastVisitDuration())
+                .lastVisitPoint(videoLog.getLastVisitPoint())
                 .visitTime(videoLog.getVisitTime())
                 .studentEntity(optionalStudentEntity.get())
                 .videoEntity(optionalVideoEntity.get())

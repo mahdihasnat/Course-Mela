@@ -26,6 +26,6 @@ public class ViewLogEntity {
     VideoEntity videoEntity;
 
     Double watchTime;
-    Double lastVisitDuration;
+    Double lastVisitPoint;
     ZonedDateTime visitTime;
 }
