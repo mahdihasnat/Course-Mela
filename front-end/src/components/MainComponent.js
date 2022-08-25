@@ -29,6 +29,7 @@ import Checkout from "./templates/checkout/Checkout";
 import StudyPlans from "./views/student/StudyPlans";
 import { Box } from "@material-ui/core";
 import PromoContainer from "./views/student/promo/PromoContainer";
+import TrackYourProgressContainer from "./views/student/trackYourProgress/TrackYourProgressContainer";
 
 function MainComponent() {
   const [{ isSignedIn, userRole }, dispatch] = useLoginContext();
@@ -91,6 +92,7 @@ function MainComponent() {
               {isSignedIn && userRole === ROLE_STUDENT && (
                 <>
                   <Route path="/promo" element={<PromoContainer/>} />
+                  <Route path={'/track-progress'} element={<TrackYourProgressContainer/>} />
                   <Route
                     path="/courses/:courseId"
                     element={<CourseGuestView />}

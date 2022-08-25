@@ -1,9 +1,5 @@
 import {
   Box,
-  Breadcrumbs,
-  Grid,
-  Paper,
-  Stack,
   Table,
   TableBody,
   TableCell,
@@ -12,9 +8,11 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { Container } from "@mui/system";
+import { Container } from "@mui/material";
 import React, { useEffect } from "react";
 import { useSelectedCourseContext } from "../../../../store/contexts/SelectedCourseContext";
+import Paper from '@mui/material/Paper';
+
 
 const RowIndex = ({ heading }) => {
   return (
