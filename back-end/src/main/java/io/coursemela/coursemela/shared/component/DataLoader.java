@@ -97,10 +97,20 @@ public class DataLoader implements CommandLineRunner {
         try {
             promoService.createPromo(
                     Promo.builder()
-                            .code("WLCM")
-                            .maximumDiscount(100L)
-                            .maximumAttempt(5L)
+                            .code("WELLCOME100")
+                            .maximumDiscount(150L)
+                            .maximumAttempt(2L)
                             .promoType(PromoType.FIXED)
+                            .value(100L)
+                            .minimumPrice(250L)
+                            .build()
+            );
+            promoService.createPromo(
+                    Promo.builder()
+                            .code("EIDI10")
+                            .maximumDiscount(60L)
+                            .maximumAttempt(3L)
+                            .promoType(PromoType.PERCENTAGE)
                             .value(10L)
                             .minimumPrice(100L)
                             .build()
