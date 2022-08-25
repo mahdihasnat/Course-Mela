@@ -11,7 +11,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { useEffect, useState } from "react";
 import VideoLogService from "../../../../services/video/VideoLogService";
-
+import humanizeDuration from "humanize-duration";
 const ComparisionBasedProgress = ({}) => {
 	const days = [
 		[1, "1 day"],
@@ -56,19 +56,30 @@ const ComparisionBasedProgress = ({}) => {
 					</TableHead>
 
 					<TableBody>
-
-						{data!=null && features.map(([feature, featureKey]) => (
-							<TableRow key={feature}>
-								<TableCell align={"center"}>
-									{feature}
-								</TableCell>
-								{days.map(([day, label], index) => (
-									<TableCell key={day} align={"center"}>
-										{data[index][featureKey]}
+						{data != null &&
+							features.map(([feature, featureKey]) => (
+								<TableRow key={feature}>
+									<TableCell align={"center"}>
+										{feature}
 									</TableCell>
-								))}
-							</TableRow>
-						))}
+									{days.map(([day, label], index) => (
+										<TableCell key={day} align={"center"}>
+											{featureKey ==
+											"totalDurationWatched"
+												? // convert seconds to human readable format using library
+												  // https://www.npmjs.com/package/humanize-duration
+												  humanizeDuration(
+														Math.floor(
+															data[index][
+																featureKey
+															] * 1000
+														)
+												  )
+												: data[index][featureKey]}
+										</TableCell>
+									))}
+								</TableRow>
+							))}
 					</TableBody>
 				</Table>
 			</TableContainer>
