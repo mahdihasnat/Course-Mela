@@ -1,4 +1,4 @@
-import React,   from "react";
+import React from "react";
 
 import {
   AppBar,
@@ -7,12 +7,11 @@ import {
   Typography,
   Button,
   Stack,
-
 } from "@mui/material";
 
 import { useLoginContext } from "../../../store/contexts/LoginContext";
 
-import {  ROLE_INSTRUCTOR } from "../../../shared/StringConstant";
+import { ROLE_INSTRUCTOR } from "../../../shared/StringConstant";
 import { Login } from "@mui/icons-material";
 import { LOG_OUT } from "../../../store/auth/AuthTypes";
 import { useNavigate } from "react-router-dom";
@@ -24,8 +23,6 @@ const MuiNavbar = () => {
   const navigate = useNavigate();
 
   const buttonSpacing = 2;
-
-
 
   const handleLogout = () => {
     console.log("logout");
@@ -43,7 +40,9 @@ const MuiNavbar = () => {
         <Button color={"inherit"} href={"/plans"}>
           My Plans
         </Button>
-        <Button color={"inherit"} href={"/promo"}>Gifts</Button>
+        <Button color={"inherit"} href={"/promo"}>
+          Gifts
+        </Button>
       </>
     );
   };
