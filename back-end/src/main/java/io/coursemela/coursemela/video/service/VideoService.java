@@ -1,9 +1,8 @@
 package io.coursemela.coursemela.video.service;
 
 import io.coursemela.coursemela.video.model.Video;
+import io.coursemela.coursemela.video.model.VideoLog;
 
-import java.time.Duration;
-import java.time.ZonedDateTime;
 import java.util.List;
 
 
@@ -20,9 +19,7 @@ public interface VideoService {
 
     List<Video> getSimilarVideos(Long videoId);
 
-    Boolean addVideoLog(Long videoId,
-                        Long studentId,
-                        Duration watchTime,
-                        Duration lastVisitDuration,
-                        ZonedDateTime lastVisitTime);
+
+    Boolean addVideoLog(VideoLog videoLog,
+                        Long studentId) throws Exception;
 }

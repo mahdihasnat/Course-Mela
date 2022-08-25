@@ -42,5 +42,4 @@ public class UserService {
             throw new Exception("UserName not present");
         return optionalUserEntity.get().getId();
     }
-    
 }

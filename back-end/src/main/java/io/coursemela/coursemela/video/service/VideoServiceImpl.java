@@ -2,17 +2,18 @@ package io.coursemela.coursemela.video.service;
 
 import io.coursemela.coursemela.course.entity.CourseEntity;
 import io.coursemela.coursemela.course.repository.CourseRepository;
+import io.coursemela.coursemela.student.entity.StudentEntity;
+import io.coursemela.coursemela.student.repository.StudentRepository;
 import io.coursemela.coursemela.video.entity.VideoEntity;
 import io.coursemela.coursemela.video.entity.ViewLogEntity;
 import io.coursemela.coursemela.video.model.Video;
+import io.coursemela.coursemela.video.model.VideoLog;
 import io.coursemela.coursemela.video.repository.VideoRepository;
 import io.coursemela.coursemela.video.repository.ViewLogRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -101,17 +102,25 @@ public class VideoServiceImpl implements VideoService {
     @Autowired
     private ViewLogRepository viewLogRepository;
 
-    @Override
-    public Boolean addVideoLog(Long videoId,
-                               Long studentId,
-                               Duration watchTime,
-                               Duration lastVisitDuration,
-                               ZonedDateTime visitTime) {
+    @Autowired
+    private StudentRepository studentRepository;
 
+
+    @Override
+    public Boolean addVideoLog(VideoLog videoLog,
+                               Long studentId) throws Exception {
+        Optional<StudentEntity> optionalStudentEntity = studentRepository.findById(studentId);
+        if (!optionalStudentEntity.isPresent())
+            throw new Exception("Student not found");
+        Optional<VideoEntity> optionalVideoEntity = videoRepository.findById(videoLog.getVideoId());
+        if (!optionalVideoEntity.isPresent())
+            throw new Exception("Video not found");
         ViewLogEntity viewLogEntity = ViewLogEntity.builder()
-                .watchTime(watchTime)
-                .lastVisitDuration(lastVisitDuration)
-                .visitTime(visitTime)
+                .watchTime(videoLog.getWatchTime())
+                .lastVisitDuration(videoLog.getLastVisitDuration())
+                .visitTime(videoLog.getVisitTime())
+                .studentEntity(optionalStudentEntity.get())
+                .videoEntity(optionalVideoEntity.get())
                 .build();
 
         viewLogRepository.save(viewLogEntity);

@@ -2,6 +2,7 @@ package io.coursemela.coursemela.video.controller;
 
 import io.coursemela.coursemela.user.service.UserService;
 import io.coursemela.coursemela.video.model.Video;
+import io.coursemela.coursemela.video.model.VideoLog;
 import io.coursemela.coursemela.video.service.VideoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Duration;
-import java.time.ZonedDateTime;
 import java.util.List;
 
 @RestController
@@ -60,13 +59,12 @@ public class VideoController {
     @Autowired
     private UserService userService;
 
+
     @PostMapping(value = "log/add")
-    public ResponseEntity<Boolean> addVideoLog(@RequestBody Long videoId,
-                                               @RequestBody Duration watchTime,
-                                               @RequestBody Duration lastVisitDuration) {
+    public ResponseEntity<Boolean> addVideoLog(@RequestBody VideoLog videoLog) {
         try {
             Long userId = userService.getUserId();
-            return ResponseEntity.ok(videoService.addVideoLog(videoId, userId, watchTime, lastVisitDuration, ZonedDateTime.now()));
+            return ResponseEntity.ok(videoService.addVideoLog(videoLog, userId));
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
