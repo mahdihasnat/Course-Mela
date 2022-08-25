@@ -17,4 +17,11 @@ public interface ViewLogRepository extends JpaRepository<ViewLogEntity, Long> {
     // select count(distinct videoid) from viewLog entity where studentid = ? and visitTime >= ?
     @Query(value = "SELECT count(distinct video_entity_id) FROM ViewLogEntity WHERE student_entity_id = ?1 and visit_time >= ?2")
     Long getVideoCount(Long studentId, ZonedDateTime time);
+
+    // select sum(watch_time) from viewLog entity where studentid = ? and visitTime >= ?
+
+    @Query(value = "SELECT sum(watchTime) FROM ViewLogEntity WHERE student_entity_id = ?1 and visit_time >= ?2")
+    Double getTotalWatchTime(Long studentId, ZonedDateTime time);
+
+//    @Query(value = "SELECT SUM( watch_time ) FROM ViewLogEntity WHERE student_entity_id = ?1 and visit_time >= ?2")
 }

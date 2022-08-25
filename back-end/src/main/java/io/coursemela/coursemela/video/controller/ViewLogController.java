@@ -54,6 +54,7 @@ public class ViewLogController {
             Long userId = userService.getUserId();
             return ResponseEntity.ok(viewLogService.getViewLogStat(userId, dayCount));
         } catch (Exception e) {
+            log.error(e.getMessage());
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .body(null);
