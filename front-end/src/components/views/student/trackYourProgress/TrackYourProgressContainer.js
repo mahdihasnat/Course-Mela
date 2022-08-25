@@ -2,6 +2,7 @@ import {Box, Grid} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import DayBasedProgress from "./DateBasedProgress";
 import ComparisionBasedProgress from "./ComparisionBasedProgress";
+import CourseTracker from "./CourseTracker";
 
 
 
@@ -15,10 +16,14 @@ const TrackYourProgressContainer = ({}) => {
             <Grid item xs={12} paddingY={3}>
                 <ComparisionBasedProgress/>
             </Grid>
+            <Grid item xs={12} paddingY={3}>
+                <CourseTracker/>
+            </Grid>
         </Grid>
 
     </Box>)
 }
+
 
 
 export default TrackYourProgressContainer;
