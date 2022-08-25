@@ -28,7 +28,6 @@ public class VideoServiceImpl implements VideoService {
     @Autowired
     private CourseRepository courseRepository;
 
-
     @Override
     public Video createVideoMetadata(Video video) throws Exception {
         CourseEntity courseEntity = courseRepository.findById(video.getCourseId()).stream().findFirst().orElse(null);
@@ -81,12 +80,10 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public List<Video> getAllVideoByCourse(Long courseId) {
         List<VideoEntity> videoEntities = videoRepository.findByCourseEntityId(courseId);
-        List<Video> videos = videoEntities.stream().
-                map((video) -> new Video(video)).collect(Collectors.toList());
+        List<Video> videos = videoEntities.stream().map((video) -> new Video(video)).collect(Collectors.toList());
         log.info(videos.toString());
         return videos;
     }
-
 
     @Override
     public List<Video> getSimilarVideos(Long videoId) {
@@ -95,8 +92,7 @@ public class VideoServiceImpl implements VideoService {
             return null;
         Long courseId = videoEntity.get().getCourseEntity().getId();
         return getVideosFromVideoEntities(
-                videoRepository.findByCourseEntityId(courseId)
-        );
+                videoRepository.findByCourseEntityId(courseId));
     }
 
     @Autowired
@@ -115,17 +111,17 @@ public class VideoServiceImpl implements VideoService {
             throw new Exception("Video not found");
 
         ViewLogEntity viewLogEntity = null;
-        viewLogEntity = viewLogRepository.findById(videoLog.getVideoId()).get();
+        viewLogEntity = viewLogRepository.findById(videoLog.getId()).get();
         viewLogEntity.setWatchTime(viewLogEntity.getWatchTime() + videoLog.getWatchTime());
         viewLogEntity.setLastVisitPoint(videoLog.getLastVisitPoint());
-        
+
         viewLogEntity = viewLogRepository.save(viewLogEntity);
         return viewLogEntity.getId();
     }
 
     @Override
     public Long addVideoLog(VideoLog videoLog,
-                            Long studentId) throws Exception {
+            Long studentId) throws Exception {
         Optional<StudentEntity> optionalStudentEntity = studentRepository.findById(studentId);
         if (!optionalStudentEntity.isPresent())
             throw new Exception("Student not found");
@@ -135,8 +131,8 @@ public class VideoServiceImpl implements VideoService {
 
         ViewLogEntity viewLogEntity = null;
         viewLogEntity = ViewLogEntity.builder()
-                .watchTime(videoLog.getWatchTime())
-                .lastVisitPoint(videoLog.getLastVisitPoint())
+                .watchTime(0.0)
+                // .lastVisitPoint(videoLog.getLastVisitPoint())
                 .visitTime(videoLog.getVisitTime())
                 .studentEntity(optionalStudentEntity.get())
                 .videoEntity(optionalVideoEntity.get())
