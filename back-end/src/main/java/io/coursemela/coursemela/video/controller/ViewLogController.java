@@ -2,6 +2,7 @@ package io.coursemela.coursemela.video.controller;
 
 import io.coursemela.coursemela.user.service.UserService;
 import io.coursemela.coursemela.video.model.VideoLog;
+import io.coursemela.coursemela.video.model.ViewLogStatDTO;
 import io.coursemela.coursemela.video.service.ViewLogService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,18 @@ public class ViewLogController {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .body(-1L);
+        }
+    }
+
+    @GetMapping(value = "get-stat/{dayCount}")
+    ResponseEntity<ViewLogStatDTO> getViewLogStat(@PathVariable("dayCount") int dayCount) {
+        try {
+            Long userId = userService.getUserId();
+            return ResponseEntity.ok(viewLogService.getViewLogStat(userId, dayCount));
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(null);
         }
     }
 }

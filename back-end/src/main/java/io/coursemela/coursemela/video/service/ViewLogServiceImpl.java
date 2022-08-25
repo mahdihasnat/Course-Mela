@@ -6,11 +6,14 @@ import io.coursemela.coursemela.student.repository.StudentRepository;
 import io.coursemela.coursemela.video.entity.VideoEntity;
 import io.coursemela.coursemela.video.entity.ViewLogEntity;
 import io.coursemela.coursemela.video.model.VideoLog;
+import io.coursemela.coursemela.video.model.ViewLogStatDTO;
 import io.coursemela.coursemela.video.repository.VideoRepository;
 import io.coursemela.coursemela.video.repository.ViewLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,7 +24,7 @@ public class ViewLogServiceImpl implements ViewLogService {
 
     @Autowired
     private CourseRepository courseRepository;
-    
+
     @Autowired
     private ViewLogRepository viewLogRepository;
 
@@ -68,6 +71,20 @@ public class ViewLogServiceImpl implements ViewLogService {
 
         viewLogEntity = viewLogRepository.save(viewLogEntity);
         return viewLogEntity.getId();
+    }
+
+    @Override
+    public ViewLogStatDTO getViewLogStat(Long userId, int dayCount) {
+        List<ViewLogEntity> viewLogEntities = viewLogRepository
+                .findAllByStudentEntityIdAndVisitTimeGreaterThanEqual(userId, ZonedDateTime.now().minusDays(dayCount));
+        Long videoCount = viewLogRepository.getVideoCount(userId, ZonedDateTime.now().minusDays(dayCount));
+        ViewLogStatDTO viewLogStatDTO = ViewLogStatDTO.builder()
+                .totalVideWatched(videoCount)
+                .totalDurationWatched(0.0)
+                .totalQuizAttempted(0L)
+                .performanceScore(0.0)
+                .build();
+        return viewLogStatDTO;
     }
 
 
