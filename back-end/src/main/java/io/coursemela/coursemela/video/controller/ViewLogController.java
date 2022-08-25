@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @Slf4j
 @RequestMapping("/video/log")
@@ -53,6 +56,23 @@ public class ViewLogController {
         try {
             Long userId = userService.getUserId();
             return ResponseEntity.ok(viewLogService.getViewLogStat(userId, dayCount));
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(null);
+        }
+    }
+
+    @PostMapping(value = "getStats")
+    ResponseEntity<List<ViewLogStatDTO>> getViewLogStats(@RequestBody List<Integer> dayCounts) {
+        try {
+            Long userId = userService.getUserId();
+            log.info(dayCounts.toString());
+            List<ViewLogStatDTO> ret = dayCounts.stream().map(dayCount -> {
+                return viewLogService.getViewLogStat(userId, dayCount);
+            }).collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
+            return ResponseEntity.ok(ret);
         } catch (Exception e) {
             log.error(e.getMessage());
             return ResponseEntity
