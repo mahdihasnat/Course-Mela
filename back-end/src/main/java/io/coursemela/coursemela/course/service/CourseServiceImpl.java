@@ -3,8 +3,11 @@ package io.coursemela.coursemela.course.service;
 import io.coursemela.coursemela.course.entity.CourseEntity;
 import io.coursemela.coursemela.course.entity.CourseTagEntity;
 import io.coursemela.coursemela.course.model.Course;
+import io.coursemela.coursemela.course.model.Tag;
+import io.coursemela.coursemela.course.model.Topic;
 import io.coursemela.coursemela.course.repository.CourseRepository;
 import io.coursemela.coursemela.course.repository.CourseTagRepository;
+import io.coursemela.coursemela.instructor.model.Instructor;
 import io.coursemela.coursemela.shared.util.UrlCollections;
 import io.coursemela.coursemela.storage.StorageService;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,9 +50,7 @@ public class CourseServiceImpl implements CourseService {
         // add course price
         coursePricingService.addCoursePricing(courseEntity, course.getCoursePricing());
 
-        course = applicationContext.getBean(Course.class);
-        course.initFromEntity(courseEntity);
-
+        course = getCourseFromCourseEntity(courseEntity);
         return course;
     }
 
@@ -57,8 +59,7 @@ public class CourseServiceImpl implements CourseService {
         List<CourseEntity> courseEntities = courseRepository.findAll();
         List<Course> courses = courseEntities
                 .stream()
-                .map(courseEntity -> applicationContext.getBean(Course.class)
-                        .initFromEntity(courseEntity))
+                .map(courseEntity -> getCourseFromCourseEntity(courseEntity))
                 .collect(Collectors.toList());
         return courses;
     }
@@ -66,8 +67,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Course getCourse(Long id) {
         CourseEntity courseEntity = courseRepository.findById(id).orElse(null);
-        Course course = applicationContext.getBean(Course.class)
-                .initFromEntity(courseEntity);
+        Course course = getCourseFromCourseEntity(courseEntity);
         return course;
     }
 
@@ -77,8 +77,7 @@ public class CourseServiceImpl implements CourseService {
         log.info(courseEntities.toString());
         List<Course> courses = courseEntities
                 .stream()
-                .map(courseEntity -> applicationContext.getBean(Course.class)
-                        .initFromEntity(courseEntity))
+                .map(courseEntity -> getCourseFromCourseEntity(courseEntity))
                 .collect(Collectors.toList());
         return courses;
     }
@@ -100,5 +99,22 @@ public class CourseServiceImpl implements CourseService {
 
 //        return true
 
+    }
+
+
+    Course getCourseFromCourseEntity(CourseEntity courseEntity) {
+        Course course = Course.builder()
+                .id(courseEntity.getId())
+                .instructor(new Instructor(courseEntity.getInstructorEntity()))
+                .topic(new Topic(courseEntity.getTopicEntity()))
+                .name(courseEntity.getName())
+                .coverPhotoPath(courseEntity.getCoverPhotoPath())
+                .description(courseEntity.getDescription())
+                .tags(new ArrayList<>())
+                .coursePricing(coursePricingService.getCurrentCoursePricing(courseEntity.getId()))
+                .build();
+        for (CourseTagEntity courseTag : courseEntity.getCourseTagEntities())
+            course.getTags().add(new Tag(courseTag.getTagEntity()));
+        return course;
     }
 }
