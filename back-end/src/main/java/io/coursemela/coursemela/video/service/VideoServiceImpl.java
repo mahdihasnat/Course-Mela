@@ -4,7 +4,6 @@ import io.coursemela.coursemela.course.entity.CourseEntity;
 import io.coursemela.coursemela.course.repository.CourseRepository;
 import io.coursemela.coursemela.video.entity.VideoEntity;
 import io.coursemela.coursemela.video.entity.ViewLogEntity;
-import io.coursemela.coursemela.video.entity.ViewLogKey;
 import io.coursemela.coursemela.video.model.Video;
 import io.coursemela.coursemela.video.repository.VideoRepository;
 import io.coursemela.coursemela.video.repository.ViewLogRepository;
@@ -103,24 +102,18 @@ public class VideoServiceImpl implements VideoService {
     private ViewLogRepository viewLogRepository;
 
     @Override
-    public Boolean addVideoLog(Long videoId, Long studentId, Duration watchTime, Duration lastVisitDuration, ZonedDateTime lastVisitTime) {
-        Optional<ViewLogEntity> optionalViewLogEntity = viewLogRepository.findByIdStudentIdAndIdVideoId(studentId, videoId);
-        ViewLogEntity viewLogEntity;
-        if (optionalViewLogEntity.isPresent()) {
-            viewLogEntity = optionalViewLogEntity.get();
-            viewLogEntity.setWatchTime(
-                    viewLogEntity.getWatchTime().plus(watchTime)
-            );
-            viewLogEntity.setLastVisitDuration(lastVisitDuration);
-            viewLogEntity.setLastVisitTime(lastVisitTime);
-        } else {
-            viewLogEntity = ViewLogEntity.builder()
-                    .id(new ViewLogKey(studentId, videoId))
-                    .watchTime(watchTime)
-                    .lastVisitDuration(lastVisitDuration)
-                    .lastVisitTime(lastVisitTime)
-                    .build();
-        }
+    public Boolean addVideoLog(Long videoId,
+                               Long studentId,
+                               Duration watchTime,
+                               Duration lastVisitDuration,
+                               ZonedDateTime visitTime) {
+
+        ViewLogEntity viewLogEntity = ViewLogEntity.builder()
+                .watchTime(watchTime)
+                .lastVisitDuration(lastVisitDuration)
+                .visitTime(visitTime)
+                .build();
+
         viewLogRepository.save(viewLogEntity);
         return true;
     }
