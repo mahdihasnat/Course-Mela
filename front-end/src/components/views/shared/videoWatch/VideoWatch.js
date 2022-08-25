@@ -35,11 +35,11 @@ const CustomPlayer = ({video}) => {
     const [lastRecorededTime, setLastRecorededTime] = useState(0);
     const [visitTime, setVisitTime] = useState(getCurrentDateTime());
     const [videoLogId, setVideoLogId] = useState(null);
-    const progressCallback = ({played, playedSeconds,loaded, loadedSeconds}) => {
+    const progressCallback = ({played, playedSeconds, loaded, loadedSeconds}) => {
         // alert("5 sec por por eta aseh kora hoye");
-        console.log({played, playedSeconds,loaded, loadedSeconds});
+        console.log({played, playedSeconds, loaded, loadedSeconds});
         const watchTime = playedSeconds - lastRecorededTime;
-        if(watchTime > 0){
+        if (watchTime > 0) {
             VideoService.updateWatchTime(videoLogId, video.id, watchTime, playedSeconds, visitTime).then(
                 (response) => {
                     console.log({response});
@@ -52,30 +52,46 @@ const CustomPlayer = ({video}) => {
     }
     const onReadyCallback = () => {
         console.log("onReadyCallback");
-
-        setVisitTime(getCurrentDateTime());
-        VideoService.createVideoWatchLog(video.id, visitTime).then(
-            (response) => {
-                console.log({"created video record": response.data});
-                setVideoLogId(response.data);
-            }).catch(err=>console.log(err.message));
     }
-    const seekCallback = (second) =>{
-        console.log({"seeked to ":second});
+    const seekCallback = (second) => {
+        console.log({"seeked to ": second});
         setLastRecorededTime(second);
     }
 
-    return (<ReactPlayer
+    useEffect(
+        () => {
+            console.log("player is ready")
+
+            VideoService.createVideoWatchLog(video.id, visitTime).then(
+                (response) => {
+                    console.log({"created video record": response.data});
+                    setVideoLogId(response.data);
+                }).catch(err => console.log(err.message));
+        }, []
+    )
+
+
+    return (
+        <ReactPlayer
             width={"100%"}
             height={"100%"}
             url={video.videoPath}
             controls
             progressInterval={5000}
             onProgress={progressCallback}
-            light={video.thumbPath}
+            // light={video.thumbPath}
+            // light
             onReady={onReadyCallback}
             onSeek={seekCallback}
-            playing
+            playing={true}
+            // ref={async (p) => {
+            //     if(p){
+            //         console.log({p});
+            //         await setRef(p);
+            //     }else{
+            //         console.log({p}, "changed")
+            //     }
+            // }}
         ></ReactPlayer>
     )
 }
@@ -85,7 +101,7 @@ const VideoWatch = ({}) => {
 
     const [playlists, setPlaylists] = useState([]);
 
-    const [video, setvideo] = useState(null);
+    const [video, setVideo] = useState(null);
 
     const [isLoading, setIsLoading] = useState(true);
 
@@ -95,7 +111,7 @@ const VideoWatch = ({}) => {
         VideoService.getVideoById(videoId)
             .then((response) => {
                 console.log({video: response.data});
-                setvideo(response.data);
+                setVideo(response.data);
                 setIsLoading(false);
             })
             .catch(LOG_CAUGHT_ERR);
@@ -124,7 +140,10 @@ const VideoWatch = ({}) => {
 
                         {/*//// PLayer*/}
 
-                        <CustomPlayer video={video}/>
+                        {
+                            video !== null &&
+                            <CustomPlayer video={video}/>
+                        }
                     </Grid>
                     {/* TODO: simplify this and add scrollbar */}
                     <Grid item sm={12} md={3} marginLeft={10}>
