@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/course/popular")
 public class RecommendationController {
-
+    /// TODO : Implement this controller with proper logic
     @Autowired
     CourseService courseService;
 
