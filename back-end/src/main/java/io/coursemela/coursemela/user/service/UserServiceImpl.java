@@ -2,6 +2,8 @@ package io.coursemela.coursemela.user.service;
 
 import io.coursemela.coursemela.instructor.entity.InstructorEntity;
 import io.coursemela.coursemela.instructor.repository.InstructorRepository;
+import io.coursemela.coursemela.student.entity.StudentEntity;
+import io.coursemela.coursemela.student.repository.StudentRepository;
 import io.coursemela.coursemela.user.entity.InstitutionEntity;
 import io.coursemela.coursemela.user.entity.UserEntity;
 import io.coursemela.coursemela.user.model.User;
@@ -60,6 +62,15 @@ public class UserServiceImpl implements UserService {
     public boolean isInstructor(Long userId) {
         Optional<InstructorEntity> optionalInstructorEntity = instructorRepository.findById(userId);
         return optionalInstructorEntity.isPresent();
+    }
+
+    @Autowired
+    StudentRepository studentRepository;
+
+    @Override
+    public boolean isStudent(Long userId) {
+        Optional<StudentEntity> optionalStudentEntity = studentRepository.findById(userId);
+        return optionalStudentEntity.isPresent();
     }
 
     @Autowired

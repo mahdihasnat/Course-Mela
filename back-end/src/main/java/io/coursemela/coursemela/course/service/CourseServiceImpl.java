@@ -75,7 +75,6 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public List<Course> getMyCourses(Long userId) {
-//    TODO: change logic to fetch only subscribed course
         List<CourseEntity> courseEntities = courseRepository.getAllSubscribedCourses(userId, ZonedDateTime.now());
         List<Course> courses = courseEntities
                 .stream()
@@ -117,7 +116,8 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     InstructorService instructorService;
 
-    Course getCourseFromCourseEntity(CourseEntity courseEntity) {
+    @Override
+    public Course getCourseFromCourseEntity(CourseEntity courseEntity) {
         Course course = Course.builder()
                 .id(courseEntity.getId())
                 .instructor(instructorService.getInstructorFromInstructorEntity(

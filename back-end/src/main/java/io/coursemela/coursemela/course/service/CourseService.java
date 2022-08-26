@@ -1,5 +1,6 @@
 package io.coursemela.coursemela.course.service;
 
+import io.coursemela.coursemela.course.entity.CourseEntity;
 import io.coursemela.coursemela.course.model.Course;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,4 +20,6 @@ public interface CourseService {
 
 
     List<Course> getMyCourses(Long userId);
+
+    Course getCourseFromCourseEntity(CourseEntity courseEntity);
 }

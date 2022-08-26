@@ -14,5 +14,7 @@ public interface UserService {
 
     boolean isInstructor(Long userId);
 
+    boolean isStudent(Long userId);
+
     User getUserFromUserEntity(UserEntity userEntity);
 }
