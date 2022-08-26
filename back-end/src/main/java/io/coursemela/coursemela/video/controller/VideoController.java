@@ -50,5 +50,14 @@ public class VideoController {
         return ResponseEntity.ok(videoService.getSimilarVideos(videoId));
     }
 
+    @PutMapping(value = "/increase-like/{videoId}")
+    public ResponseEntity<Video> increaseLike(@PathVariable Long videoId) {
+        return ResponseEntity.ok(videoService.increaseLike(videoId));
+    }
+
+    @PutMapping(value = "/decrease-like/{videoId}")
+    public ResponseEntity<Video> decreaseLike(@PathVariable Long videoId) {
+        return ResponseEntity.ok(videoService.decreaseLike(videoId));
+    }
 
 }

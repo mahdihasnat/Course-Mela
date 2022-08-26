@@ -120,6 +120,20 @@ class VideoService {
 			headers: jsonAuthorizedHeader(),
 		});
 	}
+
+    increaseLike(videoId) {
+		return axios.put(joinUrl(VIDEO_URL, "increase-like", videoId), {}, {
+			headers: jsonAuthorizedHeader(),
+		});
+
+    }
+
+	decreaseLike(videoId) {
+
+		return axios.put(joinUrl(VIDEO_URL, "decrease-like", videoId), {}, {
+			headers: jsonAuthorizedHeader(),
+		});
+	}
 }
 
 export default new VideoService();

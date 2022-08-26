@@ -4,7 +4,6 @@ import io.coursemela.coursemela.video.model.Video;
 
 import java.util.List;
 
-
 public interface VideoService {
     Video createVideoMetadata(Video video) throws Exception;
 
@@ -18,5 +17,8 @@ public interface VideoService {
 
     List<Video> getSimilarVideos(Long videoId);
 
+    Video increaseLike(Long videoId);
+
+    Video decreaseLike(Long videoId);
 
 }

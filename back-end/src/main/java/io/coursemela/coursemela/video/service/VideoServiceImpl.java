@@ -76,7 +76,8 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public List<Video> getAllVideoByCourse(Long courseId) {
         List<VideoEntity> videoEntities = videoRepository.findByCourseEntityId(courseId);
-        List<Video> videos = videoEntities.stream().map((video) -> getVideoFromVideoEntity(video)).collect(Collectors.toList());
+        List<Video> videos = videoEntities.stream().map((video) -> getVideoFromVideoEntity(video))
+                .collect(Collectors.toList());
         log.info(videos.toString());
         return videos;
     }
@@ -90,7 +91,6 @@ public class VideoServiceImpl implements VideoService {
         return getVideosFromVideoEntities(
                 videoRepository.findByCourseEntityId(courseId));
     }
-
 
     private Video getVideoFromVideoEntity(VideoEntity videoEntity) {
         return Video.builder()
@@ -112,4 +112,20 @@ public class VideoServiceImpl implements VideoService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public Video increaseLike(Long videoId) {
+        VideoEntity videoEntity = videoRepository.findById(videoId).stream().findFirst().orElse(null);
+        videoEntity.setLikeCount(videoEntity.getLikeCount() + 1);
+        videoRepository.save(videoEntity);
+        return getVideoFromVideoEntity(videoEntity);
+
+    }
+
+    @Override
+    public Video decreaseLike(Long videoId) {
+        VideoEntity videoEntity = videoRepository.findById(videoId).stream().findFirst().orElse(null);
+        videoEntity.setLikeCount(videoEntity.getLikeCount() - 1);
+        videoRepository.save(videoEntity);
+        return getVideoFromVideoEntity(videoEntity);
+    }
 }
