@@ -33,6 +33,7 @@ import TrackYourProgressContainer from "./views/student/trackYourProgress/TrackY
 import Home from "./views/admin/pages/home/Home";
 import AddPromo from "./views/admin/pages/promo/AddPromo";
 import SearchDrawer from "./views/guestView/search/SearchDrawer";
+import MyCourse from "./views/student/myCourse/MyCourse";
 
 function MainComponent() {
   const [{ isSignedIn, userRole }, dispatch] = useLoginContext();
@@ -55,7 +56,7 @@ function MainComponent() {
         setIsLoading(false);
       }
     }
-    checkLogin().then(r => {
+    checkLogin().then((r) => {
       // console.log(r);
     });
   }, [isSignedIn, dispatch]);
@@ -84,7 +85,10 @@ function MainComponent() {
 
               {isSignedIn && (
                 <>
-                  <Route path="/course/search" element={<SearchDrawer />}></Route>
+                  <Route
+                    path="/course/search"
+                    element={<SearchDrawer />}
+                  ></Route>
                   <Route
                     path="/course/compare"
                     element={<CompareView />}
@@ -94,14 +98,18 @@ function MainComponent() {
               )}
               {isSignedIn && userRole === ROLE_STUDENT && (
                 <>
-                  <Route path="/promo" element={<PromoContainer/>} />
-                  <Route path={'/track-progress'} element={<TrackYourProgressContainer/>} />
+                  <Route path="/promo" element={<PromoContainer />} />
+                  <Route
+                    path={"/track-progress"}
+                    element={<TrackYourProgressContainer />}
+                  />
                   <Route
                     path="/courses/:courseId"
                     element={<CourseGuestView />}
                   />
                   <Route path="/cartDetails" element={<CartDetails />} />
                   <Route path="/checkout" element={<Checkout />} />
+                  <Route path="/my-course" element={<MyCourse />} />
                   <Route path="*" element={<StudentView />} />
                 </>
               )}
@@ -128,12 +136,12 @@ function MainComponent() {
                 </>
               )}
 
-              { !isSignedIn && (  // no sign-in + role required for now
+              {!isSignedIn && ( // no sign-in + role required for now
                 <>
                   <Route path="/admin" element={<Home />} />
                   <Route path="/add-promo" element={<AddPromo />} />
                 </>
-              ) }
+              )}
 
               {/* <Route exact path="/instr" element={<InstructorHome />} /> */}
             </Routes>

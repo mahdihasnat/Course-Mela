@@ -36,7 +36,9 @@ const MuiNavbar = () => {
   const studentNavbarOption = () => {
     return (
       <>
-        <Button color={"inherit"}>My Courses</Button>
+        <Button color={"inherit"} href={"/my-course"}>
+          My Courses
+        </Button>
         <Button color={"inherit"} href={"/track-progress"}>
           Progress
         </Button>
