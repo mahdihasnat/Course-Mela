@@ -37,7 +37,7 @@ export const CommentSection = ({videoId}) => {
             {comments &&
                 comments.map((comment) => (
                     <Box key={comment.id} marginTop={5}>
-                        <CommentCard videoId={videoId} {...comment} />
+                        <CommentCard setCommentsUpdated={setCommentsUpdated}  videoId={videoId} {...comment} />
                     </Box>
                 ))}
         </Stack>

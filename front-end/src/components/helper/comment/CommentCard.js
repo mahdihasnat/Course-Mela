@@ -11,29 +11,31 @@ import CommentService from "../../../services/comment/CommentService";
 
 
 export const CommentCard = ({
-                                videoId,   id, text, postTime, clarificationStatus, userId, userName, replies,
+                                videoId,   id, text, postTime, clarificationStatus, userId, userName, replies, setCommentsUpdated
                             }) => {
 
     const [isExpanded, setIsExpanded] = React.useState(true);
     const [isReplyExpanded, setIsReplyExpanded] = React.useState(false);
     const [replyText, setReplyText] = React.useState("");
+    // const [newReplies, setNewReplies] = React.useState([]);
 
     const submitClarification = (e)=>{
         e.preventDefault();
         console.log({"submitClarification": replyText});
         CommentService.addClarification(videoId, id, replyText).then(
             (response)=>{
-                console.log({"submitClarification": response.data});
+                console.log({"submitClarification Result": response.data});
                 setReplyText("");
                 setIsReplyExpanded(false);
+                setCommentsUpdated(true);
             }
         )
     }
 
     return (
-        <Box>
-        <Box border={1} borderRadius={5} padding={3}>
-        <Grid container spacing={2}>
+        <Box my={2}>
+        <Box border={0}  padding={0}>
+        <Grid container spacing={1}>
             <Grid item sm={2}>
                 <Avaatar name={userName}/>
 
@@ -69,15 +71,15 @@ export const CommentCard = ({
                     }
                 </Stack>
 
-                {
+                {/*{*/}
 
-                    isExpanded && replies && replies.map((reply) => (<CommentCard {...reply}/>))
+                {/*    isExpanded && replies && replies.map((reply) => (<CommentCard {...reply}/>))*/}
 
-                }
+                {/*}*/}
             </Grid>
             <Grid item sm={1}>
-                <Button variant="outlined" color="primary"
-                        startIcon={isExpanded ? <ExpandMoreRounded/> : <ExpandLessRounded/>}
+                <Button variant="text" color="primary"
+                        startIcon={isExpanded ? <ExpandLessRounded/> : <ExpandMoreRounded/> }
                         onClick={() => setIsExpanded(!isExpanded)}
 
                 ></Button>
@@ -90,7 +92,7 @@ export const CommentCard = ({
         <Grid item sm={10}>
             {
                 isExpanded && replies && replies.map((reply) => (
-                    reply.clarificationStatus && <CommentCard videoId={videoId} {...reply}/>
+                    reply.clarificationStatus && <CommentCard  setCommentsUpdated={setCommentsUpdated} videoId={videoId} {...reply}/>
                 ))
             }
         </Grid>
