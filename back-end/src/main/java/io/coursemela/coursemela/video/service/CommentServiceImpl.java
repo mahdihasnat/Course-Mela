@@ -125,7 +125,7 @@ public class CommentServiceImpl implements CommentService {
                                        Long videoId,
                                        Long userId,
                                        String text) throws Exception {
-        
+
         Optional<VideoEntity> optionalVideoEntity = videoRepository.findById(videoId);
         if (!optionalVideoEntity.isPresent()) {
             throw new Exception("Video not found");
@@ -140,7 +140,7 @@ public class CommentServiceImpl implements CommentService {
             throw new Exception("Parent Clarification not found");
 
         ClarificationEntity clarificationEntity = ClarificationEntity.builder()
-                .videoEntity(optionalVideoEntity.get())
+                .videoEntity(null)
                 .userEntity(optionalUserEntity.get())
                 .text(text)
                 .postTime(ZonedDateTime.now())
