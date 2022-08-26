@@ -26,11 +26,6 @@ import {
 // const thingsWeFocus = ["Area", "Calculus", "Trigonometric Ratios", "Divergence"]
 
 function AddCourse() {
-	const defaultSubject = {
-		id: -1,
-		name: "Select Subject",
-	};
-
 	const [values, setValues] = React.useState({
 		courseName: "",
 		description: "",
@@ -39,7 +34,7 @@ function AddCourse() {
 		chosenTopicId: "-1",
 	});
 
-	const [subjects, setSubjects] = React.useState([defaultSubject]);
+	const [subjects, setSubjects] = React.useState([]);
 	const [topics, setTopics] = React.useState([]);
 
 	const handleChange = (prop) => (event) => {
@@ -83,7 +78,7 @@ function AddCourse() {
 			.then((response) => {
 				console.log("subjects ", response.data);
 
-				setSubjects([defaultSubject, ...response.data]);
+				setSubjects([...response.data]);
 			})
 			.catch((err) => {
 				console.log(err);
