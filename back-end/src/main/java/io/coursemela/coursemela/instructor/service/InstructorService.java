@@ -3,13 +3,19 @@ package io.coursemela.coursemela.instructor.service;
 import io.coursemela.coursemela.instructor.entity.InstructorEntity;
 import io.coursemela.coursemela.instructor.model.Instructor;
 import io.coursemela.coursemela.instructor.repository.InstructorRepository;
+import io.coursemela.coursemela.user.entity.InstitutionEntity;
+import io.coursemela.coursemela.user.service.AddressService;
+import io.coursemela.coursemela.user.service.InstitutionService;
 import io.coursemela.coursemela.user.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class InstructorService {
 
     @Autowired
@@ -31,12 +37,45 @@ public class InstructorService {
     @Autowired
     UserService userService;
 
+    @Autowired
+    AddressService addressService;
+
+    @Autowired
+    InstitutionService institutionService;
+
+
     public Instructor getInstructorFromInstructorEntity(InstructorEntity instructorEntity) {
-        return ((Instructor) userService.getUserFromUserEntity(instructorEntity))
-                .toBuilder()
+
+        Instructor instructor = Instructor.builder()
+                .id(instructorEntity.getId())
+                .userName(instructorEntity.getUserName())
+                .firstName(instructorEntity.getFirstName())
+                .lastName(instructorEntity.getLastName())
+                .email(instructorEntity.getEmail())
+                .password(instructorEntity.getPassword())
+                .mobileNo(instructorEntity.getMobileNo())
+                .dateOfJoin(instructorEntity.getDateOfJoin())
+                .address(addressService.getAddressFromAddressEntity(
+                                instructorEntity.getAddress()
+                        )
+                )
+                .institutions(new HashSet<>())
                 .credit(instructorEntity.getCredit())
                 .bio(instructorEntity.getBio())
                 .build();
+        try {
+            for (InstitutionEntity institutionEntity :
+                    instructorEntity.getInstitutionEntities())
+                instructor.getInstitutions().add(
+                        institutionService.
+                                getInstitutionFromInstitutionEntity(
+                                        institutionEntity
+                                )
+                );
+        } catch (NullPointerException e) {
+            log.trace(e.getStackTrace().toString());
+        }
+        return instructor;
     }
 
 }
