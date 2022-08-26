@@ -1,7 +1,9 @@
 package io.coursemela.coursemela.payment.entity;
 
 import io.coursemela.coursemela.payment.enumeration.TransactionMedium;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,8 +11,10 @@ import javax.persistence.MappedSuperclass;
 import java.time.ZonedDateTime;
 
 
-@Data
 @MappedSuperclass
+@SuperBuilder
+@AllArgsConstructor
+@NoArgsConstructor
 public abstract class TransactionEntity {
     @Id
     @GeneratedValue

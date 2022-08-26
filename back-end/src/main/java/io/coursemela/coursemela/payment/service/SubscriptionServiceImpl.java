@@ -37,25 +37,37 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     @Override
     public Boolean subscribe(SubscriptionDTO subscriptionDTO, Long studentId) throws Exception {
-        Optional<PromoEntity> optionalPromoEntity = promoRepository.findById(subscriptionDTO.getPromo().getId());
-        if (!optionalPromoEntity.isPresent())
-            throw new Exception("Promo not available");
+        PromoEntity promoEntity = null;
+        if (subscriptionDTO.getPromo() != null) {
+            Optional<PromoEntity> optionalPromoEntity = promoRepository.findById(subscriptionDTO.getPromo().getId());
+            if (!optionalPromoEntity.isPresent())
+                throw new Exception("Promo not available");
+            promoEntity = optionalPromoEntity.get();
+        }
         Optional<StudentEntity> optionalStudentEntity = studentRepository.findById(studentId);
         if (!optionalStudentEntity.isPresent())
             throw new Exception("Student no available");
 
         PaymentEntity paymentEntity = PaymentEntity.builder()
-                .promoEntity(optionalPromoEntity.get())
+                .amount(subscriptionDTO.getAmount())
+                .promoEntity(promoEntity)
+                .timestamp(ZonedDateTime.now())
+                .transactionMedium(subscriptionDTO.getTransactionMedium())
+                .bankInfo(subscriptionDTO.getBankInfo())
+                .accountInfo(subscriptionDTO.getAccountInfo())
+                // set 16 byte hash to marchantTransactionId
+                .merchantTransactionId(String.format("%016x", (int) (Math.random() * Math.pow(2, 64))))
                 .build();
         paymentEntity = paymentRepository.save(paymentEntity);
         for (Course course : subscriptionDTO.getCourses()) {
+
             CoursePricingEntity coursePricingEntity = coursePricingRepository.findFirstByCourseEntityIdOrderByStartDateDesc(course.getId()).get(0);
             SubscriptionEntity subscriptionEntity = SubscriptionEntity.builder()
                     .studentEntity(optionalStudentEntity.get())
                     .paymentEntity(paymentEntity)
                     .coursePricingEntity(coursePricingEntity)
                     .startTime(ZonedDateTime.now())
-                    .endTime(ZonedDateTime.now())
+                    .endTime(ZonedDateTime.now().plusDays(180))
                     .build();
             subscriptionEntity = subscriptionRepository.save(subscriptionEntity);
 

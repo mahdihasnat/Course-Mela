@@ -4,21 +4,28 @@ import { SUBSCRIPTION_URL } from "../../shared/urls";
 import joinUrl from "../../utils/url";
 
 class PaymentService {
-  buyCourses(cartCourses, selectedPromo, paymentAccountNo, paymentType,total) {
-    const data = {
-      courses: cartCourses,
-      promo: selectedPromo,
-      accountNo: paymentAccountNo,
-      paymentType: paymentType,
-      total: total,
-    };
+	buyCourses(
+		cartCourses,
+		selectedPromo,
+		paymentAccountNo,
+		paymentType,
+		total
+	) {
+		const data = {
+			courses: cartCourses,
+			promo: selectedPromo,
+			accountInfo: paymentAccountNo,
+			bankInfo: paymentType,
+			amount: total,
+			transactionMedium: "MFS",
+		};
 
-    console.log({ "data sent : ": data });
+		console.log({ "data sent : ": data });
 
-    return axios.post(joinUrl(SUBSCRIPTION_URL, ""), data, {
-      headers: jsonAuthorizedHeader(),
-    });
-  }
+		return axios.post(joinUrl(SUBSCRIPTION_URL, ""), data, {
+			headers: jsonAuthorizedHeader(),
+		});
+	}
 }
 
 export default new PaymentService();

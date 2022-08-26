@@ -1,8 +1,8 @@
 package io.coursemela.coursemela.payment.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -10,7 +10,7 @@ import javax.persistence.OneToMany;
 import java.util.Set;
 
 @Entity
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 public class PaymentEntity extends TransactionEntity {
