@@ -6,7 +6,7 @@ import SendIcon from "@mui/icons-material/Send";
 import CancelIcon from "@mui/icons-material/Cancel";
 import CommentService from "../../../services/comment/CommentService";
 import { useLoginContext } from "../../../store/contexts/LoginContext";
-import { ROLE_INSTRUCTOR } from "../../../shared/StringConstant";
+import { ROLE_INSTRUCTOR, ROLE_STUDENT } from "../../../shared/StringConstant";
 
 export const CommentCard = ({
   videoId,
@@ -23,9 +23,8 @@ export const CommentCard = ({
   const [isReplyExpanded, setIsReplyExpanded] = React.useState(false);
   const [replyText, setReplyText] = React.useState("");
 
-  const [{ isSignedIn, userRole }, dispatch] = useLoginContext();
-  // const [newReplies, setNewReplies] = React.useState([]);
-
+  const [sessionUserState, dispatch] = useLoginContext();
+  console.log({ sessionUserState });
   const submitClarification = (e) => {
     e.preventDefault();
     // if (replyText.length == 0) return;
@@ -81,7 +80,12 @@ export const CommentCard = ({
                     {" "}
                     Reply{" "}
                   </Button>
-                  {userRole === ROLE_INSTRUCTOR &&
+                  {clarificationStatus === "PENDING" &&
+                    sessionUserState.userRole === ROLE_STUDENT && (
+                      <Button color="error">Request pending</Button>
+                    )}
+
+                  {sessionUserState.userRole === ROLE_INSTRUCTOR &&
                     clarificationStatus === "PENDING" && (
                       <>
                         <Button
@@ -151,8 +155,9 @@ export const CommentCard = ({
               (reply) =>
                 ///TODO only approve approved comments
                 reply.clarificationStatus !== "REJECTED" &&
-                (userRole === ROLE_INSTRUCTOR ||
-                  reply.clarificationStatus === "APPROVED") && (
+                (sessionUserState.userRole === ROLE_INSTRUCTOR ||
+                  reply.clarificationStatus === "APPROVED" ||
+                  reply.userName === sessionUserState.userName) && (
                   <CommentCard
                     setCommentsUpdated={setCommentsUpdated}
                     key={reply.id}
