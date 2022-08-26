@@ -20,26 +20,11 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top',
-    },
-    title: {
-      display: true,
-      text: 'Chart.js Bar Chart',
-    },
-  },
-};
-
 const getRandomInt = (min, max) => {
     min = Math.ceil(min);
     max = Math.ceil(max);
     return Math.floor(Math.random() * (max-min+1)) + min;
 }
-
-// const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
 function CourseStatsChart({ chartTitle, labels, dataVals, datasetName, backRgb }) {
 
