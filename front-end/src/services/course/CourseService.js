@@ -89,6 +89,14 @@ class CourseService {
       headers: jsonAuthorizedHeader(),
     });
   }
+
+  getMyCourseByCriteria(urlEnd) {
+    return axios({
+      method: "GET",
+      url: joinUrl(COURSE_URL, "my", urlEnd),
+      headers: jsonAuthorizedHeader(),
+    });
+  }
 }
 
 export default new CourseService();

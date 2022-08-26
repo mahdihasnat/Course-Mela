@@ -45,7 +45,7 @@ public class CourseController {
 
     @PostMapping(value = "updateCoverImage")
     public ResponseEntity<Boolean> updateCoverImage(@RequestParam("id") String id,
-                                                    @RequestParam("coverImage") MultipartFile coverImage) {
+            @RequestParam("coverImage") MultipartFile coverImage) {
         try {
             // coverImage.
 
@@ -65,7 +65,6 @@ public class CourseController {
         return courseService.getCourses();
     }
 
-
     @GetMapping("/{courseId}")
     Course getCourse(@PathVariable("courseId") String courseId) {
         log.info("get course: " + courseId);
@@ -75,15 +74,5 @@ public class CourseController {
 
     @Autowired
     UserService userService;
-
-    @GetMapping("/my")
-    ResponseEntity getMyCourses() {
-        try {
-            Long userId = userService.getUserId();
-            return ResponseEntity.ok(courseService.getMyCourses(userId));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
-        }
-    }
 
 }

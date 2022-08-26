@@ -24,7 +24,7 @@ const CriteriaBasedBasicCourses = ({ urlEnd, title }) => {
   useEffect(() => {
     CourseService.getAllCourseByCriteria(urlEnd)
       .then((response) => {
-        console.log({ "most popular by watchtime ": response.data });
+        console.log({ title: response.data });
         setCourses(response.data);
       })
       .catch((error) => {
