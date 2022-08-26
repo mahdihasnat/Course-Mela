@@ -8,13 +8,16 @@ import org.springframework.stereotype.Service;
 public class AddressServiceImpl implements AddressService {
     @Override
     public Address getAddressFromAddressEntity(AddressEntity addressEntity) {
-        return Address.builder()
-                .country(addressEntity.getCountry())
-                .zilla(addressEntity.getZilla())
-                .upazila(addressEntity.getUpazila())
-                .postcode(addressEntity.getPostcode())
-                .street(addressEntity.getStreet())
-                .housenumber(addressEntity.getHousenumber())
-                .build();
+        if (addressEntity == null)
+            return Address.builder().build();
+        else
+            return Address.builder()
+                    .country(addressEntity.getCountry())
+                    .zilla(addressEntity.getZilla())
+                    .upazila(addressEntity.getUpazila())
+                    .postcode(addressEntity.getPostcode())
+                    .street(addressEntity.getStreet())
+                    .housenumber(addressEntity.getHousenumber())
+                    .build();
     }
 }

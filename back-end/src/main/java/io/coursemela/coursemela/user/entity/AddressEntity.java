@@ -16,12 +16,12 @@ import javax.persistence.Embeddable;
 public class AddressEntity {
 
     private String country = "Bangladesh";
-    private String zilla;
-    private String upazila;
+    private String zilla = "Dhaka";
+    private String upazila = "Shahbag";
 
-    private String postcode;
-    private String street;
-    private String housenumber;
+    private String postcode = "1201";
+    private String street = "12";
+    private String housenumber = "Ahsanullah Hall";
 
     public AddressEntity(Address address) {
         try {

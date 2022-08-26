@@ -7,7 +7,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -20,7 +19,7 @@ public class CustomUserDetails implements UserDetails {
 
     public CustomUserDetails(UserEntity userEntity) {
         this.userName = userEntity.getUserName();
-        this.password = userEntity.getPasssword();
+        this.password = userEntity.getPassword();
 //        this.active = tru
         if (userEntity instanceof InstructorEntity) {
             authorities = List.of(new SimpleGrantedAuthority("ROLE_INSTRUCTOR"));

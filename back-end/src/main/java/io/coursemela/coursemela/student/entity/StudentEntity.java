@@ -5,8 +5,11 @@ import io.coursemela.coursemela.payment.entity.SubscriptionEntity;
 import io.coursemela.coursemela.student.model.Student;
 import io.coursemela.coursemela.user.entity.UserEntity;
 import io.coursemela.coursemela.video.entity.ViewLogEntity;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -17,8 +20,11 @@ import java.util.Set;
 
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder(toBuilder = true)
 public class StudentEntity extends UserEntity {
     @Enumerated(EnumType.ORDINAL)
     private Level level;

@@ -13,6 +13,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
+
 public class InstructorEntity extends UserEntity {
 
     @Column(columnDefinition = "double precision default 0.00")

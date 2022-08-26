@@ -7,7 +7,7 @@ import io.coursemela.coursemela.course.model.Tag;
 import io.coursemela.coursemela.course.model.Topic;
 import io.coursemela.coursemela.course.repository.CourseRepository;
 import io.coursemela.coursemela.course.repository.CourseTagRepository;
-import io.coursemela.coursemela.instructor.model.Instructor;
+import io.coursemela.coursemela.instructor.service.InstructorService;
 import io.coursemela.coursemela.shared.util.UrlCollections;
 import io.coursemela.coursemela.storage.StorageService;
 import lombok.extern.slf4j.Slf4j;
@@ -114,11 +114,16 @@ public class CourseServiceImpl implements CourseService {
 
     }
 
+    @Autowired
+    InstructorService instructorService;
 
     Course getCourseFromCourseEntity(CourseEntity courseEntity) {
         Course course = Course.builder()
                 .id(courseEntity.getId())
-                .instructor(new Instructor(courseEntity.getInstructorEntity()))
+                .instructor(instructorService.getInstructorFromInstructorEntity(
+                                courseEntity.getInstructorEntity()
+                        )
+                )
                 .topic(new Topic(courseEntity.getTopicEntity()))
                 .name(courseEntity.getName())
                 .coverPhotoPath(courseEntity.getCoverPhotoPath())

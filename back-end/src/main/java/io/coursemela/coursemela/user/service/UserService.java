@@ -1,5 +1,6 @@
 package io.coursemela.coursemela.user.service;
 
+import io.coursemela.coursemela.user.entity.UserEntity;
 import io.coursemela.coursemela.user.model.User;
 
 public interface UserService {
@@ -12,4 +13,6 @@ public interface UserService {
     Long getUserId() throws Exception;
 
     boolean isInstructor(Long userId);
+
+    User getUserFromUserEntity(UserEntity userEntity);
 }
