@@ -20,11 +20,11 @@ ChartJS.register(
   Legend
 );
 
-const getRandomInt = (min, max) => {
-    min = Math.ceil(min);
-    max = Math.ceil(max);
-    return Math.floor(Math.random() * (max-min+1)) + min;
-}
+// const getRandomInt = (min, max) => {
+//     min = Math.ceil(min);
+//     max = Math.ceil(max);
+//     return Math.floor(Math.random() * (max-min+1)) + min;
+// }
 
 function CourseStatsChart({ chartTitle, labels, dataVals, datasetName, backRgb }) {
 
