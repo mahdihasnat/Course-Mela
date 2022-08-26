@@ -32,6 +32,7 @@ import PromoContainer from "./views/student/promo/PromoContainer";
 import TrackYourProgressContainer from "./views/student/trackYourProgress/TrackYourProgressContainer";
 import Home from "./views/admin/pages/home/Home";
 import AddPromo from "./views/admin/pages/promo/AddPromo";
+import SearchDrawer from "./views/guestView/search/SearchDrawer";
 
 function MainComponent() {
   const [{ isSignedIn, userRole }, dispatch] = useLoginContext();
@@ -83,7 +84,7 @@ function MainComponent() {
 
               {isSignedIn && (
                 <>
-                  <Route path="/course/search" element={<SearchView />}></Route>
+                  <Route path="/course/search" element={<SearchDrawer />}></Route>
                   <Route
                     path="/course/compare"
                     element={<CompareView />}
