@@ -1,19 +1,21 @@
 package io.coursemela.coursemela.user.entity;
 
 import io.coursemela.coursemela.user.model.Address;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.Embeddable;
 
-@Data
+@Getter
+@Setter
 @Embeddable
 @NoArgsConstructor
 @Slf4j
 public class AddressEntity {
 
-    private String country;
+    private String country = "Bangladesh";
     private String zilla;
     private String upazila;
 

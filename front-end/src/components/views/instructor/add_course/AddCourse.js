@@ -166,9 +166,7 @@ function AddCourse() {
 		const { inputValue } = params;
 
 		// Suggest the creation of a new value
-		const isExisting = options.some(
-			(option) => inputValue === option.name
-		);
+		const isExisting = options.some((option) => inputValue === option.name);
 		if (inputValue !== "" && !isExisting) {
 			filtered.push({
 				inputValue,
@@ -176,16 +174,16 @@ function AddCourse() {
 			});
 		}
 		return filtered;
-	}
+	};
 
-	const tagAutocompleteGetOptionsLabel =(option) => {
+	const tagAutocompleteGetOptionsLabel = (option) => {
 		// Value selected with enter, right from the input
 		if (typeof option === "string") {
 			return option;
 		}
 		// Regular option
 		return option.name;
-	}
+	};
 	const tagAutocompleteOnChange = (event, values, reason) => {
 		console.log("event", event);
 		console.log("values", values);
@@ -223,7 +221,7 @@ function AddCourse() {
 			}
 		}
 		setSelectedTags(values);
-	}
+	};
 
 	return (
 		<Container>
@@ -319,6 +317,7 @@ function AddCourse() {
 									)}
 								</span>
 								<input
+									required
 									id="upload-courseimg"
 									type="file"
 									onChange={handleImgUpload}
@@ -367,7 +366,7 @@ function AddCourse() {
 							defaultValue={[]}
 							value={selectedTags}
 							getOptionLabel={tagAutocompleteGetOptionsLabel}
-							renderInput={(params) =>(
+							renderInput={(params) => (
 								<TextField
 									{...params}
 									label="Add existing tag or create new tag"

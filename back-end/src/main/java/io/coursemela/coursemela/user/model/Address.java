@@ -1,10 +1,11 @@
 package io.coursemela.coursemela.user.model;
 
 import io.coursemela.coursemela.user.entity.AddressEntity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.Embeddable;
 
@@ -12,6 +13,8 @@ import javax.persistence.Embeddable;
 @Embeddable
 @NoArgsConstructor
 @Slf4j
+@Builder
+@AllArgsConstructor
 public class Address {
 
     private String country;
@@ -22,9 +25,7 @@ public class Address {
     private String street;
     private String housenumber;
 
-    @Autowired
-
-
+    
     public Address(AddressEntity address) {
         try {
             this.country = address.getCountry();
