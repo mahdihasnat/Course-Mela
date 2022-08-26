@@ -31,5 +31,7 @@ const CriteriaBasedBasicCourses = ({ urlEnd, title }) => {
         console.log(error);
       });
   }, []);
-  return <>{courses && <StudentCourseList courses={courses} />}</>;
+  return (
+    <>{courses && <StudentCourseList title={title} courses={courses} />}</>
+  );
 };
