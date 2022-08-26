@@ -20,6 +20,11 @@ export const CommentCard = ({
   const [isExpanded, setIsExpanded] = React.useState(true);
   const [isReplyExpanded, setIsReplyExpanded] = React.useState(false);
   const [replyText, setReplyText] = React.useState("");
+<<<<<<< HEAD
+=======
+
+  const [{ isSignedIn, userRole }, dispatch] = useLoginContext();
+>>>>>>> 6d58123 (updated comment card)
   // const [newReplies, setNewReplies] = React.useState([]);
 
   const submitClarification = (e) => {
