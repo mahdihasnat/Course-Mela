@@ -9,6 +9,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import { Stack } from '@mui/material';
 
 ChartJS.register(
   CategoryScale,
@@ -40,7 +41,7 @@ const getRandomInt = (min, max) => {
 
 // const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
-function CourseStatsChart({ chartTitle, labels, dataVals, datasetName }) {
+function CourseStatsChart({ chartTitle, labels, dataVals, datasetName, backRgb }) {
 
     const options = {
         responsive: true,
@@ -64,7 +65,7 @@ function CourseStatsChart({ chartTitle, labels, dataVals, datasetName }) {
           {
             label: datasetName,
             data: dataVals,
-            backgroundColor: 'rgba(53, 162, 235, 0.5)',
+            backgroundColor: backRgb,
           },
         //   {
         //     label: 'Dataset 2',
@@ -76,9 +77,7 @@ function CourseStatsChart({ chartTitle, labels, dataVals, datasetName }) {
 
     return (
         <Bar options={options} data={data} />
-
-        
-        );
+    );
 }
 
 export default CourseStatsChart;
