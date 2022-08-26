@@ -53,7 +53,7 @@ export default function Checkout() {
 
   const [orderComplete, setOrderComplete] = React.useState(false);
 
-  const [orderFailed, setOrderFailed] = React.useState(true);
+  const [orderFailed, setOrderFailed] = React.useState(false);
 
   const navigate = useNavigate();
 
@@ -72,6 +72,10 @@ export default function Checkout() {
 
   const handleOrderSubmit = () => {
     // alert("Order submitted");
+    if (cartCourses.length == 0) {
+      setOrderFailed(true);
+      return;
+    }
     const total = getTotalAmountWithPromo(cartCourses, selectedPromo);
     PaymentService.buyCourses(
       cartCourses,
