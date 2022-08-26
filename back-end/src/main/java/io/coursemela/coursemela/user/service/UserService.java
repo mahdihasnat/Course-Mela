@@ -1,5 +1,7 @@
 package io.coursemela.coursemela.user.service;
 
+import io.coursemela.coursemela.instructor.entity.InstructorEntity;
+import io.coursemela.coursemela.instructor.repository.InstructorRepository;
 import io.coursemela.coursemela.user.entity.UserEntity;
 import io.coursemela.coursemela.user.model.User;
 import io.coursemela.coursemela.user.repository.UserRepository;
@@ -41,5 +43,13 @@ public class UserService {
         if (!optionalUserEntity.isPresent())
             throw new Exception("UserName not present");
         return optionalUserEntity.get().getId();
+    }
+
+    @Autowired
+    InstructorRepository instructorRepository;
+
+    public boolean isInstructor(Long userId) {
+        Optional<InstructorEntity> optionalInstructorEntity = instructorRepository.findById(userId);
+        return optionalInstructorEntity.isPresent();
     }
 }
