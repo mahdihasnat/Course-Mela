@@ -13,6 +13,7 @@ import { LOG_CAUGHT_ERR } from "../../../../shared/utils";
 import { TakaSign } from "../../../helper/CustomIcons";
 import VideoListHorizontal from "../../../helper/videoList/VideoList";
 import CourseBasicDescription from "../../shared/courseCard/CourseBasicDescription";
+import CourseStats from "../CourseStats";
 
 const InstructorCourseDetails = () => {
   const { courseId } = useParams();
@@ -64,6 +65,8 @@ const InstructorCourseDetails = () => {
           </Card>
         </Container>
       )}
+      <hr style={{ margin: 20 }} />
+      <CourseStats />
       <hr style={{ margin: 20 }} />
       <VideoListHorizontal videos={videos} />
       <Container>
