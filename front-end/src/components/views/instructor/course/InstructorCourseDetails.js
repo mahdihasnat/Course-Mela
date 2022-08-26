@@ -20,6 +20,7 @@ import ReactPlayer from "react-player";
 import VideoService from "../../../../services/video/VideoService";
 import { LOG_CAUGHT_ERR } from "../../../../shared/utils";
 import { TakaSign } from "../../../helper/CustomIcons";
+import VideoListHorizontal from "../../../helper/videoList/VideoList";
 
 const InstructorCourseDetails = () => {
   const { courseId } = useParams();
@@ -27,8 +28,6 @@ const InstructorCourseDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isImageLoading, setImageLoading] = useState(true);
   // const [coverPhoto, setCoverPhoto] = useState("");
-
-  const navigate = useNavigate();
 
   const [videos, setVideos] = useState([]);
 
@@ -131,49 +130,7 @@ const InstructorCourseDetails = () => {
       )}
 
       <hr style={{ margin: 20 }} />
-
-      <Container sx={{ margin: 2 }}>
-        <Typography variant={"h4"}>Videos Belonging to this course</Typography>
-        <List sx={{ display: "flex", flexDirection: "row" }}>
-          {videos.map((video) => (
-            <ListItem
-              key={video.id}
-              onClick={(e) => {
-                navigate(`/watchVideo/${video.id}`);
-              }}
-            >
-              <Stack maxHeight={250}>
-                <Card>
-                  <CardMedia
-                    component="img"
-                    image={
-                      video.thumbPath
-                        ? video.thumbPath
-                        : require("../../../../assets/broken.png").default
-                    }
-                    media={"img"}
-                    height={100}
-                  >
-                    {/* {video.thumbPath} */}
-                  </CardMedia>
-                  <CardHeader title={video.title}></CardHeader>
-                  <CardContent>
-                    <CardContent>{video.description}</CardContent>
-                    <CardContent>{video.duration}</CardContent>
-                    <CardContent>{video.rating}</CardContent>
-                  </CardContent>
-                  {/* <img
-                  // src={"http://localhost:8080/fileserver/downloadFile/212.png"}
-                  // src={createImageLinkFromByte(video.thumbPath)}
-                  alt={video.title}
-                /> */}
-                </Card>
-              </Stack>
-              {/* <ListItemText primary={video.title} /> */}
-            </ListItem>
-          ))}
-        </List>
-      </Container>
+      <VideoListHorizontal videos={videos} />
       <Container>
         <Button
           variant={"contained"}
@@ -192,15 +149,3 @@ const InstructorCourseDetails = () => {
 };
 
 export default InstructorCourseDetails;
-
-// now fetch the image
-// ImageService.loadImage(res.data.cover_photo_path)
-//   .then((response) => {
-//     setCoverPhoto(
-//       window.URL.createObjectURL(new Blob([response.data]))
-//     );
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//     console.log("cover photo was not found ");
-//   });

@@ -18,6 +18,7 @@ import ImageService from "../../../../services/content/ImageService";
 import ReactPlayer from "react-player";
 import VideoService from "../../../../services/video/VideoService";
 import { LOG_CAUGHT_ERR } from "../../../../shared/utils";
+import VideoListHorizontal from "../../../helper/videoList/VideoList";
 
 function CourseGuestView() {
   const { courseId } = useParams();
@@ -103,38 +104,7 @@ function CourseGuestView() {
         </Container>
       )}
 
-      <Container>
-        <Typography variant={"h4"}>Videos Belonging to this course</Typography>
-        <List>
-          {videos.map((video) => (
-            <ListItem
-              key={video.id}
-              onClick={(e) => {
-                navigate(`/watchVideo/${video.id}`);
-              }}
-            >
-              <Card>
-                <CardHeader tag="h4" title={video.title}></CardHeader>
-                <CardContent>{video.description}</CardContent>
-                <CardMedia
-                  component="img"
-                  image={video.thumbPath}
-                  media={"img"}
-                  height={25}
-                >
-                  {/* {video.thumbPath} */}
-                </CardMedia>
-                {/* <img
-                  // src={"http://localhost:8080/fileserver/downloadFile/212.png"}
-                  // src={createImageLinkFromByte(video.thumbPath)}
-                  alt={video.title}
-                /> */}
-              </Card>
-              {/* <ListItemText primary={video.title} /> */}
-            </ListItem>
-          ))}
-        </List>
-      </Container>
+      <VideoListHorizontal videos={videos} />
     </Container>
   );
 }
