@@ -1,6 +1,8 @@
 package io.coursemela.coursemela.plan.service;
 
+import io.coursemela.coursemela.course.entity.CourseEntity;
 import io.coursemela.coursemela.course.model.Course;
+import io.coursemela.coursemela.course.repository.CourseRepository;
 import io.coursemela.coursemela.course.service.CourseService;
 import io.coursemela.coursemela.plan.entity.PlanCourseEntity;
 import io.coursemela.coursemela.plan.entity.PlanEntity;
@@ -26,6 +28,9 @@ public class PlanServiceImpl implements PlanService {
     @Autowired
     PlanCourseRepository planCourseRepository;
 
+    @Autowired
+    CourseRepository courseRepository;
+
     @Override
     public Plan createPlan(Plan plan, StudentEntity studentEntity) {
         PlanEntity planEntity = PlanEntity.builder()
@@ -37,7 +42,12 @@ public class PlanServiceImpl implements PlanService {
         planEntity = planRepository.save(planEntity);
         if (plan.getCourses() != null) {
             for (Course course : plan.getCourses()) {
-//                  TODO: add data to bridge table
+                CourseEntity courseEntity = courseRepository.findById(course.getId()).get();
+                PlanCourseEntity planCourseEntity = PlanCourseEntity.builder()
+                        .planEntity(planEntity)
+                        .courseEntity(courseEntity)
+                        .build();
+                planCourseRepository.save(planCourseEntity);
             }
         }
         planEntity = planRepository.findById(planEntity.getId()).get();

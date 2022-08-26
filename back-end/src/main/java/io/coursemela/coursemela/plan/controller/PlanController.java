@@ -2,6 +2,8 @@ package io.coursemela.coursemela.plan.controller;
 
 import io.coursemela.coursemela.plan.model.Plan;
 import io.coursemela.coursemela.plan.service.PlanService;
+import io.coursemela.coursemela.student.entity.StudentEntity;
+import io.coursemela.coursemela.student.repository.StudentRepository;
 import io.coursemela.coursemela.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,9 +18,19 @@ public class PlanController {
     @Autowired
     PlanService planService;
 
+    @Autowired
+    StudentRepository studentRepository;
+
     @PostMapping("add")
-    Plan createPlan(@RequestBody Plan plan) {
-        return plan;
+    ResponseEntity createPlan(@RequestBody Plan plan) {
+        try {
+            Long userId = userService.getUserId();
+            StudentEntity studentEntity = studentRepository.findById(userId).get();
+            return ResponseEntity.ok(planService.createPlan(plan, studentEntity));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(e.getMessage());
+        }
     }
 
     @Autowired
