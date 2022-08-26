@@ -17,6 +17,18 @@ class CommentService {
 			headers: jsonAuthorizedHeader(),
 		});
 	}
+
+	addClarification(videoId, parentClarificationId, reply) {
+		const data = {
+			videoId: videoId,
+			parentClarificationId: parentClarificationId,
+			text: reply,
+		}
+		console.log({"inside comment service": data});
+		return axios.post(joinUrl(COMMENT_URL, "reply","add"),data, {
+			headers: jsonAuthorizedHeader(),
+		});
+	}
 }
 
 export default new CommentService();

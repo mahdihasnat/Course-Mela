@@ -4,13 +4,14 @@ import Avaatar from "../../../utils/Avatar";
 import {ExpandLessRounded, ExpandMoreRounded} from "@material-ui/icons";
 import SendIcon from '@mui/icons-material/Send';
 import CancelIcon from '@mui/icons-material/Cancel';
+import CommentService from "../../../services/comment/CommentService";
 
 
 
 
 
 export const CommentCard = ({
-                                id, text, postTime, clarificationStatus, userId, userName, replies,
+                                videoId,   id, text, postTime, clarificationStatus, userId, userName, replies,
                             }) => {
 
     const [isExpanded, setIsExpanded] = React.useState(true);
@@ -20,7 +21,13 @@ export const CommentCard = ({
     const submitClarification = (e)=>{
         e.preventDefault();
         console.log({"submitClarification": replyText});
-
+        CommentService.addClarification(videoId, id, replyText).then(
+            (response)=>{
+                console.log({"submitClarification": response.data});
+                setReplyText("");
+                setIsReplyExpanded(false);
+            }
+        )
     }
 
     return (
@@ -83,7 +90,7 @@ export const CommentCard = ({
         <Grid item sm={10}>
             {
                 isExpanded && replies && replies.map((reply) => (
-                    reply.clarificationStatus && <CommentCard {...reply}/>
+                    reply.clarificationStatus && <CommentCard videoId={videoId} {...reply}/>
                 ))
             }
         </Grid>
