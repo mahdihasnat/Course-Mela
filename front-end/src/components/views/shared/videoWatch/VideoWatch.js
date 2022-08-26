@@ -56,22 +56,23 @@ const VideoWatch = ({}) => {
     return (<>
         {isLoading ? (<CircularProgress height="100%"/>) : (<Grid container my={5}>
             <Grid item sm={12} md={8} px={5}>
-                {video !== null && <CustomPlayer video={video}/>}
+                <Stack>
+                    {video !== null && <CustomPlayer video={video}/>}
+                    <CommentSection videoId={videoId}/>
+                </Stack>
             </Grid>
             {/* TODO: simplify this and add scrollbar */}
             <Grid item sm={12} md={3} marginLeft={10}>
                 <Paper style={{overflow: "auto"}}>
-                    <Stack spacing={2}>
-                        {/* <Box sx={{ height: 700, width: 450, overflow: "auto" }}>
-                { */}
+                    <Stack spacing={5} >
+
                         {/// TODO : check if it actually works playlists &&
                             playlists.map((playlist) => (<VideoCardHorizontal key={playlist.id} {...playlist} />))}
                     </Stack>
                 </Paper>
             </Grid>
-            <Grid item sm={12} md={8}>
-                <CommentSection videoId={videoId}/>
-            </Grid>
+            {/*<Grid item sm={12} md={8}>*/}
+            {/*</Grid>*/}
         </Grid>)}
     </>);
 };

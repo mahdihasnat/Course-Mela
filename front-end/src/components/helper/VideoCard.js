@@ -1,8 +1,8 @@
-import { Card, CardContent, CardMedia, Typography } from "@mui/material";
+import {Box, Card, CardContent, CardMedia, Typography} from "@mui/material";
 import { Stack } from "@mui/system";
 import React from "react";
 
-export const VideoCardVartical = ({
+export const VideoCardVertical = ({
   videoId,
   thumbPath,
   title,
@@ -37,12 +37,15 @@ export const VideoCardHorizontal = ({
   return (
     <Card>
       <Stack direction="row">
+        <Box minHeight={150} minWidth={150} maxHeight={250} maxWidth={250} >
         <CardMedia
           component="img"
           height="100%"
+          width="100%"
           image={thumbPath}
           alt="Catching thumbpath"
         />
+        </Box>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {title}

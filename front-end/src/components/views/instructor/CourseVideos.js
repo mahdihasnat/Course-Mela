@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import VideoService from "../../../services/video/VideoService";
 import { LOG_CAUGHT_ERR } from "../../../shared/utils";
-import { VideoCardVartical } from "../../helper/VideoCard";
+import { VideoCardVertical } from "../../helper/VideoCard";
 
 const nCols = 7;
 const nColsHalved = Math.floor(nCols / 2);
@@ -33,7 +33,7 @@ function CourseVideos({ courseId }) {
 						navigate(`/watchVideo/${video.id}`);
 					}}
 				>
-					<VideoCardVartical {...video} />
+					<VideoCardVertical {...video} />
 				</Grid>
 			))}
 		</Grid>
