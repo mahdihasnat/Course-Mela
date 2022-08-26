@@ -6,7 +6,7 @@ import {
   REMOVED_COURSE_FROM_COMPARE,
   REMOVE_ALL_COURSE_FROM_CART,
   REMOVE_ALL_COURSE_FROM_COMPARE,
-  REMOVE_PROMO,
+  REMOVE_PROMO, ADD_PAYMENT_ACCOUNT_NO, ADD_PAYMENT_ACCOUNT_TYPE,
 } from "./CourseTypes";
 
 export const addCourseToCompare = (course) => {
@@ -62,3 +62,18 @@ export const removePromo = (promo) => {
     payload: promo,
   };
 };
+
+
+export const addPaymentAccountNo = (accountNo) => {
+    return {
+        type: ADD_PAYMENT_ACCOUNT_NO,
+        payload: accountNo,
+    };
+}
+
+export const addPaymentAccountType = (accountType) => {
+    return {
+        type: ADD_PAYMENT_ACCOUNT_TYPE,
+        payload: accountType,
+    };
+}

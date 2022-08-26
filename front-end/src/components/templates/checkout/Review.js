@@ -5,7 +5,11 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
 import { useSelectedCourseContext } from '../../../store/contexts/SelectedCourseContext';
-import { getPayableAmountForACourse, getTotalAmountForAllCourses } from '../../../utils/coursePricing';
+import {
+    getPayableAmountForACourse,
+    getTotalAmountForAllCourses,
+    getTotalAmountWithPromo
+} from '../../../utils/coursePricing';
 import { Box } from '@mui/material';
 import { TakaSign } from '../../helper/CustomIcons';
 
@@ -20,7 +24,8 @@ const payments = [
 ];
 
 export default function Review() {
-  const [{cartCourses}, dispatch] = useSelectedCourseContext();
+  const [{cartCourses, selectedPromo}, dispatch] = useSelectedCourseContext();
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -37,7 +42,10 @@ export default function Review() {
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }} >
-            {getTotalAmountForAllCourses(cartCourses)} <TakaSign/>
+            {getTotalAmountWithPromo(
+                cartCourses,
+                selectedPromo
+            )} <TakaSign/>
           </Typography>
         </ListItem>
       </List>

@@ -7,7 +7,7 @@ import {
   REMOVE_ALL_COURSE_FROM_CART,
   REMOVE_ALL_COURSE_FROM_COMPARE,
   REMOVE_PROMO,
-  ADD_PROMO,
+  ADD_PROMO, ADD_PAYMENT_ACCOUNT_NO, ADD_PAYMENT_ACCOUNT_TYPE,
 } from "./CourseTypes";
 
 // both for cart and search
@@ -16,6 +16,8 @@ export const courseSelectedState = {
   searchCourses: [],
   compareCourses: [],
   selectedPromo: null,
+  paymentAccountNo: "",
+  paymentType: "Bkash",
 };
 
 const SelectedCourseReducer = (state = courseSelectedState, action) => {
@@ -75,6 +77,17 @@ const SelectedCourseReducer = (state = courseSelectedState, action) => {
         ...state,
         selectedPromo: null,
       };
+    case ADD_PAYMENT_ACCOUNT_NO:
+        return {
+            ...state,
+          paymentAccountNo: action.payload,
+        };
+    case ADD_PAYMENT_ACCOUNT_TYPE:
+        return {
+            ...state,
+            paymentType: action.payload,
+        }
+
 
     default:
       return state;

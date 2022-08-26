@@ -17,6 +17,7 @@ import Review from "./Review";
 import PaymentService from "../../../services/payment/PaymentService";
 import { useSelectedCourseContext } from "../../../store/contexts/SelectedCourseContext";
 import { LOG_CAUGHT_ERR } from "../../../shared/utils";
+import {getTotalAmountWithPromo} from "../../../utils/coursePricing";
 
 // const steps = ['Shipping address', 'Payment details', 'Review your order'];
 const steps = ["Payment details", "Review your order"];
@@ -38,7 +39,7 @@ const theme = createTheme();
 
 export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0);
-  const [{ cartCourses, selectedPromo }, dispatch] = useSelectedCourseContext();
+  const [{ cartCourses, selectedPromo, paymentAccountNo, paymentType }, dispatch] = useSelectedCourseContext();
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -50,7 +51,8 @@ export default function Checkout() {
 
   const handleOrderSubmit = () => {
     alert("Order submitted");
-    PaymentService.buyCourses(cartCourses, selectedPromo)
+    const total = getTotalAmountWithPromo(cartCourses, selectedPromo);
+    PaymentService.buyCourses(cartCourses, selectedPromo, paymentAccountNo, paymentType,total )
       .then((res) => {
         console.log(res);
       })

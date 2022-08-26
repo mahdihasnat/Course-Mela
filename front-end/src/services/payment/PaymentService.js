@@ -4,10 +4,13 @@ import { SUBSCRIPTION_URL } from "../../shared/urls";
 import joinUrl from "../../utils/url";
 
 class PaymentService {
-  buyCourses(courses, promo) {
+  buyCourses(cartCourses, selectedPromo, paymentAccountNo, paymentType,total) {
     const data = {
-      courses: courses,
-      promo: promo,
+      courses: cartCourses,
+      promo: selectedPromo,
+      accountNo: paymentAccountNo,
+      paymentType: paymentType,
+      total: total,
     };
 
     console.log({ "data sent : ": data });
