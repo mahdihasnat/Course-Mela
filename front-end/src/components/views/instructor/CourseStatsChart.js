@@ -20,12 +20,6 @@ ChartJS.register(
   Legend
 );
 
-// const getRandomInt = (min, max) => {
-//     min = Math.ceil(min);
-//     max = Math.ceil(max);
-//     return Math.floor(Math.random() * (max-min+1)) + min;
-// }
-
 function CourseStatsChart({ chartTitle, labels, dataVals, datasetName, backRgb }) {
 
     const options = {
@@ -52,11 +46,6 @@ function CourseStatsChart({ chartTitle, labels, dataVals, datasetName, backRgb }
             data: dataVals,
             backgroundColor: backRgb,
           },
-        //   {
-        //     label: 'Dataset 2',
-        //     data: labels.map(() => getRandomInt(0, 100)),
-        //     backgroundColor: 'rgba(255, 99, 132, 0.5)',
-        //   },
         ],
       };
 
