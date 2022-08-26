@@ -14,7 +14,7 @@ function Selection({ labelId, value, label, onChangeHandler, li }) {
         >
             {
                 li.map(l => (
-                    <MenuItem key={l.id} value={l.id}>
+                    <MenuItem key={l.id} value={l.name}>
                         {l.name}
                     </MenuItem>
                 ))
