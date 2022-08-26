@@ -21,11 +21,11 @@ public interface CourseRepository extends JpaRepository<CourseEntity, Long> {
 //    given student id, find all course that student subscribed to
 
     @Query(value = "select distinct cE " +
-            "from SubscriptionEntity subE left join CoursePricingEntity cpE left join CourseEntity cE " +
+            "from SubscriptionEntity subE inner join CoursePricingEntity cpE " +
+            "on cpE.id = subE.coursePricingEntity.id " +
+            "inner join CourseEntity cE on cpE.courseEntity.id = cE.id  " +
             "where subE.studentEntity.id = ?1 " +
-            "and ?2 between subE.startTime and subE.endTime " +
-            "and cpE.id = subE.coursePricingEntity.id " +
-            "and cpE.courseEntity.id = cE.id ")
+            "and ?2 between subE.startTime and subE.endTime ")
     List<CourseEntity> getAllSubscribedCourses(Long studentId, ZonedDateTime currentTime);
 
 }

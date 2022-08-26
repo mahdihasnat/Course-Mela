@@ -77,12 +77,12 @@ public class CourseController {
     UserService userService;
 
     @GetMapping("/my")
-    ResponseEntity<List<Course>> getMyCourses() {
+    ResponseEntity getMyCourses() {
         try {
             Long userId = userService.getUserId();
             return ResponseEntity.ok(courseService.getMyCourses(userId));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
         }
     }
 
