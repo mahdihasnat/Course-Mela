@@ -86,7 +86,7 @@ const CourseTracker = () => {
   useEffect(() => {
     CourseService.getMycourse()
       .then((response) => {
-        console.log({"my courses:", response});
+        console.log({ "my courses:": response.data });
         setCourses(response.data);
       })
       .catch((err) => {
