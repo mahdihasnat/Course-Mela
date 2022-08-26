@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Path;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -71,10 +72,11 @@ public class CourseServiceImpl implements CourseService {
         return course;
     }
 
+
     @Override
     public List<Course> getMyCourses(Long userId) {
 //    TODO: change logic to fetch only subscribed course
-        List<CourseEntity> courseEntities = courseRepository.findAll();
+        List<CourseEntity> courseEntities = courseRepository.getAllSubscribedCourses(userId, ZonedDateTime.now());
         List<Course> courses = courseEntities
                 .stream()
                 .map(courseEntity -> getCourseFromCourseEntity(courseEntity))
