@@ -1,46 +1,14 @@
 import React, { useEffect } from "react";
 import CourseCard from "../guestView/course/CourseCard";
 
-import InstructorHomeService from "../../../services/instructor/InstructorHomeService";
 import CourseService from "../../../services/course/CourseService";
+import { Container } from "@mui/material";
 
-// export const courses = [
-//   { id: 1, title: "Thermodynamics", rating: 4.5, price: 100, discount: 0, thumbPath: require('../../../assets/coursethumb1.png') },
-//   { id: 2, title: "Statics", rating: 4.0, price: 350, discount: 75, thumbPath: require('../../../assets/coursethumb2.png') },
-//   { id: 3, title: "Motion-2.0", rating: 4.3, price: 150, discount: 0, thumbPath: require('../../../assets/coursethumb3.png') },
-//   { id: 4, title: "Organic", rating: 4.6, price: 100, discount: 30, thumbPath: require('../../../assets/coursethumb4.png') },
-//   { id: 5, title: "Thermodynamics", rating: 4.5, price: 100, discount: 0, thumbPath: require('../../../assets/coursethumb1.png') },
-//   { id: 6, title: "Statics", rating: 4.0, price: 350, discount: 75, thumbPath: require('../../../assets/coursethumb2.png') },
-//   { id: 7, title: "Motion-2.0", rating: 4.3, price: 150, discount: 0, thumbPath: require('../../../assets/coursethumb3.png') },
-//   { id: 8, title: "Organic", rating: 4.6, price: 100, discount: 30, thumbPath: require('../../../assets/coursethumb4.png') }
-// ]
-
-function StudentCourseList({ title }) {
-  const [courses, setCourses] = React.useState([]);
-
-  const [isLoading, setIsLoading] = React.useState(true);
-
-  useEffect(() => {
-    console.log("now loading the course list ");
-
-    setIsLoading(true);
-    CourseService.getAllCourses()
-      .then((response) => {
-        console.log(response.data);
-        setCourses(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-        alert("Error while fetching courses");
-      });
-  }, []);
-
+function StudentCourseList({ title, courses }) {
   return (
-    <div>
+    <Container>
       <span className="courselist-title">{title}</span>
       <hr />
-
-      {/*{ isLoading ? }*/}
       <ul className="card-links">
         {courses.map((course) => (
           <li key={course.id}>
@@ -48,7 +16,7 @@ function StudentCourseList({ title }) {
           </li>
         ))}
       </ul>
-    </div>
+    </Container>
   );
 }
 
