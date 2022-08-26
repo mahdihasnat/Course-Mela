@@ -29,6 +29,18 @@ class CommentService {
 			headers: jsonAuthorizedHeader(),
 		});
 	}
+
+	deleteClarification(videoId, id) {
+		return axios.delete(joinUrl(COMMENT_URL, "delete", id), {
+			headers: jsonAuthorizedHeader(),
+		});
+	}
+
+	approveClarification(videoId, id) {
+		return axios.put(joinUrl(COMMENT_URL, "approve", id),{},  {
+			headers: jsonAuthorizedHeader(),
+		});
+	}
 }
 
 export default new CommentService();
