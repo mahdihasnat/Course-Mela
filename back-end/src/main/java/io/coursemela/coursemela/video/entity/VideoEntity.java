@@ -27,11 +27,12 @@ public class VideoEntity {
 
     String title;
     String description;
-    
+
     @Builder.Default
     private Long likeCount = Long.valueOf(0);
     Integer serial;
     Boolean hidden;
+    Double duration;
 
     @OneToMany(mappedBy = "videoEntity")
     Set<ViewLogEntity> viewLogEntities;

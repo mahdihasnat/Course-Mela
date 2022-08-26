@@ -1,6 +1,5 @@
 package io.coursemela.coursemela.video.model;
 
-import io.coursemela.coursemela.video.entity.VideoEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,19 +23,7 @@ public class Video implements Serializable {
 
     private String videoPath;
     private String thumbPath;
-
-
-    public Video(VideoEntity videoEntity) {
-        this.courseId = videoEntity.getCourseEntity().getId();
-        this.id = videoEntity.getId();
-        this.title = videoEntity.getTitle();
-        this.description = videoEntity.getDescription();
-        this.likeCount = videoEntity.getLikeCount();
-        this.serial = videoEntity.getSerial();
-        this.hidden = videoEntity.getHidden();
-        this.videoPath = videoEntity.getVideoPath();
-        this.thumbPath = videoEntity.getThumbPath();
-    }
+    private Double duration;
 
 
 }

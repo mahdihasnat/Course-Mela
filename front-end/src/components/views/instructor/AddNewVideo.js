@@ -65,6 +65,7 @@ function AddNewVideo({ courseId }) {
 		//     setErrorOnAddQuestion("");
 		//     console.log("VidDuration = ", videoLengthInSec);
 		// }
+		console.log("in handleVideoUpload");
 
 		e.preventDefault();
 		var reader = new FileReader();
@@ -73,13 +74,13 @@ function AddNewVideo({ courseId }) {
 			setSelectedVideoFile(e.target.files[0]);
 			// console.log(reader);
 			setErrorOnAddQuestion("");
+			var media = new Audio(reader.result);
+			media.onloadedmetadata = () => {
+				console.log("VIdDuration = ", media.duration);
+				setVideoLengthInSec(media.duration);
+			};
 		};
 		reader.readAsDataURL(e.target.files[0]);
-
-		// var media = new Audio(reader.result);
-		// media.onloadedmetadata = () => {
-		//     console.log("VIdDuration = ", media.duration);
-		// }
 	};
 
 	const handleQuestionAddClick = () => {
@@ -109,7 +110,8 @@ function AddNewVideo({ courseId }) {
 			VideoService.createVideoMetadata(
 				courseId,
 				state.title,
-				state.description
+				state.description,
+				videoLengthInSec
 			)
 				.then((res) => {
 					console.log({ res: res });

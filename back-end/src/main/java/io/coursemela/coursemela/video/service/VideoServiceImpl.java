@@ -28,7 +28,7 @@ public class VideoServiceImpl implements VideoService {
         CourseEntity courseEntity = courseRepository.findById(video.getCourseId()).stream().findFirst().orElse(null);
         // courseEntity.orElseThrow(())
         // if(courseEntity.isPresent()) {
-
+        log.info(video.toString());
         VideoEntity videoEntity = VideoEntity.builder()
                 .courseEntity(courseEntity)
                 .videoPath(video.getVideoPath())
@@ -37,13 +37,14 @@ public class VideoServiceImpl implements VideoService {
                 .description(video.getDescription())
                 .serial(video.getSerial())
                 .hidden(video.getHidden())
+                .duration(video.getDuration())
                 .build();
 
         System.out.println(videoEntity);
         videoRepository.save(videoEntity);
         System.out.println("after : " + videoEntity);
 
-        return new Video(videoEntity);
+        return getVideoFromVideoEntity(videoEntity);
         // }else{
         // throw new Exception("Course Entity not found" + courseId);
         // }
@@ -55,7 +56,7 @@ public class VideoServiceImpl implements VideoService {
         VideoEntity videoEntity = videoRepository.findById(videoId).stream().findFirst().orElse(null);
         videoEntity.setVideoPath(videoUrl);
         videoRepository.save(videoEntity);
-        return new Video(videoEntity);
+        return getVideoFromVideoEntity(videoEntity);
     }
 
     @Override
@@ -63,19 +64,19 @@ public class VideoServiceImpl implements VideoService {
         VideoEntity videoEntity = videoRepository.findById(videoId).stream().findFirst().orElse(null);
         videoEntity.setThumbPath(thumbUrl);
         videoRepository.save(videoEntity);
-        return new Video(videoEntity);
+        return getVideoFromVideoEntity(videoEntity);
     }
 
     @Override
     public Video getVideoById(Long videoId) {
         VideoEntity videoEntity = videoRepository.findById(videoId).stream().findFirst().orElse(null);
-        return new Video(videoEntity);
+        return getVideoFromVideoEntity(videoEntity);
     }
 
     @Override
     public List<Video> getAllVideoByCourse(Long courseId) {
         List<VideoEntity> videoEntities = videoRepository.findByCourseEntityId(courseId);
-        List<Video> videos = videoEntities.stream().map((video) -> new Video(video)).collect(Collectors.toList());
+        List<Video> videos = videoEntities.stream().map((video) -> getVideoFromVideoEntity(video)).collect(Collectors.toList());
         log.info(videos.toString());
         return videos;
     }
