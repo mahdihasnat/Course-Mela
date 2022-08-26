@@ -125,10 +125,7 @@ public class CommentServiceImpl implements CommentService {
                                        Long videoId,
                                        Long userId,
                                        String text) throws Exception {
-        Optional<ClarificationEntity> optionalClarificationEntity
-                = clarificationRepository.findById(parentClarificationId);
-        if (!optionalClarificationEntity.isPresent())
-            throw new Exception("Parent clarification not found");
+        
         Optional<VideoEntity> optionalVideoEntity = videoRepository.findById(videoId);
         if (!optionalVideoEntity.isPresent()) {
             throw new Exception("Video not found");
