@@ -4,6 +4,7 @@ import AddCommentInput from "./AddCommentInput";
 import React, {useEffect, useState} from "react";
 import CommentService from "../../../services/comment/CommentService";
 import {LOG_CAUGHT_ERR} from "../../../shared/utils";
+import Divider from "@mui/material/Divider";
 
 export const CommentSection = ({videoId}) => {
     const [comments, setComments] = useState([]);
@@ -24,20 +25,18 @@ export const CommentSection = ({videoId}) => {
 
 
 
-
-
-
     return (
-        <Box>
+        <Box my={10}>
         <Stack spacing={2}>
             <Typography variant="h4" color="textPrimary" align={"center"}>
-                Doubts people had...
+                Doubts other students had
             </Typography>
+            <Divider variant={"fullWidth"}/>
         </Stack>
-        <Stack spacing={2}>
+        <Stack spacing={2} >
             {comments &&
                 comments.map((comment) => (
-                    <Box key={comment.id}>
+                    <Box key={comment.id} marginTop={5}>
                         <CommentCard {...comment} />
                     </Box>
                 ))}
