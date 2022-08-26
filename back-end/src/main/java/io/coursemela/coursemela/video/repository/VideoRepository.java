@@ -9,5 +9,6 @@ import java.util.List;
 @Repository
 public interface VideoRepository extends JpaRepository<VideoEntity, Long> {
     List<VideoEntity> findByCourseEntityId(Long courseId);
-    
+
+    Long countByCourseEntityId(Long courseId);
 }

@@ -21,4 +21,6 @@ public interface VideoService {
 
     Video decreaseLike(Long videoId);
 
+    Long totalVideoCountOfCourse(Long courseId);
+
 }

@@ -128,4 +128,9 @@ public class VideoServiceImpl implements VideoService {
         videoRepository.save(videoEntity);
         return getVideoFromVideoEntity(videoEntity);
     }
+
+    @Override
+    public Long totalVideoCountOfCourse(Long courseId) {
+        return videoRepository.countByCourseEntityId(courseId);
+    }
 }
