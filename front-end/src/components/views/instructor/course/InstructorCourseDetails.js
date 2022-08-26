@@ -1,36 +1,23 @@
 import React, { useEffect, useState } from "react";
 import {
+  Button,
   Card,
   CardContent,
-  CardMedia,
-  CardHeader,
   Container,
-  Button,
   Typography,
-  List,
-  ListItem,
-  ListItemText,
-  Stack,
-  Box,
 } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import CourseService from "../../../../services/course/CourseService";
-import createImageLinkFromByte from "../../../../utils/linker";
-import ImageService from "../../../../services/content/ImageService";
-import ReactPlayer from "react-player";
 import VideoService from "../../../../services/video/VideoService";
 import { LOG_CAUGHT_ERR } from "../../../../shared/utils";
 import { TakaSign } from "../../../helper/CustomIcons";
 import VideoListHorizontal from "../../../helper/videoList/VideoList";
 import CourseBasicDescription from "../../shared/courseCard/CourseBasicDescription";
 
-
 const InstructorCourseDetails = () => {
   const { courseId } = useParams();
   const [course, setCourse] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const [isImageLoading, setImageLoading] = useState(true);
-  // const [coverPhoto, setCoverPhoto] = useState("");
 
   const [videos, setVideos] = useState([]);
 
@@ -90,8 +77,6 @@ const InstructorCourseDetails = () => {
           </Typography>{" "}
         </Button>
       </Container>
-
-      {/* </Card> */}
     </>
   );
 };
