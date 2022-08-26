@@ -5,19 +5,16 @@ import {
 } from "@mui/material";
 
 
-import ReactPlayer from "react-player";
+
 import VideoService from "../../../../services/video/VideoService";
 import {LOG_CAUGHT_ERR} from "../../../../shared/utils";
-import Playlist from "./Playlist";
-import Avaatar, {getAvatar} from "../../../../utils/Avatar";
-import {CommentCard} from "../../../helper/comment/CommentCard";
-import CommentService from "../../../../services/comment/CommentService";
+
 import {VideoCardHorizontal} from "../../../helper/VideoCard";
-import {AddComment} from "@mui/icons-material";
-import AddCommentInput from "../../../helper/comment/AddCommentInput";
+
 import {CommentSection} from "../../../helper/comment/CommentSection";
-import getCurrentDateTime from "../../../../utils/Time";
+
 import CustomPlayer from "./CustomPlayer";
+import VideoDescription from "./VideoDescription";
 
 
 const VideoWatch = ({}) => {
@@ -58,6 +55,7 @@ const VideoWatch = ({}) => {
             <Grid item sm={12} md={8} px={5}>
                 <Stack>
                     {video !== null && <CustomPlayer video={video}/>}
+                    <VideoDescription videoId={videoId}/>
                     <CommentSection videoId={videoId}/>
                 </Stack>
             </Grid>

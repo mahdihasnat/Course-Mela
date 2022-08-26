@@ -65,14 +65,6 @@ const CustomPlayer = ({ video }) => {
 			onReady={onReadyCallback}
 			onSeek={seekCallback}
 			playing={true}
-			// ref={async (p) => {
-			//     if(p){
-			//         console.log({p});
-			//         await setRef(p);
-			//     }else{
-			//         console.log({p}, "changed")
-			//     }
-			// }}
 		></ReactPlayer>
 	);
 };
