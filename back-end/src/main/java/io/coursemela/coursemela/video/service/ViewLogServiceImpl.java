@@ -95,11 +95,14 @@ public class ViewLogServiceImpl implements ViewLogService {
                 .findAllByStudentEntityIdAndVisitTimeGreaterThanEqual(userId, ZonedDateTime.now().minusDays(dayCount));
         Long videoCount = viewLogRepository.getVideoCountOfCourse(userId, ZonedDateTime.now().minusDays(dayCount), courseId);
         Double totalWatchTime = viewLogRepository.getTotalWatchTimeOfCourse(userId, ZonedDateTime.now().minusDays(dayCount), courseId);
+        Double progress = viewLogRepository.getProgressOfCourse(userId, courseId);
+        progress = Math.min(progress, 1.0);
         ViewLogStatDTO viewLogStatDTO = ViewLogStatDTO.builder()
                 .totalVideWatched(videoCount)
                 .totalDurationWatched(totalWatchTime)
                 .totalQuizAttempted(0L)
                 .performanceScore(0.0)
+                .progress(progress)
                 .build();
         return viewLogStatDTO;
 

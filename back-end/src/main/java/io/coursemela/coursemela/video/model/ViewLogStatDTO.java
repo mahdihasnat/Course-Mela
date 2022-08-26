@@ -17,4 +17,7 @@ public class ViewLogStatDTO {
     private Long totalQuizAttempted = 0L;
     @Builder.Default
     private Double performanceScore = 0.0;
+
+    @Builder.Default
+    private Double progress = 0.0;
 }

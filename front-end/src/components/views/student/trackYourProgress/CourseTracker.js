@@ -15,29 +15,33 @@ import { useEffect, useState } from "react";
 import CourseService from "../../../../services/course/CourseService";
 import VideoLogService from "../../../../services/video/VideoLogService";
 
-const CourseCardProgress = ({ id, name, thumbPath, instructorName }) => {
+const CourseCardProgress = ({ id, name, coverPhotoPath, instructor }) => {
 	const [progressPercent, setProgressPercent] = useState(0);
 	const [quizProgress, setQuizProgress] = useState(0);
 	useEffect(() => {
 		VideoLogService.getViewLogStatOfCourse(100000, id)
 			.then((response) => {
 				console.log({ "response CourseId :": response, id });
-				setProgressPercent(response.data.progress);
+				setProgressPercent(response.data.progress * 100);
 			})
 			.catch((err) => {
 				console.error(err);
 			});
 	}, [id]);
 	return (
-		<Box maxWidth={250}>
+		<Box maxWidth={250} minWidth={250}>
 			<Card>
-				<CardMedia component="img" image={thumbPath} height={"75vh"} />
+				<CardMedia
+					component="img"
+					image={coverPhotoPath}
+					height={"75vh"}
+				/>
 				<CardContent>
-					<Typography variant={"body1"} gutterBottom>
+					<Typography variant={"h6"} gutterBottom>
 						{name}
 					</Typography>
 					<Typography variant={"subtitle2"} gutterBottom>
-						{instructorName}
+						{instructor.firstName} {instructor.lastName}
 					</Typography>
 					{/*<Typography variant={"body1"}>{progressPercent}%</Typography>*/}
 					{/*<Typography variant={"body1"}>{quizProgress}%</Typography>*/}

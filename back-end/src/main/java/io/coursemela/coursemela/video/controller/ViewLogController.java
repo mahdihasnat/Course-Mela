@@ -68,7 +68,6 @@ public class ViewLogController {
     ResponseEntity<List<ViewLogStatDTO>> getViewLogStats(@RequestBody List<Integer> dayCounts) {
         try {
             Long userId = userService.getUserId();
-            log.info(dayCounts.toString());
             List<ViewLogStatDTO> ret = dayCounts.stream().map(dayCount -> {
                 return viewLogService.getViewLogStat(userId, dayCount);
             }).collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
@@ -84,6 +83,7 @@ public class ViewLogController {
     @GetMapping(value = "getStatOfCourse/{dayCount}/{courseId}")
     ResponseEntity<ViewLogStatDTO> getViewLogStatOfCourse(@PathVariable("dayCount") int dayCount, @PathVariable("courseId") Long courseId) {
         try {
+            log.debug("dayCount: " + dayCount + " courseId: " + courseId);
             Long userId = userService.getUserId();
             return ResponseEntity.ok(viewLogService.getViewLogStatOfCourse(userId, dayCount, courseId));
         } catch (Exception e) {
