@@ -11,6 +11,7 @@ import {
   ListItem,
   ListItemText,
   Stack,
+  Box,
 } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import CourseService from "../../../../services/course/CourseService";
@@ -21,6 +22,8 @@ import VideoService from "../../../../services/video/VideoService";
 import { LOG_CAUGHT_ERR } from "../../../../shared/utils";
 import { TakaSign } from "../../../helper/CustomIcons";
 import VideoListHorizontal from "../../../helper/videoList/VideoList";
+import CourseBasicDescription from "../../shared/courseCard/CourseBasicDescription";
+
 
 const InstructorCourseDetails = () => {
   const { courseId } = useParams();
@@ -59,76 +62,21 @@ const InstructorCourseDetails = () => {
   const loadingMessage = `We are working on a course ${courseId}`;
   return (
     <>
-      {isLoading ? (
-        loadingMessage
-      ) : (
+      {isLoading ? loadingMessage : <CourseBasicDescription {...course} />}
+      {course && (
         <Container>
           <Card>
-            <CardMedia
-              alt={`cover photo for id ${courseId}`}
-              // src={coverPhoto}
-              component={"img"}
-              image={course.coverPhotoPath}
-              // height={"70%"}
-            />
-            <CardContent>
-              <CardContent
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexDirection: "column",
-                }}
-              >
-                <CardContent sx={{ fontSize: "2rem", fontWeight: "bold" }}>
-                  {course.name}
-                </CardContent>
-                <CardContent sx={{ fontSize: "1.3rem", fontWeight: "bold" }}>
-                  {course.description}
-                </CardContent>
-                <CardContent sx={{ display: "flex" }}>
-                  <CardContent>
-                    Price: {course.coursePricing.subsFee} <TakaSign />
-                  </CardContent>
-                  <CardContent>
-                    Your portion: {course.coursePricing.insFee} <TakaSign />
-                  </CardContent>
-                </CardContent>
+            <CardContent sx={{ display: "flex" }}>
+              <CardContent>
+                Price: {course.coursePricing.subsFee} <TakaSign />
               </CardContent>
-              {/* <CardContent tag="h4">Things we will learn...</CardContent> */}
-              <CardContent
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <CardContent
-                  sx={{
-                    backgroundColor: "black",
-                    padding: 2,
-                    borderRadius: 5,
-                    color: "white",
-                  }}
-                >
-                  Topic: {course.topic.name}
-                </CardContent>
-                <CardContent
-                  sx={{
-                    backgroundColor: "black",
-                    padding: 2,
-                    borderRadius: 5,
-                    color: "white",
-                  }}
-                >
-                  Subject: {course.topic.subject.name}
-                </CardContent>
+              <CardContent>
+                Your portion: {course.coursePricing.insFee} <TakaSign />
               </CardContent>
             </CardContent>
           </Card>
         </Container>
       )}
-
       <hr style={{ margin: 20 }} />
       <VideoListHorizontal videos={videos} />
       <Container>

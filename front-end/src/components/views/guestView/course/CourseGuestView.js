@@ -110,15 +110,3 @@ function CourseGuestView() {
 }
 
 export default CourseGuestView;
-
-// now fetch the image
-// ImageService.loadImage(res.data.cover_photo_path)
-//   .then((response) => {
-//     setCoverPhoto(
-//       window.URL.createObjectURL(new Blob([response.data]))
-//     );
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//     console.log("cover photo was not found ");
-//   });
