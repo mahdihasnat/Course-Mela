@@ -13,6 +13,4 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 public class Student extends User {
     Level level;
-    
-
 }

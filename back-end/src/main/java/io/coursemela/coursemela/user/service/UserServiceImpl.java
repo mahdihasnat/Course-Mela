@@ -4,7 +4,6 @@ import io.coursemela.coursemela.instructor.entity.InstructorEntity;
 import io.coursemela.coursemela.instructor.repository.InstructorRepository;
 import io.coursemela.coursemela.user.entity.InstitutionEntity;
 import io.coursemela.coursemela.user.entity.UserEntity;
-import io.coursemela.coursemela.user.model.Institution;
 import io.coursemela.coursemela.user.model.User;
 import io.coursemela.coursemela.user.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -66,8 +65,13 @@ public class UserServiceImpl implements UserService {
     @Autowired
     AddressService addressService;
 
+    @Autowired
+    InstitutionService institutionService;
+
+
     @Override
     public User getUserFromUserEntity(UserEntity userEntity) {
+
         User user = User.builder()
                 .id(userEntity.getId())
                 .userName(userEntity.getUserName())
@@ -84,8 +88,14 @@ public class UserServiceImpl implements UserService {
                 .institutions(new HashSet<>())
                 .build();
         try {
-            for (InstitutionEntity institutionEntity : userEntity.getInstitutionEntities())
-                user.getInstitutions().add(new Institution(institutionEntity));
+            for (InstitutionEntity institutionEntity :
+                    userEntity.getInstitutionEntities())
+                user.getInstitutions().add(
+                        institutionService.
+                                getInstitutionFromInstitutionEntity(
+                                        institutionEntity
+                                )
+                );
         } catch (NullPointerException e) {
             log.trace(e.getStackTrace().toString());
         }

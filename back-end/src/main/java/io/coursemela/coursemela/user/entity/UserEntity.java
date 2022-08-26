@@ -33,7 +33,7 @@ public class UserEntity {
 
     protected String lastName;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = false)
     protected String email;
 
     @JsonIgnore

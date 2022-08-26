@@ -16,7 +16,16 @@ public class InstitutionServiceImpl implements InstitutionService {
     public Institution createInstitution(Institution institution) {
         InstitutionEntity institutionEntity = new InstitutionEntity(institution);
         institutionEntity = institutionRepository.save(institutionEntity);
-        institution = new Institution(institutionEntity);
-        return institution;
+        return getInstitutionFromInstitutionEntity(institutionEntity);
+    }
+
+    @Override
+    public Institution getInstitutionFromInstitutionEntity(InstitutionEntity institutionEntity) {
+        return Institution.builder()
+                .id(institutionEntity.getId())
+                .name(institutionEntity.getName())
+                .location(institutionEntity.getLocation())
+                .description(institutionEntity.getDescription())
+                .build();
     }
 }

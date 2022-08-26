@@ -1,6 +1,5 @@
 package io.coursemela.coursemela.user.model;
 
-import io.coursemela.coursemela.user.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,11 +25,6 @@ public class User {
     protected Address address;
 
     Set<Institution> institutions;
-
-    public User(UserEntity userEntity) {
-        
-    }
-
 
     public void encodePassword() {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

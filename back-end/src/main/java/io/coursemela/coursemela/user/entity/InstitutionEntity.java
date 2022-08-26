@@ -1,19 +1,20 @@
 package io.coursemela.coursemela.user.entity;
 
 import io.coursemela.coursemela.user.model.Institution;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
-@Data
+
 @Entity
 @ToString(exclude = "userEntities")
 @EqualsAndHashCode(exclude = "userEntities")
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class InstitutionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
