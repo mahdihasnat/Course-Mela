@@ -17,7 +17,14 @@ import Review from "./Review";
 import PaymentService from "../../../services/payment/PaymentService";
 import { useSelectedCourseContext } from "../../../store/contexts/SelectedCourseContext";
 import { LOG_CAUGHT_ERR } from "../../../shared/utils";
-import {getTotalAmountWithPromo} from "../../../utils/coursePricing";
+import { getTotalAmountWithPromo } from "../../../utils/coursePricing";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 // const steps = ['Shipping address', 'Payment details', 'Review your order'];
 const steps = ["Payment details", "Review your order"];
@@ -39,7 +46,16 @@ const theme = createTheme();
 
 export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0);
-  const [{ cartCourses, selectedPromo, paymentAccountNo, paymentType }, dispatch] = useSelectedCourseContext();
+  const [
+    { cartCourses, selectedPromo, paymentAccountNo, paymentType },
+    dispatch,
+  ] = useSelectedCourseContext();
+
+  const [orderComplete, setOrderComplete] = React.useState(false);
+
+  const [orderFailed, setOrderFailed] = React.useState(true);
+
+  const navigate = useNavigate();
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -49,14 +65,29 @@ export default function Checkout() {
     setActiveStep(activeStep - 1);
   };
 
+  const gotoMyCourses = (e) => {
+    e.preventDefault();
+    navigate("/my-courses");
+  };
+
   const handleOrderSubmit = () => {
-    alert("Order submitted");
+    // alert("Order submitted");
     const total = getTotalAmountWithPromo(cartCourses, selectedPromo);
-    PaymentService.buyCourses(cartCourses, selectedPromo, paymentAccountNo, paymentType,total )
+    PaymentService.buyCourses(
+      cartCourses,
+      selectedPromo,
+      paymentAccountNo,
+      paymentType,
+      total
+    )
       .then((res) => {
         console.log(res);
+        setOrderComplete(true);
       })
-      .catch(LOG_CAUGHT_ERR);
+      .catch((err) => {
+        console.log(err);
+        setOrderFailed(true);
+      });
   };
   return (
     <ThemeProvider theme={theme}>
@@ -83,9 +114,10 @@ export default function Checkout() {
                   Thank you for your order.
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order
+                  Enjoy our courses.
+                  {/* Your order number is #2001539. We have emailed your order
                   confirmation, and will send you an update when your order has
-                  shipped.
+                  shipped. */}
                 </Typography>
               </React.Fragment>
             ) : (
@@ -115,6 +147,36 @@ export default function Checkout() {
             )}
           </React.Fragment>
         </Paper>
+
+        <Dialog open={orderFailed}>
+          <DialogTitle>Order Failed</DialogTitle>
+          <DialogContent>
+            <Typography>
+              Sorry, we were unable to process your order. Please try again
+              later.
+            </Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setOrderFailed(false)} color="primary">
+              OK
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+        <Dialog open={orderComplete}>
+          <DialogTitle>Order Complete</DialogTitle>
+          <DialogContent>
+            <Typography>
+              Thank you for your order. We will send you an email with
+              transaction details.
+            </Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button color="primary" onClick={gotoMyCourses}>
+              Continue watching
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Container>
     </ThemeProvider>
   );
