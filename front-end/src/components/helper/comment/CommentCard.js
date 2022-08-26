@@ -5,6 +5,8 @@ import { ExpandLessRounded, ExpandMoreRounded } from "@material-ui/icons";
 import SendIcon from "@mui/icons-material/Send";
 import CancelIcon from "@mui/icons-material/Cancel";
 import CommentService from "../../../services/comment/CommentService";
+import { useLoginContext } from "../../../store/contexts/LoginContext";
+import { ROLE_INSTRUCTOR } from "../../../shared/StringConstant";
 
 export const CommentCard = ({
   videoId,
@@ -20,16 +22,13 @@ export const CommentCard = ({
   const [isExpanded, setIsExpanded] = React.useState(true);
   const [isReplyExpanded, setIsReplyExpanded] = React.useState(false);
   const [replyText, setReplyText] = React.useState("");
-<<<<<<< HEAD
-=======
 
   const [{ isSignedIn, userRole }, dispatch] = useLoginContext();
->>>>>>> 6d58123 (updated comment card)
   // const [newReplies, setNewReplies] = React.useState([]);
 
   const submitClarification = (e) => {
     e.preventDefault();
-    if (replyText.length == 0) return;
+    // if (replyText.length == 0) return;
     console.log({ submitClarification: replyText });
     CommentService.addClarification(videoId, id, replyText).then((response) => {
       console.log({ "submitClarification Result": response.data });
@@ -37,6 +36,24 @@ export const CommentCard = ({
       setIsReplyExpanded(false);
       setCommentsUpdated(true);
     });
+  };
+
+  const deleteClarification = (e) => {
+    CommentService.deleteClarification(videoId, id)
+      .then((response) => {
+        console.log({ "deleteClarification Result": response.data });
+        setCommentsUpdated(true);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const approveClarification = (e) => {
+    CommentService.approveClarification(videoId, id)
+      .then((response) => {
+        console.log({ "approveClarification Result": response.data });
+        setCommentsUpdated(true);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -55,14 +72,35 @@ export const CommentCard = ({
             </Typography>
             <Stack spacing={1} direction={"row"} marginTop={3}>
               {!isReplyExpanded && (
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  onClick={(e) => setIsReplyExpanded(true)}
-                >
-                  {" "}
-                  Reply{" "}
-                </Button>
+                <Stack direction={"row"}>
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    onClick={(e) => setIsReplyExpanded(true)}
+                  >
+                    {" "}
+                    Reply{" "}
+                  </Button>
+                  {userRole === ROLE_INSTRUCTOR &&
+                    clarificationStatus === "PENDING" && (
+                      <>
+                        <Button
+                          variant="outlined"
+                          color="primary"
+                          onClick={approveClarification}
+                        >
+                          Approve
+                        </Button>
+                        <Button
+                          variant="outlined"
+                          color="primary"
+                          onClick={deleteClarification}
+                        >
+                          Reject
+                        </Button>
+                      </>
+                    )}
+                </Stack>
               )}
               {isReplyExpanded && (
                 <Stack direction={"row"}>
@@ -111,9 +149,13 @@ export const CommentCard = ({
             replies &&
             replies.map(
               (reply) =>
-                reply.clarificationStatus && (
+                ///TODO only approve approved comments
+                reply.clarificationStatus !== "REJECTED" &&
+                (userRole === ROLE_INSTRUCTOR ||
+                  reply.clarificationStatus === "APPROVED") && (
                   <CommentCard
                     setCommentsUpdated={setCommentsUpdated}
+                    key={reply.id}
                     videoId={videoId}
                     {...reply}
                   />

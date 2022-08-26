@@ -55,8 +55,31 @@ public class CommentController {
                     newClarificationDTO.getParentClarificationId(),
                     newClarificationDTO.getVideoId(),
                     userId,
-                    newClarificationDTO.getText()
-            ));
+                    newClarificationDTO.getText()));
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/delete/{commentId}")
+    ResponseEntity deleteComment(@PathVariable("commentId") Long commentId) {
+        try {
+            commentService.deleteComment(commentId);
+            return ResponseEntity.ok(true);
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/approve/{commentId}")
+    ResponseEntity approveComment(@PathVariable("commentId") Long commentId) {
+        try {
+            commentService.approveComment(commentId);
+            return ResponseEntity.ok(true);
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)

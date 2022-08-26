@@ -10,8 +10,12 @@ public interface CommentService {
     Comment createDoubt(Long videoId, Long userId, String text) throws Exception;
 
     Comment createClarification(Long parentClarificationId,
-                                Long videoId,
-                                Long userId,
-                                String text) throws Exception;
+            Long videoId,
+            Long userId,
+            String text) throws Exception;
+
+    Boolean deleteComment(Long commentId);
+
+    Boolean approveComment(Long commentId);
 
 }
