@@ -40,7 +40,7 @@ const getRandomInt = (min, max) => {
 
 // const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
-function CourseStatsChart({ chartTitle, labels, datasetName }) {
+function CourseStatsChart({ chartTitle, labels, dataVals, datasetName }) {
 
     const options = {
         responsive: true,
@@ -63,13 +63,13 @@ function CourseStatsChart({ chartTitle, labels, datasetName }) {
         datasets: [
           {
             label: datasetName,
-            data: labels.map(() => getRandomInt(0, 100)),
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            data: dataVals,
+            backgroundColor: 'rgba(53, 162, 235, 0.5)',
           },
         //   {
         //     label: 'Dataset 2',
         //     data: labels.map(() => getRandomInt(0, 100)),
-        //     backgroundColor: 'rgba(53, 162, 235, 0.5)',
+        //     backgroundColor: 'rgba(255, 99, 132, 0.5)',
         //   },
         ],
       };
