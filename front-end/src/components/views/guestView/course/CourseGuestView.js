@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Container } from "@mui/material";
+import { Container, Card, CardContent, Button } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import CourseService from "../../../../services/course/CourseService";
 import VideoService from "../../../../services/video/VideoService";
 import { LOG_CAUGHT_ERR } from "../../../../shared/utils";
 import VideoListHorizontal from "../../../helper/videoList/VideoList";
 import CourseBasicDescription from "../../shared/courseCard/CourseBasicDescription";
+import { TakaSign } from "../../../helper/CustomIcons";
 
 function CourseGuestView() {
   const { courseId } = useParams();
@@ -40,10 +41,41 @@ function CourseGuestView() {
       .catch(LOG_CAUGHT_ERR);
   }, []);
 
+  const contentStyle = {
+    // backgroundColor: "#63a314",
+    // color: "white",
+    // padding: "20px",
+    borderRadius: "15px",
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  };
+
   const loadingMessage = `We are working on a course ${courseId}`;
   return (
     <Container>
       {isLoading ? loadingMessage : <CourseBasicDescription {...course} />}
+      <Container>
+        <Card>
+          <CardContent
+            sx={{
+              display: "flex",
+              alignItems: "left",
+              justifyContent: "left",
+              flexDirection: "column",
+            }}
+          >
+            <CardContent sx={contentStyle}>
+              Price: 100 <TakaSign />
+            </CardContent>
+            <CardContent sx={contentStyle}>Rating: 2</CardContent>
+            <CardContent sx={contentStyle}>
+              <Button>Buy This Course</Button>
+            </CardContent>
+          </CardContent>
+        </Card>
+      </Container>
       <VideoListHorizontal videos={videos} />
     </Container>
   );

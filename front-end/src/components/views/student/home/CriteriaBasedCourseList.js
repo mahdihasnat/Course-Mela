@@ -3,9 +3,7 @@ import CourseService from "../../../../services/course/CourseService";
 import StudentCourseList from "../StudentCourseList";
 
 export const MostPopularCourse = () => {
-  return (
-    <CriteriaBasedBasicCourses urlEnd="watchTime" title="People are watching" />
-  );
+  return <CriteriaBasedBasicCourses urlEnd="watchTime" title="Most Popular" />;
 };
 
 export const MostSaledCourse = () => {
