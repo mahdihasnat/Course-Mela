@@ -17,4 +17,8 @@ public interface ViewLogService {
     ViewLogStatDTO getViewLogStatOfCourse(Long userId, int dayCount, Long courseId);
 
     Double getTotalTimeOfVideoBetween(Long videoId, ZonedDateTime startTime, ZonedDateTime endTime);
+
+    Integer getTotalViewOfVideoBetween(Long videoId,
+                                       ZonedDateTime startTime,
+                                       ZonedDateTime endTime);
 }

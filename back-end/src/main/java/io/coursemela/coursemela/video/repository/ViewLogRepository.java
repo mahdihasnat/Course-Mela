@@ -59,4 +59,13 @@ public interface ViewLogRepository extends JpaRepository<ViewLogEntity, Long> {
                                            ZonedDateTime startTime,
                                            ZonedDateTime endTime);
 
+    @Query(value = "select count(vle.id) " +
+            "from ViewLogEntity vle " +
+            "where vle.videoEntity.id = ?1 " +
+            "and ?2 <= vle.visitTime " +
+            "and vle.visitTime <= ?3 ")
+    Integer getTotalViewOfVideoBetween(Long videoId,
+                                       ZonedDateTime startTime,
+                                       ZonedDateTime endTime);
+
 }

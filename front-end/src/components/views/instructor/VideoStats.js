@@ -18,6 +18,8 @@ function VideoStats({ videoId }) {
 	const [watchTimeYAxis, setWatchTimeYAxis] = React.useState([]);
 	const watchTimeXLabels = ["Today", "Yesterday", "This Week"];
 
+	const [watchCountYAxis, setWatchCountYAxis] = React.useState([]);
+
 	useEffect(() => {
 		const now = new Date();
 		// get current date start time of the day
@@ -66,6 +68,14 @@ function VideoStats({ videoId }) {
 			.catch((err) => {
 				console.log({ "view aggregate error ": err.message });
 			});
+		VideoLogService.getViewLogCountAggregate(watchTimeXAxis, videoId)
+			.then((res) => {
+				console.log({ "view count aggregate result ": res.data });
+				setWatchCountYAxis(res.data);
+			})
+			.catch((err) => {
+				console.log({ "view count aggregate error ": err.message });
+			});
 	}, []);
 	return (
 		<Container
@@ -88,9 +98,9 @@ function VideoStats({ videoId }) {
 			<br />
 			<CourseStatsChart
 				chartTitle={"Total Views"}
-				labels={chartData.totalViews.labels}
-				dataVals={chartData.totalViews.values}
-				datasetName={"Vidoes Watched (in hours)"}
+				labels={watchTimeXLabels}
+				dataVals={watchCountYAxis}
+				datasetName={"Vidoes Watched Count"}
 				backRgb={"rgba(255, 99, 132, 0.5)"}
 			/>
 		</Container>

@@ -122,4 +122,17 @@ public class ViewLogServiceImpl implements ViewLogService {
         return ret;
     }
 
+    @Override
+    public Integer getTotalViewOfVideoBetween(Long videoId,
+                                              ZonedDateTime startTime,
+                                              ZonedDateTime endTime) {
+        Integer ret = viewLogRepository.getTotalViewOfVideoBetween(videoId,
+                startTime,
+                endTime);
+        if (ret == null)
+            ret = 0;
+        return ret;
+    }
+
+
 }

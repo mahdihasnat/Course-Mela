@@ -31,5 +31,14 @@ class VideoLogService {
 			}
 		);
 	}
+	getViewLogCountAggregate(watchTimeXaxis, videoId) {
+		return axios.post(
+			joinUrl(VIDEO_URL, "log", "getWatchCountOfVideo", videoId),
+			watchTimeXaxis,
+			{
+				headers: jsonAuthorizedHeader(),
+			}
+		);
+	}
 }
 export default new VideoLogService();

@@ -133,4 +133,5 @@ public class VideoServiceImpl implements VideoService {
     public Long totalVideoCountOfCourse(Long courseId) {
         return videoRepository.countByCourseEntityId(courseId);
     }
+
 }

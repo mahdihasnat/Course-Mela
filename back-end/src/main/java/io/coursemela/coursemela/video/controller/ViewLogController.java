@@ -123,4 +123,24 @@ public class ViewLogController {
         }
     }
 
+    @PostMapping(value = "getWatchCountOfVideo/{videoId}")
+    ResponseEntity getWatchCountOfVideo(@PathVariable("videoId") Long videoId,
+                                        @RequestBody List<VideoWatchTimeRequestDTO>
+                                                videoWatchTimeRequestDTOs) {
+        try {
+            return ResponseEntity.ok(
+                    videoWatchTimeRequestDTOs.stream().map(
+                            videoWatchTimeRequestDTO ->
+                                    viewLogService.getTotalViewOfVideoBetween(videoId,
+                                            videoWatchTimeRequestDTO.getStartTime(),
+                                            videoWatchTimeRequestDTO.getEndTime())
+                    ).collect(Collectors.toList()));
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(null);
+        }
+    }
+
 }
