@@ -7,6 +7,7 @@ import io.coursemela.coursemela.instructor.service.InstructorHomeService;
 import io.coursemela.coursemela.user.context.UserContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,8 +28,8 @@ public class InstructorHomeController {
 
 
     @GetMapping("/")
-    public List<InstructorEntity> getAllInstructor() {
-        return instructorHomeService.getAllInstructor();
+    public ResponseEntity getAllInstructor() {
+        return ResponseEntity.ok(instructorHomeService.getAllInstructor());
     }
 
     @GetMapping("/details")
