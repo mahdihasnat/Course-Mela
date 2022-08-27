@@ -78,7 +78,7 @@ public class ViewLogServiceImpl implements ViewLogService {
         List<ViewLogEntity> viewLogEntities = viewLogRepository
                 .findAllByStudentEntityIdAndVisitTimeGreaterThanEqual(userId, ZonedDateTime.now().minusDays(dayCount));
         Long videoCount = viewLogRepository.getVideoCount(userId, ZonedDateTime.now().minusDays(dayCount));
-        Double totalWatchTime = viewLogRepository.getTotalWatchTime(userId, ZonedDateTime.now().minusDays(dayCount));
+        Double totalWatchTime = viewLogRepository.getTotalWatchTimeOfStudent(userId, ZonedDateTime.now().minusDays(dayCount));
         ViewLogStatDTO viewLogStatDTO = ViewLogStatDTO.builder()
                 .totalVideWatched(videoCount)
                 .totalDurationWatched(totalWatchTime)
@@ -94,7 +94,7 @@ public class ViewLogServiceImpl implements ViewLogService {
         List<ViewLogEntity> viewLogEntities = viewLogRepository
                 .findAllByStudentEntityIdAndVisitTimeGreaterThanEqual(userId, ZonedDateTime.now().minusDays(dayCount));
         Long videoCount = viewLogRepository.getVideoCountOfCourse(userId, ZonedDateTime.now().minusDays(dayCount), courseId);
-        Double totalWatchTime = viewLogRepository.getTotalWatchTimeOfCourse(userId, ZonedDateTime.now().minusDays(dayCount), courseId);
+        Double totalWatchTime = viewLogRepository.getTotalWatchTimeOfStudentOfCourse(userId, ZonedDateTime.now().minusDays(dayCount), courseId);
         Double progress = viewLogRepository.getProgressOfCourse(userId, courseId);
         progress = Math.min(progress, 1.0);
         ViewLogStatDTO viewLogStatDTO = ViewLogStatDTO.builder()

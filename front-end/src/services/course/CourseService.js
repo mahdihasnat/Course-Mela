@@ -115,6 +115,15 @@ class CourseService {
 			}
 		);
 	}
+	getTotalWatchTime(courseId, dayCounts) {
+		return axios.post(
+			joinUrl(COURSE_URL, "totalWatchTime", courseId),
+			dayCounts,
+			{
+				headers: jsonAuthorizedHeader(),
+			}
+		);
+	}
 }
 
 export default new CourseService();

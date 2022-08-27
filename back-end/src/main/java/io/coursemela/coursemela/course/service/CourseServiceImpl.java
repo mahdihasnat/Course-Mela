@@ -10,6 +10,7 @@ import io.coursemela.coursemela.course.repository.CourseTagRepository;
 import io.coursemela.coursemela.instructor.service.InstructorService;
 import io.coursemela.coursemela.shared.util.UrlCollections;
 import io.coursemela.coursemela.storage.StorageService;
+import io.coursemela.coursemela.video.repository.ViewLogRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -149,5 +150,16 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.findAllByTopicEntityId(topicId).stream().map(
                 courseEntity -> getCourseFromCourseEntity(courseEntity)
         ).collect(Collectors.toList());
+    }
+
+    @Autowired
+    ViewLogRepository viewLogRepository;
+
+    @Override
+    public Double getTotalWatchTime(Long courseId, ZonedDateTime startTime) {
+        Double ret = viewLogRepository.getTotalWatchTimeOfCourse(courseId, startTime);
+        if (ret == null)
+            ret = 0.0;
+        return ret;
     }
 }

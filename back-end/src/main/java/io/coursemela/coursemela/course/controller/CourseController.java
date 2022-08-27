@@ -89,4 +89,17 @@ public class CourseController {
         return ResponseEntity.ok(ret);
     }
 
+    @PostMapping("/totalWatchTime/{courseId}")
+    ResponseEntity getTotalWatchTime(@PathVariable("courseId") Long courseId,
+                                     @RequestBody List<Integer> dayCounts) {
+        log.info("get total watchTime: " + courseId);
+        log.info("dayCounts: " + dayCounts.toString());
+        List<Double> ret = dayCounts.stream().map(
+                dayCount -> courseService.getTotalWatchTime(courseId,
+                        ZonedDateTime.now().minusDays(dayCount)) / 60.0
+        ).collect(Collectors.toList());
+        return ResponseEntity.ok(ret);
+    }
+
+
 }
