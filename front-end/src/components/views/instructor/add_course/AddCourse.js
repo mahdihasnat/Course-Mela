@@ -149,7 +149,7 @@ function AddCourse() {
 						selectedImg
 					);
 				}
-				navigate("/edit-course");
+				navigate(`/courses/${response.data.id}`);
 			})
 			.catch((err) => {
 				alert("course creation failed ");

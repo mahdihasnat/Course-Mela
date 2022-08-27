@@ -32,7 +32,7 @@ public class CoursePricingServiceImpl implements CoursePricingService {
         CoursePricingEntity coursePricingEntity = CoursePricingEntity.builder()
                 .courseEntity(courseEntity)
                 .subsFee(coursePricing.getSubsFee())
-                .insFee(coursePricing.getSubsFee())
+                .insFee((long) (coursePricing.getSubsFee() * 0.75))
                 .offPercent(0.0)
                 .startDate(ZonedDateTime.now())
                 .build();
