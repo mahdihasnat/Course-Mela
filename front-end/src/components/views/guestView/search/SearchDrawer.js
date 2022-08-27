@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import {
 	Button,
+	Container,
 	Drawer,
 	FormControl,
 	Grid,
@@ -19,7 +20,7 @@ import SearchBar from "material-ui-search-bar";
 import CourseService from "../../../../services/course/CourseService";
 import { LOG_CAUGHT_ERR } from "../../../../shared/utils";
 import { CourseCardSearch } from "../../shared/courseCard/CourseCardSearch";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
 	CartSpeedDial,
 	CompareSpeedDial,
@@ -51,13 +52,17 @@ import SubjectService from "../../../../services/subject/SubjectService";
 
 const priceMax = 1000;
 
-function SearchDrawer() {
+function SearchDrawer({}) {
 	const [courses, setCourses] = React.useState([]);
 	const [fileteredCourses, setFilteredCourses] = React.useState([]);
 	const [drawerWidth, setDrawerWidth] = React.useState(240);
 	const [filteringPrice, setFilteringPrice] = React.useState([0, priceMax]);
 	const [subjectFiltered, setSubjectFiltered] = React.useState(null);
 	const [instFiltered, setInstFiltered] = React.useState(null);
+
+	const [searchText, setSearchText] = React.useState(useParams().searchText);
+	// const searchTextParam = useParams().searchText;
+	// console.log({ searchText });
 
 	const [instructors, setInstructors] = React.useState([]);
 	const [subjects, setSubjects] = React.useState([]);
@@ -133,7 +138,23 @@ function SearchDrawer() {
 					(!instFiltered ||
 						instFiltered === "" ||
 						instFiltered === null ||
-						course.instructor.id === instFiltered)
+						course.instructor.id === instFiltered) &&
+					// if course.description is a subsequence of searchText
+					(!searchText ||
+						searchText === "" ||
+						searchText === null ||
+						course.description
+							.toLowerCase()
+							.includes(searchText.toLowerCase()) ||
+						course.name
+							.toLowerCase()
+							.includes(searchText.toLowerCase()) ||
+						course.topic.name
+							.toLowerCase()
+							.includes(searchText.toLowerCase()) ||
+						course.topic.subject.name
+							.toLowerCase()
+							.includes(searchText.toLowerCase()))
 				);
 			})
 		);
@@ -144,134 +165,141 @@ function SearchDrawer() {
 		courses,
 		subjects,
 		instructors,
+		searchText,
 	]);
 
 	return (
-		<Box sx={{ flexGrow: 1 }}>
-			<Grid container spacing={2}>
-				<Grid item xs={2}>
-					<Stack
-						sx={{
-							display: "flex",
-							alignItems: "center",
-							justifyContent: "center",
-							padding: 4,
-						}}
-					>
-						{/* <TextField label="Search" variant="outlined" />
-            <TextField label="Filter" variant="outlined" /> */}
-						<Button
-							startIcon={<Tune />}
-							variant="contained"
+		<Container>
+			<Box sx={{ flexGrow: 1 }}>
+				<Grid container spacing={2}>
+					<Grid item xs={2}>
+						<Stack
 							sx={{
-								borderRadius: "10px",
-								maxWidth: "100px",
-								marginTop: 4,
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "center",
+								padding: 4,
 							}}
 						>
-							Filter
-						</Button>
-						<h4>Price</h4>
-						<Slider
-							size="small"
-							defaultValue={filteringPrice}
-							aria-label="Custom marks"
-							getAriaValueText={valueText}
-							valueLabelDisplay="auto"
-							marks={marks}
-							onChange={(e) => setFilteringPrice(e.target.value)}
-							value={filteringPrice}
-							step={10}
-							// scale={scale}
-							max={priceMax}
-						/>
+							{/* <TextField label="Search" variant="outlined" />
+            <TextField label="Filter" variant="outlined" /> */}
+							<Button
+								startIcon={<Tune />}
+								variant="contained"
+								sx={{
+									borderRadius: "10px",
+									maxWidth: "100px",
+									marginTop: 4,
+								}}
+							>
+								Filter
+							</Button>
+							<h4>Price</h4>
+							<Slider
+								size="small"
+								defaultValue={filteringPrice}
+								aria-label="Custom marks"
+								getAriaValueText={valueText}
+								valueLabelDisplay="auto"
+								marks={marks}
+								onChange={(e) =>
+									setFilteringPrice(e.target.value)
+								}
+								value={filteringPrice}
+								step={10}
+								// scale={scale}
+								max={priceMax}
+							/>
 
-						{/* <input type={"range"} value={filteringPrice} onChange={e => setFilteringPrice(e.target.value)} /> */}
+							{/* <input type={"range"} value={filteringPrice} onChange={e => setFilteringPrice(e.target.value)} /> */}
 
-						<Selection
-							labelId={"subject-filter-select"}
-							value={subjectFiltered}
-							label={"Subject"}
-							onChangeHandler={handleSubjectsChange}
-							li={subjects}
-							valueProp="id"
-							labelProp="name"
-							keyProp="id"
-						/>
-						<Selection
-							labelId={"inst-filter-select"}
-							value={instFiltered}
-							label={"Instructor"}
-							onChangeHandler={handleInstChange}
-							li={instructors}
-							valueProp="id"
-							labelProp="userName"
-							keyProp="id"
-						/>
-					</Stack>
-					{/* <Stack>
+							<Selection
+								labelId={"subject-filter-select"}
+								value={subjectFiltered}
+								label={"Subject"}
+								onChangeHandler={handleSubjectsChange}
+								li={subjects}
+								valueProp="id"
+								labelProp="name"
+								keyProp="id"
+							/>
+							<Selection
+								labelId={"inst-filter-select"}
+								value={instFiltered}
+								label={"Instructor"}
+								onChangeHandler={handleInstChange}
+								li={instructors}
+								valueProp="id"
+								labelProp="userName"
+								keyProp="id"
+							/>
+						</Stack>
+						{/* <Stack>
             <Drawer
-                sx={{
-                    width: drawerWidth,
-                    '& .MuiDrawer-paper': {
-                        width: drawerWidth,
-                        boxSizing: 'border-box',
-                    },
-                    maxHeight: "70vh"
-                }}
-                variant="permanent"
-                anchor="left"
+			sx={{
+				width: drawerWidth,
+				'& .MuiDrawer-paper': {
+					width: drawerWidth,
+					boxSizing: 'border-box',
+				},
+				maxHeight: "70vh"
+			}}
+			variant="permanent"
+			anchor="left"
             >
-                
+			
             </Drawer>
-          </Stack> */}
-				</Grid>
-				<Grid item xs={9}>
-					<Stack>
-						<SearchBar
-							onChange={(data) => {
-								console.log("onchange:", data);
-							}}
-							onRequestSearch={(data) => {
-								console.log("reqsrc:", data);
-							}}
-						/>
+		</Stack> */}
+					</Grid>
+					<Grid item xs={9}>
+						<Stack>
+							<SearchBar
+								value={searchText}
+								onChange={(data) => {
+									console.log("onchange:", data);
+								}}
+								onRequestSearch={(data) => {
+									console.log("reqsrc:", data);
+									setSearchText(data);
+								}}
+							/>
 
-						<Grid container my={1} spacing={1}>
-							{fileteredCourses.map((course) => {
-								return (
-									<Grid
-										item
-										my={1}
-										xs={4}
-										lg={3}
-										key={course.id}
-									>
-										<CourseCardSearch course={course} />
-									</Grid>
-								);
-							})}
-						</Grid>
-						{/* <Stack direction={"row-reverse"}>
+							<Grid container my={1} spacing={1}>
+								{fileteredCourses.map((course) => {
+									return (
+										<Grid
+											item
+											my={1}
+											xs={4}
+											lg={3}
+											key={course.id}
+										>
+											<CourseCardSearch course={course} />
+										</Grid>
+									);
+								})}
+							</Grid>
+							{/* <Stack direction={"row-reverse"}>
               <Button
-                variant="contained"
-                color="primary"
-                onClick={() => {
-                  navigate("/course/compare");
+			  variant="contained"
+			  color="primary"
+			  onClick={() => {
+				  navigate("/course/compare");
                 }}
               >
-                Compare Now
+			  Compare Now
               </Button>
               <Button variant="contained" color="primary">
-                Buy Now
+			  Buy Now
               </Button>
             </Stack> */}
-					</Stack>
+						</Stack>
+					</Grid>
 				</Grid>
-			</Grid>
-			<CartSpeedDial />
-			<CompareSpeedDial />
-		</Box>
+				<CartSpeedDial />
+				<CompareSpeedDial />
+			</Box>
+		</Container>
 	);
 }
 
