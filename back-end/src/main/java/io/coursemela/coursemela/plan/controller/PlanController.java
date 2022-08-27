@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.ZonedDateTime;
+
 @RestController
 @RequestMapping("/plan")
 @Slf4j
@@ -29,6 +31,8 @@ public class PlanController {
             log.info(plan.toString());
             Long userId = userService.getUserId();
             StudentEntity studentEntity = studentRepository.findById(userId).get();
+            plan.setStartTime(ZonedDateTime.now());
+            plan.setEndTime(ZonedDateTime.now().plusDays(plan.getDayCount()));
             return ResponseEntity.ok(planService.createPlan(plan, studentEntity));
         } catch (Exception e) {
             e.printStackTrace();
