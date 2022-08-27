@@ -2,7 +2,10 @@ package io.coursemela.coursemela.video.service;
 
 import io.coursemela.coursemela.video.model.Video;
 
+import java.time.Duration;
+import java.time.ZonedDateTime;
 import java.util.List;
+
 
 public interface VideoService {
     Video createVideoMetadata(Video video) throws Exception;
@@ -17,10 +20,18 @@ public interface VideoService {
 
     List<Video> getSimilarVideos(Long videoId);
 
+
     Video increaseLike(Long videoId);
 
     Video decreaseLike(Long videoId);
 
     Long totalVideoCountOfCourse(Long courseId);
+
+
+    Boolean addVideoLog(Long videoId,
+                        Long studentId,
+                        Duration watchTime,
+                        Duration lastVisitDuration,
+                        ZonedDateTime lastVisitTime);
 
 }
