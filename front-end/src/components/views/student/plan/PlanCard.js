@@ -10,39 +10,46 @@ import PlanService from "../../../../services/plan/PlanService";
 
 // first try with donout shape
 
-const dataLine = {
-	labels: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
-	datasets: [
-		{
-			label: "Projected",
-			data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-			fill: true,
-			borderColor: "rgba(75,192,192,1)",
-			backgroundColor: "rgba(75,192,192,0.4)",
-			tension: 0,
-		},
-		{
-			label: "Progress so Far",
-			data: [0.1, 0.9, 1.7, 4, 6.6],
-			fill: 0,
-			borderColor: "rgb(220,69,199)",
-			backgroundColor: "rgba(220,69,199,0.4)",
-			tension: 0.3,
-		},
-	],
-};
+// const dataLine = {
+// 	labels: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+// 	datasets: [
+// 		{
+// 			label: "Projected",
+// 			data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+// 			fill: true,
+// 			borderColor: "rgba(75,192,192,1)",
+// 			backgroundColor: "rgba(75,192,192,0.4)",
+// 			tension: 0,
+// 		},
+// 		{
+// 			label: "Progress so Far",
+// 			data: [0.1, 0.9, 1.7, 4, 6.6],
+// 			fill: 0,
+// 			borderColor: "rgb(220,69,199)",
+// 			backgroundColor: "rgba(220,69,199,0.4)",
+// 			tension: 0.3,
+// 		},
+// 	],
+// };
 
 const performance = ["Focus More", "Sky Rocket", "Keep Going"];
 
-export const PlanCard = ({ id, title, startTime, endTime, courses }) => {
+export const PlanCard = ({
+	id,
+	title,
+	startTime,
+	endTime,
+	courses,
+	dayCount,
+}) => {
 	const [data, setData] = useState({});
 	const [dataLoaded, setDataLoaded] = useState(false);
+	const start = new Date(startTime);
+	const end = new Date(endTime);
+	const now = new Date();
 	useEffect(() => {
 		console.log({ title, startTime, endTime, courses });
 
-		const start = new Date(startTime);
-		const end = new Date(endTime);
-		const now = new Date();
 		let diff = end.getTime() - start.getTime();
 		let diff2 = now.getTime() - start.getTime();
 
@@ -67,10 +74,40 @@ export const PlanCard = ({ id, title, startTime, endTime, courses }) => {
 		fetchPrices();
 	}, []);
 
+	const [dataLine, setDataLine] = useState(null);
+
 	useEffect(() => {
 		PlanService.getPlanProgress(id)
 			.then((response) => {
+				const doubleArray = response.data;
+				// calculate the day difference between end and start time
+
+				console.log({ dayCount });
+				const dataCount = endTime - startTime;
 				console.log(response);
+				setDataLine({
+					labels: [...Array(dayCount + 1).keys()],
+					datasets: [
+						{
+							label: "Projected",
+							data: [...Array(dayCount + 1).keys()].map(
+								(i) => i / (dayCount + 1)
+							),
+							fill: true,
+							borderColor: "rgba(75,192,192,1)",
+							backgroundColor: "rgba(75,192,192,0.4)",
+							tension: 0,
+						},
+						{
+							label: "Progress so Far",
+							data: response.data,
+							fill: 0,
+							borderColor: "rgb(220,69,199)",
+							backgroundColor: "rgba(220,69,199,0.4)",
+							tension: 0.3,
+						},
+					],
+				});
 			})
 			.catch((err) => {
 				console.log(err);
@@ -120,16 +157,17 @@ export const PlanCard = ({ id, title, startTime, endTime, courses }) => {
 						</Grid>
 						<Container>
 							<Button variant="contained" color="primary">
-								{/* {" "} */}
 								Discontinue
 							</Button>
 						</Container>
 					</Stack>
 				</Grid>
 				<Grid item xs={6}>
-					<PlanInterPolatedBarChart
-						chartData={dataLine}
-					></PlanInterPolatedBarChart>
+					{dataLine && (
+						<PlanInterPolatedBarChart
+							chartData={dataLine}
+						></PlanInterPolatedBarChart>
+					)}
 				</Grid>
 			</Grid>
 		</Container>

@@ -133,6 +133,9 @@ public class PlanServiceImpl implements PlanService {
                 .title(planEntity.getTitle())
                 .startTime(planEntity.getStartTime())
                 .endTime(planEntity.getEndTime())
+                .dayCount(
+                        (int) ((planEntity.getEndTime().toEpochSecond() - planEntity.getStartTime().toEpochSecond()) / (60 * 60 * 24))
+                )
                 .courses(new ArrayList<>())
                 .build();
         for (PlanCourseEntity planCourseEntity : planEntity.getPlanCourseEntities()) {
