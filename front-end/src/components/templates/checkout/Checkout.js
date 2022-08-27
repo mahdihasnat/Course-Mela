@@ -67,7 +67,7 @@ export default function Checkout() {
 
   const gotoMyCourses = (e) => {
     e.preventDefault();
-    navigate("/my-courses");
+    navigate("/my-course");
   };
 
   const handleOrderSubmit = () => {
