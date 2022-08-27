@@ -86,7 +86,10 @@ function SuggestionModal({ suggestionClicked, setSuggestionClicked, topicId }) {
 										);
 									}}
 								>
-									<CourseCard course={course} />
+									<CourseCard
+										course={course}
+										disableOnClickNavigate={true}
+									/>
 								</li>
 							))}
 						</ul>
@@ -114,7 +117,10 @@ function SuggestionModal({ suggestionClicked, setSuggestionClicked, topicId }) {
 											);
 										}}
 									>
-										<CourseCard course={course} />
+										<CourseCard
+											course={course}
+											disableOnClickNavigate={true}
+										/>
 									</li>
 								))}
 							</ul>

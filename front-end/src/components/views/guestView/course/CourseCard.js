@@ -1,66 +1,81 @@
-import React, {useState} from "react";
-import {useNavigate} from "react-router-dom";
-import {Button, Card, CardContent, CardMedia, Container, Grid, Rating, Stack,} from "@mui/material";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+	Button,
+	Card,
+	CardContent,
+	CardMedia,
+	Container,
+	Grid,
+	Rating,
+	Stack,
+} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import {AttachMoney} from "@mui/icons-material";
+import { AttachMoney } from "@mui/icons-material";
 
 const courseCardStyle = {
-  maxWidth: 300,
-  "&:hover": {
-    cursor: "pointer",
-    opacity: "0.8"
-  }
-}
+	maxWidth: 300,
+	"&:hover": {
+		cursor: "pointer",
+		opacity: "0.8",
+	},
+};
 
-const CourseCard = ({ course }) => {
-  const [image, setImage] = useState("");
-  const navigate = useNavigate();
+const CourseCard = ({ course, disableOnClickNavigate }) => {
+	const [image, setImage] = useState("");
+	const navigate = useNavigate();
 
-  return (
-    <Container
-      sx={courseCardStyle}
-      onClick={() => navigate(`/courses/${course.id}`)}
-    >
-      <Card>
-        <CardMedia
-          component="img"
-          height="150"
-          // image='https://source.unsplash.com/random'
-          alt="unsplash image"
-          image={course.coverPhotoPath ? course.coverPhotoPath : ""}
-        />
+	return (
+		<Container
+			sx={courseCardStyle}
+			onClick={() => {
+				console.log({ disableOnClickNavigate });
+				!disableOnClickNavigate && navigate(`/courses/${course.id}`);
+			}}
+		>
+			<Card>
+				<CardMedia
+					component="img"
+					height="150"
+					// image='https://source.unsplash.com/random'
+					alt="unsplash image"
+					image={course.coverPhotoPath ? course.coverPhotoPath : ""}
+				/>
 
-        <CardContent>
-          <Typography variant="button" display="block" gutterBottom>
-            {course.name}
-          </Typography>
+				<CardContent>
+					<Typography variant="button" display="block" gutterBottom>
+						{course.name}
+					</Typography>
 
-          <Typography variant="subtitle2" gutterBottom>
-            {course.instructor.firstName} {course.instructor.lastName}
-          </Typography>
-          <Rating
-            name="half-rating-read"
-            defaultValue={2.5}
-            precision={0.1}
-            value={5}
-            readOnly
-          />
-          <Stack>
-            <Grid container sx={{ maxHeight: 20 }}>
-              <Grid item>
-                <Button endIcon={<AttachMoney />}>
-                  {course.coursePricing.subsFee}
-                </Button>
-              </Grid>
-              <Grid>
-                <Button>{course.coursePricing.offPercent}%</Button>
-              </Grid>
-            </Grid>
-          </Stack>
-        </CardContent>
-      </Card>
-    </Container>
-  );
+					<Typography variant="subtitle2" gutterBottom>
+						{course.instructor.firstName}{" "}
+						{course.instructor.lastName}
+					</Typography>
+					<Rating
+						name="half-rating-read"
+						defaultValue={2.5}
+						precision={0.1}
+						value={5}
+						readOnly
+					/>
+					<Stack>
+						<Grid container sx={{ maxHeight: 20 }}>
+							<Grid item>
+								<Button endIcon={<AttachMoney />}>
+									{course.coursePricing.subsFee}
+								</Button>
+							</Grid>
+							<Grid>
+								<Button>
+									{course.coursePricing.offPercent}%
+								</Button>
+							</Grid>
+						</Grid>
+					</Stack>
+				</CardContent>
+			</Card>
+		</Container>
+	);
 };
 
 export default CourseCard;
