@@ -143,4 +143,11 @@ public class CourseServiceImpl implements CourseService {
             ret = 0L;
         return ret;
     }
+
+    @Override
+    public List<Course> getCoursesOfTopic(Long topicId) {
+        return courseRepository.findAllByTopicEntityId(topicId).stream().map(
+                courseEntity -> getCourseFromCourseEntity(courseEntity)
+        ).collect(Collectors.toList());
+    }
 }

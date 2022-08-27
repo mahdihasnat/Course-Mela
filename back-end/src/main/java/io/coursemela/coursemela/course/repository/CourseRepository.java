@@ -46,4 +46,6 @@ public interface CourseRepository extends JpaRepository<CourseEntity, Long> {
             "and subE.startTime >= ?2"
     )
     Long totalEarnOfCourse(Long courseId, ZonedDateTime startingTime);
+
+    List<CourseEntity> findAllByTopicEntityId(Long topicId);
 }

@@ -60,6 +60,14 @@ class CourseService {
 		});
 	}
 
+	getAllCoursesByTopic(topicId) {
+		return axios({
+			method: "GET",
+			url: joinUrl(COURSE_URL, "topic", topicId),
+			headers: jsonAuthorizedHeader(),
+		});
+	}
+
 	getCourseInstructorView(id) {
 		return axios({
 			method: "GET",

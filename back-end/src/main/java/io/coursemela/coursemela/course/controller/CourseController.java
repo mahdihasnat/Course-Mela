@@ -65,6 +65,11 @@ public class CourseController {
         return courseService.getCourses();
     }
 
+    @GetMapping("/topic/{topicId}")
+    List<Course> getCoursesOfTopic(@PathVariable("topicId") Long topicId) {
+        return courseService.getCoursesOfTopic(topicId);
+    }
+
     @GetMapping("/{courseId}")
     Course getCourse(@PathVariable("courseId") String courseId) {
         log.info("get course: " + courseId);

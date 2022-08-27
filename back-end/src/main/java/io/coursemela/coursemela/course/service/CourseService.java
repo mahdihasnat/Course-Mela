@@ -26,4 +26,5 @@ public interface CourseService {
 
     Long getTotalEarn(Long courseId, ZonedDateTime startTime);
 
+    List<Course> getCoursesOfTopic(Long topicId);
 }
