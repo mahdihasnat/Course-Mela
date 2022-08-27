@@ -3,6 +3,8 @@ package io.coursemela.coursemela.video.service;
 import io.coursemela.coursemela.video.model.VideoLog;
 import io.coursemela.coursemela.video.model.ViewLogStatDTO;
 
+import java.time.ZonedDateTime;
+
 public interface ViewLogService {
     Long addVideoLog(VideoLog videoLog,
                      Long studentId) throws Exception;
@@ -13,4 +15,6 @@ public interface ViewLogService {
     ViewLogStatDTO getViewLogStat(Long userId, int dayCount);
 
     ViewLogStatDTO getViewLogStatOfCourse(Long userId, int dayCount, Long courseId);
+
+    Double getTotalTimeOfVideoBetween(Long videoId, ZonedDateTime startTime, ZonedDateTime endTime);
 }

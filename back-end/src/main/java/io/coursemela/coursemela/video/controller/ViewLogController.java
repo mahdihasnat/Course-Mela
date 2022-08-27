@@ -2,6 +2,7 @@ package io.coursemela.coursemela.video.controller;
 
 import io.coursemela.coursemela.user.service.UserService;
 import io.coursemela.coursemela.video.model.VideoLog;
+import io.coursemela.coursemela.video.model.VideoWatchTimeRequestDTO;
 import io.coursemela.coursemela.video.model.ViewLogStatDTO;
 import io.coursemela.coursemela.video.service.ViewLogService;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @Slf4j
@@ -93,4 +95,26 @@ public class ViewLogController {
                     .body(null);
         }
     }
+
+
+    @PostMapping(value = "getWatchTimeOfVideo/{videoId}")
+    ResponseEntity getWatchTimeOfVideo(@PathVariable("videoId") Long videoId,
+                                       List<VideoWatchTimeRequestDTO>
+                                               videoWatchTimeRequestDTOs) {
+        try {
+            return ResponseEntity.ok(
+                    videoWatchTimeRequestDTOs.stream().map(
+                            videoWatchTimeRequestDTO ->
+                                    viewLogService.getTotalTimeOfVideoBetween(videoId,
+                                            videoWatchTimeRequestDTO.getStartTime(),
+                                            videoWatchTimeRequestDTO.getEndTime())
+                    ).collect(Collectors.toList()));
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(null);
+        }
+    }
+
 }

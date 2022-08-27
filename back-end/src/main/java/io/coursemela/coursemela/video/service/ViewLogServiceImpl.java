@@ -108,5 +108,11 @@ public class ViewLogServiceImpl implements ViewLogService {
 
     }
 
+    @Override
+    public Double getTotalTimeOfVideoBetween(Long videoId,
+                                             ZonedDateTime startTime,
+                                             ZonedDateTime endTime) {
+        return viewLogRepository.getTotalWatchTimeOfVideoBetween(videoId, startTime, endTime);
+    }
 
 }
