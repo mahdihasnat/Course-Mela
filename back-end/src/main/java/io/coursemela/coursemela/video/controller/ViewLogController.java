@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -45,6 +46,7 @@ public class ViewLogController {
     public ResponseEntity<Long> addVideoLog(@RequestBody VideoLog videoLog) {
         try {
             Long userId = userService.getUserId();
+            videoLog.setVisitTime(ZonedDateTime.now());
             return ResponseEntity.ok(viewLogService.addVideoLog(videoLog, userId));
         } catch (Exception e) {
             return ResponseEntity

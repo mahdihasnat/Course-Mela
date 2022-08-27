@@ -7,7 +7,7 @@ import ReactPlayer from "react-player";
 const CustomPlayer = ({ video }) => {
 	// const [last, setLast] = useState(initState);
 	const [lastRecorededTime, setLastRecorededTime] = useState(0);
-	const [visitTime, setVisitTime] = useState(getCurrentDateTime());
+	// const [visitTime, setVisitTime] = useState();
 	const [videoLogId, setVideoLogId] = useState(null);
 	const progressCallback = ({
 		played,
@@ -23,8 +23,7 @@ const CustomPlayer = ({ video }) => {
 				videoLogId,
 				video.id,
 				watchTime,
-				playedSeconds,
-				visitTime
+				playedSeconds
 			)
 				.then((response) => {
 					console.log({ response });
@@ -44,7 +43,7 @@ const CustomPlayer = ({ video }) => {
 	useEffect(() => {
 		console.log("player is ready");
 
-		VideoService.createVideoWatchLog(video.id, visitTime)
+		VideoService.createVideoWatchLog(video.id)
 			.then((response) => {
 				console.log({ "created video record": response.data });
 				setVideoLogId(response.data);

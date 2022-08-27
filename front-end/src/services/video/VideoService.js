@@ -94,16 +94,12 @@ class VideoService {
 		});
 	}
 
-	updateWatchTime(videoLogId, videoId, watchTime, playedSeconds, visitTime) {
-		const seconds = Math.floor(watchTime);
-		const nanos = (watchTime - seconds) * 1000000000;
-
+	updateWatchTime(videoLogId, videoId, watchTime, playedSeconds) {
 		const data = {
 			id: videoLogId,
 			videoId: videoId,
 			watchTime: watchTime,
 			lastVisitPoint: playedSeconds,
-			visitTime: visitTime,
 		};
 
 		return axios.put(joinUrl(VIDEO_URL, "log", "update"), data, {
@@ -111,28 +107,33 @@ class VideoService {
 		});
 	}
 
-	createVideoWatchLog(videoId, visitTime) {
+	createVideoWatchLog(videoId) {
 		const data = {
 			videoId: videoId,
-			visitTime: visitTime,
 		};
 		return axios.post(joinUrl(VIDEO_URL, "log", "add"), data, {
 			headers: jsonAuthorizedHeader(),
 		});
 	}
 
-    increaseLike(videoId) {
-		return axios.put(joinUrl(VIDEO_URL, "increase-like", videoId), {}, {
-			headers: jsonAuthorizedHeader(),
-		});
-
-    }
+	increaseLike(videoId) {
+		return axios.put(
+			joinUrl(VIDEO_URL, "increase-like", videoId),
+			{},
+			{
+				headers: jsonAuthorizedHeader(),
+			}
+		);
+	}
 
 	decreaseLike(videoId) {
-
-		return axios.put(joinUrl(VIDEO_URL, "decrease-like", videoId), {}, {
-			headers: jsonAuthorizedHeader(),
-		});
+		return axios.put(
+			joinUrl(VIDEO_URL, "decrease-like", videoId),
+			{},
+			{
+				headers: jsonAuthorizedHeader(),
+			}
+		);
 	}
 }
 
