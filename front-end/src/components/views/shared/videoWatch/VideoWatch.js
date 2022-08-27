@@ -25,6 +25,8 @@ import { CommentSection } from "../../../helper/comment/CommentSection";
 import CustomPlayer from "./CustomPlayer";
 import VideoDescription from "./VideoDescription";
 import VideoStats from "../../instructor/VideoStats";
+import { ROLE_INSTRUCTOR } from "../../../../shared/StringConstant";
+import { useLoginContext } from "../../../../store/contexts/LoginContext";
 
 const VideoWatch = ({}) => {
 	const { videoId } = useParams();
@@ -34,8 +36,9 @@ const VideoWatch = ({}) => {
 	const [video, setVideo] = useState(null);
 
 	const [isLoading, setIsLoading] = useState(true);
+	const [{ userRole }, dispatch] = useLoginContext();
 
-	const [roleForNow, setRoleForNow] = useState("INSTRUCTOR");
+	// const [roleForNow, setRoleForNow] = useState("INSTRUCTOR");
 
 	useEffect(() => {
 		/// loading the videos here
@@ -80,7 +83,7 @@ const VideoWatch = ({}) => {
 							<Stack spacing={5}>
 								{
 									/// TODO : check if it actually works playlists &&
-									roleForNow === "INSTRUCTOR" ? (
+									userRole === ROLE_INSTRUCTOR ? (
 										<VideoStats videoId={videoId} />
 									) : (
 										playlists.map((playlist) => (
