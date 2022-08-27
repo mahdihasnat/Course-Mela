@@ -5,11 +5,13 @@ import io.coursemela.coursemela.course.model.Course;
 import io.coursemela.coursemela.course.repository.CourseRepository;
 import io.coursemela.coursemela.course.service.CourseService;
 import io.coursemela.coursemela.plan.entity.PlanCourseEntity;
+import io.coursemela.coursemela.plan.entity.PlanCourseKey;
 import io.coursemela.coursemela.plan.entity.PlanEntity;
 import io.coursemela.coursemela.plan.model.Plan;
 import io.coursemela.coursemela.plan.repository.PlanCourseRepository;
 import io.coursemela.coursemela.plan.repository.PlanRepository;
 import io.coursemela.coursemela.student.entity.StudentEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class PlanServiceImpl implements PlanService {
     @Autowired
     PlanRepository planRepository;
@@ -46,6 +49,12 @@ public class PlanServiceImpl implements PlanService {
                 PlanCourseEntity planCourseEntity = PlanCourseEntity.builder()
                         .planEntity(planEntity)
                         .courseEntity(courseEntity)
+                        .id(
+                                PlanCourseKey.builder()
+                                        .planId(planEntity.getId())
+                                        .courseId(courseEntity.getId())
+                                        .build()
+                        )
                         .build();
                 planCourseRepository.save(planCourseEntity);
             }

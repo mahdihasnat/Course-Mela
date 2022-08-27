@@ -19,5 +19,6 @@ public class Plan {
     String title;
     ZonedDateTime startTime;
     ZonedDateTime endTime;
+    int dayCount;
     List<Course> courses;
 }
