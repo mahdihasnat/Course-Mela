@@ -98,7 +98,8 @@ const PlanCreatorModal = ({ createPlan, setCreatePlan }) => {
 
     PlanService.createPlan(title, selectedCourses, dayCount)
       .then((response) => {
-        console.log("plan created ", response.data);
+        console.log({"plan created ": response.data});
+        setSelectedCourses([]);
         setCreatePlan(false);
       })
       .catch((err) => {
