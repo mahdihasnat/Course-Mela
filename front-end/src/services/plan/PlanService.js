@@ -6,14 +6,16 @@ import {jsonAuthorizedHeader} from "../../shared/Header";
 class PlanService {
 
     createPlan(title, selectedCourses, startTime, endTime) {
+
+        const data = {
+            title: title,
+            courses: selectedCourses,
+            startTime: startTime,
+            endTime: endTime,
+        }
         return axios.post(
             joinUrl(PLAN_URL, "add"),
-            {
-            title,
-            selectedCourses,
-            startTime,
-            endTime
-        }, {
+            data, {
             headers: jsonAuthorizedHeader()
             }
         );

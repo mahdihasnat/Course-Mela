@@ -86,8 +86,12 @@ const PlanCreatorModal = ({ createPlan, setCreatePlan }) => {
   };
 
   const handleCreatePlan = () => {
-    console.log("inside createPlan");
+    // console.log("inside createPlan");
 
+    if(selectedCourses.length === 0) {
+      alert("Please select atleast one course");
+      return;
+    }
 
     const startTime = new Date().toISOString();
 
