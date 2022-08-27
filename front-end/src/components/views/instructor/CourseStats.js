@@ -1,4 +1,4 @@
-import { Container, Stack } from "@mui/material";
+import { Container, Grid, Stack } from "@mui/material";
 import React, { useEffect } from "react";
 import CourseService from "../../../services/course/CourseService";
 import CourseStatsChart from "./CourseStatsChart";
@@ -51,21 +51,28 @@ function CourseStats({ courseId }) {
 				flexDirection: "column",
 			}}
 		>
-			<h2>Your Course Statistics {courseId}</h2>
-			<CourseStatsChart
-				chartTitle={"Total Earns"}
-				labels={earnLabels}
-				dataVals={earnYAxis}
-				datasetName={"Money Earned (Tk.)"}
-				backRgb={"rgba(53, 162, 235, 0.5)"}
-			/>
-			<CourseStatsChart
-				chartTitle={"Total Views"}
-				labels={viewLabels}
-				dataVals={viewYAxis}
-				datasetName={"Vidoes Watched (in minutes)"}
-				backRgb={"rgba(255, 99, 132, 0.5)"}
-			/>
+			<h2>Your Course Statistics </h2>
+			<Grid container spacing={3}>
+				<Grid item xs={12} md={6}>
+					<CourseStatsChart
+						chartTitle={"Total Earns"}
+						labels={earnLabels}
+						dataVals={earnYAxis}
+						datasetName={"Money Earned (Tk.)"}
+						backRgb={"rgba(53, 162, 235, 0.5)"}
+					/>
+				</Grid>
+
+				<Grid item xs={12} md={6}>
+					<CourseStatsChart
+						chartTitle={"Total Views"}
+						labels={viewLabels}
+						dataVals={viewYAxis}
+						datasetName={"Vidoes Watched (in minutes)"}
+						backRgb={"rgba(255, 99, 132, 0.5)"}
+					/>
+				</Grid>
+			</Grid>
 		</Container>
 	);
 }
