@@ -21,3 +21,5 @@ export const FILE_SERVER_URL = joinUrl(baseUrl, "fileserver");
 export const PROMO_URL = joinUrl(baseUrl, "promo");
 
 export const SUBSCRIPTION_URL = joinUrl(baseUrl, "subscribe");
+
+export  const PLAN_URL = joinUrl(baseUrl, "plan");

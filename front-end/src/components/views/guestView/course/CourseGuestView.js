@@ -67,7 +67,7 @@ function CourseGuestView() {
             }}
           >
             <CardContent sx={contentStyle}>
-              Price: 100 <TakaSign />
+              Price: {course.coursePricing.subsFee} <TakaSign />
             </CardContent>
             <CardContent sx={contentStyle}>Rating: 2</CardContent>
             <CardContent sx={contentStyle}>
