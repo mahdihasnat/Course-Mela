@@ -4,10 +4,6 @@ import CourseService from "../../../services/course/CourseService";
 import CourseStatsChart from "./CourseStatsChart";
 
 const chartData = {
-	totalEarns: {
-		labels: ["Last 7 days", "Last 15 days", "Last Month", "Last Year"],
-		values: [300, 750, 1000, 1500],
-	},
 	totalViews: {
 		labels: ["Today", "Yesterday", "This Week", "This Month", "Last Month"],
 		values: [6, 10, 25, 60, 84],
