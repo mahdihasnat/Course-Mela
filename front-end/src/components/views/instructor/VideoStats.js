@@ -1,6 +1,7 @@
 import { Container, Stack } from "@mui/material";
-import React from "react";
+import React, {useEffect} from "react";
 import CourseStatsChart from "./CourseStatsChart";
+import VideoLogService from "../../../services/video/VideoLogService";
 
 const chartData = {
   totalWatchTime: {
@@ -13,7 +14,28 @@ const chartData = {
   },
 };
 
+
 function VideoStats() {
+
+    useEffect(() => {
+        const now = new Date();
+        // get current date start time of the day
+        const startToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const startYesterday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1);
+        const startThisWeek = new Date(now.getFullYear(), now.getMonth(), now.getDate() - now.getDay());
+        const startThisMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+        const startLast3Month = new Date(now.getFullYear(), now.getMonth() - 3, 1);
+
+        VideoLogService.getViewLogWatchAggregate(now,  startToday, startYesterday, startThisWeek, startThisMonth,  startLast3Month).then(res => {
+            console.log({"view aggregate result " :  res});
+
+        }).catch(err => {
+            console.log({"view aggregate error " :  err.message});
+        })
+
+
+
+    },[]);
   return (
     <Container
       sx={{
