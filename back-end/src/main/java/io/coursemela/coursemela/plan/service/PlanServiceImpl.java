@@ -39,6 +39,7 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
     public Plan createPlan(Plan plan, StudentEntity studentEntity) {
+        log.info("Creating plan: " + plan.toString());
         PlanEntity planEntity = PlanEntity.builder()
                 .title(plan.getTitle())
                 .startTime(plan.getStartTime())
@@ -64,6 +65,9 @@ public class PlanServiceImpl implements PlanService {
             }
         }
         planEntity = planRepository.save(planEntity);
+        for (PlanCourseEntity planCourseEntity : planEntity.getPlanCourseEntities()) {
+            planCourseRepository.save(planCourseEntity);
+        }
 //        planEntity = planRepository.findById(planEntity.getId()).get();
         return getPlanFromPlanEntity(planEntity);
     }
@@ -86,7 +90,7 @@ public class PlanServiceImpl implements PlanService {
         ZonedDateTime endTime = planEntity.getEndTime();
         Integer days = (int) ((endTime.toEpochSecond() - startTime.toEpochSecond()) / (60 * 60 * 24));
         List<Double> progress = new ArrayList<>();
-        for (long now = 0; startTime.plusDays(now).isBefore(endTime); now++) {
+        for (long now = 0; startTime.plusDays(now).isBefore(ZonedDateTime.now().plusDays(1)); now++) {
             progress.add(
                     getProgressBetween(planEntity, startTime, startTime.plusDays(now))
             );
@@ -100,6 +104,7 @@ public class PlanServiceImpl implements PlanService {
 
         Double totalDuration = 0.0;
         Double weightedDuration = 0.0;
+        log.info(String.valueOf(planEntity.getPlanCourseEntities().size()));
         for (PlanCourseEntity planCourseEntity : planEntity.getPlanCourseEntities()) {
             CourseEntity courseEntity = planCourseEntity.getCourseEntity();
             Double currentProgress = viewLogService.getProgressOfCourseBetween(
@@ -109,6 +114,8 @@ public class PlanServiceImpl implements PlanService {
                     endTime
             );
             Double duration = courseService.getTotalVideoDurationOfCourse(courseEntity.getId());
+//            log.info("currentProgress: " + currentProgress);
+//            log.info("duration: " + duration);
             totalDuration += duration;
             weightedDuration += duration * currentProgress;
         }

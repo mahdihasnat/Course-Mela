@@ -14,6 +14,12 @@ import { LOG_CAUGHT_ERR } from "../../../../shared/utils";
 import VideoListHorizontal from "../../../helper/videoList/VideoList";
 import CourseBasicDescription from "../../shared/courseCard/CourseBasicDescription";
 import { TakaSign } from "../../../helper/CustomIcons";
+import { useSelectedCourseContext } from "../../../../store/contexts/SelectedCourseContext";
+import {
+	addCourseToCart,
+	removeAllCourseFromCart,
+} from "../../../../store/database/course/CourseActions";
+import { CartSpeedDial } from "../../shared/speedDial/CustomSpeedDial";
 
 function CourseGuestView() {
 	const { courseId } = useParams();
@@ -66,6 +72,17 @@ function CourseGuestView() {
 		alignItems: "center",
 		justifyContent: "center",
 	};
+	const navigate = useNavigate();
+	const [{}, dispatch] = useSelectedCourseContext();
+	const handleEnroll = () => {
+		dispatch(removeAllCourseFromCart());
+		dispatch(addCourseToCart(course));
+		navigate("/cartDetails");
+	};
+
+	const handleAddToCart = () => {
+		dispatch(addCourseToCart(course));
+	};
 
 	const loadingMessage = `We are working on a course ${courseId}`;
 	return (
@@ -106,14 +123,19 @@ function CourseGuestView() {
 
 							{/* <CardContent sx={contentStyle}>Rating: 2</CardContent> */}
 							<CardContent sx={contentStyle}>
-								<Button>Enroll in the course</Button>
-								<Button>Add to Cart</Button>
+								<Button onClick={handleEnroll}>
+									Enroll in the course
+								</Button>
+								<Button onClick={handleAddToCart}>
+									Add to Cart
+								</Button>
 							</CardContent>
 						</CardContent>
 					</Card>
 				</Container>
 			)}
 			{isEnrolled && <VideoListHorizontal videos={videos} />}
+			<CartSpeedDial />
 		</Container>
 	);
 }

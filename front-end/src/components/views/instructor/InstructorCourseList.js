@@ -17,47 +17,47 @@ import Typography from "@mui/material/Typography";
 ]*/
 
 function InstructorCourseList({ title, name }) {
-  const [courses, setCourses] = React.useState([]);
+	const [courses, setCourses] = React.useState([]);
 
-  const [isLoading, setIsLoading] = React.useState(true);
+	const [isLoading, setIsLoading] = React.useState(true);
 
-  useEffect(() => {
-    console.log("now loading the course list ");
+	useEffect(() => {
+		console.log("now loading the course list ");
 
-    setIsLoading(true);
-    InstructorHomeService.getMyCourses()
-      .then((response) => {
-        console.log({ "course list": response.data });
-        setCourses(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
+		setIsLoading(true);
+		InstructorHomeService.getMyCourses()
+			.then((response) => {
+				console.log({ "course list": response.data });
+				setCourses(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+			.finally(() => {
+				setIsLoading(false);
+			});
+	}, []);
 
-  return (
-    <Container>
-      <Typography variant={"h5"} gutterBottom>
-        {title}
-      </Typography>
-      <hr />
+	return (
+		<Container>
+			<Typography variant={"h5"} gutterBottom>
+				{title}
+			</Typography>
+			<hr />
 
-      <Paper style={{ overflow: "auto" }}>
-        <List component={Stack} direction={"row"}>
-          {courses.map((course) => {
-            return (
-              <ListItem key={course.id}>
-                <CourseCard course={course} />
-              </ListItem>
-            );
-          })}
-        </List>
-      </Paper>
-    </Container>
-  );
+			<Paper style={{ overflow: "auto" }}>
+				<List component={Stack} direction={"row"}>
+					{courses.map((course) => {
+						return (
+							<ListItem key={course.id}>
+								<CourseCard course={course} />
+							</ListItem>
+						);
+					})}
+				</List>
+			</Paper>
+		</Container>
+	);
 }
 
 export default InstructorCourseList;
