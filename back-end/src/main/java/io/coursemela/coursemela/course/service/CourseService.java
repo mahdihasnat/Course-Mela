@@ -35,4 +35,6 @@ public interface CourseService {
     Double getTotalVideoDurationOfCourse(Long courseId);
 
     Integer getTotalVideoCountOfCourse(Long courseId);
+
+    List<Course> getCoursesOrderByWatchTime();
 }

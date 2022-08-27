@@ -186,4 +186,14 @@ public class CourseServiceImpl implements CourseService {
             ret = 0;
         return ret;
     }
+
+    @Override
+    public List<Course> getCoursesOrderByWatchTime() {
+        List<CourseEntity> courseEntities = courseRepository.getCoursesOrderByWatchTime();
+        List<Course> courses = courseEntities
+                .stream()
+                .map(courseEntity -> getCourseFromCourseEntity(courseEntity))
+                .collect(Collectors.toList());
+        return courses;
+    }
 }

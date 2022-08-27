@@ -68,4 +68,13 @@ public interface CourseRepository extends JpaRepository<CourseEntity, Long> {
             "from VideoEntity vE " +
             "where vE.courseEntity.id = ?1 ")
     Integer getTotalVideoCountOfCourse(Long courseId);
+
+    @Query(value = "select cE " +
+            "from CourseEntity cE left join VideoEntity vE " +
+            "on cE.id = vE.courseEntity.id " +
+            "inner join ViewLogEntity vlE " +
+            "on vE.id= vlE.videoEntity.id " +
+            "group by cE " +
+            "order by sum(vlE.watchTime) desc ")
+    List<CourseEntity> getCoursesOrderByWatchTime();
 }

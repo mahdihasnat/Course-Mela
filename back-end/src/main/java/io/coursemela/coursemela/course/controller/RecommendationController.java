@@ -16,7 +16,7 @@ public class RecommendationController {
 
     @GetMapping("watchTime")
     ResponseEntity getByWatchTime() {
-        return ResponseEntity.ok(courseService.getCourses());
+        return ResponseEntity.ok(courseService.getCoursesOrderByWatchTime());
     }
 
     @GetMapping("sale")
