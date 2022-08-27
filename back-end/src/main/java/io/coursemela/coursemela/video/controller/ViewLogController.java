@@ -32,6 +32,8 @@ public class ViewLogController {
         try {
             log.info(videoLog.toString());
             Long userId = userService.getUserId();
+            if (userService.isInstructor(userId))
+                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
             return ResponseEntity.ok(viewLogService.updateVideoLog(videoLog, userId));
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,6 +48,8 @@ public class ViewLogController {
     public ResponseEntity<Long> addVideoLog(@RequestBody VideoLog videoLog) {
         try {
             Long userId = userService.getUserId();
+            if (userService.isInstructor(userId))
+                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
             videoLog.setVisitTime(ZonedDateTime.now());
             return ResponseEntity.ok(viewLogService.addVideoLog(videoLog, userId));
         } catch (Exception e) {
@@ -101,7 +105,7 @@ public class ViewLogController {
 
     @PostMapping(value = "getWatchTimeOfVideo/{videoId}")
     ResponseEntity getWatchTimeOfVideo(@PathVariable("videoId") Long videoId,
-                                       List<VideoWatchTimeRequestDTO>
+                                       @RequestBody List<VideoWatchTimeRequestDTO>
                                                videoWatchTimeRequestDTOs) {
         try {
             return ResponseEntity.ok(
