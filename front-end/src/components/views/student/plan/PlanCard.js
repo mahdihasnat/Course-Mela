@@ -31,37 +31,32 @@ const dataLine = {
   ],
 };
 
-export const PlanCard = ({ title }) => {
+const performance = ["Focus More", "Sky Rocket", "Keep Going"];
+
+export const PlanCard = ({ title, startTime, endTime, courses }) => {
   const [data, setData] = useState({});
   const [dataLoaded, setDataLoaded] = useState(false);
   useEffect(() => {
+    console.log({ title, startTime, endTime, courses });
+
+    const start = new Date(startTime);
+    const end = new Date(endTime);
+    const now = new Date();
+    let diff = end.getTime() - start.getTime();
+    let diff2 = now.getTime() - start.getTime();
+
+    let daysTotal = Math.floor(diff / (1000 * 3600 * 24));
+    let daysTillNow = Math.ceil(diff2 / (1000 * 3600 * 24));
+
+    daysTillNow = daysTillNow > daysTotal ? daysTotal : daysTillNow;
+
     const fetchPrices = async () => {
-      // const res = await fetch("https://api.coincap.io/v2/assets/?limit=5");
-      // const data = await res.json();
-      // //   setData(data);
-      // console.log(data);
-      // setData({
-      //   labels: data.data.map((crypto) => crypto.name),
-      //   datasets: [
-      //     {
-      //       label: "Price in usd",
-      //       data: data.data.map((crypto) => crypto.priceUsd),
-      //       backgroundColor: [
-      //         "#ffbb11",
-      //         "#ecf0f1",
-      //         "#50AF95",
-      //         "#f3ba2f",
-      //         "#2a71d0",
-      //       ],
-      //     },
-      //   ],
-      // });
       setData({
         labels: ["day left", "day spent"],
         datasets: [
           {
             label: "Plan time",
-            data: [10, 5],
+            data: [daysTotal - daysTillNow, daysTillNow],
             backgroundColor: ["green", "red"],
           },
         ],
@@ -95,7 +90,9 @@ export const PlanCard = ({ title }) => {
                   </Container>
                   <Box sx={{ border: 1 }} marginTop={5}>
                     Performance:
-                    <Typography variant={"h5"}>Focus More</Typography>
+                    <Typography variant={"h5"}>
+                      {performance[Math.floor(Math.random() * 3)]}
+                    </Typography>
                   </Box>
                 </Stack>
               </Grid>

@@ -22,27 +22,35 @@ import SuggestionModal from "./SuggestionModal";
 import PlanService from "../../../../services/plan/PlanService";
 import PlanCreatorModal from "./PlanCreatorModal";
 
-const plans = [
-  {
-    id: "1",
-    title: "Plan-1",
-    timeLeft: "3 days",
-    schedule: ["Ahead", "Behind", "On"],
-  },
-  {
-    id: "2",
-    title: "Plan-2",
-    timeLeft: "5 days",
-    schedule: ["Ahead", "Behind", "On"],
-  },
-];
-
-
+// const plans = [
+//   {
+//     id: "1",
+//     title: "Plan-1",
+//     timeLeft: "3 days",
+//     schedule: ["Ahead", "Behind", "On"],
+//   },
+//   {
+//     id: "2",
+//     title: "Plan-2",
+//     timeLeft: "5 days",
+//     schedule: ["Ahead", "Behind", "On"],
+//   },
+// ];
 
 const StudyPlans = () => {
   const [createPlan, setCreatePlan] = React.useState(false);
+  const [plans, setPlans] = React.useState([]);
 
-  
+  useEffect(() => {
+    PlanService.getAllPlans()
+      .then((res) => {
+        setPlans(res.data);
+        console.log({ plans: res.data });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <>
