@@ -5,13 +5,12 @@ import {jsonAuthorizedHeader} from "../../shared/Header";
 
 class PlanService {
 
-    createPlan(title, selectedCourses, startTime, endTime) {
+    createPlan(title, selectedCourses, dayCount) {
 
         const data = {
             title: title,
             courses: selectedCourses,
-            startTime: startTime,
-            endTime: endTime,
+            dayCount:dayCount
         }
         return axios.post(
             joinUrl(PLAN_URL, "add"),

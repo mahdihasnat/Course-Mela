@@ -93,16 +93,10 @@ const PlanCreatorModal = ({ createPlan, setCreatePlan }) => {
       return;
     }
 
-    const startTime = new Date().toISOString();
-
-    // add dayCount to startTime
-    let _temp = new Date(startTime);
-    _temp.setDate(_temp.getDate() + dayCount);
-
-    const endTime = _temp.toISOString();
+    //
 
 
-    PlanService.createPlan(title, selectedCourses, startTime, endTime)
+    PlanService.createPlan(title, selectedCourses, dayCount)
       .then((response) => {
         console.log("plan created ", response.data);
         setCreatePlan(false);
