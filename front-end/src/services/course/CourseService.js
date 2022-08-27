@@ -85,7 +85,7 @@ class CourseService {
 	getMycourse() {
 		return axios({
 			method: "GET",
-			url: joinUrl(COURSE_URL, "my"),
+			url: joinUrl(COURSE_URL, "my", ""),
 			headers: jsonAuthorizedHeader(),
 		});
 	}

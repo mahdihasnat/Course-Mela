@@ -21,4 +21,11 @@ public interface ViewLogService {
     Integer getTotalViewOfVideoBetween(Long videoId,
                                        ZonedDateTime startTime,
                                        ZonedDateTime endTime);
+
+    Double getProgressOfCourse(Long userId, Long courseId);
+
+    Double getProgressOfCourseBetween(Long userId,
+                                      Long courseId,
+                                      ZonedDateTime startTime,
+                                      ZonedDateTime endTime);
 }

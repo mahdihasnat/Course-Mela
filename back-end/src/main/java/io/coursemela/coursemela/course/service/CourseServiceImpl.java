@@ -170,4 +170,20 @@ public class CourseServiceImpl implements CourseService {
             return false;
         else return true;
     }
+
+    @Override
+    public Double getTotalVideoDurationOfCourse(Long courseId) {
+        Double ret = courseRepository.getTotalVideoDurationOfCourse(courseId);
+        if (ret == null)
+            ret = 0.0;
+        return ret;
+    }
+
+    @Override
+    public Integer getTotalVideoCountOfCourse(Long courseId) {
+        Integer ret = courseRepository.getTotalVideoCountOfCourse(courseId);
+        if (ret == null)
+            ret = 0;
+        return ret;
+    }
 }

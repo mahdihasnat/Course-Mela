@@ -58,4 +58,14 @@ public interface CourseRepository extends JpaRepository<CourseEntity, Long> {
             "and subE.startTime <= ?3 " +
             "and ?3 <= subE.endTime ")
     Integer isEnrolled(Long courseId, Long studentId, ZonedDateTime now);
+
+    @Query(value = "select sum(vE.duration) " +
+            "from VideoEntity vE " +
+            "where vE.courseEntity.id = ?1")
+    Double getTotalVideoDurationOfCourse(Long courseId);
+
+    @Query(value = "select count(vE.id) " +
+            "from VideoEntity vE " +
+            "where vE.courseEntity.id = ?1 ")
+    Integer getTotalVideoCountOfCourse(Long courseId);
 }

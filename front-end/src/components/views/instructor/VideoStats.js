@@ -36,7 +36,7 @@ function VideoStats({ videoId }) {
 		const startThisWeek = new Date(
 			now.getFullYear(),
 			now.getMonth(),
-			now.getDate() - now.getDay()
+			now.getDate() - 7
 		);
 		const startThisMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 		const startLast3Month = new Date(

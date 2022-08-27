@@ -47,8 +47,26 @@ public interface ViewLogRepository extends JpaRepository<ViewLogEntity, Long> {
     // select avg( min(1.0, (select sum(watch_time) from ViewLogEntity where
     // student_entity_id = ? and video_entity_id = id ) /duration ) ) from
     // VideoEntity where course_entity_id = ?
-    @Query(value = "SELECT avg( (select sum(watchTime) from ViewLogEntity where student_entity_id = ?1 and video_entity_id = _video.id ) / _video.duration  )  from VideoEntity _video where course_entity_id = ?2")
+    @Query(value = "SELECT avg( (select sum(watchTime)" +
+            " from ViewLogEntity " +
+            "where student_entity_id = ?1 " +
+            "and video_entity_id = _video.id ) / _video.duration  )  " +
+            "from VideoEntity _video " +
+            "where course_entity_id = ?2")
     Double getProgressOfCourse(Long studentId, Long courseId);
+
+    @Query(value = "SELECT avg( (select sum(vlE.watchTime)" +
+            " from ViewLogEntity vlE " +
+            "where student_entity_id = ?1 " +
+            "and video_entity_id = _video.id " +
+            "and ?3 <= vlE.visitTime " +
+            "and vlE.visitTime <= ?4 ) / _video.duration )  " +
+            "from VideoEntity _video " +
+            "where course_entity_id = ?2")
+    Double getProgressOfCourseBetween(Long studentId,
+                                      Long courseId,
+                                      ZonedDateTime startTime,
+                                      ZonedDateTime endTime);
 
     @Query(value = "select sum(vle.watchTime) " +
             "from ViewLogEntity vle " +

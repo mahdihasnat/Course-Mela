@@ -11,10 +11,12 @@ import io.coursemela.coursemela.plan.model.Plan;
 import io.coursemela.coursemela.plan.repository.PlanCourseRepository;
 import io.coursemela.coursemela.plan.repository.PlanRepository;
 import io.coursemela.coursemela.student.entity.StudentEntity;
+import io.coursemela.coursemela.video.service.ViewLogService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -72,6 +74,48 @@ public class PlanServiceImpl implements PlanService {
         return planEntities.stream().map(
                 planEntity -> getPlanFromPlanEntity(planEntity)
         ).collect(Collectors.toList());
+    }
+
+    @Autowired
+    ViewLogService viewLogService;
+
+    @Override
+    public List<Double> getProgress(Long planId) {
+        PlanEntity planEntity = planRepository.findById(planId).get();
+        ZonedDateTime startTime = planEntity.getStartTime();
+        ZonedDateTime endTime = planEntity.getEndTime();
+        Integer days = (int) ((endTime.toEpochSecond() - startTime.toEpochSecond()) / (60 * 60 * 24));
+        List<Double> progress = new ArrayList<>();
+        for (long now = 0; startTime.plusDays(now).isBefore(endTime); now++) {
+            progress.add(
+                    getProgressBetween(planEntity, startTime, startTime.plusDays(now))
+            );
+        }
+        return progress;
+    }
+
+
+    @Override
+    public Double getProgressBetween(PlanEntity planEntity, ZonedDateTime startTime, ZonedDateTime endTime) {
+
+        Double totalDuration = 0.0;
+        Double weightedDuration = 0.0;
+        for (PlanCourseEntity planCourseEntity : planEntity.getPlanCourseEntities()) {
+            CourseEntity courseEntity = planCourseEntity.getCourseEntity();
+            Double currentProgress = viewLogService.getProgressOfCourseBetween(
+                    planEntity.getStudentEntity().getId(),
+                    courseEntity.getId(),
+                    startTime,
+                    endTime
+            );
+            Double duration = courseService.getTotalVideoDurationOfCourse(courseEntity.getId());
+            totalDuration += duration;
+            weightedDuration += duration * currentProgress;
+        }
+        if (Math.abs(totalDuration) < 0.00001) {
+            return 0.0;
+        }
+        return weightedDuration / totalDuration;
     }
 
 

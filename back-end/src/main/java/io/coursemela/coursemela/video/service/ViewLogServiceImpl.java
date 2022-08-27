@@ -97,14 +97,13 @@ public class ViewLogServiceImpl implements ViewLogService {
                 courseId);
         Double totalWatchTime = viewLogRepository.getTotalWatchTimeOfStudentOfCourse(userId,
                 ZonedDateTime.now().minusDays(dayCount), courseId);
-        Double progress = viewLogRepository.getProgressOfCourse(userId, courseId);
-        progress = Math.min(progress, 1.0);
+
         ViewLogStatDTO viewLogStatDTO = ViewLogStatDTO.builder()
                 .totalVideWatched(videoCount)
                 .totalDurationWatched(totalWatchTime)
                 .totalQuizAttempted(0L)
                 .performanceScore(0.0)
-                .progress(progress)
+                .progress(getProgressOfCourse(userId, courseId))
                 .build();
         return viewLogStatDTO;
 
@@ -132,6 +131,32 @@ public class ViewLogServiceImpl implements ViewLogService {
         if (ret == null)
             ret = 0;
         return ret;
+    }
+
+    @Override
+    public Double getProgressOfCourse(Long userId, Long courseId) {
+        Double progress = viewLogRepository.getProgressOfCourse(userId, courseId);
+        if (progress == null)
+            progress = 0.0;
+        progress = Math.min(progress, 1.0);
+        return progress;
+    }
+
+    @Override
+    public Double getProgressOfCourseBetween(Long userId,
+                                             Long courseId,
+                                             ZonedDateTime startTime,
+                                             ZonedDateTime endTime) {
+        Double progress = viewLogRepository.getProgressOfCourseBetween(
+                userId,
+                courseId,
+                startTime,
+                endTime
+        );
+        if (progress == null)
+            progress = 0.0;
+        progress = Math.min(progress, 1.0);
+        return progress;
     }
 
 

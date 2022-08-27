@@ -54,4 +54,15 @@ public class PlanController {
                     .body(e.getMessage());
         }
     }
+
+    @GetMapping("progress/{planId}")
+    ResponseEntity getProgress(@PathVariable Long planId) {
+        try {
+            return ResponseEntity.ok(planService.getProgress(planId));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(e.getMessage());
+        }
+    }
 }

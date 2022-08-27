@@ -31,4 +31,8 @@ public interface CourseService {
     Double getTotalWatchTime(Long courseId, ZonedDateTime sratTime);
 
     Boolean isEnrolled(Long courseId, Long studentId);
+
+    Double getTotalVideoDurationOfCourse(Long courseId);
+
+    Integer getTotalVideoCountOfCourse(Long courseId);
 }
