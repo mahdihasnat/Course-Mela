@@ -9,9 +9,9 @@ import {
 import React, { useEffect, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import CancelIcon from "@mui/icons-material/Cancel";
-import StudentCourseList from "./StudentCourseList";
-import CourseService from "../../../services/course/CourseService";
-import CourseCard from "../guestView/course/CourseCard";
+import StudentCourseList from "../StudentCourseList";
+import CourseService from "../../../../services/course/CourseService";
+import CourseCard from "../../guestView/course/CourseCard";
 
 const courses = [
   {

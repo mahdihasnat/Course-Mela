@@ -26,7 +26,7 @@ import { CompareView } from "./views/guestView/compare/CompareView";
 import CourseGuestView from "./views/guestView/course/CourseGuestView";
 import { CartDetails } from "./views/student/cart/CartDetails";
 import Checkout from "./templates/checkout/Checkout";
-import StudyPlans from "./views/student/StudyPlans";
+import StudyPlans from "./views/student/plan/StudyPlans";
 import { Box } from "@material-ui/core";
 import PromoContainer from "./views/student/promo/PromoContainer";
 import TrackYourProgressContainer from "./views/student/trackYourProgress/TrackYourProgressContainer";

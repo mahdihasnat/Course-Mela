@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Container, Card, CardContent, Button } from "@mui/material";
+import {
+  Container,
+  Card,
+  CardContent,
+  Button,
+  Rating,
+  Stack,
+} from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import CourseService from "../../../../services/course/CourseService";
 import VideoService from "../../../../services/video/VideoService";
@@ -56,26 +63,43 @@ function CourseGuestView() {
   return (
     <Container>
       {isLoading ? loadingMessage : <CourseBasicDescription {...course} />}
-      <Container>
-        <Card>
-          <CardContent
-            sx={{
-              display: "flex",
-              alignItems: "left",
-              justifyContent: "left",
-              flexDirection: "column",
-            }}
-          >
-            <CardContent sx={contentStyle}>
-              Price: {course.coursePricing.subsFee} <TakaSign />
+      {course && (
+        <Container>
+          <Card>
+            <CardContent
+              sx={{
+                display: "flex",
+                alignItems: "left",
+                justifyContent: "left",
+                flexDirection: "column",
+              }}
+            >
+              <CardContent sx={contentStyle}>
+                <Stack
+                  direction="row"
+                  spacing={2}
+                  justifyContent={"space-between"}
+                >
+                  Price: {course.coursePricing.subsFee} <TakaSign />
+                  <Rating
+                    name="half-rating-read"
+                    defaultValue={2.5}
+                    precision={0.1}
+                    value={5}
+                    readOnly
+                  />
+                </Stack>
+              </CardContent>
+
+              {/* <CardContent sx={contentStyle}>Rating: 2</CardContent> */}
+              <CardContent sx={contentStyle}>
+                <Button>Enroll in the course</Button>
+                <Button>Add to Cart</Button>
+              </CardContent>
             </CardContent>
-            <CardContent sx={contentStyle}>Rating: 2</CardContent>
-            <CardContent sx={contentStyle}>
-              <Button>Buy This Course</Button>
-            </CardContent>
-          </CardContent>
-        </Card>
-      </Container>
+          </Card>
+        </Container>
+      )}
       <VideoListHorizontal videos={videos} />
     </Container>
   );
