@@ -3,7 +3,7 @@ import {Slider} from "@mui/material";
 
 const iOSBoxShadow =
     '0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.13),0 0 0 1px rgba(0,0,0,0.02)';
-export  const IOSSlider = styled(Slider)(({ theme }) => ({
+export  const IOSSlider = styled(Slider)(({ theme, progressNow }) => ({
     color: theme.palette.mode === 'dark' ? '#3880ff' : '#3880ff',
     height: 2,
     padding: '15px 0',
