@@ -33,7 +33,7 @@ public class ViewLogServiceImpl implements ViewLogService {
 
     @Override
     public Long addVideoLog(VideoLog videoLog,
-            Long studentId) throws Exception {
+                            Long studentId) throws Exception {
         Optional<StudentEntity> optionalStudentEntity = studentRepository.findById(studentId);
         if (!optionalStudentEntity.isPresent())
             throw new Exception("Student not found");
@@ -112,9 +112,14 @@ public class ViewLogServiceImpl implements ViewLogService {
 
     @Override
     public Double getTotalTimeOfVideoBetween(Long videoId,
-            ZonedDateTime startTime,
-            ZonedDateTime endTime) {
-        return viewLogRepository.getTotalWatchTimeOfVideoBetween(videoId, startTime, endTime);
+                                             ZonedDateTime startTime,
+                                             ZonedDateTime endTime) {
+        Double ret = viewLogRepository.getTotalWatchTimeOfVideoBetween(videoId,
+                startTime,
+                endTime);
+        if (ret == null)
+            ret = 0.0;
+        return ret;
     }
 
 }

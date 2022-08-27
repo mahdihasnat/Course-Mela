@@ -113,7 +113,7 @@ public class ViewLogController {
                             videoWatchTimeRequestDTO ->
                                     viewLogService.getTotalTimeOfVideoBetween(videoId,
                                             videoWatchTimeRequestDTO.getStartTime(),
-                                            videoWatchTimeRequestDTO.getEndTime())
+                                            videoWatchTimeRequestDTO.getEndTime()) / 60.0
                     ).collect(Collectors.toList()));
         } catch (Exception e) {
             log.error(e.getMessage());
