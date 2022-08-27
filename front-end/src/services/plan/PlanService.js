@@ -26,6 +26,10 @@ class PlanService {
 			headers: jsonAuthorizedHeader(),
 		});
 	}
+
+	discontinuePlan(planId){
+		/// TODO discontinue plan
+	}
 }
 
 export default new PlanService();

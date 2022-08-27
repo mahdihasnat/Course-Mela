@@ -129,6 +129,14 @@ export const PlanCard = ({
             });
     }, []);
 
+    const handleDiscontinue = ()=>{
+        PlanService.discontinuePlan(id).then(res=>{
+            console.log({"discontinue result" : res.data})
+        }).catch(err=>{
+            console.log(err);
+        })
+    }
+
     return (
         <Container sx={{borderRadius: "16px", border: 1, paddingTop: "10"}}>
             <Box justifyContent={"center"} alignContent={"center"}>
@@ -201,7 +209,7 @@ export const PlanCard = ({
                                     </Table>
                                 </TableContainer>
                             }
-                            <Button variant="contained" color="primary">
+                            <Button variant="contained" color="primary" onClick={handleDiscontinue}>
                                 Discontinue
                             </Button>
                         </Stack>
