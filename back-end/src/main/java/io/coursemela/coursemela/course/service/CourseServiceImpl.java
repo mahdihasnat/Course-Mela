@@ -135,4 +135,12 @@ public class CourseServiceImpl implements CourseService {
             course.getTags().add(new Tag(courseTag.getTagEntity()));
         return course;
     }
+
+    @Override
+    public Long getTotalEarn(Long courseId, ZonedDateTime startTime) {
+        Long ret = courseRepository.totalEarnOfCourse(courseId, startTime);
+        if (ret == null)
+            ret = 0L;
+        return ret;
+    }
 }

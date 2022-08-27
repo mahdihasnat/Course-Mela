@@ -4,16 +4,16 @@ import io.coursemela.coursemela.course.model.Course;
 import io.coursemela.coursemela.course.service.CourseService;
 import io.coursemela.coursemela.instructor.service.InstructorService;
 import io.coursemela.coursemela.user.context.UserContext;
-import io.coursemela.coursemela.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequestMapping("/course")
 @Slf4j
@@ -45,7 +45,7 @@ public class CourseController {
 
     @PostMapping(value = "updateCoverImage")
     public ResponseEntity<Boolean> updateCoverImage(@RequestParam("id") String id,
-            @RequestParam("coverImage") MultipartFile coverImage) {
+                                                    @RequestParam("coverImage") MultipartFile coverImage) {
         try {
             // coverImage.
 
@@ -72,7 +72,16 @@ public class CourseController {
 
     }
 
-    @Autowired
-    UserService userService;
+    @PostMapping("/totalEarns/{courseId}")
+    ResponseEntity getTotalEarns(@PathVariable("courseId") Long courseId,
+                                 @RequestBody List<Integer> dayCounts) {
+        log.info("get total earns: " + courseId);
+        log.info("dayCounts: " + dayCounts.toString());
+        List<Long> ret = dayCounts.stream().map(
+                dayCount -> courseService.getTotalEarn(courseId,
+                        ZonedDateTime.now().minusDays(dayCount))
+        ).collect(Collectors.toList());
+        return ResponseEntity.ok(ret);
+    }
 
 }

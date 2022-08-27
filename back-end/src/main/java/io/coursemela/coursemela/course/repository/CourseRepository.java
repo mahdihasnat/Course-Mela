@@ -28,4 +28,22 @@ public interface CourseRepository extends JpaRepository<CourseEntity, Long> {
             "and ?2 between subE.startTime and subE.endTime ")
     List<CourseEntity> getAllSubscribedCourses(Long studentId, ZonedDateTime currentTime);
 
+
+    @Query(value = "select sum(cpE.insFee) " +
+            "from SubscriptionEntity subE inner join CoursePricingEntity cpE " +
+            "on cpE.id = subE.coursePricingEntity.id " +
+            "inner join CourseEntity cE on cpE.courseEntity.id = cE.id " +
+            "where cE.instructorEntity.id = ?1 " +
+            "and subE.startTime >= ?2" +
+            "")
+    Long totalEarnOfInstructor(Long instructorId, ZonedDateTime startingTime);
+
+    @Query(value = "select sum(cpE.insFee) " +
+            "from SubscriptionEntity subE inner join CoursePricingEntity cpE " +
+            "on cpE.id = subE.coursePricingEntity.id " +
+            "inner join CourseEntity cE on cpE.courseEntity.id = cE.id " +
+            "where cE.id = ?1 " +
+            "and subE.startTime >= ?2"
+    )
+    Long totalEarnOfCourse(Long courseId, ZonedDateTime startingTime);
 }

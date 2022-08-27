@@ -4,6 +4,7 @@ import io.coursemela.coursemela.course.entity.CourseEntity;
 import io.coursemela.coursemela.course.model.Course;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 
@@ -22,4 +23,7 @@ public interface CourseService {
     List<Course> getMyCourses(Long userId);
 
     Course getCourseFromCourseEntity(CourseEntity courseEntity);
+
+    Long getTotalEarn(Long courseId, ZonedDateTime startTime);
+
 }
