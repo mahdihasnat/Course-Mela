@@ -48,4 +48,14 @@ public interface CourseRepository extends JpaRepository<CourseEntity, Long> {
     Long totalEarnOfCourse(Long courseId, ZonedDateTime startingTime);
 
     List<CourseEntity> findAllByTopicEntityId(Long topicId);
+
+    @Query(value = "select count(subE.id) " +
+            "from SubscriptionEntity subE inner join CoursePricingEntity cpE " +
+            "on subE.coursePricingEntity.id = cpE.id " +
+            "inner join CourseEntity cE " +
+            "on cpE.courseEntity.id = cE.id  " +
+            "where cE.id = ?1 and subE.studentEntity.id = ?2 " +
+            "and subE.startTime <= ?3 " +
+            "and ?3 <= subE.endTime ")
+    Integer isEnrolled(Long courseId, Long studentId, ZonedDateTime now);
 }

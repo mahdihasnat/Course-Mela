@@ -124,6 +124,13 @@ class CourseService {
 			}
 		);
 	}
+	getIsEnrolled(courseId) {
+		return axios({
+			method: "GET",
+			url: joinUrl(COURSE_URL, "isEnrolled", courseId),
+			headers: jsonAuthorizedHeader(),
+		});
+	}
 }
 
 export default new CourseService();

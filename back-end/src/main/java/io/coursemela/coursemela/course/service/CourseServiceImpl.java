@@ -162,4 +162,12 @@ public class CourseServiceImpl implements CourseService {
             ret = 0.0;
         return ret;
     }
+
+    @Override
+    public Boolean isEnrolled(Long courseId, Long studentId) {
+        Integer ret = courseRepository.isEnrolled(courseId, studentId, ZonedDateTime.now());
+        if (ret == null || ret == 0)
+            return false;
+        else return true;
+    }
 }

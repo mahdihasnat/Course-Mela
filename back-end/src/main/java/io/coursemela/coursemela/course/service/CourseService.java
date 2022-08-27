@@ -29,4 +29,6 @@ public interface CourseService {
     List<Course> getCoursesOfTopic(Long topicId);
 
     Double getTotalWatchTime(Long courseId, ZonedDateTime sratTime);
+
+    Boolean isEnrolled(Long courseId, Long studentId);
 }

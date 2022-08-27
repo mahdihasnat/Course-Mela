@@ -4,6 +4,7 @@ import io.coursemela.coursemela.course.model.Course;
 import io.coursemela.coursemela.course.service.CourseService;
 import io.coursemela.coursemela.instructor.service.InstructorService;
 import io.coursemela.coursemela.user.context.UserContext;
+import io.coursemela.coursemela.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -101,5 +102,17 @@ public class CourseController {
         return ResponseEntity.ok(ret);
     }
 
+    @Autowired
+    UserService userService;
 
+    @GetMapping("/isEnrolled/{courseId}")
+    ResponseEntity isEnrolled(@PathVariable("courseId") Long courseId) {
+        log.info("isEnrolled: " + courseId);
+        try {
+            Long userId = userService.getUserId();
+            return ResponseEntity.ok(courseService.isEnrolled(courseId, userId));
+        } catch (Exception e) {
+            return ResponseEntity.ok(false);
+        }
+    }
 }
