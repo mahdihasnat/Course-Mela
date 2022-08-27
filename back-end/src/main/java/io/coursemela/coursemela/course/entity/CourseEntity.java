@@ -3,6 +3,7 @@ package io.coursemela.coursemela.course.entity;
 import io.coursemela.coursemela.course.model.Course;
 import io.coursemela.coursemela.course.model.Tag;
 import io.coursemela.coursemela.instructor.entity.InstructorEntity;
+import io.coursemela.coursemela.plan.entity.PlanCourseEntity;
 import lombok.Data;
 import lombok.ToString;
 
@@ -12,7 +13,7 @@ import java.util.Set;
 
 @Entity
 @Data
-@ToString
+@ToString(exclude = {"planCourseEntities"})
 public class CourseEntity {
 
     @Id
@@ -37,6 +38,8 @@ public class CourseEntity {
     @OneToMany(mappedBy = "courseEntity")
     Set<CourseTagEntity> courseTagEntities;
 
+    @OneToMany(mappedBy = "courseEntity")
+    Set<PlanCourseEntity> planCourseEntities;
 
     public CourseEntity(Course course) {
         this.id = course.getId();

@@ -1,10 +1,7 @@
 package io.coursemela.coursemela.plan.entity;
 
 import io.coursemela.coursemela.student.entity.StudentEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
@@ -15,6 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Getter
+@ToString
 public class PlanEntity {
     @Id
     @GeneratedValue
@@ -27,6 +25,6 @@ public class PlanEntity {
     @ManyToOne
     StudentEntity studentEntity;
 
-    @OneToMany(mappedBy = "planEntity")
+    @OneToMany(mappedBy = "planEntity", fetch = FetchType.LAZY)
     Set<PlanCourseEntity> planCourseEntities;
 }

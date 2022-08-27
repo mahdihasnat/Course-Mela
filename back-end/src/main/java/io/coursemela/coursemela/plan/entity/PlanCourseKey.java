@@ -2,6 +2,7 @@ package io.coursemela.coursemela.plan.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
@@ -12,6 +13,7 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 public class PlanCourseKey implements Serializable {
     @Column(name = "plan_id")
     Long planId;

@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,8 +42,9 @@ public class PlanServiceImpl implements PlanService {
                 .startTime(plan.getStartTime())
                 .endTime(plan.getEndTime())
                 .studentEntity(studentEntity)
+                .planCourseEntities(new HashSet<>())
                 .build();
-        planEntity = planRepository.save(planEntity);
+
         if (plan.getCourses() != null) {
             for (Course course : plan.getCourses()) {
                 CourseEntity courseEntity = courseRepository.findById(course.getId()).get();
@@ -56,10 +58,11 @@ public class PlanServiceImpl implements PlanService {
                                         .build()
                         )
                         .build();
-                planCourseRepository.save(planCourseEntity);
+                planEntity.getPlanCourseEntities().add(planCourseEntity);
             }
         }
-        planEntity = planRepository.findById(planEntity.getId()).get();
+        planEntity = planRepository.save(planEntity);
+//        planEntity = planRepository.findById(planEntity.getId()).get();
         return getPlanFromPlanEntity(planEntity);
     }
 
@@ -73,6 +76,7 @@ public class PlanServiceImpl implements PlanService {
 
 
     Plan getPlanFromPlanEntity(PlanEntity planEntity) {
+
         Plan plan = Plan.builder()
                 .id(planEntity.getId())
                 .title(planEntity.getTitle())
