@@ -12,7 +12,7 @@ import {
 import { useLoginContext } from "../../../store/contexts/LoginContext";
 
 import { ROLE_INSTRUCTOR } from "../../../shared/StringConstant";
-import { Login } from "@mui/icons-material";
+import { Login, Search } from "@mui/icons-material";
 import { LOG_OUT } from "../../../store/auth/AuthTypes";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "material-ui-search-bar";
@@ -110,13 +110,13 @@ const MuiNavbar = () => {
 				></Typography>
 
 				<Box pr={3}>
-					<SearchBar
+					{/* <SearchBar
 						style={{ height: "2.5rem" }}
 						onRequestSearch={(data) => {
 							navigate("/course/search");
 						}}
-					/>
-					
+					/> */}
+					<Search sx={{ color: "white", cursor: "pointer" }} onClick={() => navigate("/course/search")} />
 				</Box>
 
 				{isSignedIn ? (
