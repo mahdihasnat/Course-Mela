@@ -237,7 +237,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public List<Course> getMyCoursesOrderByLeastProgress(Long userId) {
-        List<CourseEntity> courseEntities = courseRepository.findAll();
+        List<CourseEntity> courseEntities = courseRepository.getMyCoursesOrderByRecentSubscription(userId);
         courseEntities.sort((c1, c2) -> (viewLogService.getProgressOfCourse(userId, c1.getId())
                 .compareTo(viewLogService.getProgressOfCourse(userId, c2.getId()))));
         List<Course> courses = courseEntities
