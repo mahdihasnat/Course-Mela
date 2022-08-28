@@ -92,7 +92,7 @@ function MainComponent() {
 							{isSignedIn && (
 								<>
 									<Route
-										path="/course/search/:searchText"
+										path="/course/search"
 										element={<SearchDrawer />}
 									></Route>
 									<Route
