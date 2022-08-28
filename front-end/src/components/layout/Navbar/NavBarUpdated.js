@@ -83,7 +83,7 @@ const MuiNavbar = () => {
 		<AppBar
 			position="static"
 			color={"transparent"}
-			sx={{ backgroundColor: "#455a64" }}
+			sx={{ backgroundColor: "#e3f2fd" }}
 		>
 			<Toolbar>
 				<IconButton
@@ -116,7 +116,7 @@ const MuiNavbar = () => {
 							navigate("/course/search");
 						}}
 					/> */}
-					<Search sx={{ color: "white", cursor: "pointer" }} onClick={() => navigate("/course/search")} />
+					<Search sx={{ cursor: "pointer" }} onClick={() => navigate("/course/search")} />
 				</Box>
 
 				{isSignedIn ? (
