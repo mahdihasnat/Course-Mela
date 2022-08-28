@@ -113,6 +113,7 @@ const MuiNavbar = () => {
 					<SearchBar
 						style={{ height: "2.5rem" }}
 						onRequestSearch={(data) => {
+							console.log("data = ", data);
 							navigate(`/course/search/${data}`);
 						}}
 					/>
