@@ -11,6 +11,7 @@ import io.coursemela.coursemela.instructor.service.InstructorService;
 import io.coursemela.coursemela.shared.util.UrlCollections;
 import io.coursemela.coursemela.storage.StorageService;
 import io.coursemela.coursemela.video.repository.ViewLogRepository;
+import io.coursemela.coursemela.video.service.ViewLogService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -210,6 +211,23 @@ public class CourseServiceImpl implements CourseService {
         courseEntities.sort((c1, c2) ->
                 -(getTotalSalesOfCourse(c1.getId())
                         .compareTo(getTotalSalesOfCourse(c2.getId())))
+        );
+        List<Course> courses = courseEntities
+                .stream()
+                .map(courseEntity -> getCourseFromCourseEntity(courseEntity))
+                .collect(Collectors.toList());
+        return courses;
+    }
+
+    @Autowired
+    ViewLogService viewLogService;
+
+    @Override
+    public List<Course> getMyCoursesOrderByLeastProgress(Long userId) {
+        List<CourseEntity> courseEntities = courseRepository.findAll();
+        courseEntities.sort((c1, c2) ->
+                -(viewLogService.getProgressOfCourse(userId, c1.getId())
+                        .compareTo(viewLogService.getProgressOfCourse(userId, c2.getId())))
         );
         List<Course> courses = courseEntities
                 .stream()

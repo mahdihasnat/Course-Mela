@@ -39,4 +39,6 @@ public interface CourseService {
     List<Course> getCoursesOrderByWatchTime();
 
     List<Course> getCoursesOrderBySale();
+
+    List<Course> getMyCoursesOrderByLeastProgress(Long userId);
 }
