@@ -24,7 +24,7 @@ const Home = () => {
         </div>
         <div className="listContainer">
           <div className="listTitle">Latest Transactions</div>
-          <Table />
+          <Table n={3} />
         </div>
       </div>
     </div>
