@@ -115,6 +115,16 @@ class CourseService {
 			}
 		);
 	}
+
+	getTotalEarnsInstructor(dayCounts) {
+		return axios.post(
+			joinUrl(COURSE_URL, "totalEarns", "all"),
+			dayCounts,
+			{
+				headers: jsonAuthorizedHeader(),
+			}
+		);
+	}
 	getTotalWatchTime(courseId, dayCounts) {
 		return axios.post(
 			joinUrl(COURSE_URL, "totalWatchTime", courseId),

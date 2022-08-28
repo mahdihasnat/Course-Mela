@@ -74,7 +74,6 @@ public class CourseServiceImpl implements CourseService {
         return course;
     }
 
-
     @Override
     public List<Course> getMyCourses(Long userId) {
         List<CourseEntity> courseEntities = courseRepository.getAllSubscribedCourses(userId, ZonedDateTime.now());
@@ -96,7 +95,6 @@ public class CourseServiceImpl implements CourseService {
         return courses;
     }
 
-
     @Override
     public boolean updateCourseCoverImageLocation(String courseId, MultipartFile file) {
         Path path = storageService.store(file, courseId);
@@ -104,14 +102,13 @@ public class CourseServiceImpl implements CourseService {
         log.info(path.toString());
         System.out.println(path);
 
-
         String url = UrlCollections.getBaseUrl() + "/fileserver/image/?fileId=" + courseId;
         CourseEntity course = courseRepository.findById(Long.valueOf(courseId)).get();
         course.setCoverPhotoPath(url);
         courseRepository.save(course);
         return true;
 
-//        return true
+        // return true
 
     }
 
@@ -123,9 +120,7 @@ public class CourseServiceImpl implements CourseService {
         Course course = Course.builder()
                 .id(courseEntity.getId())
                 .instructor(instructorService.getInstructorFromInstructorEntity(
-                                courseEntity.getInstructorEntity()
-                        )
-                )
+                        courseEntity.getInstructorEntity()))
                 .topic(new Topic(courseEntity.getTopicEntity()))
                 .name(courseEntity.getName())
                 .coverPhotoPath(courseEntity.getCoverPhotoPath())
@@ -147,10 +142,19 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public Long getTotalEarnOfAllCoursesByInstructor(Long instructorId, ZonedDateTime startTime) {
+        Long ret = 0L;
+        List<CourseEntity> courseEntities = courseRepository.findAllByInstructorEntityId(instructorId);
+        for (CourseEntity c : courseEntities) {
+            ret += getTotalEarn(c.getId(), startTime);
+        }
+        return ret;
+    }
+
+    @Override
     public List<Course> getCoursesOfTopic(Long topicId) {
         return courseRepository.findAllByTopicEntityId(topicId).stream().map(
-                courseEntity -> getCourseFromCourseEntity(courseEntity)
-        ).collect(Collectors.toList());
+                courseEntity -> getCourseFromCourseEntity(courseEntity)).collect(Collectors.toList());
     }
 
     @Autowired
@@ -169,7 +173,8 @@ public class CourseServiceImpl implements CourseService {
         Integer ret = courseRepository.isEnrolled(courseId, studentId, ZonedDateTime.now());
         if (ret == null || ret == 0)
             return false;
-        else return true;
+        else
+            return true;
     }
 
     @Override
@@ -218,10 +223,8 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<Course> getCoursesOrderBySale() {
         List<CourseEntity> courseEntities = courseRepository.findAll();
-        courseEntities.sort((c1, c2) ->
-                -(getTotalSalesOfCourse(c1.getId())
-                        .compareTo(getTotalSalesOfCourse(c2.getId())))
-        );
+        courseEntities.sort((c1, c2) -> -(getTotalSalesOfCourse(c1.getId())
+                .compareTo(getTotalSalesOfCourse(c2.getId()))));
         List<Course> courses = courseEntities
                 .stream()
                 .map(courseEntity -> getCourseFromCourseEntity(courseEntity))
@@ -235,10 +238,8 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<Course> getMyCoursesOrderByLeastProgress(Long userId) {
         List<CourseEntity> courseEntities = courseRepository.findAll();
-        courseEntities.sort((c1, c2) ->
-                (viewLogService.getProgressOfCourse(userId, c1.getId())
-                        .compareTo(viewLogService.getProgressOfCourse(userId, c2.getId())))
-        );
+        courseEntities.sort((c1, c2) -> (viewLogService.getProgressOfCourse(userId, c1.getId())
+                .compareTo(viewLogService.getProgressOfCourse(userId, c2.getId()))));
         List<Course> courses = courseEntities
                 .stream()
                 .map(courseEntity -> getCourseFromCourseEntity(courseEntity))

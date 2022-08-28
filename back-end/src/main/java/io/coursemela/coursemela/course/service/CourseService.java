@@ -7,7 +7,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.ZonedDateTime;
 import java.util.List;
 
-
 public interface CourseService {
     Course createCourse(Course course);
 
@@ -19,12 +18,13 @@ public interface CourseService {
 
     Course getCourse(Long id);
 
-
     List<Course> getMyCourses(Long userId);
 
     Course getCourseFromCourseEntity(CourseEntity courseEntity);
 
     Long getTotalEarn(Long courseId, ZonedDateTime startTime);
+
+    Long getTotalEarnOfAllCoursesByInstructor(Long instructorId, ZonedDateTime startTime);
 
     List<Course> getCoursesOfTopic(Long topicId);
 

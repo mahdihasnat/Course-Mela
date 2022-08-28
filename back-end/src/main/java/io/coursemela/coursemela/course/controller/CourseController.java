@@ -46,7 +46,7 @@ public class CourseController {
 
     @PostMapping(value = "updateCoverImage")
     public ResponseEntity<Boolean> updateCoverImage(@RequestParam("id") String id,
-                                                    @RequestParam("coverImage") MultipartFile coverImage) {
+            @RequestParam("coverImage") MultipartFile coverImage) {
         try {
             // coverImage.
 
@@ -80,25 +80,41 @@ public class CourseController {
 
     @PostMapping("/totalEarns/{courseId}")
     ResponseEntity getTotalEarns(@PathVariable("courseId") Long courseId,
-                                 @RequestBody List<Integer> dayCounts) {
+            @RequestBody List<Integer> dayCounts) {
         log.info("get total earns: " + courseId);
         log.info("dayCounts: " + dayCounts.toString());
         List<Long> ret = dayCounts.stream().map(
                 dayCount -> courseService.getTotalEarn(courseId,
-                        ZonedDateTime.now().minusDays(dayCount))
-        ).collect(Collectors.toList());
+                        ZonedDateTime.now().minusDays(dayCount)))
+                .collect(Collectors.toList());
         return ResponseEntity.ok(ret);
+    }
+
+    @PostMapping("/totalEarns/all")
+    ResponseEntity getTotalEarnsOfAllCourse(@RequestBody List<Integer> dayCounts) {
+        try {
+            Long userId = userService.getUserId();
+            List<Long> ret = dayCounts.stream().map(
+                    dayCount -> courseService.getTotalEarnOfAllCoursesByInstructor(userId,
+                            ZonedDateTime.now().minusDays(dayCount)))
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(ret);
+
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+
     }
 
     @PostMapping("/totalWatchTime/{courseId}")
     ResponseEntity getTotalWatchTime(@PathVariable("courseId") Long courseId,
-                                     @RequestBody List<Integer> dayCounts) {
+            @RequestBody List<Integer> dayCounts) {
         log.info("get total watchTime: " + courseId);
         log.info("dayCounts: " + dayCounts.toString());
         List<Double> ret = dayCounts.stream().map(
                 dayCount -> courseService.getTotalWatchTime(courseId,
-                        ZonedDateTime.now().minusDays(dayCount)) / 60.0
-        ).collect(Collectors.toList());
+                        ZonedDateTime.now().minusDays(dayCount)) / 60.0)
+                .collect(Collectors.toList());
         return ResponseEntity.ok(ret);
     }
 
