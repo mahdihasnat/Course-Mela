@@ -198,6 +198,16 @@ public class CourseServiceImpl implements CourseService {
         return courses;
     }
 
+    @Override
+    public List<Course> getMyCoursesOrderByRecentSubscription(Long userId) {
+        List<CourseEntity> courseEntities = courseRepository.getMyCoursesOrderByRecentSubscription(userId);
+        List<Course> courses = courseEntities
+                .stream()
+                .map(courseEntity -> getCourseFromCourseEntity(courseEntity))
+                .collect(Collectors.toList());
+        return courses;
+    }
+
     Long getTotalSalesOfCourse(Long courseId) {
         Long ret = courseRepository.getTotalSalesOfCourse(courseId);
         if (ret == null)

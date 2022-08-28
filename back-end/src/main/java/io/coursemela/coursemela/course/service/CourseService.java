@@ -38,6 +38,8 @@ public interface CourseService {
 
     List<Course> getCoursesOrderByWatchTime();
 
+    List<Course> getMyCoursesOrderByRecentSubscription(Long userId);
+
     List<Course> getCoursesOrderBySale();
 
     List<Course> getMyCoursesOrderByLeastProgress(Long userId);

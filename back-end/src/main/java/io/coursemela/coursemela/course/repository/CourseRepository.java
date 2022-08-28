@@ -87,4 +87,14 @@ public interface CourseRepository extends JpaRepository<CourseEntity, Long> {
     Long getTotalSalesOfCourse(Long courseId);
 
 
+    @Query(value = "select cE " +
+            "from SubscriptionEntity subE inner join " +
+            "CoursePricingEntity cpE " +
+            "on subE.coursePricingEntity.id = cpE.id " +
+            "inner join CourseEntity cE " +
+            "on cpE.courseEntity.id = cE.id " +
+            "where subE.studentEntity.id = ?1 " +
+            "order by subE.startTime desc ")
+    List<CourseEntity> getMyCoursesOrderByRecentSubscription(Long userId);
+
 }

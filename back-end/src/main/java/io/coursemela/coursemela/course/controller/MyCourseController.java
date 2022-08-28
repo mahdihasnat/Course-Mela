@@ -52,7 +52,7 @@ public class MyCourseController {
     ResponseEntity getSubscribedRecentlyCourses() {
         try {
             Long userId = userService.getUserId();
-            return ResponseEntity.ok(courseService.getMyCourses(userId));
+            return ResponseEntity.ok(courseService.getMyCoursesOrderByRecentSubscription(userId));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
         }
