@@ -196,4 +196,25 @@ public class CourseServiceImpl implements CourseService {
                 .collect(Collectors.toList());
         return courses;
     }
+
+    Long getTotalSalesOfCourse(Long courseId) {
+        Long ret = courseRepository.getTotalSalesOfCourse(courseId);
+        if (ret == null)
+            ret = 0L;
+        return ret;
+    }
+
+    @Override
+    public List<Course> getCoursesOrderBySale() {
+        List<CourseEntity> courseEntities = courseRepository.findAll();
+        courseEntities.sort((c1, c2) ->
+                -(getTotalSalesOfCourse(c1.getId())
+                        .compareTo(getTotalSalesOfCourse(c2.getId())))
+        );
+        List<Course> courses = courseEntities
+                .stream()
+                .map(courseEntity -> getCourseFromCourseEntity(courseEntity))
+                .collect(Collectors.toList());
+        return courses;
+    }
 }

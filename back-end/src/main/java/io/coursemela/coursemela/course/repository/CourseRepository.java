@@ -77,4 +77,14 @@ public interface CourseRepository extends JpaRepository<CourseEntity, Long> {
             "group by cE " +
             "order by sum(vlE.watchTime) desc ")
     List<CourseEntity> getCoursesOrderByWatchTime();
+
+
+    @Query(value = "select sum(cpE.insFee) " +
+            "from CoursePricingEntity cpE " +
+            "inner join SubscriptionEntity subE " +
+            "on cpE.id = subE.coursePricingEntity.id " +
+            "where cpE.courseEntity.id = ?1 ")
+    Long getTotalSalesOfCourse(Long courseId);
+
+
 }

@@ -21,7 +21,7 @@ public class RecommendationController {
 
     @GetMapping("sale")
     ResponseEntity getBySale() {
-        return ResponseEntity.ok(courseService.getCourses());
+        return ResponseEntity.ok(courseService.getCoursesOrderBySale());
     }
 
     @GetMapping("recent")
